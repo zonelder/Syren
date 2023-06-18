@@ -140,12 +140,14 @@
     <ClCompile Include="KeyHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lib\vec2.cpp" />
+    <ClCompile Include="lib\exeption\PointedException.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyHandler.h" />
     <ClInclude Include="lib\vec2.h" />
+    <ClInclude Include="lib\exeption\PointedException.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>

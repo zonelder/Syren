@@ -4,6 +4,8 @@
 #include <sstream>
 #include "lib/vec2.h"
 #include "Window.h"
+#include "lib/exeption/PointedException.h"
+
 InputHandler inputHandler;
 
 int  CALLBACK WinMain(
@@ -11,15 +13,31 @@ int  CALLBACK WinMain(
 	HINSTANCE hPrevInstance,//always null
 	LPSTR lpCmdLine,//command line
 	int ncmdMode) {
-	Window wnd(800, 300, "engin win");
-	//message pump
+	try {
+		Window wnd(800, 300, "engin win");
+		//message pump
 
-	MSG msg;
-	BOOL gResult;
-	while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
+		MSG msg;
+		BOOL gResult;
+		while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
 
-		//TranslateMessage(&msg);
-		DispatchMessage(&msg);
+			//TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+		return (gResult == -1) ? (-1) : (msg.wParam);
 	}
-	return (gResult == -1) ? (-1) : (msg.wParam);
+	catch (const PointedException& e) {
+
+		MessageBox(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
+	}
+	catch (const std::exception& e) {
+
+		MessageBox(nullptr,e.what(),"Standard Exception", MB_OK | MB_ICONEXCLAMATION);
+	}
+	catch (...) {
+		MessageBox(nullptr, "no details available", "unknown Exception",MB_OK | MB_ICONEXCLAMATION);
+	}
+
+	return -1;
+
 }

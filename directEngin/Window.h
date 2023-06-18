@@ -1,8 +1,23 @@
 #pragma once
 #include <windows.h>
+#include "lib\exeption\PointedException.h"
+
 
 class Window
 {
+
+public:
+	class Exception :public PointedException {
+	public:
+		Exception(int, const char* file, HRESULT) noexcept;
+		const char* what() const noexcept override;
+		virtual const char* getType() const noexcept;
+		static std::string translateErrorCode(HRESULT hr) noexcept;
+		HRESULT getErrorCode() const noexcept;
+		std::string getErrorString() const noexcept;
+	private:
+		HRESULT _hr;
+	};
 private:
 	/// @brief singleton manager registration\cleanup of window class
 	class WindowClass
@@ -34,4 +49,8 @@ private:
 	int _height;
 	HWND _hWnd;
 };
+
+#define WND_EXCEPTION(hr) Window::Exception( __LINE__,__FILE__,hr )
+#define WND_LAST_EXCEPT() Window::Exception( __LINE__,__FILE__,GetLastError() )
+
 

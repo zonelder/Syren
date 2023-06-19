@@ -89,8 +89,24 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	case WIM_CLOSE:	
 		PostQuitMessage(0);
 		return 0;
+
+	case WM_KILLFOCUS:
+		inputHandler.clearState();
+		break;
+	//< Input message >
+	case WM_SYSKEYDOWN:
+		if (!(lParam & 0x40000000) || inputHandler.isEnabledAutorepeat()) {//filter in case user hold button
+			inputHandler.onkeyPressed(static_cast<unsigned char>(wParam));
+		}
+		break;
 	case WM_KEYDOWN:
-		inputHandler.onkeyPressed(static_cast<unsigned char>(wParam));
+		// TODO change key states to Down\up\pressed\unvalid to procces the hold-key case 
+		if (!(lParam & 0x40000000) || inputHandler.isEnabledAutorepeat()) {//filter in case user hold button
+			inputHandler.onkeyPressed(static_cast<unsigned char>(wParam));
+		}
+		break;
+	case WM_SYSKEYUP:
+		inputHandler.onKeyReleased(static_cast<unsigned char>(wParam));
 		break;
 	case WM_KEYUP:
 		inputHandler.onKeyReleased(static_cast<unsigned char>(wParam));
@@ -98,6 +114,7 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	case WM_CHAR:
 		inputHandler.onChar(static_cast<unsigned char>(wParam));
 		break;
+	//< /Input message >
 	default:
 		break;
 	}

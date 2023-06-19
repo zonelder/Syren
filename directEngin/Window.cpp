@@ -1,5 +1,6 @@
 #include "Window.h"
 #include <sstream>
+#include "resource.h"
 
 
 Window::WindowClass::WindowClass() noexcept
@@ -12,12 +13,12 @@ Window::WindowClass::WindowClass() noexcept
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = getInstance();
-	wc.hIcon = nullptr;
+	wc.hIcon = static_cast<HICON>(LoadImage(getInstance(), MAKEINTRESOURCE(IDB_PNG1), IMAGE_ICON, 32, 32, 0));
 	wc.hCursor = nullptr;
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
 	wc.lpszClassName = getName();
-	wc.hIcon = nullptr;
+	wc.hIcon = static_cast<HICON>(LoadImage(getInstance(), MAKEINTRESOURCE(IDB_PNG1), IMAGE_ICON, 16, 16, 0));
 	RegisterClassEx(&wc);
 }
 Window::WindowClass Window::WindowClass::_wndClass;
@@ -86,6 +87,7 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	switch (msg)
 	{
 	case WIM_CLOSE:
+		
 		PostQuitMessage(0);
 		return 0;
 	default:

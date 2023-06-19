@@ -137,7 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="KeyHandler.cpp" />
+    <ClCompile Include="lib\common\InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lib\vec2.cpp" />
     <ClCompile Include="lib\exeption\PointedException.cpp" />
@@ -145,7 +145,7 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="KeyHandler.h" />
+    <ClInclude Include="lib\common\InputHandler.h" />
     <ClInclude Include="lib\vec2.h" />
     <ClInclude Include="lib\exeption\PointedException.h" />
     <ClInclude Include="resource.h" />

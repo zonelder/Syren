@@ -86,10 +86,18 @@ LRESULT WINAPI Window::handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM
 LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
 	switch (msg)
 	{
-	case WIM_CLOSE:
-		
+	case WIM_CLOSE:	
 		PostQuitMessage(0);
 		return 0;
+	case WM_KEYDOWN:
+		inputHandler.onkeyPressed(static_cast<unsigned char>(wParam));
+		break;
+	case WM_KEYUP:
+		inputHandler.onKeyReleased(static_cast<unsigned char>(wParam));
+		break;
+	case WM_CHAR:
+		inputHandler.onChar(static_cast<unsigned char>(wParam));
+		break;
 	default:
 		break;
 	}

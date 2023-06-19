@@ -1,6 +1,5 @@
 #include <Windows.h>
 #include "WindowsMessageMap.h"
-#include "KeyHandler.h"
 #include <sstream>
 #include "lib/vec2.h"
 #include "Window.h"
@@ -21,8 +20,11 @@ int  CALLBACK WinMain(
 		BOOL gResult;
 		while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
 
-			//TranslateMessage(&msg);
+			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			if (wnd.inputHandler.isPressed(VK_SPACE)) {
+				MessageBox(nullptr, "Space pressed","something happend",0);
+			}
 		}
 		return (gResult == -1) ? (-1) : (msg.wParam);
 	}

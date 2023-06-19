@@ -1,6 +1,7 @@
 #pragma once
 #include <windows.h>
 #include "lib\exeption\PointedException.h"
+#include "lib\common\InputHandler.h"
 
 
 class Window
@@ -45,6 +46,9 @@ private:
 	static LRESULT CALLBACK handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPram);
 	LRESULT handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 
+public:
+	InputHandler inputHandler;
+private:
 	int _width;
 	int _height;
 	HWND _hWnd;

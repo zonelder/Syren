@@ -21,7 +21,7 @@
     <ClCompile Include="WindowsMessageMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KeyHandler.cpp">
+    <ClCompile Include="lib\common\InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\vec2.cpp">
@@ -38,7 +38,7 @@
     <ClInclude Include="WindowsMessageMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KeyHandler.h">
+    <ClInclude Include="lib\common\InputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\vec2.h">

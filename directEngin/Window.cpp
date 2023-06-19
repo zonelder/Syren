@@ -1,6 +1,7 @@
 #include "Window.h"
 #include <sstream>
 #include "resource.h"
+#include "WindowsMessageMap.h"
 
 
 Window::WindowClass::WindowClass() noexcept
@@ -86,9 +87,9 @@ LRESULT WINAPI Window::handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM
 LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
 	switch (msg)
 	{
-	case WIM_CLOSE:	
+	case WM_CLOSE:	
 		PostQuitMessage(0);
-		return 0;
+		 break;
 
 	case WM_KILLFOCUS:
 		inputHandler.clearState();

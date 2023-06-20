@@ -3,6 +3,7 @@
 #include "lib/vec2.h"
 #include "Window.h"
 #include "lib/exeption/PointedException.h"
+#include "lib//common/MouseHandler.h"
 
 InputHandler inputHandler;
 
@@ -20,6 +21,15 @@ int  CALLBACK WinMain(
 
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			while (!wnd.mouseHandler.isEmpty()) {
+				const auto e = wnd.mouseHandler.read();
+				if (e.getType() == MouseHandler::Event::Type::Move) {
+					std::ostringstream oss;
+					oss << "<MousePosition:" << wnd.mouseHandler.getPos();
+					wnd.SetTitle(oss.str());
+
+				}
+			}
 		}
 		return (gResult == -1) ? (-1) : (msg.wParam);
 	}

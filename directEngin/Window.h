@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "lib\exeption\PointedException.h"
 #include "lib\common\InputHandler.h"
+#include "lib\common\MouseHandler.h"
 
 
 class Window
@@ -41,6 +42,8 @@ public:
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
+
+	void SetTitle(const std::string&);
 private:
 	static LRESULT CALLBACK handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPram);
 	static LRESULT CALLBACK handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPram);
@@ -48,6 +51,7 @@ private:
 
 public:
 	InputHandler inputHandler;
+	MouseHandler mouseHandler;
 private:
 	int _width;
 	int _height;

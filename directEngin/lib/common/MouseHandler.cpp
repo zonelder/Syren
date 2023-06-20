@@ -1,4 +1,5 @@
 #include "MouseHandler.h"
+#include "../../Window.h"
 
 
 void MouseHandler::trimBuffer() noexcept {
@@ -84,4 +85,18 @@ void MouseHandler::onMouseEnter() noexcept {
  Vec2 MouseHandler::getPos() const noexcept{
 
 	 return Vec2(_x, _y);
+ }
+
+
+ void MouseHandler::onWheelDelta(int x,int y,int delta) noexcept{
+	 _wheelDeltaCarry += delta;
+	 //genera event for every WHEEL_DELTA rotation
+	 while (_wheelDeltaCarry >= WHEEL_DELTA) {
+		 _wheelDeltaCarry -= WHEEL_DELTA;
+		 onWheelUp(x, y);
+	 }
+	 while (_wheelDeltaCarry <= -WHEEL_DELTA) {
+		 _wheelDeltaCarry += WHEEL_DELTA;
+		 onWheelDown(x, y);
+	 }
  }

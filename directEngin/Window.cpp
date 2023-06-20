@@ -36,7 +36,10 @@ HINSTANCE Window::WindowClass::getInstance() noexcept {
 	return _wndClass._hInst;
 }
 
-Window::Window(int width, int height, const char* name) noexcept {
+Window::Window(int width, int height, const char* name) noexcept 
+	:
+	_width(width),
+	_height(height){
 
 	RECT wr{ 0 };
 	wr.left = 100;
@@ -126,8 +129,27 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 
 	//< Mouse message>
 	case WM_MOUSEMOVE: {
-		POINTS pt = MAKEPOINTS(lParam);
-		mouseHandler.onMouseMove(pt.x, pt.y);
+		const POINTS pt = MAKEPOINTS(lParam);
+		//if client hold mouse in a window
+		if (pt.x >= 0 && pt.x < _width && pt.y >= 0 && pt.y < _height) {
+			mouseHandler.onMouseMove(pt.x, pt.y);
+
+			if (!mouseHandler.isInWindow()) {
+				SetCapture(_hWnd);
+				mouseHandler.onMouseEnter();
+			}
+		}
+		else {
+			//outside of a client region
+			if (wParam & (MK_LBUTTON | MK_RBUTTON)) {// if that tthen clien produce a drag operation
+				mouseHandler.onMouseMove(pt.x, pt.y);
+			}
+			else {
+				ReleaseCapture();
+				mouseHandler.onMouseLeave();
+			}
+		}
+
 		break;
 	}
 	case WM_LBUTTONDOWN: {

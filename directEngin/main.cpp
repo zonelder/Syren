@@ -23,11 +23,16 @@ int  CALLBACK WinMain(
 			DispatchMessage(&msg);
 			while (!wnd.mouseHandler.isEmpty()) {
 				const auto e = wnd.mouseHandler.read();
-				if (e.getType() == MouseHandler::Event::Type::Move) {
-					std::ostringstream oss;
-					oss << "<MousePosition:" << wnd.mouseHandler.getPos();
-					wnd.SetTitle(oss.str());
-
+				switch (e.getType()) {
+					case MouseHandler::Event::Type::Leave: {
+						wnd.SetTitle("GONE!");
+						break;
+					}
+					case MouseHandler::Event::Type::Move: {
+						std::ostringstream oss;
+						oss << "MousePosition:" << wnd.mouseHandler.getPos();
+						wnd.SetTitle(oss.str());
+					}
 				}
 			}
 		}

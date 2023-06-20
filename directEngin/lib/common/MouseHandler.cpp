@@ -6,6 +6,10 @@ void MouseHandler::trimBuffer() noexcept {
 		_buffer.pop();
 	}
 }
+
+bool MouseHandler::isInWindow() const noexcept {
+	return _isInWindow;
+}
 void MouseHandler::onLeftPressed(int x,int y) noexcept{
 	_leftIsPressed = true;
 	_buffer.push(MouseHandler::Event(MouseHandler::Event::Type::LPress, *this));
@@ -47,6 +51,21 @@ void MouseHandler::onMouseMove(int x,int y) noexcept{
 	_y = y;
 	_buffer.push(MouseHandler::Event(MouseHandler::Event::Type::Move, *this));
 	trimBuffer();
+}
+
+
+
+void MouseHandler::onMouseLeave() noexcept {
+	_isInWindow = false;
+	_buffer.push(MouseHandler::Event(MouseHandler::Event::Type::Leave, *this));
+	trimBuffer();
+
+}
+void MouseHandler::onMouseEnter() noexcept {
+	_isInWindow = true;
+	_buffer.push(MouseHandler::Event(MouseHandler::Event::Type::Enter, *this));
+	trimBuffer();
+
 }
  MouseHandler::Event MouseHandler::read() noexcept{
 	if (_buffer.size() > 0) {

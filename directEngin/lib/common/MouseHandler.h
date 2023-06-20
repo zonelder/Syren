@@ -20,6 +20,8 @@ public:
 			WheelUp,
 			WheelDown,
 			Move,
+			Enter,
+			Leave,
 			Invalid,
 		};
 	private:
@@ -68,6 +70,7 @@ public:
 	Vec2 getPos() const noexcept;
 	int getPosX() const noexcept;
 	int getPosY() const noexcept;
+	bool isInWindow() const noexcept;
 	bool leftIsPressed() const noexcept;
 	bool rightIsPressed() const noexcept;
 	MouseHandler::Event read() noexcept;
@@ -88,11 +91,15 @@ private:
 	void onWheelUp(int x, int y) noexcept;
 	void onWheelDown(int x, int y) noexcept;
 
+	void onMouseLeave() noexcept;
+	void onMouseEnter() noexcept;
+
 
 	static constexpr unsigned int _bufferSize = 16u;
 
 	bool _leftIsPressed;
 	bool _rightIsPressed;
+	bool _isInWindow;
 	int _x, _y;
 	std::queue<Event> _buffer;
 

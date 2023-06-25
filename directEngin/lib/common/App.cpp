@@ -8,19 +8,14 @@ App::App() :_wnd(800, 300, "engin win") {}
 int App::init(){
 	MSG msg;
 	BOOL gResult;
-	while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
-
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-
+	while (true) {
+		//if processMessage has a value then it means than we wanna exit from app
+		if (const auto ecode = Window::processMessage()) {
+			return *ecode;
+		}
 		update();// TODO better handle vector<servise> so inplementation of each servises can be separete from app class
 	}
 
-	if (gResult == -1) {
-		throw WND_LAST_EXCEPT();
-	}
-
-	return msg.wParam;
 }
 
 void App::update() {

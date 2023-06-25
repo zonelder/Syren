@@ -3,6 +3,7 @@
 #include "..\exeption\PointedException.h"
 #include "InputHandler.h"
 #include "MouseHandler.h"
+#include <optional>
 
 
 class Window
@@ -44,6 +45,7 @@ public:
 	Window& operator=(const Window&) = delete;
 
 	void SetTitle(const std::string&);
+	static std::optional<int> processMessage();
 private:
 	static LRESULT CALLBACK handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPram);
 	static LRESULT CALLBACK handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPram);

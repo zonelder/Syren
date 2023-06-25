@@ -236,4 +236,17 @@ std::string  Window::Exception::getErrorString() const noexcept {
 	return translateErrorCode(_hr);
 }
 
+std::optional<int> Window::processMessage() {
+	MSG msg;
+	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
 
+		if (msg.message == WM_QUIT) {
+			return msg.wParam;
+		}
+
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return {};
+}

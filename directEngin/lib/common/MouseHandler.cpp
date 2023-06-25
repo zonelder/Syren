@@ -1,5 +1,5 @@
 #include "MouseHandler.h"
-#include "../../Window.h"
+#include "Window.h"
 
 
 void MouseHandler::trimBuffer() noexcept {

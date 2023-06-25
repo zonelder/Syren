@@ -27,13 +27,19 @@
     <ClCompile Include="lib\vec2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
+    <ClCompile Include="lib\common\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\exeption\PointedException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\common\MouseHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\common\App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Time\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,7 +53,7 @@
     <ClInclude Include="lib\vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
+    <ClInclude Include="lib\common\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\exeption\PointedException.h">
@@ -59,18 +65,11 @@
     <ClInclude Include="lib\common\MouseHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="directEngin1.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="icon1.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\Desktop\helmet.png">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ClInclude Include="lib\common\App.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Time\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

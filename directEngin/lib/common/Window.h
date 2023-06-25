@@ -1,8 +1,8 @@
 #pragma once
 #include <windows.h>
-#include "lib\exeption\PointedException.h"
-#include "lib\common\InputHandler.h"
-#include "lib\common\MouseHandler.h"
+#include "..\exeption\PointedException.h"
+#include "InputHandler.h"
+#include "MouseHandler.h"
 
 
 class Window

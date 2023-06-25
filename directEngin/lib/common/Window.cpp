@@ -1,8 +1,5 @@
 #include "Window.h"
 #include <sstream>
-#include "resource.h"
-#include "WindowsMessageMap.h"
-
 
 Window::WindowClass::WindowClass() noexcept
 	:_hInst(GetModuleHandle(nullptr)){
@@ -14,12 +11,12 @@ Window::WindowClass::WindowClass() noexcept
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = getInstance();
-	wc.hIcon = static_cast<HICON>(LoadImage(getInstance(), MAKEINTRESOURCE(IDB_PNG1), IMAGE_ICON, 32, 32, 0));
+	wc.hIcon = nullptr;
 	wc.hCursor = nullptr;
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
 	wc.lpszClassName = getName();
-	wc.hIcon = static_cast<HICON>(LoadImage(getInstance(), MAKEINTRESOURCE(IDB_PNG1), IMAGE_ICON, 16, 16, 0));
+	wc.hIcon = nullptr;
 	RegisterClassEx(&wc);
 }
 Window::WindowClass Window::WindowClass::_wndClass;

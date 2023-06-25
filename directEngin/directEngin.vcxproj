@@ -137,29 +137,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\common\App.cpp" />
     <ClCompile Include="lib\common\InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lib\vec2.cpp" />
     <ClCompile Include="lib\exeption\PointedException.cpp" />
     <ClCompile Include="lib\common\MouseHandler.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="lib\common\Window.cpp" />
+    <ClCompile Include="lib\Time\Timer.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\common\App.h" />
     <ClInclude Include="lib\common\InputHandler.h" />
     <ClInclude Include="lib\vec2.h" />
     <ClInclude Include="lib\exeption\PointedException.h" />
     <ClInclude Include="lib\common\MouseHandler.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="lib\common\Window.h" />
+    <ClInclude Include="lib\Time\Timer.h" />
     <ClInclude Include="WindowsMessageMap.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="directEngin1.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\..\Desktop\helmet.png" />
-    <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

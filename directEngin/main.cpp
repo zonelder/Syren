@@ -1,7 +1,7 @@
 #include <Windows.h>
 #include <sstream>
 #include "lib/vec2.h"
-#include "Window.h"
+#include "lib/common/App.h"
 #include "lib/exeption/PointedException.h"
 #include "lib//common/MouseHandler.h"
 
@@ -13,30 +13,7 @@ int  CALLBACK WinMain(
 	LPSTR lpCmdLine,//command line
 	int ncmdMode) {
 	try {
-		Window wnd(800, 300, "engin win");
-		//message pump
-		MSG msg;
-		BOOL gResult;
-		while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
-
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-			while (!wnd.mouseHandler.isEmpty()) {
-				const auto e = wnd.mouseHandler.read();
-				switch (e.getType()) {
-					case MouseHandler::Event::Type::Leave: {
-						wnd.SetTitle("GONE!");
-						break;
-					}
-					case MouseHandler::Event::Type::Move: {
-						std::ostringstream oss;
-						oss << "MousePosition:" << wnd.mouseHandler.getPos();
-						wnd.SetTitle(oss.str());
-					}
-				}
-			}
-		}
-		return (gResult == -1) ? (-1) : (msg.wParam);
+		return App{}.init();
 	}
 	catch (const PointedException& e) {
 

@@ -1,6 +1,8 @@
 #pragma once
 #include <windows.h>
 #include "..\exeption\PointedException.h"
+#include "..\graphics\Graphics.h"
+#include <memory>
 #include "InputHandler.h"
 #include "MouseHandler.h"
 #include <optional>
@@ -46,6 +48,7 @@ public:
 
 	void SetTitle(const std::string&);
 	static std::optional<int> processMessage();
+	Graphics& getGraphic();
 private:
 	static LRESULT CALLBACK handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPram);
 	static LRESULT CALLBACK handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPram);
@@ -58,6 +61,7 @@ private:
 	int _width;
 	int _height;
 	HWND _hWnd;
+	std::unique_ptr<Graphics> _pGraphic;
 };
 
 #define WND_EXCEPTION(hr) Window::Exception( __LINE__,__FILE__,hr )

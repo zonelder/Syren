@@ -23,4 +23,7 @@ void App::update() {
 	std::ostringstream oss;
 	oss << "Time elapsed:" << std::setprecision(1) << std::fixed << t << std::endl;
 	_wnd.SetTitle(oss.str());
+
+	_wnd.getGraphic().endFrame();
+	_wnd.getGraphic().clearBuffer(1, 0, 0);
 }

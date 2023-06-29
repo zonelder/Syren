@@ -13,15 +13,25 @@ class Window
 
 public:
 	class Exception :public PointedException {
+		using PointedException::PointedException;
 	public:
-		Exception(int, const char* file, HRESULT) noexcept;
+		static std::string translateCode(HRESULT hr) noexcept;
+	};
+	class HrException:public Exception{
+	public:
+		HrException(int, const char* file, HRESULT) noexcept;
 		const char* what() const noexcept override;
 		virtual const char* getType() const noexcept;
 		static std::string translateErrorCode(HRESULT hr) noexcept;
 		HRESULT getErrorCode() const noexcept;
-		std::string getErrorString() const noexcept;
+		std::string getErrorDscription() const noexcept;
 	private:
 		HRESULT _hr;
+	};
+	class NoGfxException :public Exception {
+	public:
+		using Exception::Exception;
+		const char* getType() const noexcept override;
 	};
 private:
 	/// @brief singleton manager registration\cleanup of window class
@@ -64,7 +74,8 @@ private:
 	std::unique_ptr<Graphics> _pGraphic;
 };
 
-#define WND_EXCEPTION(hr) Window::Exception( __LINE__,__FILE__,hr )
-#define WND_LAST_EXCEPT() Window::Exception( __LINE__,__FILE__,GetLastError() )
+#define WND_EXCEPTION(hr) Window::HrException( __LINE__,__FILE__,hr )
+#define WND_LAST_EXCEPT() Window::HrException( __LINE__,__FILE__,GetLastError() )
+#define WND_NOGFX_EXCEPT() Window::NoGfxException(__LINE__,__FILE__)
 
 

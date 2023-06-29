@@ -45,6 +45,12 @@
     <ClCompile Include="lib\graphics\Graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\direct\dxerr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\direct\DxgiInfoManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -77,5 +83,22 @@
     <ClInclude Include="lib\graphics\Graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lib\direct\dxerr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\direct\DxgiInfoManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\direct\DXTrace.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="lib\direct\DXGetErrorDescription.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="lib\direct\DXGetErrorString.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

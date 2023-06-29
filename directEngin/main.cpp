@@ -24,9 +24,13 @@ int  CALLBACK WinMain(
 		MessageBox(nullptr,e.what(),"Standard Exception", MB_OK | MB_ICONEXCLAMATION);
 	}
 	catch (...) {
+
 		MessageBox(nullptr, "no details available", "unknown Exception",MB_OK | MB_ICONEXCLAMATION);
 	}
 
+
+
+	
 	return -1;
 
 }

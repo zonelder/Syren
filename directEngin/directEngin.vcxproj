@@ -109,6 +109,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -128,6 +129,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <ExceptionHandling>Sync</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -137,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\direct\DxgiInfoManager.cpp" />
+    <ClCompile Include="lib\direct\dxerr.cpp" />
     <ClCompile Include="lib\graphics\Graphics.cpp" />
     <ClCompile Include="lib\common\App.cpp" />
     <ClCompile Include="lib\common\InputHandler.cpp" />
@@ -149,6 +153,8 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\direct\DxgiInfoManager.h" />
+    <ClInclude Include="lib\direct\dxerr.h" />
     <ClInclude Include="lib\graphics\Graphics.h" />
     <ClInclude Include="lib\common\App.h" />
     <ClInclude Include="lib\common\InputHandler.h" />
@@ -159,6 +165,11 @@
     <ClInclude Include="lib\common\Window.h" />
     <ClInclude Include="lib\Time\Timer.h" />
     <ClInclude Include="WindowsMessageMap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\direct\DXGetErrorDescription.inl" />
+    <None Include="lib\direct\DXGetErrorString.inl" />
+    <None Include="lib\direct\DXTrace.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

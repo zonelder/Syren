@@ -191,27 +191,27 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 
 ///Window::Exeption stuff
 
-Window::Exception::Exception(int line, const char* file, HRESULT hr) noexcept
+Window::HrException::HrException(int line, const char* file, HRESULT hr) noexcept
 	:
-	PointedException(line, file), _hr(hr)
+	Exception(line, file), _hr(hr)
 {}
 
-const char* Window::Exception::what() const noexcept {
+const char* Window::HrException::what() const noexcept {
 	std::ostringstream oss;
 	oss << getType() << std::endl
 		<< "[ERROR CODE]" << getErrorCode() << std::endl
-		<< "[DESCRIPTION]" << getErrorString() << std::endl
+		<< "[DESCRIPTION]" << getErrorDscription() << std::endl
 		<< getOriginalString();
 	p_buffer = oss.str();
 	return p_buffer.c_str();
 }
 
-const char* Window::Exception::getType() const noexcept {
+const char* Window::HrException::getType() const noexcept {
 
 	return "Windows Exception";
 }
 
-std::string Window::Exception::translateErrorCode(HRESULT hr) noexcept{
+std::string Window::HrException::translateErrorCode(HRESULT hr) noexcept{
 
 	char* pMsgBuf = nullptr;
 	DWORD nMsgLen = FormatMessage(
@@ -228,14 +228,19 @@ std::string Window::Exception::translateErrorCode(HRESULT hr) noexcept{
 	return errorStr;
 }
 
-HRESULT  Window::Exception::getErrorCode() const noexcept {
+HRESULT  Window::HrException::getErrorCode() const noexcept {
 
 	return _hr;
 }
 
-std::string  Window::Exception::getErrorString() const noexcept {
+std::string  Window::HrException::getErrorDscription() const noexcept {
 
 	return translateErrorCode(_hr);
+}
+
+const char*  Window::NoGfxException::getType() const noexcept {
+
+	return "Window exception [No Graphics]";
 }
 
 std::optional<int> Window::processMessage() {
@@ -255,5 +260,8 @@ std::optional<int> Window::processMessage() {
 
 Graphics& Window::getGraphic()
 {
+	if (!_pGraphic) {
+		throw WND_NOGFX_EXCEPT();
+	}
 	return *_pGraphic;
 }

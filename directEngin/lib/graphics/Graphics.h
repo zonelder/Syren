@@ -44,9 +44,9 @@ private:
 #ifndef NDEBUG
 	DxgiInfoManager _infoManager;
 #endif // !NDEBUG
-	Microsoft::WRL::ComPtr<ID3D11Device> _pDevice = nullptr;
-	Microsoft::WRL::ComPtr<IDXGISwapChain> _pSwap = nullptr;
-	Microsoft::WRL::ComPtr <ID3D11DeviceContext> _pContext = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> _pTarget = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11Device> _pDevice;
+	Microsoft::WRL::ComPtr<IDXGISwapChain> _pSwap;
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext> _pContext;
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> _pTarget;
 };
 

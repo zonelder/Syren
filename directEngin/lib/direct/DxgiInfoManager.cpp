@@ -24,15 +24,9 @@ DxgiInfoManager::DxgiInfoManager(){
 		throw WND_LAST_EXCEPT();
 	}
 	HRESULT hr;
-	GFX_THROW_NOINFO(DxgiDebugInterface(__uuidof(IDXGIInfoQueue),reinterpret_cast<void**>(& _dxgiInfoQueue)));
+	GFX_THROW_NOINFO(DxgiDebugInterface(__uuidof(IDXGIInfoQueue),&_dxgiInfoQueue));
 }
 
-DxgiInfoManager::~DxgiInfoManager() {
-	
-	if (_dxgiInfoQueue != nullptr) {
-		_dxgiInfoQueue->Release();
-	}
-}
 
 
 void DxgiInfoManager::set() noexcept{

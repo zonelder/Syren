@@ -60,10 +60,9 @@ Graphics::Graphics(HWND hWnd){
 			&_pContext
 		));
 
-		Microsoft::WRL::ComPtr <ID3D11Resource> pBackBuffer = nullptr;
+		Microsoft::WRL::ComPtr<ID3D11Resource> pBackBuffer;
 		GFX_THROW_INFO(_pSwap->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
 		GFX_THROW_INFO(_pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &_pTarget));
-		pBackBuffer->Release();
 
 	}
 	catch (const PointedException& e) {

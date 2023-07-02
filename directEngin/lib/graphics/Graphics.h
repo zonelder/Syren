@@ -3,6 +3,9 @@
 #include "../exeption/PointedException.h"
 #include <vector>
 #include "../direct/DxgiInfoManager.h"
+#include <wrl.h>//interfaces inside directX alredy cointing in COM model if we try to use shared_poiter instead we catch unlocated memory
+
+
 class Graphics
 {
 public:
@@ -33,7 +36,7 @@ public:
 	Graphics(HWND hWnd);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
-	~Graphics();
+	~Graphics() = default;
 
 	void endFrame();
 	void clearBuffer(float red, float green, float blue) noexcept;
@@ -41,9 +44,9 @@ private:
 #ifndef NDEBUG
 	DxgiInfoManager _infoManager;
 #endif // !NDEBUG
-	ID3D11Device* _pDevice = nullptr;
-	IDXGISwapChain* _pSwap = nullptr;
-	ID3D11DeviceContext* _pContext = nullptr;
-	ID3D11RenderTargetView* _pTarget = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11Device> _pDevice = nullptr;
+	Microsoft::WRL::ComPtr<IDXGISwapChain> _pSwap = nullptr;
+	Microsoft::WRL::ComPtr <ID3D11DeviceContext> _pContext = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> _pTarget = nullptr;
 };
 

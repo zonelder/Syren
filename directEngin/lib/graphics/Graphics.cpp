@@ -60,9 +60,9 @@ Graphics::Graphics(HWND hWnd){
 			&_pContext
 		));
 
-		ID3D11Resource* pBackBuffer = nullptr;
-		GFX_THROW_INFO(_pSwap->GetBuffer(0, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&pBackBuffer)));
-		GFX_THROW_INFO(_pDevice->CreateRenderTargetView(pBackBuffer, nullptr, &_pTarget));
+		Microsoft::WRL::ComPtr <ID3D11Resource> pBackBuffer = nullptr;
+		GFX_THROW_INFO(_pSwap->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
+		GFX_THROW_INFO(_pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &_pTarget));
 		pBackBuffer->Release();
 
 	}
@@ -71,22 +71,6 @@ Graphics::Graphics(HWND hWnd){
 	}
 }
 
-Graphics::~Graphics(){
-	
-	if (_pDevice != nullptr) {
-		_pDevice->Release();
-	}
-	if (_pSwap != nullptr) {
-		_pSwap->Release();
-	}
-	if (_pContext != nullptr) {
-		_pContext->Release();
-	}
-	if (_pTarget != nullptr) {
-		_pTarget->Release();
-	}
-
-}
 
 void Graphics::endFrame(){
 
@@ -103,7 +87,7 @@ void Graphics::endFrame(){
 
 void Graphics::clearBuffer(float red, float green, float blue) noexcept{
 	const float color[] = { red,green,blue,1.0f };
-	_pContext->ClearRenderTargetView(_pTarget, color);
+	_pContext->ClearRenderTargetView(_pTarget.Get(), color);
 }
 
 Graphics::HrException::HrException(int line, const char* file, HRESULT hr,std::vector<std::string> infoMsgs) noexcept:

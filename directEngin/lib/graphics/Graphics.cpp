@@ -1,7 +1,10 @@
 #include "Graphics.h"
 #include "../direct/dxerr.h"
 #include <sstream>
+#include <d3dcompiler.h>
+
 #pragma comment(lib,"d3d11.lib")
+#pragma comment(lib, "D3DCompiler.lib")
 
 #define GFX_EXCEPT_NOINFO(hr) Graphics::HrException(__LINE__,__FILE__,(hr))
 #define GFX_THROW_NOINFO(hrcall) if(FAILED(hr = (hrcall))) throw Graphics::HrException(__LINE__, __FILE__, hr)
@@ -10,10 +13,12 @@
 #define GFX_EXCEPT(hr) Graphics::HrException(__LINE__,__FILE__,(hr),_infoManager.getMessage())
 #define GFX_THROW_INFO(hrcall) _infoManager.set(); if(FAILED(hr = (hrcall))) throw GFX_EXCEPT(hr)
 #define GFX_DEVICE_REMOVED_EXCEPT(hr) Graphics::DeviceRemoveException(__LINE__,__FILE__,(hr),_infoManager.getMessage())
+#define GFX_THROW_INFO_ONLY(call) _infoManager.set();(call);{auto v = _infoManager.getMessage(); if(!v.empty()){throw Graphics::InfoException(__LINE__,__FILE__,v);}}
 #else
 #define GFX_EXCEPT(hr) Graphics::HrException(__LINE__,__FILE__,(hr))
 #define GFX_THROW_INFO(hrcall) GFX_THROW_NOINFO(hrcall)
 #define GFX_DEVICE_REMOVED_EXCEPT(hr) Graphics::DeviceRemoveException(__LINE__,__FILE__,(hr))
+#define GFX_THROW_INFO_ONLY(call) (call)
 #endif // !NDEBUG
 
 Graphics::Graphics(HWND hWnd){
@@ -89,6 +94,44 @@ void Graphics::clearBuffer(float red, float green, float blue) noexcept{
 	_pContext->ClearRenderTargetView(_pTarget.Get(), color);
 }
 
+void Graphics::drawTestTriangle() {
+	HRESULT hr;
+
+	struct Vertex {
+		float x;
+		float y;
+	};
+
+	const Vertex vertices[] = {
+		{ 0.0f,0.5f },
+		{ 0.5f,-0.5f },
+		{ -0.5f,-0.5f },
+	};
+	Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
+	D3D11_BUFFER_DESC bd = {};
+	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.CPUAccessFlags = 0u;
+	bd.MiscFlags = 0u;
+	bd.ByteWidth = sizeof(vertices);
+	bd.StructureByteStride = sizeof(Vertex);
+	D3D11_SUBRESOURCE_DATA sd = {};
+	sd.pSysMem = vertices;
+	GFX_THROW_INFO(_pDevice->CreateBuffer(&bd, &sd, &pVertexBuffer));
+	const UINT stride = sizeof(Vertex);
+	const UINT offset = 0u;
+
+	_pContext->IASetVertexBuffers(0u,1,&pVertexBuffer,&stride,&offset);
+
+	Microsoft::WRL::ComPtr<ID3D11VertexShader> pVertexShader;
+	Microsoft::WRL::ComPtr<ID3DBlob> pBlob;
+	GFX_THROW_INFO(D3DReadFileToBlob(L"VertexShader.cso", &pBlob));
+	GFX_THROW_INFO(_pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader));
+
+	_pContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+	GFX_THROW_INFO_ONLY(_pContext->Draw((UINT)std::size(vertices), 0u));
+}
+
 Graphics::HrException::HrException(int line, const char* file, HRESULT hr,std::vector<std::string> infoMsgs) noexcept:
 	Exeption(line,file),
 	_hr(hr)
@@ -150,3 +193,33 @@ const char* Graphics::DeviceRemoveException::getType() const noexcept {
 	return "Graphic Exception[ Device Removed ](DXGI_ERROR_DEVICE_REMOVED)";
 }
 
+Graphics::InfoException::InfoException(int line, const char* file, std::vector<std::string> infoMsgs)
+	:
+	Exeption(line, file) {
+	for (const auto& m : infoMsgs) {
+		_info += m;
+		_info.push_back('\n');
+	}
+	if (!_info.empty()) {
+		_info.pop_back();
+	}
+}
+
+const char* Graphics::InfoException::what() const noexcept {
+	std::ostringstream oss;
+	oss << getType() << std::endl
+		<< "\n[Error Info]\n" << getErrorInfo() << std::endl;
+	oss << getOriginalString();
+	p_buffer = oss.str();
+	return p_buffer.c_str();
+	
+}
+
+const char* Graphics::InfoException::getType() const noexcept {
+	return "Info Exception";
+}
+
+
+std::string Graphics::InfoException::getErrorInfo() const noexcept {
+	return _info;
+}

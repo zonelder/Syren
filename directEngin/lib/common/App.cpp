@@ -13,17 +13,11 @@ int App::init(){
 		if (const auto ecode = Window::processMessage()) {
 			return *ecode;
 		}
-		update();// TODO better handle vector<servise> so inplementation of each servises can be separete from app class
+		frame();// TODO better handle vector<servise> so inplementation of each servises can be separete from app class
 	}
 
 }
 
-void App::update() {
-	const float t = _time.peek();
-	std::ostringstream oss;
-	oss << "Time elapsed:" << std::setprecision(1) << std::fixed << t << std::endl;
-	_wnd.SetTitle(oss.str());
-
-	_wnd.getGraphic().endFrame();
-	_wnd.getGraphic().clearBuffer(1, 0, 0);
+void App::frame() {
+	_wnd.getGraphic().drawTestTriangle();
 }

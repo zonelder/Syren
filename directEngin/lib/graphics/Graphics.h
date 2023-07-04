@@ -32,6 +32,15 @@ public:
 	private:
 		std::string _reason;
 	};
+	class InfoException :public Exeption{
+	public:
+		InfoException(int line, const char* file,std::vector<std::string>);
+		const char* what() const noexcept override;
+		const char* getType() const noexcept override;
+		std::string getErrorInfo() const noexcept;
+	private:
+		std::string _info;
+	};
 public:
 	Graphics(HWND hWnd);
 	Graphics(const Graphics&) = delete;
@@ -40,6 +49,7 @@ public:
 
 	void endFrame();
 	void clearBuffer(float red, float green, float blue) noexcept;
+	void drawTestTriangle();
 private:
 #ifndef NDEBUG
 	DxgiInfoManager _infoManager;

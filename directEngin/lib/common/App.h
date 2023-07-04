@@ -7,7 +7,7 @@ public:
 	App();
 	int init();
 private:
-	void update();
+	void frame();
 private:
 	Window _wnd;
 	Timer _time;//TODO change it to Time class after all

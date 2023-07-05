@@ -121,14 +121,50 @@ void Graphics::drawTestTriangle() {
 	const UINT stride = sizeof(Vertex);
 	const UINT offset = 0u;
 
-	_pContext->IASetVertexBuffers(0u,1,&pVertexBuffer,&stride,&offset);
 
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> pVertexShader;
+
+	_pContext->IASetVertexBuffers(0u,1,pVertexBuffer.GetAddressOf(), &stride, &offset);
+	//create pixel shader
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> pPixelShader;
 	Microsoft::WRL::ComPtr<ID3DBlob> pBlob;
+	GFX_THROW_INFO(D3DReadFileToBlob(L"PixelShader.cso", &pBlob));
+	GFX_THROW_INFO(_pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
+
+	//create vertex shader
+	Microsoft::WRL::ComPtr<ID3D11VertexShader> pVertexShader;
 	GFX_THROW_INFO(D3DReadFileToBlob(L"VertexShader.cso", &pBlob));
 	GFX_THROW_INFO(_pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader));
 
+	//bind shaders
+	_pContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 	_pContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+
+	//unput vertex layout(2d position only)
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> pInputLayout;
+	const D3D11_INPUT_ELEMENT_DESC ied[] = {
+		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+	};
+	GFX_THROW_INFO(_pDevice->CreateInputLayout(
+		ied, (UINT)std::size(ied),
+		pBlob->GetBufferPointer(),
+		pBlob->GetBufferSize(),
+		&pInputLayout
+	));
+	_pContext->IASetInputLayout(pInputLayout.Get());
+
+	_pContext->OMSetRenderTargets(1u,_pTarget.GetAddressOf(), nullptr);
+
+	_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	D3D11_VIEWPORT vp;
+	vp.Width = 800;
+	vp.Height = 600;
+	vp.MinDepth = 0;
+	vp.MaxDepth = 1;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	_pContext->RSSetViewports(1u, &vp);
+
 	GFX_THROW_INFO_ONLY(_pContext->Draw((UINT)std::size(vertices), 0u));
 }
 

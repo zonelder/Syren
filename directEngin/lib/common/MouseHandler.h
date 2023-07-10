@@ -53,13 +53,9 @@ public:
 			return Vec2(_x, _y);
 		}
 
-		int getPosX() const noexcept {
-			return _x;
-		}
+		int getPosX() const noexcept;
 
-		int getPosY() const noexcept {
-			return _y;
-		}
+		int getPosY() const noexcept;
 	};
 public:
 

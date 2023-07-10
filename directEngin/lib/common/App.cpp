@@ -21,6 +21,6 @@ int App::init(){
 void App::frame() {
 	const float c = sin(_time.peek()) / 2.0f + 0.5f;
 	_wnd.getGraphic().clearBuffer(c, c, 1.0f);
-	_wnd.getGraphic().drawTestTriangle(_time.peek());
+	_wnd.getGraphic().drawTestTriangle(_time.peek(),2.0f*_wnd.mouseHandler.getPosX()/800.0f -1.0f, 2.0f * _wnd.mouseHandler.getPosY()/600.0f - 1.0f);//mouse output own cosd in range(0,x_max) but DirectX draw vertex in range [-1,1]
 	_wnd.getGraphic().endFrame();
 }

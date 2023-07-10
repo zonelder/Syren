@@ -5,7 +5,7 @@ struct VSOut {
 
 cbuffer CBuf {
 
-	row_major matrix transform;//берет транспонированную матрицу за основу трансформа. это надо переработать
+	matrix transform;
 };
 
 VSOut  main(float2 pos : Position,float4 color:Color){

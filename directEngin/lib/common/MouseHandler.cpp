@@ -54,7 +54,12 @@ void MouseHandler::onMouseMove(int x,int y) noexcept{
 	trimBuffer();
 }
 
-
+int MouseHandler::getPosX() const noexcept {
+	return _x;
+}
+int MouseHandler::getPosY() const noexcept {
+	return _y;
+}
 
 void MouseHandler::onMouseLeave() noexcept {
 	_isInWindow = false;

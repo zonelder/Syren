@@ -21,6 +21,6 @@ int App::init(){
 void App::frame() {
 	const float c = sin(_time.peek()) / 2.0f + 0.5f;
 	_wnd.getGraphic().clearBuffer(c, c, 1.0f);
-	_wnd.getGraphic().drawTestTriangle();
+	_wnd.getGraphic().drawTestTriangle(_time.peek());
 	_wnd.getGraphic().endFrame();
 }

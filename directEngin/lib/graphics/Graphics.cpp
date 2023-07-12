@@ -104,6 +104,7 @@ void Graphics::drawTestTriangle(float angle,float x,float y) {
 		{
 			float x;
 			float y;
+			float z;
 		} pos;
 
 		struct {
@@ -116,12 +117,14 @@ void Graphics::drawTestTriangle(float angle,float x,float y) {
 	};
 
 	const Vertex vertices[] = {
-		{ 0.0f,0.5f,255,0,0,0 },
-		{ 0.5f,-0.5f,0,255,0,0 },
-		{ -0.5f,-0.5f,0,0,255,0 },
-		{ -0.3f,0.3f,0,0,255,0 },
-		{ 0.3f,0.3f,0,255,0,0 },
-		{ 0.0f,-0.8f,255,0,0,0 },
+		{ -1.0f,-1.0f,-1.0f,255,0,0,0 },
+		{ 1.0f,-1.0f,-1.0f, 0,255,0,0 },
+		{ -1.0f,1.0f,-1.0f, 0,0,255,0 },
+		{ 1.0f,1.0f,-1.0f,  0,0,255,0 },
+		{ -1.0f,-1.0f,1.0f, 255,0,0,0 },
+		{ 1.0f,-1.0f,1.0f,  0,255,0,0 },
+		{ -1.0f,1.0f,1.0f,  0,0,255,0 },
+		{ 1.0f,1.0f,1.0f,   0,0,255,0 },
 	};
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
 	D3D11_BUFFER_DESC bd = {};
@@ -140,10 +143,12 @@ void Graphics::drawTestTriangle(float angle,float x,float y) {
 
 	//create index buffer
 	const unsigned short indices[] = {
-		0,1,2,
-		0,2,3,
-		0,4,1,
-		2,1,5,
+		0,2,1, 2,3,1,
+		1,3,5, 3,7,5,
+		2,6,3, 3,6,7,
+		4,5,7, 4,7,6,
+		0,4,2, 2,4,6,
+		0,1,4, 1,5,4
 	};
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pIndexBuffer;
 	D3D11_BUFFER_DESC ibd = {};
@@ -167,9 +172,10 @@ void Graphics::drawTestTriangle(float angle,float x,float y) {
 	const ConstartBuffer cb = {
 		{
 				DirectX::XMMatrixTranspose(
-					DirectX::XMMatrixRotationZ(angle)*
-					DirectX::XMMatrixScaling(3.0f / 4.0f,1.0f,1.0f)*
-					DirectX::XMMatrixTranslation(x,-y,0.0f)
+					DirectX::XMMatrixRotationZ(angle) *
+					DirectX::XMMatrixRotationY(angle)*
+					DirectX::XMMatrixTranslation(x,-y,4.0f) *
+					DirectX::XMMatrixPerspectiveFovLH(1.0f,3.0f / 4.0f,0.5f,10.0f)
 				)
 		}
 	};
@@ -186,6 +192,7 @@ void Graphics::drawTestTriangle(float angle,float x,float y) {
 	GFX_THROW_INFO(_pDevice->CreateBuffer(&cbd, &csd, &pConstantBuffer));
 
 	_pContext->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+
 
 	//create pixel shader
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> pPixelShader;
@@ -205,8 +212,8 @@ void Graphics::drawTestTriangle(float angle,float x,float y) {
 	//unput vertex layout(2d position only)
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> pInputLayout;
 	const D3D11_INPUT_ELEMENT_DESC ied[] = {
-		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
-		{"Color",0,DXGI_FORMAT_R8G8B8A8_UNORM,0,8u,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{"Color",0,DXGI_FORMAT_R8G8B8A8_UNORM,0,12u,D3D11_INPUT_PER_VERTEX_DATA,0},
 	};
 	GFX_THROW_INFO(_pDevice->CreateInputLayout(
 		ied, (UINT)std::size(ied),

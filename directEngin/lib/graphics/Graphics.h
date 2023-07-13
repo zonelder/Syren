@@ -49,7 +49,7 @@ public:
 
 	void endFrame();
 	void clearBuffer(float red, float green, float blue) noexcept;
-	void drawTestTriangle(float angle,float x,float y);
+	void drawTestTriangle(float angle,float x,float y,float z);
 private:
 #ifndef NDEBUG
 	DxgiInfoManager _infoManager;
@@ -58,5 +58,6 @@ private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain> _pSwap;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> _pContext;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> _pTarget;
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> _pDSV;
 };
 

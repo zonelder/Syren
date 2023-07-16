@@ -153,6 +153,8 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\common\WindowThrowMacros.h" />
+    <ClInclude Include="lib\graphics\GraphicsThrowMacros.h" />
     <ClInclude Include="lib\direct\DxgiInfoManager.h" />
     <ClInclude Include="lib\direct\dxerr.h" />
     <ClInclude Include="lib\graphics\Graphics.h" />

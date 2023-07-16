@@ -1,5 +1,6 @@
 #include "Window.h"
 #include <sstream>
+#include "WindowThrowMacros.h"
 
 Window::WindowClass::WindowClass() noexcept
 	:_hInst(GetModuleHandle(nullptr)){

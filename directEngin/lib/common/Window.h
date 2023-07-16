@@ -74,8 +74,6 @@ private:
 	std::unique_ptr<Graphics> _pGraphic;
 };
 
-#define WND_EXCEPTION(hr) Window::HrException( __LINE__,__FILE__,hr )
-#define WND_LAST_EXCEPT() Window::HrException( __LINE__,__FILE__,GetLastError() )
-#define WND_NOGFX_EXCEPT() Window::NoGfxException(__LINE__,__FILE__)
+
 
 

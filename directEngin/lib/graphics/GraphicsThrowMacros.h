@@ -14,3 +14,4 @@
 #define GFX_DEVICE_REMOVED_EXCEPT(hr) Graphics::DeviceRemoveException(__LINE__,__FILE__,(hr))
 #define GFX_THROW_INFO_ONLY(call) (call)
 #endif // !NDEBUG
+#define INFOMAN(gfx) HRESULT hr; DxgiInfoManager& _infoManager = gfx.getInfoManager()

@@ -4,6 +4,10 @@
 #include <vector>
 #include "../direct/DxgiInfoManager.h"
 #include <wrl.h>//interfaces inside directX alredy cointing in COM model if we try to use shared_poiter instead we catch unlocated memory
+#include <d3dcompiler.h>
+#include <DirectXMath.h>
+#include <memory>
+#include <random>
 
 
 class Graphics
@@ -50,6 +54,9 @@ public:
 	void endFrame();
 	void clearBuffer(float red, float green, float blue) noexcept;
 	void drawTestTriangle(float angle,float x,float y,float z);
+	ID3D11DeviceContext* getContext() noexcept;
+	ID3D11Device* getDevice() noexcept;
+	DxgiInfoManager& getInfoManager() noexcept;
 private:
 #ifndef NDEBUG
 	DxgiInfoManager _infoManager;

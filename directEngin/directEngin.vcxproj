@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\ConstantBuffer.cpp" />
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\IndexBuffer.cpp" />
     <ClCompile Include="lib\direct\DxgiInfoManager.cpp" />
     <ClCompile Include="lib\direct\dxerr.cpp" />
     <ClCompile Include="lib\graphics\Graphics.cpp" />
@@ -150,9 +152,16 @@
     <ClCompile Include="lib\common\MouseHandler.cpp" />
     <ClCompile Include="lib\common\Window.cpp" />
     <ClCompile Include="lib\Time\Timer.cpp" />
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\VertexBuffer.cpp" />
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\PixelShader.cpp" />
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\VertexShader.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\ConstantBuffer.h" />
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\IndexBuffer.h" />
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\BindableComponents.h" />
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\IBindable.h" />
     <ClInclude Include="lib\common\WindowThrowMacros.h" />
     <ClInclude Include="lib\graphics\GraphicsThrowMacros.h" />
     <ClInclude Include="lib\direct\DxgiInfoManager.h" />
@@ -163,9 +172,12 @@
     <ClInclude Include="lib\vec2.h" />
     <ClInclude Include="lib\exeption\PointedException.h" />
     <ClInclude Include="lib\common\MouseHandler.h" />
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\PixelShader.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="lib\common\Window.h" />
     <ClInclude Include="lib\Time\Timer.h" />
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\VertexBuffer.h" />
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\VertexShader.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>
   <ItemGroup>

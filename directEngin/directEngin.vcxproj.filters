@@ -66,6 +66,12 @@
     <ClCompile Include="lib\graphics\Drawable\BindComponent\VertexShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\Topology.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\InputLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -129,6 +135,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\graphics\Drawable\BindComponent\VertexShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\Topology.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\InputLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

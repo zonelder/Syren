@@ -178,7 +178,7 @@ void Graphics::drawTestTriangle(float angle,float x,float y,float z) {
 	auto vertexConstantBuffer = VertexConstantBuffer<ConstartBuffer>(*this, cb);
 	vertexConstantBuffer.bind(*this);
 
-	// create pizel constant buffer
+	// create pixel constant buffer
 	struct ConstantBuffer2 {
 		struct {
 			float r;
@@ -204,26 +204,20 @@ void Graphics::drawTestTriangle(float angle,float x,float y,float z) {
 	auto pixelShader = PixelShader(*this, L"PixelShader.cso");
 	pixelShader.bind(*this);
 
-
-	//create vertex shader
 	auto vertexshader = VertexShader(*this, L"VertexShader.cso");
 	vertexshader.bind(*this);
 	ID3DBlob* pBlob = vertexshader.getBytecode();
 
-	//unput vertex layout(2d position only)
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> pInputLayout;
-	const D3D11_INPUT_ELEMENT_DESC ied[] = {
+	//unput vertex layout
+	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied = {
 		{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
 	};
-	GFX_THROW_INFO(_pDevice->CreateInputLayout(
-		ied, (UINT)std::size(ied),
-		pBlob->GetBufferPointer(),
-		pBlob->GetBufferSize(),
-		&pInputLayout
-	));
-	_pContext->IASetInputLayout(pInputLayout.Get());
 
-	_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	auto inputLayout = InputLayout(*this, ied, pBlob);
+	inputLayout.bind(*this);
+
+	auto topology = Topology(*this, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	topology.bind(*this);
 
 	D3D11_VIEWPORT vp;
 	vp.Width = 800;

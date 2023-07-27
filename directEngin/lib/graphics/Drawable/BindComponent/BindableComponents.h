@@ -4,3 +4,5 @@
 #include "ConstantBuffer.h"
 #include "PixelShader.h"
 #include "VertexShader.h"
+#include "Topology.h"
+#include "InputLayout.h"

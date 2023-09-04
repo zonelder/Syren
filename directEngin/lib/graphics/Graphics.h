@@ -54,6 +54,7 @@ public:
 	void endFrame();
 	void clearBuffer(float red, float green, float blue) noexcept;
 	void drawTestTriangle(float angle,float x,float y,float z);
+	void DrawIndexed(const std::vector<unsigned short>&);
 	ID3D11DeviceContext* getContext() noexcept;
 	ID3D11Device* getDevice() noexcept;
 	DxgiInfoManager& getInfoManager() noexcept;

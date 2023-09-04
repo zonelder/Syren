@@ -97,6 +97,15 @@ Graphics::Graphics(HWND hWnd){
 		//bind depth stensil view to OM
 		_pContext->OMSetRenderTargets(1u, _pTarget.GetAddressOf(), _pDSV.Get());
 
+		D3D11_VIEWPORT vp;
+		vp.Width = 800;
+		vp.Height = 600;
+		vp.MinDepth = 0;
+		vp.MaxDepth = 1;
+		vp.TopLeftX = 0;
+		vp.TopLeftY = 0;
+		_pContext->RSSetViewports(1u, &vp);
+
 	}
 	catch (const PointedException& e) {
 		MessageBox(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
@@ -127,15 +136,7 @@ void Graphics::drawTestTriangle(float angle,float x,float y,float z) {
 
 	HRESULT hr;
 
-	struct Vertex {
-		struct
-		{
-			float x;
-			float y;
-			float z;
-		} pos;
-	};
-	const std::vector<Vertex> vertices = {
+	const std::vector<DirectX::XMVECTOR> vertices = {
 		{ -1.0f,-1.0f,-1.0f,},
 		{ 1.0f,-1.0f,-1.0f, },
 		{ -1.0f,1.0f,-1.0f, },
@@ -219,16 +220,13 @@ void Graphics::drawTestTriangle(float angle,float x,float y,float z) {
 	auto topology = Topology(*this, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	topology.bind(*this);
 
-	D3D11_VIEWPORT vp;
-	vp.Width = 800;
-	vp.Height = 600;
-	vp.MinDepth = 0;
-	vp.MaxDepth = 1;
-	vp.TopLeftX = 0;
-	vp.TopLeftY = 0;
-	_pContext->RSSetViewports(1u, &vp);
 
 	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)std::size(indices),0u, 0u));
+}
+
+void Graphics::DrawIndexed(const std::vector<unsigned short>& indices)
+{
+	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)std::size(indices), 0u, 0u));
 }
 
 Graphics::HrException::HrException(int line, const char* file, HRESULT hr,std::vector<std::string> infoMsgs) noexcept:

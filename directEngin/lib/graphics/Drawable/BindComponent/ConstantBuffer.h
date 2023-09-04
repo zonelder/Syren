@@ -5,6 +5,10 @@ template<typename T>
 class ConstantBuffer:public IBindable
 {
 public:
+	ConstantBuffer()
+	{
+
+	}
 	ConstantBuffer(Graphics& gfx, const T& consts)
 	{
 		INFOMAN(gfx);
@@ -45,7 +49,7 @@ public:
 		memcpy(msr.pData, &consts, sizeof(consts));
 		gfx.getContext()->Unmap(p_pConstantBuffer.Get(), 0u);
 	}
-protected:
+
 	Microsoft::WRL::ComPtr<ID3D11Buffer> p_pConstantBuffer;
 };
 
@@ -53,8 +57,9 @@ protected:
 template<typename T> 
 class VertexConstantBuffer :public ConstantBuffer<T>
 {
-	using ConstantBuffer<T>::p_pConstantBuffer;
 public:
+	using ConstantBuffer<T>::p_pConstantBuffer;
+
 	using ConstantBuffer<T>::ConstantBuffer;
 	void bind(Graphics& gfx) noexcept override
 	{

@@ -2,7 +2,8 @@
 
 
 
-App::App() :_wnd(800, 600, "engin win") {}
+App::App() :_wnd(800, 600, "engin win"),_box1(_wnd.getGraphic()), _box2(_wnd.getGraphic())
+{}
 
 
 int App::init(){
@@ -21,7 +22,26 @@ int App::init(){
 void App::frame() {
 	const float c = sin(_time.peek()) / 2.0f + 0.5f;
 	_wnd.getGraphic().clearBuffer(c, c, 1.0f);
-	_wnd.getGraphic().drawTestTriangle(-_time.peek(), 0,0,0);
-	_wnd.getGraphic().drawTestTriangle(_time.peek(),2.0f*_wnd.mouseHandler.getPosX()/800.0f -1.0f,300, 2.0f * _wnd.mouseHandler.getPosY()/600.0f - 1.0f);//mouse output own cosd in range(0,x_max) but DirectX draw vertex in range [-1,1]
+
+	float angle = -_time.peek();
+	_box1.transform = DirectX::XMMatrixTranspose(
+		DirectX::XMMatrixRotationZ(angle) *
+		DirectX::XMMatrixRotationY(angle) *
+		DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f) *
+		DirectX::XMMatrixPerspectiveFovLH(1.0f, 3.0f / 4.0f, 0.5f, 10.0f)
+	);
+	_box1.Draw(_wnd.getGraphic());
+	angle = -angle;
+	float x = 2.0f * _wnd.mouseHandler.getPosX() / 800.0f - 1.0f;
+	float y = 300;
+	float z = 2.0f * _wnd.mouseHandler.getPosY() / 600.0f - 1.0f;
+	_box2.transform = DirectX::XMMatrixTranspose(
+		DirectX::XMMatrixRotationZ(angle) *
+		DirectX::XMMatrixRotationY(angle) *
+		DirectX::XMMatrixTranslation(x, 0.0f, z + 4.0f) *
+		DirectX::XMMatrixPerspectiveFovLH(1.0f, 3.0f / 4.0f, 0.5f, 10.0f)
+	);
+	_box2.Draw(_wnd.getGraphic());
+
 	_wnd.getGraphic().endFrame();
 }

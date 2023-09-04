@@ -5,10 +5,6 @@ template<typename T>
 class ConstantBuffer:public IBindable
 {
 public:
-	ConstantBuffer()
-	{
-
-	}
 	ConstantBuffer(Graphics& gfx, const T& consts)
 	{
 		INFOMAN(gfx);
@@ -34,20 +30,6 @@ public:
 		cbd.ByteWidth = sizeof(T);
 		cbd.StructureByteStride = 0u;
 		GFX_THROW_INFO(gfx.getDevice()->CreateBuffer(&cbd, nullptr, &p_pConstantBuffer));
-	}
-
-	void update(Graphics& gfx, const T& consts)
-	{
-		INFOMAN(gfx);
-
-		D3D11_MAPPED_SUBRESOURCE msr;
-		GFX_THROW_INFO(gfx.getContext()->Map(
-			p_pConstantBuffer.Get(), 0u,
-			D3D11_MAP_WRITE_DISCARD, 0u,
-			&msr
-		));
-		memcpy(msr.pData, &consts, sizeof(consts));
-		gfx.getContext()->Unmap(p_pConstantBuffer.Get(), 0u);
 	}
 
 	Microsoft::WRL::ComPtr<ID3D11Buffer> p_pConstantBuffer;

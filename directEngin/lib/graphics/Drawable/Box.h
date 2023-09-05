@@ -9,8 +9,6 @@ class Box:IDrawable
 public:
 	Box(Graphics&);
 	void Draw(Graphics&) override;
-
-	void BindTransformBuffer();
 	DirectX::XMMATRIX transform;
 
 private:

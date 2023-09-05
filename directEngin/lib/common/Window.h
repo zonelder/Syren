@@ -59,6 +59,9 @@ public:
 	void SetTitle(const std::string&);
 	static std::optional<int> processMessage();
 	Graphics& getGraphic();
+
+	int GetWidth() const noexcept;
+	int GetHeight() const noexcept;
 private:
 	static LRESULT CALLBACK handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPram);
 	static LRESULT CALLBACK handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPram);

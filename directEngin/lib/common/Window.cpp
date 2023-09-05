@@ -266,3 +266,13 @@ Graphics& Window::getGraphic()
 	}
 	return *_pGraphic;
 }
+
+int Window::GetWidth() const noexcept
+{
+	return _width;
+}
+
+int Window::GetHeight() const noexcept
+{
+	return _height;
+}

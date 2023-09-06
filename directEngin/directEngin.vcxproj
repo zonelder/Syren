@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\Components\Transform.h" />
     <ClCompile Include="lib\graphics\Drawable\Box.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\InputLayout.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\ConstantBuffer.cpp" />

@@ -3,15 +3,18 @@
 #include <vector>
 #include <DirectXMath.h>
 #include "BindComponent/IBindable.h"
+#include "../../Components/Transform.h"
+
 
 class Box:IDrawable
 {
 public:
 	Box(Graphics&);
 	void Draw(Graphics&) override;
-	DirectX::XMMATRIX transform;
-
+	Transform transform;
+	DirectX::XMMATRIX i_orientationMatrix;
 private:
+
 
 	const std::vector<DirectX::XMVECTOR> _vertices = {
 	{ -1.0f,-1.0f,-1.0f,},

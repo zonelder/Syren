@@ -4,6 +4,13 @@
 const double PI = acos(-1.0);
 
 
+DirectX::XMMATRIX calcOrientation(const Transform& tr)
+{
+	DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&tr.position);
+	return DirectX::XMMatrixAffineTransformation(DirectX::XMLoadFloat3(&tr.scale), pos, tr.rotation, DirectX::XMVectorNegate(pos));
+}
+
+
 App::App() :_wnd(800, 600, "engin win"),_box1(_wnd.getGraphic()), _box2(_wnd.getGraphic())
 {}
 
@@ -35,21 +42,19 @@ void App::frame() {
 	_wnd.getGraphic().clearBuffer(c, c, 1.0f);
 
 	float angle = -_time.peek();
-	_box1.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle, angle, 0.0f);
+	_box1.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(0.0f, angle, angle);
 	_box1.i_orientationMatrix = DirectX::XMMatrixTranspose(
-		DirectX::XMMatrixRotationZ(angle) *
-		DirectX::XMMatrixRotationY(angle) *
+		calcOrientation(_box1.transform)*
 		CameraTransformMartix
-
 	);
 	_box1.Draw(_wnd.getGraphic());
 	angle = -angle;
 	float x = 2.0f * _wnd.mouseHandler.getPosX() / 800.0f - 1.0f;
 	float y = 300;
 	float z = 2.0f * _wnd.mouseHandler.getPosY() / 600.0f - 1.0f;
+	_box2.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle, angle, 0.0f);
 	_box2.i_orientationMatrix = DirectX::XMMatrixTranspose(
-		DirectX::XMMatrixRotationZ(angle) *
-		DirectX::XMMatrixRotationY(angle) *
+		calcOrientation(_box1.transform) *
 		DirectX::XMMatrixTranslation(x, 0.0f, z) *
 		CameraTransformMartix
 	);

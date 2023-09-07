@@ -6,5 +6,5 @@
 struct ClippingPlanes
 {
 	float near = 0.3f;
-	float far =  10;
+	float far =  50.0f;
 };

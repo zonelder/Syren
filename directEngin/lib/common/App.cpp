@@ -40,10 +40,29 @@ void App::Update()
 	_box2.transform.position.z = z;
 	_box2.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle, 0.0f, angle);
 
+
+	//TODO MouseButtons pressed at the App's start. neet Fix
+	if (_wnd.mouseHandler.LeftIsPressed())// moving in left mouse button pressed
+	{
+		//_mainCamera.transform.position = DirectX::XMFLOAT3{ 0.0f, 0.0f, -4.0f };
+		float cam_x_delta = 10 * (2.0 * _wnd.mouseHandler.getPosX() / _wnd.GetWidth() - 1);
+		float cam_y_delta = -5 * (2.0 * _wnd.mouseHandler.getPosY() / _wnd.GetHeight() - 1);// mult with -1 cause Y-axis invertedmos
+		_mainCamera.transform.position = { cam_x_delta,cam_y_delta,-4.0f };
+		return;
+	}
+	if (_wnd.mouseHandler.RightIsPressed())// rotating in left mouse button pressed
+	{
+		float cam_yaw = -PI * (2.0 * _wnd.mouseHandler.getPosX() / _wnd.GetWidth() - 1);
+		float cam_pitch = -PI * (2.0 * _wnd.mouseHandler.getPosY() / _wnd.GetHeight() - 1);
+		_mainCamera.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(cam_pitch, cam_yaw, 0.0f);
+		return;
+	}
+
+	/* // rotate camera with mouse
 	float cam_yaw = -PI * (2.0 * _wnd.mouseHandler.getPosX() / _wnd.GetWidth() - 1);
 	float cam_pitch = -PI * (2.0 * _wnd.mouseHandler.getPosY() / _wnd.GetHeight() - 1);
-	_mainCamera.transform.position = DirectX::XMFLOAT3{ 0.0f, 0.0f, -4.0f };
-	//_mainCamera.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(cam_pitch, cam_yaw, 0.0f);
+	_mainCamera.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(cam_pitch, cam_yaw, 0.0f);
+	*/
 }
 
 void App::Frame() {

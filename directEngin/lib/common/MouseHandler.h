@@ -67,13 +67,14 @@ public:
 	int getPosX() const noexcept;
 	int getPosY() const noexcept;
 	bool isInWindow() const noexcept;
-	bool leftIsPressed() const noexcept;
-	bool rightIsPressed() const noexcept;
+	bool LeftIsPressed() const noexcept;
+	bool RightIsPressed() const noexcept;
 	MouseHandler::Event read() noexcept;
 	bool isEmpty() const noexcept {
 		return _buffer.empty();
 	}
 	void flush() noexcept;
+	void ResetButtons() noexcept;
 private:
 	void trimBuffer() noexcept;
 	void onMouseMove(int x, int y) noexcept;

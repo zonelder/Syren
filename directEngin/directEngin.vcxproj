@@ -148,6 +148,7 @@
     <ClCompile Include="lib\graphics\Graphics.cpp" />
     <ClCompile Include="lib\common\App.cpp" />
     <ClCompile Include="lib\common\InputHandler.cpp" />
+    <ClCompile Include="lib\common\TransformUtils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lib\vec2.cpp" />
     <ClCompile Include="lib\exeption\PointedException.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\common\TransformUtils.h" />
     <ClInclude Include="lib\component\Transform.h" />
     <ClInclude Include="lib\graphics\Drawable\Box.h" />
     <ClInclude Include="lib\graphics\Drawable\IDrawable.h" />

@@ -8,9 +8,10 @@ class App
 {
 public:
 	App();
-	int init();
+	int Init();
 private:
-	void frame();
+	void Update();
+	void Frame();
 private:
 	Window _wnd;
 	Graphics _gfx;

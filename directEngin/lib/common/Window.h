@@ -58,7 +58,7 @@ public:
 
 	void SetTitle(const std::string&);
 	static std::optional<int> processMessage();
-	Graphics& getGraphic();
+	HWND GetHWND() const noexcept;
 
 	int GetWidth() const noexcept;
 	int GetHeight() const noexcept;
@@ -74,7 +74,6 @@ private:
 	int _width;
 	int _height;
 	HWND _hWnd;
-	std::unique_ptr<Graphics> _pGraphic;
 };
 
 

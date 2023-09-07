@@ -2,7 +2,7 @@
 #include <cmath>
 const double PI = acos(-1.0);
 
-App::App() :_wnd(800, 600, "engin win"),_box1(_wnd.getGraphic()), _box2(_wnd.getGraphic())
+App::App() :_wnd(800, 600, "engin win"),_gfx(_wnd.GetHWND()), _box1(_gfx), _box2(_gfx)
 {}
 
 
@@ -23,14 +23,13 @@ void App::frame() {
 	const float c = sin(_time.peek()) / 2.0f + 0.5f;
 	float cam_yaw = -PI*(2.0* _wnd.mouseHandler.getPosX() /_wnd.GetWidth() - 1);
 	float cam_pitch = -PI * (2.0 * _wnd.mouseHandler.getPosY() / _wnd.GetHeight() - 1);
-
 	DirectX::XMMATRIX CameraTransform = 
 
 		DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f)*
 		DirectX::XMMatrixRotationX(cam_pitch) *//TODO rework this part to rotate by Quaternions
 		DirectX::XMMatrixRotationY(cam_yaw)*
 		DirectX::XMMatrixPerspectiveFovLH(1.0f, _wnd.GetWidth() / _wnd.GetHeight(), 0.5f, 10.0f);// camera like on cords (0,0,-4)
-	_wnd.getGraphic().clearBuffer(c, c, 1.0f);
+	_gfx.clearBuffer(c, c, 1.0f);
 
 	float angle = -_time.peek();
 	_box1.transform = DirectX::XMMatrixTranspose(
@@ -39,7 +38,7 @@ void App::frame() {
 		CameraTransform
 
 	);
-	_box1.Draw(_wnd.getGraphic());
+	_box1.Draw(_gfx);
 	angle = -angle;
 	float x = 2.0f * _wnd.mouseHandler.getPosX() / 800.0f - 1.0f;
 	float y = 300;
@@ -50,7 +49,7 @@ void App::frame() {
 		DirectX::XMMatrixTranslation(x, 0.0f, z) *
 		CameraTransform
 	);
-	_box2.Draw(_wnd.getGraphic());
+	_box2.Draw(_gfx);
 
-	_wnd.getGraphic().endFrame();
+	_gfx.endFrame();
 }

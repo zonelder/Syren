@@ -126,8 +126,14 @@ void Graphics::endFrame(){
 	}
 }
 
-void Graphics::clearBuffer(float red, float green, float blue) noexcept{
+void Graphics::ClearBuffer(float red, float green, float blue) noexcept{
 	const float color[] = { red,green,blue,1.0f };
+	_pContext->ClearRenderTargetView(_pTarget.Get(), color);
+	_pContext->ClearDepthStencilView(_pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
+}
+
+void Graphics::ClearBuffer(const float color[4]) noexcept
+{
 	_pContext->ClearRenderTargetView(_pTarget.Get(), color);
 	_pContext->ClearDepthStencilView(_pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
 }

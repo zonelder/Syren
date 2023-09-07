@@ -9,7 +9,6 @@
 #include <memory>
 #include <random>
 
-
 class Graphics
 {
 public:
@@ -52,7 +51,8 @@ public:
 	~Graphics() = default;
 
 	void endFrame();
-	void clearBuffer(float red, float green, float blue) noexcept;
+	void ClearBuffer(float red, float green, float blue) noexcept;
+	void ClearBuffer(const float color[4]) noexcept;
 	void drawTestTriangle(float angle,float x,float y,float z);
 	void DrawIndexed(const std::vector<unsigned short>&);
 	ID3D11DeviceContext* getContext() noexcept;

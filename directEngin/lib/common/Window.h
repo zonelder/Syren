@@ -60,6 +60,7 @@ public:
 	static std::optional<int> processMessage();
 	HWND GetHWND() const noexcept;
 
+
 	int GetWidth() const noexcept;
 	int GetHeight() const noexcept;
 private:

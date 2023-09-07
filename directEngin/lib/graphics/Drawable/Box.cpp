@@ -3,13 +3,13 @@
 
 
 
-Box::Box(Graphics& gfx):transform(DirectX::XMMatrixIdentity())
+Box::Box(Graphics& gfx):orientationMatrix(DirectX::XMMatrixIdentity())
 {
 
 	auto vertexBuffer = std::make_unique<VertexBuffer>(gfx, _vertices);
 	auto indexBuffer = std::make_unique<IndexBuffer>(gfx, _indices);
 
-	auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx,transform);
+	auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx,orientationMatrix);
 	p_pConstantBuffer = vertexConstantBuffer->p_pConstantBuffer;
 
 	auto pixelConstantBuffer = std::make_unique<PixelConstantBuffer<ConstantBuffer2>>(gfx, cb2);
@@ -49,7 +49,7 @@ void Box::Draw(Graphics& gfx)
 		D3D11_MAP_WRITE_DISCARD, 0u,
 		&msr
 	));
-	memcpy(msr.pData, &transform, sizeof(transform)); 
+	memcpy(msr.pData, &orientationMatrix, sizeof(orientationMatrix));
 	gfx.getContext()->Unmap(p_pConstantBuffer.Get(), 0u);
 
 

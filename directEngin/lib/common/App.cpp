@@ -35,18 +35,19 @@ void App::frame() {
 	_gfx.clearBuffer(c, c, 1.0f);
 
 	float angle = -_time.peek();
-	_box1.transform = DirectX::XMMatrixTranspose(
+	_box1.orientationMatrix = DirectX::XMMatrixTranspose(
 		DirectX::XMMatrixRotationZ(angle) *
 		DirectX::XMMatrixRotationY(angle) *
 		CameraTransformMartix
 
 	);
 	_box1.Draw(_gfx);
+	//dada
 	angle = -angle;
 	float x = 2.0f * _wnd.mouseHandler.getPosX() / 800.0f - 1.0f;
 	float y = 300;
 	float z = 2.0f * _wnd.mouseHandler.getPosY() / 600.0f - 1.0f;
-	_box2.transform = DirectX::XMMatrixTranspose(
+	_box2.orientationMatrix = DirectX::XMMatrixTranspose(
 		DirectX::XMMatrixRotationZ(angle) *
 		DirectX::XMMatrixRotationY(angle) *
 		DirectX::XMMatrixTranslation(x, 0.0f, z) *

@@ -25,11 +25,12 @@ void App::frame() {
 	const float c = sin(_time.peek()) / 2.0f + 0.5f;
 	float cam_yaw = -PI*(2.0* _wnd.mouseHandler.getPosX() /_wnd.GetWidth() - 1);
 	float cam_pitch = -PI * (2.0 * _wnd.mouseHandler.getPosY() / _wnd.GetHeight() - 1);
-	DirectX::XMMATRIX CameraTransform = 
-
-		DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f)*
-		DirectX::XMMatrixRotationX(cam_pitch) *//TODO rework this part to rotate by Quaternions
-		DirectX::XMMatrixRotationY(cam_yaw)*
+	Transform cameraTransfom;
+	cameraTransfom.position = DirectX::XMFLOAT3{ 0.0f, 0.0f, -4.0f };
+	cameraTransfom.rotation = DirectX::XMQuaternionRotationRollPitchYaw(cam_pitch, cam_yaw, 0.0f);
+	DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&cameraTransfom.position);
+	DirectX::XMMATRIX CameraTransformMartix =
+		DirectX::XMMatrixAffineTransformation(DirectX::XMLoadFloat3(&cameraTransfom.scale), pos, cameraTransfom.rotation, DirectX::XMVectorNegate(pos)) *
 		DirectX::XMMatrixPerspectiveFovLH(1.0f, _wnd.GetWidth() / _wnd.GetHeight(), 0.5f, 10.0f);// camera like on cords (0,0,-4)
 	_gfx.clearBuffer(c, c, 1.0f);
 
@@ -37,7 +38,7 @@ void App::frame() {
 	_box1.transform = DirectX::XMMatrixTranspose(
 		DirectX::XMMatrixRotationZ(angle) *
 		DirectX::XMMatrixRotationY(angle) *
-		CameraTransform
+		CameraTransformMartix
 
 	);
 	_box1.Draw(_gfx);
@@ -49,7 +50,7 @@ void App::frame() {
 		DirectX::XMMatrixRotationZ(angle) *
 		DirectX::XMMatrixRotationY(angle) *
 		DirectX::XMMatrixTranslation(x, 0.0f, z) *
-		CameraTransform
+		CameraTransformMartix
 	);
 	_box2.Draw(_gfx);
 

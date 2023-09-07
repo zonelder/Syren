@@ -161,6 +161,7 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\component\Transform.h" />
     <ClInclude Include="lib\graphics\Drawable\Box.h" />
     <ClInclude Include="lib\graphics\Drawable\IDrawable.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\InputLayout.h" />

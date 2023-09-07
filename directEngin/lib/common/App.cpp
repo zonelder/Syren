@@ -1,5 +1,7 @@
 #include "App.h"
 #include <cmath>
+#include "../component/Transform.h"
+
 const double PI = acos(-1.0);
 
 App::App() :_wnd(800, 600, "engin win"),_gfx(_wnd.GetHWND()), _box1(_gfx), _box2(_gfx)

@@ -152,6 +152,9 @@
     <ClInclude Include="lib\graphics\Drawable\Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lib\component\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\direct\DXTrace.inl">

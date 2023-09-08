@@ -13,6 +13,9 @@ public:
 private:
 	void Update();
 	void Frame();
+
+	/// @brief Update static Mouse data  
+	void SetMouseData(const MouseHandler&);
 private:
 	Window _wnd;
 	Graphics _gfx;

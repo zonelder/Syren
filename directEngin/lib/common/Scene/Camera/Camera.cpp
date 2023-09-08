@@ -1,6 +1,10 @@
 #include "Camera.h"
+#include "../../Mouse.h"
+#include <iostream>
+#undef near
+#undef far
 
-
+const double PI = acos(-1.0);
 
 void Camera::OnFrame()
 {
@@ -14,4 +18,9 @@ void Camera::OnFrame()
 			clippingPlanes.far
 		);
 
+}
+
+
+void Camera::OnUpdate()
+{
 }

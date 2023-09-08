@@ -10,6 +10,7 @@ public:
 	Camera& operator=(const Camera&) = delete;
 
 	void OnFrame();
+	void OnUpdate();
 	Transform transform;
 
 	/// @brief The Camera’s view angle, measured in radians

@@ -103,3 +103,44 @@ Primitive Primitive::CreateBox()
 	Primitive obj = Primitive(mesh);
 	return obj;
 }
+
+
+Primitive Primitive::createCylinder(unsigned int n)
+{
+	Mesh mesh;
+	float two_pi = 6.28318530718f;
+	float angl;
+	mesh.vertices.reserve(n + 2);
+	mesh.indices.reserve(6 * n);
+	for (unsigned int k = 0; k < n;++k)
+	{
+		angl = (two_pi * k) / n;
+		mesh.vertices.push_back({ cos(angl),0.0f,sin(angl) });
+
+		mesh.indices.push_back(k);
+		mesh.indices.push_back(n);
+		mesh.indices.push_back((k + 1) % n);
+
+		mesh.indices.push_back(k);
+		mesh.indices.push_back((k + 1) % n);
+		mesh.indices.push_back(n+1);
+
+
+	}
+	mesh.vertices.push_back({ 0.0f,1.0f,0.0f });
+	mesh.vertices.push_back({ 0.0f,0.0f,0.0f });
+
+	mesh.colors = {
+		{
+			{1.0f,0.0f,1.0f},
+			{1.0f,0.0f,0.0f},
+			{0.0f,1.0f,0.0f},
+			{0.0f,0.0f,1.0f},
+			{1.0f,1.0f,0.0f},
+			{0.0f,1.0f,1.0f},
+		}
+	};
+
+	Primitive obj = Primitive(mesh);
+	return obj;
+}

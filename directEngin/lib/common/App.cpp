@@ -8,8 +8,8 @@ const double PI = acos(-1.0);
 App::App() :_wnd(800, 600, "engin win"),_gfx(_wnd.GetHWND())
 {
 	_mainCamera.aspectRatio = _wnd.GetWidth() / _wnd.GetHeight();
-	_obj.push_back(Primitive::CreateBox());
-	_obj.push_back(Primitive::CreateBox());
+	//_obj.push_back(Primitive::CreateBox());
+	_obj.push_back(Primitive::createCylinder(24));
 }
 
 
@@ -38,6 +38,7 @@ int App::Init(){
 
 void App::Update()
 {
+	/*
 	float angle = _time.peek();
 	_obj.at(0).transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(0.0f, angle, angle);
 	angle = -angle;
@@ -47,7 +48,7 @@ void App::Update()
 	_obj.at(1).transform.position.x = x;
 	_obj.at(1).transform.position.z = z;
 	_obj.at(1).transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle, 0.0f, angle);
-
+	*/
 
 	//TODO MouseButtons pressed at the App's start. neet Fix
 	//

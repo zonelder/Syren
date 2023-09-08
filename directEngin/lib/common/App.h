@@ -1,7 +1,6 @@
 #pragma once
 #include "Window.h"
 #include "../Time/Timer.h"
-#include "../graphics/Drawable/Box.h"
 #include "../graphics/Drawable/Primitive.h"
 #include "Scene/Camera/Camera.h"
 #include <vector>

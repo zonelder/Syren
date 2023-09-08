@@ -5,15 +5,23 @@
 
 const double PI = acos(-1.0);
 
-App::App() :_wnd(800, 600, "engin win"),_gfx(_wnd.GetHWND()), _box1(_gfx), _box2(_gfx)
+App::App() :_wnd(800, 600, "engin win"),_gfx(_wnd.GetHWND())
 {
 	_mainCamera.aspectRatio = _wnd.GetWidth() / _wnd.GetHeight();
+	_obj.push_back(Primitive::CreateBox());
+	_obj.push_back(Primitive::CreateBox());
 }
 
 
 int App::Init(){
 	MSG msg;
 	BOOL gResult;
+
+	for (auto& obj : _obj)// Renderable object init
+	{
+		obj.InitBinds(_gfx);
+	}
+
 	while (true) {
 		//if processMessage has a value then it means than we wanna exit from app
 		if (const auto ecode = Window::processMessage()) {
@@ -31,17 +39,18 @@ int App::Init(){
 void App::Update()
 {
 	float angle = _time.peek();
-	_box1.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(0.0f, angle, angle);
+	_obj.at(0).transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(0.0f, angle, angle);
 	angle = -angle;
 	float x = 2.0f * _wnd.mouseHandler.getPosX() / 800.0f - 1.0f;
 	float y = 300;
 	float z = 2.0f * _wnd.mouseHandler.getPosY() / 600.0f - 1.0f;
-	_box2.transform.position.x = x;
-	_box2.transform.position.z = z;
-	_box2.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle, 0.0f, angle);
+	_obj.at(1).transform.position.x = x;
+	_obj.at(1).transform.position.z = z;
+	_obj.at(1).transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle, 0.0f, angle);
 
 
 	//TODO MouseButtons pressed at the App's start. neet Fix
+	//
 	if (_wnd.mouseHandler.LeftIsPressed())// moving in left mouse button pressed
 	{
 		//_mainCamera.transform.position = DirectX::XMFLOAT3{ 0.0f, 0.0f, -4.0f };
@@ -57,6 +66,7 @@ void App::Update()
 		_mainCamera.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(cam_pitch, cam_yaw, 0.0f);
 		return;
 	}
+	//*/
 
 	/* // rotate camera with mouse
 	float cam_yaw = -PI * (2.0 * _wnd.mouseHandler.getPosX() / _wnd.GetWidth() - 1);
@@ -70,19 +80,15 @@ void App::Frame() {
 	_mainCamera.OnFrame();
 	_gfx.ClearBuffer(_mainCamera.background);
 
+	for (auto& obj : _obj)
+	{
+		obj.orientationMatrix = DirectX::XMMatrixTranspose(
+			toOrientationMatrix(obj.transform) *
+			_mainCamera.orientationMatrix
 
-	_box1.orientationMatrix = DirectX::XMMatrixTranspose(
-		toOrientationMatrix(_box1.transform)*
-		_mainCamera.orientationMatrix
-
-	);
-	_box1.Draw(_gfx);
-
-	_box2.orientationMatrix = DirectX::XMMatrixTranspose(
-		toOrientationMatrix(_box2.transform) *
-		_mainCamera.orientationMatrix
-	);
-	_box2.Draw(_gfx);
+		);
+		obj.Draw(_gfx);
+	}
 
 	_gfx.endFrame();
 }

@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="lib\common\Scene\Camera\Camera.cpp" />
-    <ClCompile Include="lib\graphics\Drawable\Box.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\InputLayout.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\ConstantBuffer.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\IndexBuffer.cpp" />
@@ -160,14 +159,15 @@
     <ClCompile Include="lib\graphics\Drawable\BindComponent\PixelShader.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\VertexShader.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Topology.cpp" />
+    <ClCompile Include="lib\graphics\Drawable\Primitive.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\Scene\Camera\Camera.h" />
     <ClInclude Include="lib\common\Scene\Camera\ClippingPlane.h" />
     <ClInclude Include="lib\common\TransformUtils.h" />
+    <ClInclude Include="lib\component\Mesh.h" />
     <ClInclude Include="lib\component\Transform.h" />
-    <ClInclude Include="lib\graphics\Drawable\Box.h" />
     <ClInclude Include="lib\graphics\Drawable\IDrawable.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\InputLayout.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\ConstantBuffer.h" />
@@ -185,6 +185,7 @@
     <ClInclude Include="lib\exeption\PointedException.h" />
     <ClInclude Include="lib\common\MouseHandler.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\PixelShader.h" />
+    <ClInclude Include="lib\graphics\Drawable\Primitive.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="lib\common\Window.h" />
     <ClInclude Include="lib\Time\Timer.h" />

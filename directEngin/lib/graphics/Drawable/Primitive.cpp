@@ -1,18 +1,23 @@
-#include "Box.h"
+#include "Primitive.h"
 #include "BindComponent/BindableComponents.h"
 
 
 
-Box::Box(Graphics& gfx):orientationMatrix(DirectX::XMMatrixIdentity())
+Primitive::Primitive() :orientationMatrix(DirectX::XMMatrixIdentity()){}
+
+Primitive::Primitive(Mesh& _mesh):mesh(_mesh),orientationMatrix(DirectX::XMMatrixIdentity()) {}
+
+
+void Primitive::InitBinds(Graphics& gfx)
 {
+	_binds.clear();
+	auto vertexBuffer = std::make_unique<VertexBuffer>(gfx, mesh.vertices);
+	auto indexBuffer = std::make_unique<IndexBuffer>(gfx, mesh.indices);
 
-	auto vertexBuffer = std::make_unique<VertexBuffer>(gfx, _vertices);
-	auto indexBuffer = std::make_unique<IndexBuffer>(gfx, _indices);
-
-	auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx,orientationMatrix);
+	auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx, orientationMatrix);
 	p_pConstantBuffer = vertexConstantBuffer->p_pConstantBuffer;
 
-	auto pixelConstantBuffer = std::make_unique<PixelConstantBuffer<ConstantBuffer2>>(gfx, cb2);
+	auto pixelConstantBuffer = std::make_unique<PixelConstantBuffer<Mesh::ConstantBuffer2>>(gfx, mesh.colors);
 	auto pixelShader = std::make_unique<PixelShader>(gfx, L"PixelShader.cso");
 	auto vertexshader = std::make_unique<VertexShader>(gfx, L"VertexShader.cso");
 	ID3DBlob* pBlob = vertexshader->getBytecode();
@@ -34,11 +39,10 @@ Box::Box(Graphics& gfx):orientationMatrix(DirectX::XMMatrixIdentity())
 	_binds.push_back(std::move(vertexshader));
 	_binds.push_back(std::move(inputLayout));
 	_binds.push_back(std::move(topology));
-
 }
 
 
-void Box::Draw(Graphics& gfx)
+void Primitive::Draw(Graphics& gfx)
 {
 	INFOMAN(gfx);
 
@@ -60,6 +64,42 @@ void Box::Draw(Graphics& gfx)
 	}
 
 	//draw
-	gfx.DrawIndexed(_indices);
+	gfx.DrawIndexed(mesh.indices);
 }
 
+
+Primitive Primitive::CreateBox()
+{
+	Mesh mesh;
+	mesh.vertices = {
+	{ -1.0f,-1.0f,-1.0f,},
+	{ 1.0f,-1.0f,-1.0f, },
+	{ -1.0f,1.0f,-1.0f, },
+	{ 1.0f,1.0f,-1.0f,  },
+	{ -1.0f,-1.0f,1.0f, },
+	{ 1.0f,-1.0f,1.0f,  },
+	{ -1.0f,1.0f,1.0f,  },
+	{ 1.0f,1.0f,1.0f,   },
+	};
+	mesh.indices = {
+	0,2,1, 2,3,1,
+	1,3,5, 3,7,5,
+	2,6,3, 3,6,7,
+	4,5,7, 4,7,6,
+	0,4,2, 2,4,6,
+	0,1,4, 1,5,4
+	};
+	mesh.colors = {
+		{
+			{1.0f,0.0f,1.0f},
+			{1.0f,0.0f,0.0f},
+			{0.0f,1.0f,0.0f},
+			{0.0f,0.0f,1.0f},
+			{1.0f,1.0f,0.0f},
+			{0.0f,1.0f,1.0f},
+		}
+	};
+
+	Primitive obj = Primitive(mesh);
+	return obj;
+}

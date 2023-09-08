@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "../Time/Timer.h"
 #include "../graphics/Drawable/Box.h"
+#include "../graphics/Drawable/Primitive.h"
 #include "Scene/Camera/Camera.h"
 #include <vector>
 
@@ -18,8 +19,7 @@ private:
 	Graphics _gfx;
 	Camera _mainCamera;
 	Timer _time;//TODO change it to Time class after all
-	Box _box1;
-	Box _box2;
+	std::vector<Primitive> _obj;
 
 };
 

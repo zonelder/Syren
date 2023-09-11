@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lib\common\Mouse.cpp" />
+    <ClCompile Include="lib\common\Input.cpp" />
     <ClCompile Include="lib\common\Scene\Camera\Camera.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\InputLayout.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\ConstantBuffer.cpp" />
@@ -164,7 +164,7 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib\common\Mouse.h" />
+    <ClInclude Include="lib\common\Input.h" />
     <ClInclude Include="lib\common\Scene\Camera\Camera.h" />
     <ClInclude Include="lib\common\Scene\Camera\ClippingPlane.h" />
     <ClInclude Include="lib\common\TransformUtils.h" />

@@ -1,5 +1,4 @@
 #include "Camera.h"
-#include "../../Mouse.h"
 #include <iostream>
 #undef near
 #undef far

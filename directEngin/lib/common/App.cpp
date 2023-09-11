@@ -2,7 +2,7 @@
 #include <cmath>
 #include "../component/Transform.h"
 #include "TransformUtils.h"
-#include "Mouse.h"
+#include "Input.h"
 
 const double PI = acos(-1.0);
 
@@ -29,7 +29,7 @@ int App::Init(){
 		if (const auto ecode = Window::processMessage()) {
 			return *ecode;
 		}
-		SetMouseData(_wnd.mouseHandler);
+		SetInputData();
 		Update();
 		Frame();// TODO better handle vector<servise> so inplementation of each servises can be separete from app class
 	}
@@ -44,24 +44,24 @@ void App::Update()
 	float angle = _time.peek();
 	_obj.at(0).transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(0.0f, angle, angle);
 	angle = -angle;
-	float x = 2.0f * Mouse::GetNormedX() - 1.0f;
+	float x = 2.0f * Input::GetNormedX() - 1.0f;
 	float y = 300;
-	float z = 2.0f * Mouse::GetNormedY() - 1.0f;
+	float z = 2.0f * Input::GetNormedY() - 1.0f;
 	_obj.at(1).transform.position.x = x;
 	_obj.at(1).transform.position.z = z;
 	_obj.at(1).transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle, 0.0f, angle);
 	float speed = 0.01f;
-	if (Mouse::LeftKeyDown())// moving in left mouse button pressed
+	if (Input::LeftKeyDown())// moving in left mouse button pressed
 	{
-		_mainCamera.transform.position.x -= speed * Mouse::GetDeltaX();
-		_mainCamera.transform.position.y += speed * Mouse::GetDeltaY();
+		_mainCamera.transform.position.x -= speed * Input::GetDeltaX();
+		_mainCamera.transform.position.y += speed * Input::GetDeltaY();
 		_mainCamera.transform.position.z = -4.0f;
 		return;
 	}
-	if (Mouse::RightKeyDown())// rotating in left mouse button pressed
+	if (Input::RightKeyDown())// rotating in left mouse button pressed
 	{
-		float cam_yaw = -speed * Mouse::GetDeltaX();
-		float cam_pitch = -speed * Mouse::GetDeltaY();
+		float cam_yaw = -speed * Input::GetDeltaX();
+		float cam_pitch = -speed * Input::GetDeltaY();
 		_mainCamera.transform.rotation = DirectX::XMQuaternionMultiply(_mainCamera.transform.rotation, DirectX::XMQuaternionRotationRollPitchYaw(cam_pitch, cam_yaw, 0.0f));
 		return;
 	}
@@ -87,9 +87,11 @@ void App::Frame() {
 }
 
 
-void App::SetMouseData(const MouseHandler& mh)
+void App::SetInputData()
 {
-	Mouse& m = Mouse::GetInstance();
+	MouseHandler& mh = _wnd.mouseHandler;
+	InputHandler& ih = _wnd.inputHandler;
+	Input& m = Input::GetInstance();
 	int x = mh.getPosX();
 	int y = mh.getPosY();
 	m._dx = x - m._x;

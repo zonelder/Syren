@@ -81,7 +81,7 @@
     <ClCompile Include="lib\graphics\Drawable\Primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Mouse.cpp">
+    <ClCompile Include="lib\common\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,7 +176,7 @@
     <ClInclude Include="lib\graphics\Drawable\Primitive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Mouse.h">
+    <ClInclude Include="lib\common\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

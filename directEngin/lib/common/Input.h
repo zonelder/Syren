@@ -1,7 +1,7 @@
 #pragma once
 #include "App.h"
 
-class Mouse
+class Input
 {
 	friend class App;
 public:
@@ -27,8 +27,8 @@ public:
 	static bool RightKeyDown();
 
 private:
-	static Mouse& GetInstance();
-	Mouse();
+	static Input& GetInstance();
+	Input();
 	int _x, _y;
 	float _clampX, _clampY;
 	int _dx, _dy;

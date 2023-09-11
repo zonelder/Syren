@@ -60,9 +60,9 @@ void App::Update()
 	}
 	if (Mouse::RightKeyDown())// rotating in left mouse button pressed
 	{
-		float cam_yaw = -PI * (2.0 * Mouse::GetNormedX() - 1);
-		float cam_pitch = -PI * (2.0 * Mouse::GetNormedY() - 1);
-		_mainCamera.transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(cam_pitch, cam_yaw, 0.0f);
+		float cam_yaw = -speed * Mouse::GetDeltaX();
+		float cam_pitch = -speed * Mouse::GetDeltaY();
+		_mainCamera.transform.rotation = DirectX::XMQuaternionMultiply(_mainCamera.transform.rotation, DirectX::XMQuaternionRotationRollPitchYaw(cam_pitch, cam_yaw, 0.0f));
 		return;
 	}
 

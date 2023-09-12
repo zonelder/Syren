@@ -12,6 +12,9 @@ App::App() :_wnd(800, 600, "engin win"),_gfx(_wnd.GetHWND())
 	_obj.push_back(Primitive::CreateBox());
 	_obj.push_back(Primitive::createCylinder(24));
 	_obj.at(1).transform.scale.y = 3;
+
+	Primitive::InitBinds(_gfx, _obj.at(0).render, _obj.at(0).transform);
+	Primitive::InitBinds(_gfx, _obj.at(1).render, _obj.at(1).transform);
 }
 
 
@@ -19,10 +22,6 @@ int App::Init(){
 	MSG msg;
 	BOOL gResult;
 
-	for (auto& obj : _obj)// Renderable object init
-	{
-		obj.InitBinds(_gfx);
-	}
 
 	while (true) {
 		//if processMessage has a value then it means than we wanna exit from app
@@ -58,7 +57,7 @@ void App::Update()
 		_mainCamera.transform.position.z = -4.0f;
 		return;
 	}
-	if (Input::RightKeyDown())// rotating in left mouse button pressed
+	if (false &&  Input::RightKeyDown())// rotating in left mouse button pressed
 	{
 		float cam_yaw = -speed * Input::GetDeltaX();
 		float cam_pitch = -speed * Input::GetDeltaY();
@@ -75,12 +74,8 @@ void App::Frame() {
 
 	for (auto& obj : _obj)
 	{
-		obj.orientationMatrix = DirectX::XMMatrixTranspose(
-			toOrientationMatrix(obj.transform) *
-			_mainCamera.orientationMatrix
-
-		);
-		obj.Draw(_gfx);
+		_orientationSystem.OnFrame(obj.transform, _mainCamera.transform);
+		_renderSystem.OnFrame(obj.render, _gfx, obj.transform);
 	}
 
 	_gfx.endFrame();

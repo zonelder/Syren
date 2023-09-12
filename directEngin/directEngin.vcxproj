@@ -161,6 +161,8 @@
     <ClCompile Include="lib\graphics\Drawable\BindComponent\VertexShader.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Topology.cpp" />
     <ClCompile Include="lib\graphics\Drawable\Primitive.cpp" />
+    <ClCompile Include="lib\Systems\RenderSystem.cpp" />
+    <ClCompile Include="lib\Systems\OrientationSystem.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +170,9 @@
     <ClInclude Include="lib\common\Scene\Camera\Camera.h" />
     <ClInclude Include="lib\common\Scene\Camera\ClippingPlane.h" />
     <ClInclude Include="lib\common\TransformUtils.h" />
+    <ClInclude Include="lib\component\MainCamera.h" />
     <ClInclude Include="lib\component\Mesh.h" />
+    <ClInclude Include="lib\component\Render.h" />
     <ClInclude Include="lib\component\Transform.h" />
     <ClInclude Include="lib\graphics\Drawable\IDrawable.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\InputLayout.h" />
@@ -188,6 +192,8 @@
     <ClInclude Include="lib\common\MouseHandler.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\PixelShader.h" />
     <ClInclude Include="lib\graphics\Drawable\Primitive.h" />
+    <ClInclude Include="lib\Systems\RenderSystem.h" />
+    <ClInclude Include="lib\Systems\OrientationSystem.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="lib\common\Window.h" />
     <ClInclude Include="lib\Time\Timer.h" />

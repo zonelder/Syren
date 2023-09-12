@@ -3,21 +3,25 @@
 
 
 
-Primitive::Primitive() :orientationMatrix(DirectX::XMMatrixIdentity()){}
+Primitive::Primitive(){}
 
-Primitive::Primitive(Mesh& _mesh):mesh(_mesh),orientationMatrix(DirectX::XMMatrixIdentity()) {}
-
-
-void Primitive::InitBinds(Graphics& gfx)
+Primitive::Primitive(Mesh& _mesh)
 {
-	_binds.clear();
-	auto vertexBuffer = std::make_unique<VertexBuffer>(gfx, mesh.vertices);
-	auto indexBuffer = std::make_unique<IndexBuffer>(gfx, mesh.indices);
 
-	auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx, orientationMatrix);
-	p_pConstantBuffer = vertexConstantBuffer->p_pConstantBuffer;
+	render.mesh = _mesh;
+}
 
-	auto pixelConstantBuffer = std::make_unique<PixelConstantBuffer<Mesh::ConstantBuffer2>>(gfx, mesh.colors);
+
+void Primitive::InitBinds(Graphics& gfx,Render& r,Transform& tr)
+{
+	r.pBinds.clear();
+	auto vertexBuffer = std::make_unique<VertexBuffer>(gfx, r.mesh.vertices);
+	auto indexBuffer = std::make_unique<IndexBuffer>(gfx, r.mesh.indices);
+
+	auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx,tr.orientationMatrix);
+	r.pConstantBuffer = vertexConstantBuffer->p_pConstantBuffer;
+
+	auto pixelConstantBuffer = std::make_unique<PixelConstantBuffer<Mesh::ConstantBuffer2>>(gfx, r.mesh.colors);
 	auto pixelShader = std::make_unique<PixelShader>(gfx, L"PixelShader.cso");
 	auto vertexshader = std::make_unique<VertexShader>(gfx, L"VertexShader.cso");
 	ID3DBlob* pBlob = vertexshader->getBytecode();
@@ -31,41 +35,16 @@ void Primitive::InitBinds(Graphics& gfx)
 	auto topology = std::make_unique <Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 
-	_binds.push_back(std::move(vertexConstantBuffer));
-	_binds.push_back(std::move(vertexBuffer));
-	_binds.push_back(std::move(indexBuffer));
-	_binds.push_back(std::move(pixelConstantBuffer));
-	_binds.push_back(std::move(pixelShader));
-	_binds.push_back(std::move(vertexshader));
-	_binds.push_back(std::move(inputLayout));
-	_binds.push_back(std::move(topology));
+	r.pBinds.push_back(std::move(vertexConstantBuffer));
+	r.pBinds.push_back(std::move(vertexBuffer));
+	r.pBinds.push_back(std::move(indexBuffer));
+	r.pBinds.push_back(std::move(pixelConstantBuffer));
+	r.pBinds.push_back(std::move(pixelShader));
+	r.pBinds.push_back(std::move(vertexshader));
+	r.pBinds.push_back(std::move(inputLayout));
+	r.pBinds.push_back(std::move(topology));
 }
 
-
-void Primitive::Draw(Graphics& gfx)
-{
-	INFOMAN(gfx);
-
-	///update transform buffer
-	D3D11_MAPPED_SUBRESOURCE msr;
-	GFX_THROW_INFO(gfx.getContext()->Map(
-		p_pConstantBuffer.Get(), 0u,
-		D3D11_MAP_WRITE_DISCARD, 0u,
-		&msr
-	));
-	memcpy(msr.pData, &orientationMatrix, sizeof(orientationMatrix));
-	gfx.getContext()->Unmap(p_pConstantBuffer.Get(), 0u);
-
-
-	// use binds
-	for (auto& bind : _binds)
-	{
-		bind->bind(gfx);
-	}
-
-	//draw
-	gfx.DrawIndexed(mesh.indices);
-}
 
 
 Primitive Primitive::CreateBox()

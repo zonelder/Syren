@@ -28,7 +28,5 @@ public:
 	/// @brief The color applied to the remaining screen after all elements in view have been drawn and there is no skybox
 	float background[4] = {1.0f,1.0f, 1.0f, 1.0f};
 
-	DirectX::XMMATRIX orientationMatrix = DirectX::XMMatrixIdentity();
-
 };
 

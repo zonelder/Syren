@@ -4,30 +4,24 @@
 #include <DirectXMath.h>
 #include "BindComponent/IBindable.h"
 #include "../../component/Transform.h"
-#include "../../component/Mesh.h"
+#include "../../component/Render.h"
 
-class Primitive:IDrawable
+
+class Primitive
 {
 public:
 	Primitive();
 	Primitive(Mesh&);
 
 	/// @brief reset all binds and build new 
-	void InitBinds(Graphics&);
-	void Draw(Graphics&) override;
+	static void InitBinds(Graphics&,Render&,Transform&);
 
 
 	static Primitive CreateBox();
 	static Primitive createCylinder(unsigned int n = 8);
 
 	/// @brief Primitive object mesh data. DO NOT CHANGE THIS DATA STRUCTURE
-	Mesh mesh;
 	Transform transform;
-	DirectX::XMMATRIX orientationMatrix;
-
-private:
-
-	std::vector<std::unique_ptr<IBindable>> _binds;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> p_pConstantBuffer;
+	Render render;
 };
 

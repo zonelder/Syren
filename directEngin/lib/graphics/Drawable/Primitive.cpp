@@ -15,6 +15,7 @@ Primitive::Primitive(Mesh& _mesh)
 void Primitive::InitBinds(Graphics& gfx,Render& r,Transform& tr)
 {
 	r.pBinds.clear();
+
 	auto vertexBuffer = std::make_unique<VertexBuffer>(gfx, r.mesh.vertices);
 	auto indexBuffer = std::make_unique<IndexBuffer>(gfx, r.mesh.indices);
 
@@ -47,7 +48,7 @@ void Primitive::InitBinds(Graphics& gfx,Render& r,Transform& tr)
 
 
 
-Primitive Primitive::CreateBox()
+Mesh Primitive::CreateBoxMesh()
 {
 	Mesh mesh;
 	mesh.vertices = {
@@ -79,12 +80,11 @@ Primitive Primitive::CreateBox()
 		}
 	};
 
-	Primitive obj = Primitive(mesh);
-	return obj;
+	return mesh;
 }
 
 
-Primitive Primitive::createCylinder(unsigned int n)
+Mesh Primitive::createCylinderMesh(unsigned int n)
 {
 	Mesh mesh;
 	float two_pi = 6.28318530718f;
@@ -120,6 +120,5 @@ Primitive Primitive::createCylinder(unsigned int n)
 		}
 	};
 
-	Primitive obj = Primitive(mesh);
-	return obj;
+	return mesh;
 }

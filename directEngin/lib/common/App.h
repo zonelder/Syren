@@ -6,6 +6,9 @@
 #include <vector>
 #include "../Systems/RenderSystem.h"
 #include "../Systems/OrientationSystem.h"
+#include <unordered_map>
+
+using EntityID = unsigned int;
 
 class App
 {
@@ -21,11 +24,12 @@ private:
 private:
 	Window _wnd;
 	Graphics _gfx;
+	std::unordered_map<EntityID, Transform> _transforms;
+	std::unordered_map<EntityID, Render> _renders;
 	RenderSystem _renderSystem;
 	OrientationSystem _orientationSystem;
 	Camera _mainCamera;
 	Timer _time;//TODO change it to Time class after all
-	std::vector<Primitive> _obj;
 
 };
 

@@ -17,8 +17,8 @@ public:
 	static void InitBinds(Graphics&,Render&,Transform&);
 
 
-	static Primitive CreateBox();
-	static Primitive createCylinder(unsigned int n = 8);
+	static Mesh CreateBoxMesh();
+	static Mesh createCylinderMesh(unsigned int n = 8);
 
 	/// @brief Primitive object mesh data. DO NOT CHANGE THIS DATA STRUCTURE
 	Transform transform;

@@ -9,12 +9,19 @@ const double PI = acos(-1.0);
 App::App() :_wnd(800, 600, "engin win"),_gfx(_wnd.GetHWND())
 {
 	_mainCamera.aspectRatio = _wnd.GetWidth() / _wnd.GetHeight();
-	_obj.push_back(Primitive::CreateBox());
-	_obj.push_back(Primitive::createCylinder(24));
-	_obj.at(1).transform.scale.y = 3;
 
-	Primitive::InitBinds(_gfx, _obj.at(0).render, _obj.at(0).transform);
-	Primitive::InitBinds(_gfx, _obj.at(1).render, _obj.at(1).transform);
+	EntityID first = 0;
+	_transforms[first] = Transform();
+	_renders[first] = Render();
+	_renders[first].mesh = Primitive::CreateBoxMesh();
+	Primitive::InitBinds(_gfx, _renders.at(first), _transforms.at(first));
+
+	EntityID second = 1;
+	_transforms[second] = Transform();
+	_renders[second] = Render();
+	_renders[second].mesh = Primitive::createCylinderMesh(24);
+	Primitive::InitBinds(_gfx, _renders.at(second), _transforms.at(second));
+
 }
 
 
@@ -41,15 +48,17 @@ void App::Update()
 {
 
 	float angle = _time.peek();
-	_obj.at(0).transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(0.0f, angle, angle);
+	_transforms.at(0).rotation = DirectX::XMQuaternionRotationRollPitchYaw(0.0f, angle, angle);
 	angle = -angle;
 	float x = 2.0f * Input::GetNormedX() - 1.0f;
 	float y = 300;
 	float z = 2.0f * Input::GetNormedY() - 1.0f;
-	_obj.at(1).transform.position.x = x;
-	_obj.at(1).transform.position.z = z;
-	_obj.at(1).transform.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle, 0.0f, angle);
+	Transform& tr2 = _transforms.at(1);
+	tr2.position.x = x;
+	tr2.position.z = z;
+	tr2.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle, 0.0f, angle);
 	float speed = 0.01f;
+
 	if (Input::LeftKeyDown())// moving in left mouse button pressed
 	{
 		_mainCamera.transform.position.x -= speed * Input::GetDeltaX();
@@ -72,10 +81,15 @@ void App::Frame() {
 	_mainCamera.OnFrame();
 	_gfx.ClearBuffer(_mainCamera.background);
 
-	for (auto& obj : _obj)
+	for (auto& [entID, tr] : _transforms)
 	{
-		_orientationSystem.OnFrame(obj.transform, _mainCamera.transform);
-		_renderSystem.OnFrame(obj.render, _gfx, obj.transform);
+		_orientationSystem.OnFrame(tr, _mainCamera.transform);
+	}
+	for (auto& [entID, r] : _renders)
+	{
+		if (!_transforms.contains(entID))
+			continue;
+		_renderSystem.OnFrame(r, _gfx, _transforms.at(entID));
 	}
 
 	_gfx.endFrame();

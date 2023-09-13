@@ -163,6 +163,7 @@
     <ClCompile Include="lib\graphics\Drawable\Primitive.cpp" />
     <ClCompile Include="lib\Systems\RenderSystem.cpp" />
     <ClCompile Include="lib\Systems\OrientationSystem.cpp" />
+    <ClCompile Include="lib\common\Scene\SceneManager.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +171,6 @@
     <ClInclude Include="lib\common\Scene\Camera\Camera.h" />
     <ClInclude Include="lib\common\Scene\Camera\ClippingPlane.h" />
     <ClInclude Include="lib\common\TransformUtils.h" />
-    <ClInclude Include="lib\component\MainCamera.h" />
     <ClInclude Include="lib\component\Mesh.h" />
     <ClInclude Include="lib\component\Render.h" />
     <ClInclude Include="lib\component\Transform.h" />
@@ -200,6 +200,7 @@
     <ClInclude Include="lib\graphics\Drawable\BindComponent\VertexBuffer.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\VertexShader.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Topology.h" />
+    <ClInclude Include="lib\common\Scene\SceneManager.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>
   <ItemGroup>

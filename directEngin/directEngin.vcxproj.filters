@@ -90,6 +90,9 @@
     <ClCompile Include="lib\Systems\OrientationSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\common\Scene\SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -191,10 +194,10 @@
     <ClInclude Include="lib\Systems\RenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\component\MainCamera.h">
+    <ClInclude Include="lib\Systems\OrientationSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Systems\OrientationSystem.h">
+    <ClInclude Include="lib\common\Scene\SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

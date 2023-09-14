@@ -5,6 +5,7 @@
 #include "../../Systems/RenderSystem.h"
 #include "../../Systems/OrientationSystem.h"
 #include "../../graphics/Drawable/Primitive.h"
+#include "ComponentPool.h"
 
 using EntityID = unsigned int;
 
@@ -19,8 +20,8 @@ public:
 
 private:
 	Graphics _gfx;
-	std::unordered_map<EntityID, Transform> _transforms;
-	std::unordered_map<EntityID, Render> _renders;
+	ComponentPool<Transform> _transforms;
+	ComponentPool<Render> _renders;
 	RenderSystem _renderSystem;
 	OrientationSystem _orientationSystem;
 	Camera _mainCamera;

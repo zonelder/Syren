@@ -7,16 +7,16 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	_mainCamera.aspectRatio = wnd.GetWidth() / wnd.GetHeight();
 
 	EntityID first = 0;
-	_transforms[first] = Transform();
-	_renders[first] = Render();
-	_renders[first].mesh = Primitive::CreateBoxMesh();
-	Primitive::InitBinds(_gfx, _renders.at(first), _transforms.at(first));
+	Transform& t =_transforms.addComponent(first);
+	Render& r = _renders.addComponent(first);
+	r.mesh = Primitive::CreateBoxMesh();
+	Primitive::InitBinds(_gfx, r, t);
 
 	EntityID second = 1;
-	_transforms[second] = Transform();
-	_renders[second] = Render();
-	_renders[second].mesh = Primitive::createCylinderMesh(24);
-	Primitive::InitBinds(_gfx, _renders.at(second), _transforms.at(second));
+	Transform& t2 = _transforms.addComponent(second);
+	Render& r2 = _renders.addComponent(second);
+	r2.mesh = Primitive::createCylinderMesh(24);
+	Primitive::InitBinds(_gfx, r2, t2);
 
 }
 
@@ -26,12 +26,12 @@ void SceneManager::Update(float time)
 {
 
 	float angle = time;
-	_transforms.at(0).rotation = DirectX::XMQuaternionRotationRollPitchYaw(0.0f, angle, angle);
+	_transforms.getComponent(0).rotation = DirectX::XMQuaternionRotationRollPitchYaw(0.0f, angle, angle);
 	angle = -angle;
 	float x = 2.0f * Input::GetNormedX() - 1.0f;
 	float y = 300;
 	float z = 2.0f * Input::GetNormedY() - 1.0f;
-	Transform& tr2 = _transforms.at(1);
+	Transform& tr2 = _transforms.getComponent(1);
 	tr2.position.x = x;
 	tr2.position.z = z;
 	tr2.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle, 0.0f, angle);
@@ -58,16 +58,15 @@ void SceneManager::Frame()
 {
 	_mainCamera.OnFrame();
 	_gfx.ClearBuffer(_mainCamera.background);
-
 	for (auto& [entID, tr] : _transforms)
 	{
 		_orientationSystem.OnFrame(tr, _mainCamera.transform);
 	}
 	for (auto& [entID, r] : _renders)
 	{
-		if (!_transforms.contains(entID))
+		if (!_transforms.hasComponent(entID))
 			continue;
-		_renderSystem.OnFrame(r, _gfx, _transforms.at(entID));
+		_renderSystem.OnFrame(r, _gfx, _transforms.getComponent(entID));
 	}
 
 	_gfx.endFrame();

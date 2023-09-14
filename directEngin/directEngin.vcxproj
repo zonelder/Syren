@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\common\Scene\ComponentPool.cpp" />
     <ClCompile Include="lib\common\Input.cpp" />
     <ClCompile Include="lib\common\Scene\Camera\Camera.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\InputLayout.cpp" />
@@ -167,9 +168,11 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\common\Scene\ComponentPool.h" />
     <ClInclude Include="lib\common\Input.h" />
     <ClInclude Include="lib\common\Scene\Camera\Camera.h" />
     <ClInclude Include="lib\common\Scene\Camera\ClippingPlane.h" />
+    <ClInclude Include="lib\common\Scene\FamilyGenerator.h" />
     <ClInclude Include="lib\common\TransformUtils.h" />
     <ClInclude Include="lib\component\Mesh.h" />
     <ClInclude Include="lib\component\Render.h" />

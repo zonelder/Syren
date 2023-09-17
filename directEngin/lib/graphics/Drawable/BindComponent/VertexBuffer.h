@@ -4,6 +4,7 @@
 class VertexBuffer:public IBindable
 {
 public:
+	VertexBuffer() = default;
 	template<class T>
 	VertexBuffer(Graphics& gfx, const std::vector<T>& vertices)
 		:

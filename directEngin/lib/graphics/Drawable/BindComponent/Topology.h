@@ -4,6 +4,7 @@
 class Topology:public IBindable
 {
 public:
+	Topology() = default;
 	Topology(Graphics& gfx, D3D11_PRIMITIVE_TOPOLOGY type);
 	void bind(Graphics& gfx) noexcept override;
 protected:

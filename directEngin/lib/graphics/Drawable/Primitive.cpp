@@ -3,39 +3,39 @@
 
 
 
-Primitive::Primitive(){}
-
-Primitive::Primitive(Mesh& _mesh)
-{
-
-	render.mesh = _mesh;
-}
-
 
 void Primitive::InitBinds(Graphics& gfx,Render& r,Transform& tr)
 {
-	r.pBinds.clear();
+	//r.pBinds.clear();
 
-	auto vertexBuffer = std::make_unique<VertexBuffer>(gfx, r.mesh.vertices);
-	auto indexBuffer = std::make_unique<IndexBuffer>(gfx, r.mesh.indices);
+	r.vertexBuffer = VertexBuffer(gfx, r.mesh.vertices);
+	//auto vertexBuffer = std::make_unique<VertexBuffer>(gfx, r.mesh.vertices);
+	r.indexBuffer = IndexBuffer(gfx, r.mesh.indices);
+	//auto indexBuffer = std::make_unique<IndexBuffer>(gfx, r.mesh.indices);
+	r.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(gfx, tr.orientationMatrix);
+	//auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx,tr.orientationMatrix);
+	r.pConstantBuffer = r.vertexConstantBuffer.p_pConstantBuffer;
 
-	auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx,tr.orientationMatrix);
-	r.pConstantBuffer = vertexConstantBuffer->p_pConstantBuffer;
-
-	auto pixelConstantBuffer = std::make_unique<PixelConstantBuffer<Mesh::ConstantBuffer2>>(gfx, r.mesh.colors);
-	auto pixelShader = std::make_unique<PixelShader>(gfx, L"PixelShader.cso");
-	auto vertexshader = std::make_unique<VertexShader>(gfx, L"VertexShader.cso");
-	ID3DBlob* pBlob = vertexshader->getBytecode();
+	//auto pixelConstantBuffer = std::make_unique<PixelConstantBuffer<Mesh::ConstantBuffer2>>(gfx, r.mesh.colors);
+	r.pixelConstantBuffer = PixelConstantBuffer<Mesh::ConstantBuffer2>(gfx, r.mesh.colors);
+	r.pixelShader = PixelShader(gfx, L"PixelShader.cso");
+	//auto pixelShader = std::make_unique<PixelShader>(gfx, L"PixelShader.cso");
+	r.vertexShader = VertexShader(gfx, L"VertexShader.cso");
+	//auto vertexshader = std::make_unique<VertexShader>(gfx, L"VertexShader.cso");
+	ID3DBlob* pBlob = r.vertexShader.getBytecode();
 
 	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied = {
 	{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
 	};
 
-	auto inputLayout = std::make_unique<InputLayout>(gfx, ied, pBlob);
+	r.inputLayer = InputLayout(gfx, ied, pBlob);
+	//auto inputLayout = std::make_unique<InputLayout>(gfx, ied, pBlob);
 
-	auto topology = std::make_unique <Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	r.topology = Topology(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//auto topology = std::make_unique <Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 
+	/*
 	r.pBinds.push_back(std::move(vertexConstantBuffer));
 	r.pBinds.push_back(std::move(vertexBuffer));
 	r.pBinds.push_back(std::move(indexBuffer));
@@ -44,6 +44,7 @@ void Primitive::InitBinds(Graphics& gfx,Render& r,Transform& tr)
 	r.pBinds.push_back(std::move(vertexshader));
 	r.pBinds.push_back(std::move(inputLayout));
 	r.pBinds.push_back(std::move(topology));
+	*/
 }
 
 

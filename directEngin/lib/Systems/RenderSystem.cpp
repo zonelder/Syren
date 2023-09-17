@@ -17,12 +17,14 @@ void RenderSystem::OnFrame(Render& render,Graphics& gfx,Transform& transform)
 
 
 	// use binds
-	for (auto& bind : render.pBinds)
-	{
-
-		bind->bind(gfx);
-	}
-
+	render.vertexBuffer.bind(gfx);
+	render.indexBuffer.bind(gfx);
+	render.vertexConstantBuffer.bind(gfx);
+	render.pixelConstantBuffer.bind(gfx);
+	render.pixelShader.bind(gfx);
+	render.vertexShader.bind(gfx);
+	render.inputLayer.bind(gfx);
+	render.topology.bind(gfx);
 	//draw
 
 	gfx.DrawIndexed(render.mesh.indices);

@@ -20,8 +20,5 @@ public:
 	static Mesh CreateBoxMesh();
 	static Mesh createCylinderMesh(unsigned int n = 8);
 
-	/// @brief Primitive object mesh data. DO NOT CHANGE THIS DATA STRUCTURE
-	Transform transform;
-	Render render;
 };
 

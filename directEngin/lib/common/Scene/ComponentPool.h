@@ -1,10 +1,11 @@
 #pragma once
+#include "IComponentPool.h"
 #include <unordered_map>
 
 using EntityID = unsigned int;
 
 template<typename T>
-class ComponentPool
+class ComponentPool:public IComponentPool
 {
 public:
 	
@@ -26,11 +27,10 @@ public:
 		return _components.at(id);
 	}
 
-	/// @brief Get link to entity's component
+	/// @brief Get link to entity's component. if component does not exist then create a new one
 	T& getComponent(EntityID id)
 	{
 		return _components.at(id);
-
 	}
 
 	/// @brief Check is there a component of entity 
@@ -56,7 +56,10 @@ public:
 		return _components.end();
 	}
 
+	~ComponentPool() override  = default;
+
 private:
+
 	std::unordered_map<EntityID, T> _components;
 };
 

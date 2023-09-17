@@ -3,6 +3,7 @@
 #include "../Time/Timer.h"
 #include <vector>
 #include "Scene/SceneManager.h"
+#include "Scene/ComponentManager.h"
 #include <unordered_map>
 
 

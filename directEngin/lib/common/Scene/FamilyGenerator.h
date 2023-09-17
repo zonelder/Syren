@@ -7,14 +7,18 @@ class Family
 {
 	static ComponentID GetIdentifier()
 	{
-		static ComponentID id = 0;
-		return ++id;
+
+		static ComponentID id = 0u;
+		return id++;
 	}
 public:
 	template<typename>
 	static  ComponentID Type() noexcept
 	{
-		static const ComponentID value = GetIdentifier();
+
+		static ComponentID value = GetIdentifier();
+
+
 		return value;
 	}
 };

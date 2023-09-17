@@ -1,11 +1,24 @@
 #pragma once
 #include "Mesh.h"
 #include <vector>
-#include "../graphics/Drawable/BindComponent/IBindable.h"
+#include <string>
+#include "../graphics/Drawable/BindComponent/BindableComponents.h"
 
 struct Render
 {
 	Mesh mesh;
-	std::vector<std::unique_ptr<IBindable>> pBinds;
+
+	//std::string vertexShader = "VertexShader.cso";
+	//std::string pixelShader  = "PixelShader.cso";
+
+	VertexBuffer vertexBuffer;
+	IndexBuffer indexBuffer;
+	VertexConstantBuffer<DirectX::XMMATRIX> vertexConstantBuffer;
+	PixelConstantBuffer<Mesh::ConstantBuffer2> pixelConstantBuffer;
+	PixelShader pixelShader;
+	VertexShader vertexShader;
+	InputLayout inputLayer;
+	Topology topology;
+
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pConstantBuffer;
 };

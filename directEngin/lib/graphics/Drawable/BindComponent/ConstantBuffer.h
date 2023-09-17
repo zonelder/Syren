@@ -5,6 +5,7 @@ template<typename T>
 class ConstantBuffer:public IBindable
 {
 public:
+	ConstantBuffer() = default;
 	ConstantBuffer(Graphics& gfx, const T& consts)
 	{
 		INFOMAN(gfx);
@@ -32,7 +33,7 @@ public:
 		GFX_THROW_INFO(gfx.getDevice()->CreateBuffer(&cbd, nullptr, &p_pConstantBuffer));
 	}
 
-	Microsoft::WRL::ComPtr<ID3D11Buffer> p_pConstantBuffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> p_pConstantBuffer = nullptr;
 };
 
 

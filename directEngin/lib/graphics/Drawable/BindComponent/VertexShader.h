@@ -4,6 +4,7 @@
 class VertexShader : public IBindable
 {
 public:
+	VertexShader() = default;
 	VertexShader(Graphics&, const std::wstring& path);
 	void bind(Graphics&) noexcept override;
 	ID3DBlob* getBytecode() const noexcept;

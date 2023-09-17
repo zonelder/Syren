@@ -6,6 +6,7 @@
 #include "../../Systems/OrientationSystem.h"
 #include "../../graphics/Drawable/Primitive.h"
 #include "ComponentPool.h"
+#include "ComponentManager.h"
 
 using EntityID = unsigned int;
 
@@ -20,8 +21,9 @@ public:
 
 private:
 	Graphics _gfx;
-	ComponentPool<Transform> _transforms;
-	ComponentPool<Render> _renders;
+	//ComponentPool<Transform> _transforms;
+	//ComponentPool<Render> _renders;
+	ComponentManager _ComponentManager;
 	RenderSystem _renderSystem;
 	OrientationSystem _orientationSystem;
 	Camera _mainCamera;

@@ -7,15 +7,15 @@
 #include "../Systems/OrientationSystem.h"
 #include "../Systems/RenderSystem.h"
 #include "../Systems/TestSystem.h"
+#include "../Systems/CameraController.h"
 
 App::App() :_wnd(800, 600, "engin win"),_sceneManager(_wnd){
 
 	_systemManager.addSystem<OrientationSystem>();
-	//_systemManager.addSystem<RenderSystem>();
 	_systemManager.addSystem<RenderSystem>();
 	
 	_systemManager.addSystem<TestSystem>();
-
+	_systemManager.addSystem<CameraController>();
 }
 
 
@@ -38,7 +38,6 @@ int App::Init(){
 
 void App::Update()
 {
-	_sceneManager.Update(_time.peek());
 	_systemManager.update(_sceneManager, _time.peek());
 }
 
@@ -51,7 +50,6 @@ void App::Frame() {
 
 
 	_sceneManager.onEndFrame();
-	//_sceneManager.Frame();
 
 }
 

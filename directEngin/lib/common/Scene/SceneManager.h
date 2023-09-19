@@ -24,8 +24,6 @@ public:
 	{
 		return _ComponentManager.getPool<T>();
 	}
-
-	void Update(float dt);
 	void onStartFrame();
 
 	void onEndFrame();

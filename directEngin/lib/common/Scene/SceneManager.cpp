@@ -24,10 +24,6 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 
 
 
-void SceneManager::Update(float time)
-{
-}
-
 void SceneManager::onStartFrame()
 {
 	_mainCamera.OnFrame();

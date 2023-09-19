@@ -29,6 +29,8 @@ public:
 	{
 
 		ComponentID id = Family::Type<T>();
+		if (!_pools.contains(id))
+			addPool<T>();
 		return std::any_cast<ComponentPool<T>&>(_pools[id]);
 	}
 

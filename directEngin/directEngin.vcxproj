@@ -171,7 +171,7 @@
     <ClCompile Include="lib\Systems\OrientationSystem.cpp" />
     <ClCompile Include="lib\common\Scene\SceneManager.cpp" />
     <ClCompile Include="lib\common\Scene\SystemManager.cpp" />
-    <ClCompile Include="lib\Systems\TestSystem.cpp" />
+    <ClCompile Include="lib\Systems\TimedRotationtSystem.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -217,7 +217,7 @@
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Topology.h" />
     <ClInclude Include="lib\common\Scene\SceneManager.h" />
     <ClInclude Include="lib\common\Scene\SystemManager.h" />
-    <ClInclude Include="lib\Systems\TestSystem.h" />
+    <ClInclude Include="lib\Systems\TimedRotationtSystem.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>
   <ItemGroup>

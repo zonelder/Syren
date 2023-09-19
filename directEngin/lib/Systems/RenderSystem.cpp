@@ -1,7 +1,10 @@
 #include "RenderSystem.h"
+#include "../component/Render.h"
+#include "../component/Transform.h"
+#include "../graphics/Graphics.h"
 
 
-void RenderSystem::OnFrame(Render& render,Graphics& gfx,Transform& transform)
+void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform)
 {
 	INFOMAN(gfx);
 
@@ -28,4 +31,20 @@ void RenderSystem::OnFrame(Render& render,Graphics& gfx,Transform& transform)
 	//draw
 
 	gfx.DrawIndexed(render.mesh.indices);
+}
+
+
+void RenderSystem::onFrame(SceneManager& scene)
+{
+	Graphics& gfx = scene.getGraphic();
+
+	auto& _transforms = scene.getPool<Transform>();
+	auto& _renders = scene.getPool<Render>();
+
+	for (auto& [entID, r] : _renders)
+	{
+		if (!_transforms.hasComponent(entID))
+			continue;
+		renderOne(r, gfx, _transforms.getComponent(entID));
+	}
 }

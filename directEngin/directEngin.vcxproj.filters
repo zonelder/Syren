@@ -102,6 +102,12 @@
     <ClCompile Include="lib\common\Scene\IComponentPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\common\Scene\SystemManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Systems\TestSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -219,6 +225,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\Scene\IComponentPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\common\Scene\SystemManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\common\Scene\BaseSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Systems\TestSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\component\TimedRotation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

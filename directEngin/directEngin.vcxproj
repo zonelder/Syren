@@ -169,6 +169,8 @@
     <ClCompile Include="lib\Systems\RenderSystem.cpp" />
     <ClCompile Include="lib\Systems\OrientationSystem.cpp" />
     <ClCompile Include="lib\common\Scene\SceneManager.cpp" />
+    <ClCompile Include="lib\common\Scene\SystemManager.cpp" />
+    <ClCompile Include="lib\Systems\TestSystem.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +184,7 @@
     <ClInclude Include="lib\common\TransformUtils.h" />
     <ClInclude Include="lib\component\Mesh.h" />
     <ClInclude Include="lib\component\Render.h" />
+    <ClInclude Include="lib\component\TimedRotation.h" />
     <ClInclude Include="lib\component\Transform.h" />
     <ClInclude Include="lib\graphics\Drawable\IDrawable.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\InputLayout.h" />
@@ -203,6 +206,7 @@
     <ClInclude Include="lib\graphics\Drawable\Primitive.h" />
     <ClInclude Include="lib\Systems\RenderSystem.h" />
     <ClInclude Include="lib\Systems\OrientationSystem.h" />
+    <ClInclude Include="lib\common\Scene\BaseSystem.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="lib\common\Window.h" />
     <ClInclude Include="lib\Time\Timer.h" />
@@ -210,6 +214,8 @@
     <ClInclude Include="lib\graphics\Drawable\BindComponent\VertexShader.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Topology.h" />
     <ClInclude Include="lib\common\Scene\SceneManager.h" />
+    <ClInclude Include="lib\common\Scene\SystemManager.h" />
+    <ClInclude Include="lib\Systems\TestSystem.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>
   <ItemGroup>

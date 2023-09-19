@@ -2,11 +2,17 @@
 #include "../common/TransformUtils.h"
 
 
-void OrientationSystem::OnFrame(Transform& objTrnsf,const Transform& cameraTrnsf)
+void OrientationSystem::onFrame(SceneManager& scene)
 {
-	objTrnsf.orientationMatrix = DirectX::XMMatrixTranspose(
-		toOrientationMatrix(objTrnsf) *
-		cameraTrnsf.orientationMatrix
+	ComponentPool<Transform>& _transforms = scene.getPool<Transform>();
+	Transform& mainCamTr = scene.getCamera().transform;
+	for (auto& [entID, tr] : _transforms)
+	{
+		tr.orientationMatrix = DirectX::XMMatrixTranspose(
+			toOrientationMatrix(tr) *
+			mainCamTr.orientationMatrix
 
-	);
+		);
+	}
+
 }

@@ -4,9 +4,19 @@
 #include "TransformUtils.h"
 #include "Input.h"
 
-const double PI = acos(-1.0);
+#include "../Systems/OrientationSystem.h"
+#include "../Systems/RenderSystem.h"
+#include "../Systems/TestSystem.h"
 
-App::App() :_wnd(800, 600, "engin win"),_sceneManager(_wnd){}
+App::App() :_wnd(800, 600, "engin win"),_sceneManager(_wnd){
+
+	_systemManager.addSystem<OrientationSystem>();
+	//_systemManager.addSystem<RenderSystem>();
+	_systemManager.addSystem<RenderSystem>();
+	
+	_systemManager.addSystem<TestSystem>();
+
+}
 
 
 int App::Init(){
@@ -29,11 +39,20 @@ int App::Init(){
 void App::Update()
 {
 	_sceneManager.Update(_time.peek());
+	_systemManager.update(_sceneManager, _time.peek());
 }
 
 void App::Frame() {
 
-	_sceneManager.Frame();
+	_sceneManager.onStartFrame();
+
+
+	_systemManager.frame(_sceneManager);
+
+
+	_sceneManager.onEndFrame();
+	//_sceneManager.Frame();
+
 }
 
 

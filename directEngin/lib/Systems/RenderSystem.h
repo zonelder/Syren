@@ -1,12 +1,12 @@
 #pragma once
-#include "../component/Render.h"
-#include "../component/Transform.h"
-#include "../graphics/Graphics.h"
+#include "../common/Scene/BaseSystem.h"
 
-class RenderSystem
+class RenderSystem:public BaseSystem
 {
 public:
 
-	void OnFrame(Render& r, Graphics& gfx, Transform& transform);
+	void onFrame(SceneManager&) override;
+private:
+	void renderOne(Render& render, Graphics& gfx, Transform& transform);
 };
 

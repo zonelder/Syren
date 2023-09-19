@@ -1,10 +1,12 @@
 #pragma once
 #include "../component/Transform.h"
+#include "../common/Scene/BaseSystem.h"
 
-class OrientationSystem
+class OrientationSystem:public BaseSystem
 {
 
 public:
-	void OnFrame(Transform& objTrnsf,const Transform& cameraTrnsf);
+
+	void onFrame(SceneManager& scene) override;
 };
 

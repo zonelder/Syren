@@ -22,9 +22,6 @@ public:
 		ComponentID id = Family::Type<T>();
 
 		_pools[id].emplace<ComponentPool<T>>();
-		//ComponentPool<T>* pool = new ComponentPool<T>;
-
-		//_pools[id] = dynamic_cast<IComponentPool*>(pool);
 	}
 
 	template<typename T>
@@ -32,11 +29,6 @@ public:
 	{
 
 		ComponentID id = Family::Type<T>();
-
-		//IComponentPool* icp = new ComponentPool<T>;
-		//auto pc =  *dynamic_cast<ComponentPool<T>*>(icp);
-
-
 		return std::any_cast<ComponentPool<T>&>(_pools[id]);
 	}
 

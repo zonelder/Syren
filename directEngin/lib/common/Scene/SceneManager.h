@@ -2,8 +2,6 @@
 #include "Camera/Camera.h"
 #include "../Window.h"
 #include <unordered_map>
-#include "../../Systems/RenderSystem.h"
-#include "../../Systems/OrientationSystem.h"
 #include "../../graphics/Drawable/Primitive.h"
 #include "ComponentPool.h"
 #include "ComponentManager.h"
@@ -16,16 +14,24 @@ public:
 	SceneManager(const Window& wnd);
 
 
-	void Update(float dt);
-	void Frame();
+	Camera& getCamera() noexcept;
 
+	Graphics& getGraphic() noexcept;
+
+
+	template<typename T>
+	ComponentPool<T>& getPool()
+	{
+		return _ComponentManager.getPool<T>();
+	}
+
+	void Update(float dt);
+	void onStartFrame();
+
+	void onEndFrame();
 private:
 	Graphics _gfx;
-	//ComponentPool<Transform> _transforms;
-	//ComponentPool<Render> _renders;
 	ComponentManager _ComponentManager;
-	RenderSystem _renderSystem;
-	OrientationSystem _orientationSystem;
 	Camera _mainCamera;
 
 };

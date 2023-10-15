@@ -22,7 +22,7 @@ public:
 	template<typename T>
 	ComponentPool<T>& getPool()
 	{
-		return _ComponentManager.getPool<T>();
+		return *(_ComponentManager.getPool<T>());
 	}
 	void onStartFrame();
 

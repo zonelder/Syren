@@ -2,7 +2,7 @@
 #include "IComponentPool.h"
 #include <unordered_map>
 
-using EntityID = unsigned int;
+//using EntityID = unsigned int;
 
 template<typename T>
 class ComponentPool:public IComponentPool
@@ -13,19 +13,11 @@ public:
 
 	/// @brief Create new component and add it to entity
 	/// @return created component
-	T& addComponent(EntityID id)
+	void addComponent(EntityID id) override
 	{
-		return _components[id];
+		auto& comp = _components[id];// TODO BETTER INIT
 	}
 
-	/// @brief Create a new component as a copy of received one
-	/// @return created component
-	T& addComponent(EntityID id,const T& copiedComponent)
-	{
-		_components.emplace(id, copiedComponent);
-
-		return _components.at(id);
-	}
 
 	/// @brief Get link to entity's component. if component does not exist then create a new one
 	T& getComponent(EntityID id)
@@ -34,14 +26,14 @@ public:
 	}
 
 	/// @brief Check is there a component of entity 
-	bool hasComponent(EntityID id) const
+	bool hasComponent(EntityID id) const override
 	{
 		return _components.contains(id);
 	}
 
 	/// @brief Remove Component from the pool. if there are not any component of entity - do nothing 
 	/// @param  
-	void removeComponent(EntityID id)
+	void removeComponent(EntityID id) override
 	{
 		_components.erase(id);
 	}
@@ -56,7 +48,6 @@ public:
 		return _components.end();
 	}
 
-	~ComponentPool() override  = default;
 
 private:
 

@@ -20,18 +20,24 @@ public:
 	{
 
 		ComponentID id = Family::Type<T>();
+		IComponentPool* cp_ptr = new ComponentPool<T>();
 
-		_pools[id].emplace<ComponentPool<T>>();
+		_pools[id] = cp_ptr;
 	}
 
 	template<typename T>
-	ComponentPool<T>& getPool()
+	ComponentPool<T>* getPool()
 	{
 
 		ComponentID id = Family::Type<T>();
 		if (!_pools.contains(id))
 			addPool<T>();
-		return std::any_cast<ComponentPool<T>&>(_pools[id]);
+
+
+		IComponentPool* int_ptr = _pools[id];
+
+		ComponentPool<T>* ptr = dynamic_cast<ComponentPool<T>*>(int_ptr);
+		return ptr;
 	}
 
 
@@ -41,8 +47,8 @@ public:
 		auto type_id = Family::Type<T>();
 		if (!_pools.contains(type_id))
 			addPool<T>();
-		ComponentPool<T>& pool = getPool<T>();
-		return pool.getComponent(id);
+		ComponentPool<T>* pool = getPool<T>();
+		return pool->getComponent(id);
 	}
 
 	template<typename T>
@@ -51,7 +57,11 @@ public:
 		auto type_id = Family::Type<T>();
 		if (!_pools.contains(type_id))
 			addPool<T>();
-		return getPool<T>().addComponent(id);
+
+		ComponentPool<T>* p_pool= getPool<T>();
+
+		p_pool->addComponent(id);
+		return p_pool->getComponent(id);
 	}
 
 	void removeAllComponents();
@@ -60,6 +70,6 @@ public:
 
 
 private:
-	std::unordered_map<ComponentID,std::any> _pools;
+	std::unordered_map<ComponentID,IComponentPool*> _pools;
 };
 

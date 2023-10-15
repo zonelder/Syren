@@ -3,11 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include "ComponentPool.h"
-#include "IComponentPool.h"
 #include "FamilyGenerator.h"
-#include <any>
-#include <typeinfo>
-
 
 using EntityID = unsigned int;
 

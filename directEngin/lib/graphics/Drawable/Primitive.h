@@ -19,6 +19,7 @@ public:
 
 	static Mesh CreateBoxMesh();
 	static Mesh createCylinderMesh(unsigned int n = 8);
+	static Mesh Create2SidedPlaneMesh();
 
 };
 

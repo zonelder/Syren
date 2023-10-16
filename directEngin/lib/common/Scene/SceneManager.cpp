@@ -38,7 +38,7 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 		Render& r = _ComponentManager.addComponent<Render>(id);
 		TimedRotation& tr = _ComponentManager.addComponent<TimedRotation>(id);
 		tr.zSence = 1.2f;
-		r.mesh = Primitive::CreateBoxMesh();
+		r.mesh = Primitive::Create2SidedPlaneMesh();
 		Primitive::InitBinds(_gfx, r, t);// this is a problem that user need to to "bind" by hands
 		t.position = { float(i % 10)*3.0f,0.0f,float(i / 10)*3.0f };
 	}

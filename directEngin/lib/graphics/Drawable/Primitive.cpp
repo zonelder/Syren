@@ -123,3 +123,31 @@ Mesh Primitive::createCylinderMesh(unsigned int n)
 
 	return mesh;
 }
+
+Mesh Primitive::Create2SidedPlaneMesh()
+{
+	Mesh mesh;
+	mesh.vertices = {
+	{ -1.0f,-1.0f,0.0f,},
+	{ -1.0f,1.0f,0.0f, },
+	{ 1.0f,1.0f,0.0f,  },
+	{  1.0f,-1.0f,0.0f, },
+
+	{ -1.0f,-1.0f,0.0f,},
+	{ -1.0f,1.0f,0.0f, },
+	{ 1.0f,1.0f,0.0f,  },
+	{  1.0f,-1.0f,0.0f, },
+	};
+	mesh.indices = {
+	0,2,1, 0,3,2,
+	4,5,6, 4,6,7,
+	};
+	mesh.colors = {
+		{
+			{0.4f,1.0f,1.0f},
+			{1.0f,0.0f,0.0f},
+		}
+	};
+
+	return mesh;
+}

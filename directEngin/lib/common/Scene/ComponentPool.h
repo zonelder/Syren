@@ -33,9 +33,17 @@ public:
 
 	/// @brief Remove Component from the pool. if there are not any component of entity - do nothing 
 	/// @param  
-	void removeComponent(EntityID id) override
+	bool removeComponent(EntityID id) override
 	{
+		if (!_components.contains(id))
+			return false;
 		_components.erase(id);
+		return true;
+	}
+
+	void removeAll() override
+	{
+		_components.clear();
 	}
 
 	iterator begin() noexcept

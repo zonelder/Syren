@@ -7,6 +7,7 @@ class IComponentPool
 public:
 	virtual void addComponent(EntityID) = 0;
 	virtual bool hasComponent(EntityID) const = 0;
-	virtual void removeComponent(EntityID) = 0;
+	virtual bool removeComponent(EntityID) = 0;
+	virtual void removeAll() = 0;
 	virtual ~IComponentPool() = default;
 };

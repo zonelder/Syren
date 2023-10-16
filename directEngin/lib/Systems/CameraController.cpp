@@ -1,5 +1,6 @@
 #include "CameraController.h"
 #include "../common/Input.h"
+#include "../component/TimedRotation.h"
 
 void CameraController::onUpdate(SceneManager& scene, float time)
 {
@@ -12,11 +13,19 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 		cameraTr.position.z = -4.0f;
 		return;
 	}
-	if (false && Input::RightKeyDown())// rotating in left mouse button pressed
+	if (true && Input::RightKeyDown())// rotating in left mouse button pressed
 	{
 		float cam_yaw = -speed * Input::GetDeltaX();
 		float cam_pitch = -speed * Input::GetDeltaY();
 		cameraTr.rotation = DirectX::XMQuaternionMultiply(cameraTr.rotation, DirectX::XMQuaternionRotationRollPitchYaw(cam_pitch, cam_yaw, 0.0f));
 		return;
+	}
+
+	if (Input::IsKeyDown('Q'))
+	{
+
+		auto& p = scene.getPool<TimedRotation>();
+
+		p.removeComponent(1);
 	}
 }

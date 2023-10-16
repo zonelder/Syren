@@ -31,6 +31,17 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	r2.mesh = Primitive::createCylinderMesh(24);
 	t2.scale.y = 3.0f;
 	Primitive::InitBinds(_gfx, r2, t2);
+	for (int i = 0; i < 1000; ++i)
+	{
+		EntityID id = i + second + 1;
+		Transform& t = _ComponentManager.addComponent<Transform>(id);
+		Render& r = _ComponentManager.addComponent<Render>(id);
+		TimedRotation& tr = _ComponentManager.addComponent<TimedRotation>(id);
+		tr.zSence = 1.2f;
+		r.mesh = Primitive::CreateBoxMesh();
+		Primitive::InitBinds(_gfx, r, t);// this is a problem that user need to to "bind" by hands
+		t.position = { float(i % 10)*3.0f,0.0f,float(i / 10)*3.0f };
+	}
 }
 
 

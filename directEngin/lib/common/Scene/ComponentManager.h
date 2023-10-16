@@ -60,6 +60,15 @@ public:
 		return p_pool->getComponent(id);
 	}
 
+	template<typename T>
+	bool removeComponent(EntityID id)
+	{
+		auto type_id = Family::Type<T>();
+		ComponentPool<T>* pool = getPool<T>();
+		bool res = pool->removeComponent(id);
+		return res;
+	}
+
 	void removeAllComponents();
 
 	~ComponentManager();

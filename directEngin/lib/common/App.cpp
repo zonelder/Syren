@@ -24,7 +24,8 @@ int App::Init(){
 	MSG msg;
 	BOOL gResult;
 
-
+	auto& input = Input::GetInstance();
+	input.p_ih = &(_wnd.inputHandler);
 	while (true) {
 		//if processMessage has a value then it means than we wanna exit from app
 		if (const auto ecode = Window::processMessage()) {

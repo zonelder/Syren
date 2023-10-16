@@ -53,3 +53,9 @@ float Input::GetNormedY() noexcept
 {
 	return GetInstance()._clampY;
 }
+
+
+bool Input::IsKeyDown(unsigned char keycode) noexcept
+{
+	return GetInstance().p_ih->isPressed(keycode);
+}

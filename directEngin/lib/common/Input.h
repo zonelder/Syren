@@ -26,9 +26,14 @@ public:
 	static bool LeftKeyDown();
 	static bool RightKeyDown();
 
+
+	static bool IsKeyDown(unsigned char) noexcept;
+
 private:
 	static Input& GetInstance();
 	Input();
+
+	InputHandler* p_ih = nullptr;
 	int _x, _y;
 	float _clampX, _clampY;
 	int _dx, _dy;

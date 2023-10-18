@@ -5,13 +5,9 @@
 #include "../graphics/Drawable/BindComponent/IndexBuffer.h"
 #include "../graphics/Drawable/BindComponent/ConstantBuffer.h"
 
+
 struct Mesh
 {
-
-	void init(Graphics& gfx);
-	void bind(Graphics& gfx);
-	std::vector<DirectX::XMVECTOR> vertices;
-	std::vector<unsigned short> indices;
 	struct ConstantBuffer2 {
 		struct {
 			float r;
@@ -20,15 +16,15 @@ struct Mesh
 			float a;
 		} face_colors[6];
 	};
-
-
+	Mesh(Graphics& gfx,const std::vector<DirectX::XMVECTOR>& verts,const std::vector<unsigned short>& indices,const ConstantBuffer2& colors);
+	void bind(Graphics& gfx);
+	std::vector<DirectX::XMVECTOR> vertices;
+	std::vector<unsigned short> indices;
 	ConstantBuffer2 colors;
 
-	VertexBuffer vertexBuffer;
-	IndexBuffer indexBuffer;
-	PixelConstantBuffer<ConstantBuffer2> pixelConstantBuffer;
-
 private:
-	bool isInit;
+	VertexBuffer _vertexBuffer;
+	IndexBuffer _indexBuffer;
+	PixelConstantBuffer<ConstantBuffer2> _pixelConstantBuffer;
 
 };

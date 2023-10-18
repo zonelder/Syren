@@ -168,7 +168,6 @@
     <ClCompile Include="lib\graphics\Drawable\BindComponent\PixelShader.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\VertexShader.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Topology.cpp" />
-    <ClCompile Include="lib\graphics\Drawable\Primitive.cpp" />
     <ClCompile Include="lib\Systems\RenderSystem.cpp" />
     <ClCompile Include="lib\Systems\OrientationSystem.cpp" />
     <ClCompile Include="lib\common\Scene\SceneManager.cpp" />
@@ -208,7 +207,6 @@
     <ClInclude Include="lib\exeption\PointedException.h" />
     <ClInclude Include="lib\common\MouseHandler.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\PixelShader.h" />
-    <ClInclude Include="lib\graphics\Drawable\Primitive.h" />
     <ClInclude Include="lib\Systems\RenderSystem.h" />
     <ClInclude Include="lib\Systems\OrientationSystem.h" />
     <ClInclude Include="lib\common\Scene\BaseSystem.h" />

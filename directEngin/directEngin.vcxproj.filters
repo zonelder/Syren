@@ -78,9 +78,6 @@
     <ClCompile Include="lib\common\Scene\Camera\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\Primitive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lib\common\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -204,9 +201,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\component\Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\Primitive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\Input.h">

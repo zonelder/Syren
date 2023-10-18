@@ -2,19 +2,20 @@
 
 
 
-void Mesh::init(Graphics& gfx)
+Mesh::Mesh(Graphics& gfx, const std::vector<DirectX::XMVECTOR>& Verts, const std::vector<unsigned short>& Indices, const ConstantBuffer2& Colors)
 {
-	if (isInit) return;
+	vertices = Verts;
+	indices = Indices;
+	colors = Colors;
 
-	vertexBuffer = VertexBuffer(gfx, vertices);
-	indexBuffer = IndexBuffer(gfx, indices);
-	pixelConstantBuffer = PixelConstantBuffer<Mesh::ConstantBuffer2>(gfx, colors);
-	isInit = true;
+	_vertexBuffer = VertexBuffer(gfx, vertices);
+	_indexBuffer = IndexBuffer(gfx, indices);
+	_pixelConstantBuffer = PixelConstantBuffer<Mesh::ConstantBuffer2>(gfx, colors);
 }
 
 void Mesh::bind(Graphics& gfx)
 {
-	vertexBuffer.bind(gfx);
-	indexBuffer.bind(gfx);
-	pixelConstantBuffer.bind(gfx);
+	_vertexBuffer.bind(gfx);
+	_indexBuffer.bind(gfx);
+	_pixelConstantBuffer.bind(gfx);
 }

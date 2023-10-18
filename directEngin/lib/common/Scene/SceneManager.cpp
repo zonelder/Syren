@@ -10,10 +10,7 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	_ComponentManager.addPool<Render>();
 	
 
-	auto material = std::make_shared<Material>();
-	material->vertexShader = L"VertexShader.cso";
-	material->pixelShader = L"PixelShader.cso";
-	material->init(_gfx);
+	auto material = makeMaterial();
 
 	EntityID first = 0;
 	Transform& t = addComponent<Transform>(first);
@@ -23,10 +20,8 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	tr.xSence = 0.0f;
 	tr.ySence = 1.0f;
 	tr.zSence = 1.0f;
-	r.p_mesh = Primitive::CreateBoxMesh();
-	r.p_mesh->init(_gfx);
+	r.p_mesh = makeBoxMesh();
 	r.p_material = material;
-	Primitive::InitBinds(_gfx, r, t);
 	 
 	EntityID second = 1;
 	Transform& t2 = addComponent<Transform>(second);
@@ -36,15 +31,12 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	tr2.xSence = 1.0f;
 	tr2.ySence = 0.0f;
 	tr2.zSence = 1.0f;
-	r2.p_mesh = Primitive::createCylinderMesh(24);
-	r2.p_mesh->init(_gfx);
+	r2.p_mesh = makeCylinderMesh();
 	r2.p_material = material;
 	t2.scale.y = 3.0f;
-	Primitive::InitBinds(_gfx, r2, t2);
 
-	auto p_plane_mesh = Primitive::Create2SidedPlaneMesh();
-	p_plane_mesh->init(_gfx);
-	for (int i = 0; i < 10000; ++i)
+	auto p_plane_mesh = make2SidedPlaneMesh();
+	for (int i = 0; i < 1000; ++i)
 	{
 		EntityID id = i + second + 1;
 		Transform& t = addComponent<Transform>(id);
@@ -53,7 +45,6 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 		tr.zSence = 1.2f;
 		r.p_mesh = p_plane_mesh;
 		r.p_material = material;
-		Primitive::InitBinds(_gfx, r, t);// this is a problem that user need to to "bind" by hands
 		t.position = { float(i % 10)*3.0f,0.0f,float(i / 10)*3.0f };
 	}
 }
@@ -80,4 +71,125 @@ Camera& SceneManager::getCamera() noexcept
 Graphics& SceneManager::getGraphic() noexcept
 {
 	return _gfx;
+}
+
+
+std::shared_ptr<Material> SceneManager::makeMaterial(const wchar_t* vertexShader, const wchar_t* pixelShader)
+{
+	auto mat = std::make_shared<Material>(_gfx, vertexShader, pixelShader);
+
+	return mat;
+}
+
+
+std::shared_ptr<Mesh> SceneManager::makeMesh(
+	const std::vector<DirectX::XMVECTOR>& vertices,
+	const std::vector<unsigned short>& indices,
+	const Mesh::ConstantBuffer2& colors
+)
+{
+	auto mesh = std::make_shared<Mesh>(_gfx, vertices, indices,colors);
+	return mesh;
+}
+
+std::shared_ptr<Mesh>  SceneManager::makeBoxMesh()
+{
+	auto mesh = makeMesh({
+	{ -1.0f,-1.0f,-1.0f,},
+	{ 1.0f,-1.0f,-1.0f, },
+	{ -1.0f,1.0f,-1.0f, },
+	{ 1.0f,1.0f,-1.0f,  },
+	{ -1.0f,-1.0f,1.0f, },
+	{ 1.0f,-1.0f,1.0f,  },
+	{ -1.0f,1.0f,1.0f,  },
+	{ 1.0f,1.0f,1.0f,   },
+		},
+	{
+	0,2,1, 2,3,1,
+	1,3,5, 3,7,5,
+	2,6,3, 3,6,7,
+	4,5,7, 4,7,6,
+	0,4,2, 2,4,6,
+	0,1,4, 1,5,4
+	},
+	{
+		{
+			{1.0f,0.0f,1.0f},
+			{1.0f,0.0f,0.0f},
+			{0.0f,1.0f,0.0f},
+			{0.0f,0.0f,1.0f},
+			{1.0f,1.0f,0.0f},
+			{0.0f,1.0f,1.0f},
+		}
+	}
+	);
+	return mesh;
+}
+
+std::shared_ptr<Mesh>  SceneManager::makeCylinderMesh(unsigned int n)
+{
+	std::vector<DirectX::XMVECTOR> vertices;
+	vertices.reserve(n + 2);
+	std::vector<unsigned short> indices;
+	indices.reserve(6 * n);
+
+	float two_pi = 6.28318530718f;
+	float angl;
+	for (unsigned int k = 0; k < n; ++k)
+	{
+		angl = (two_pi * k) / n;
+		vertices.push_back({ cos(angl),0.0f,sin(angl) });
+
+		indices.push_back(k);
+		indices.push_back(n);
+		indices.push_back((k + 1) % n);
+
+		indices.push_back(k);
+		indices.push_back((k + 1) % n);
+		indices.push_back(n + 1);
+
+
+	}
+	vertices.push_back({ 0.0f,1.0f,0.0f });
+	vertices.push_back({ 0.0f,0.0f,0.0f });
+
+	Mesh::ConstantBuffer2 colors = {
+		{
+			{1.0f,0.0f,1.0f},
+			{1.0f,0.0f,0.0f},
+			{0.0f,1.0f,0.0f},
+			{0.0f,0.0f,1.0f},
+			{1.0f,1.0f,0.0f},
+			{0.0f,1.0f,1.0f},
+		}
+	};
+
+	return makeMesh(vertices, indices, colors);
+}
+
+std::shared_ptr<Mesh> SceneManager::make2SidedPlaneMesh()
+{
+	auto mesh = makeMesh({
+	{ -1.0f,-1.0f,0.0f,},
+	{ -1.0f,1.0f,0.0f, },
+	{ 1.0f,1.0f,0.0f,  },
+	{  1.0f,-1.0f,0.0f, },
+
+	{ -1.0f,-1.0f,0.0f,},
+	{ -1.0f,1.0f,0.0f, },
+	{ 1.0f,1.0f,0.0f,  },
+	{  1.0f,-1.0f,0.0f, },
+		},
+	{
+	0,2,1, 0,3,2,
+	4,5,6, 4,6,7,
+	},
+	{
+		{
+			{0.4f,1.0f,1.0f},
+			{1.0f,0.0f,0.0f},
+		}
+	}
+	);
+	return mesh;
 }

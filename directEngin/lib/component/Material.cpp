@@ -3,7 +3,10 @@
 
 
 
-void Material::init(Graphics& gfx)
+Material::Material(Graphics& gfx,const wchar_t* sVertexShader, const wchar_t* sPixelShader)
+	:
+	vertexShader(sVertexShader),
+	pixelShader(sPixelShader)
 {
 	_pixelShader = PixelShader(gfx,pixelShader);
 	_vertexShader = VertexShader(gfx,vertexShader);

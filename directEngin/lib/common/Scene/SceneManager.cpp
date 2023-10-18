@@ -8,7 +8,13 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 
 	_ComponentManager.addPool<Transform>();
 	_ComponentManager.addPool<Render>();
- 
+	
+
+	auto material = std::make_shared<Material>();
+	material->vertexShader = L"VertexShader.cso";
+	material->pixelShader = L"PixelShader.cso";
+	material->init(_gfx);
+
 	EntityID first = 0;
 	Transform& t = addComponent<Transform>(first);
 	Render& r = addComponent<Render>(first);
@@ -18,6 +24,8 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	tr.ySence = 1.0f;
 	tr.zSence = 1.0f;
 	r.p_mesh = Primitive::CreateBoxMesh();
+	r.p_mesh->init(_gfx);
+	r.p_material = material;
 	Primitive::InitBinds(_gfx, r, t);
 	 
 	EntityID second = 1;
@@ -29,11 +37,14 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	tr2.ySence = 0.0f;
 	tr2.zSence = 1.0f;
 	r2.p_mesh = Primitive::createCylinderMesh(24);
+	r2.p_mesh->init(_gfx);
+	r2.p_material = material;
 	t2.scale.y = 3.0f;
 	Primitive::InitBinds(_gfx, r2, t2);
 
 	auto p_plane_mesh = Primitive::Create2SidedPlaneMesh();
-	for (int i = 0; i < 1000; ++i)
+	p_plane_mesh->init(_gfx);
+	for (int i = 0; i < 10000; ++i)
 	{
 		EntityID id = i + second + 1;
 		Transform& t = addComponent<Transform>(id);
@@ -41,6 +52,7 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 		TimedRotation& tr = addComponent<TimedRotation>(id);
 		tr.zSence = 1.2f;
 		r.p_mesh = p_plane_mesh;
+		r.p_material = material;
 		Primitive::InitBinds(_gfx, r, t);// this is a problem that user need to to "bind" by hands
 		t.position = { float(i % 10)*3.0f,0.0f,float(i / 10)*3.0f };
 	}

@@ -7,26 +7,16 @@
 void Primitive::InitBinds(Graphics& gfx,Render& r,Transform& tr)
 {
 	//r.pBinds.clear();
-	r.p_mesh->init(gfx);
-
-
-	r.pixelShader = PixelShader(gfx, L"PixelShader.cso");
-	r.vertexShader = VertexShader(gfx, L"VertexShader.cso");
-	ID3DBlob* pBlob = r.vertexShader.getBytecode();
-
-	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied = {
-	{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
-	};
-
-	r.inputLayer = InputLayout(gfx, ied, pBlob);
+	//r.p_mesh->init(gfx);
+	//r.p_material->init(gfx);
 	//auto inputLayout = std::make_unique<InputLayout>(gfx, ied, pBlob);
 
 	r.topology = Topology(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	//auto topology = std::make_unique <Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	r.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(gfx, tr.orientationMatrix);
+	tr.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(gfx, tr.orientationMatrix);
 	//auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx,tr.orientationMatrix);
-	r.pConstantBuffer = r.vertexConstantBuffer.p_pConstantBuffer;
+	//r.pConstantBuffer = r.vertexConstantBuffer.p_pConstantBuffer;
 
 
 	/*

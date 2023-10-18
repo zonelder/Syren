@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\component\Material.cpp" />
     <ClCompile Include="lib\component\Mesh.cpp" />
     <ClCompile Include="lib\Systems\CameraController.cpp" />
     <ClCompile Include="lib\common\Scene\ComponentManager.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\component\Material.h" />
     <ClInclude Include="lib\Systems\CameraController.h" />
     <ClInclude Include="lib\common\Scene\ComponentManager.h" />
     <ClInclude Include="lib\common\Scene\ComponentPool.h" />

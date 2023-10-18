@@ -10,21 +10,20 @@ void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform)
 
 	///update transform buffer
 	D3D11_MAPPED_SUBRESOURCE msr;
+	auto pConstantBuffer = transform.vertexConstantBuffer.p_pConstantBuffer;
 	GFX_THROW_INFO(gfx.getContext()->Map(
-		render.pConstantBuffer.Get(), 0u,
+		pConstantBuffer.Get(), 0u,
 		D3D11_MAP_WRITE_DISCARD, 0u,
 		&msr
 	));
 	memcpy(msr.pData, &transform.orientationMatrix, sizeof(transform.orientationMatrix));
-	gfx.getContext()->Unmap(render.pConstantBuffer.Get(), 0u);
+	gfx.getContext()->Unmap(pConstantBuffer.Get(), 0u);
 
 
 	// use binds
+	transform.vertexConstantBuffer.bind(gfx);
 	render.p_mesh->bind(gfx);
-	render.vertexConstantBuffer.bind(gfx);
-	render.pixelShader.bind(gfx);
-	render.vertexShader.bind(gfx);
-	render.inputLayer.bind(gfx);
+	render.p_material->bind(gfx);
 	render.topology.bind(gfx);
 	//draw
 

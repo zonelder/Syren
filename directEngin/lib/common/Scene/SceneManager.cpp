@@ -10,35 +10,37 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	_ComponentManager.addPool<Render>();
  
 	EntityID first = 0;
-	Transform& t = _ComponentManager.addComponent<Transform>(first);
-	Render& r = _ComponentManager.addComponent<Render>(first);
-	TimedRotation& tr = _ComponentManager.addComponent<TimedRotation>(first);
+	Transform& t = addComponent<Transform>(first);
+	Render& r = addComponent<Render>(first);
+	TimedRotation& tr = addComponent<TimedRotation>(first);
 
 	tr.xSence = 0.0f;
 	tr.ySence = 1.0f;
 	tr.zSence = 1.0f;
-	r.mesh = Primitive::CreateBoxMesh();
+	r.p_mesh = Primitive::CreateBoxMesh();
 	Primitive::InitBinds(_gfx, r, t);
 	 
 	EntityID second = 1;
-	Transform& t2 = _ComponentManager.addComponent<Transform>(second);
-	Render& r2 = _ComponentManager.addComponent<Render>(second);
-	TimedRotation& tr2 = _ComponentManager.addComponent<TimedRotation>(second);
+	Transform& t2 = addComponent<Transform>(second);
+	Render& r2 = addComponent<Render>(second);
+	TimedRotation& tr2 = addComponent<TimedRotation>(second);
 
 	tr2.xSence = 1.0f;
 	tr2.ySence = 0.0f;
 	tr2.zSence = 1.0f;
-	r2.mesh = Primitive::createCylinderMesh(24);
+	r2.p_mesh = Primitive::createCylinderMesh(24);
 	t2.scale.y = 3.0f;
 	Primitive::InitBinds(_gfx, r2, t2);
+
+	auto p_plane_mesh = Primitive::Create2SidedPlaneMesh();
 	for (int i = 0; i < 1000; ++i)
 	{
 		EntityID id = i + second + 1;
-		Transform& t = _ComponentManager.addComponent<Transform>(id);
-		Render& r = _ComponentManager.addComponent<Render>(id);
-		TimedRotation& tr = _ComponentManager.addComponent<TimedRotation>(id);
+		Transform& t = addComponent<Transform>(id);
+		Render& r = addComponent<Render>(id);
+		TimedRotation& tr = addComponent<TimedRotation>(id);
 		tr.zSence = 1.2f;
-		r.mesh = Primitive::Create2SidedPlaneMesh();
+		r.p_mesh = p_plane_mesh;
 		Primitive::InitBinds(_gfx, r, t);// this is a problem that user need to to "bind" by hands
 		t.position = { float(i % 10)*3.0f,0.0f,float(i / 10)*3.0f };
 	}

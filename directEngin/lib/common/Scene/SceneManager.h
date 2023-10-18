@@ -5,6 +5,8 @@
 #include "../../graphics/Drawable/Primitive.h"
 #include "ComponentPool.h"
 #include "ComponentManager.h"
+#include "../../component/Render.h"
+#include "../../component/Transform.h"
 
 using EntityID = unsigned int;
 
@@ -24,6 +26,13 @@ public:
 	{
 		return *(_ComponentManager.getPool<T>());
 	}
+
+	template<typename T>
+	T& addComponent(EntityID id)
+	{
+		return _ComponentManager.addComponent<T>(id);
+	}
+
 	void onStartFrame();
 
 	void onEndFrame();

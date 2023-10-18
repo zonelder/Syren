@@ -3,18 +3,16 @@
 #include <vector>
 #include <string>
 #include "../graphics/Drawable/BindComponent/BindableComponents.h"
+#include <memory>
 
 struct Render
 {
-	Mesh mesh;
+	std::shared_ptr<Mesh> p_mesh;
 
 	//std::string vertexShader = "VertexShader.cso";
 	//std::string pixelShader  = "PixelShader.cso";
 
-	VertexBuffer vertexBuffer;
-	IndexBuffer indexBuffer;
 	VertexConstantBuffer<DirectX::XMMATRIX> vertexConstantBuffer;
-	PixelConstantBuffer<Mesh::ConstantBuffer2> pixelConstantBuffer;
 	PixelShader pixelShader;
 	VertexShader vertexShader;
 	InputLayout inputLayer;

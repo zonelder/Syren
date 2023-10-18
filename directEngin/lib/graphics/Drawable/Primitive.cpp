@@ -7,21 +7,11 @@
 void Primitive::InitBinds(Graphics& gfx,Render& r,Transform& tr)
 {
 	//r.pBinds.clear();
+	r.p_mesh->init(gfx);
 
-	r.vertexBuffer = VertexBuffer(gfx, r.mesh.vertices);
-	//auto vertexBuffer = std::make_unique<VertexBuffer>(gfx, r.mesh.vertices);
-	r.indexBuffer = IndexBuffer(gfx, r.mesh.indices);
-	//auto indexBuffer = std::make_unique<IndexBuffer>(gfx, r.mesh.indices);
-	r.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(gfx, tr.orientationMatrix);
-	//auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx,tr.orientationMatrix);
-	r.pConstantBuffer = r.vertexConstantBuffer.p_pConstantBuffer;
 
-	//auto pixelConstantBuffer = std::make_unique<PixelConstantBuffer<Mesh::ConstantBuffer2>>(gfx, r.mesh.colors);
-	r.pixelConstantBuffer = PixelConstantBuffer<Mesh::ConstantBuffer2>(gfx, r.mesh.colors);
 	r.pixelShader = PixelShader(gfx, L"PixelShader.cso");
-	//auto pixelShader = std::make_unique<PixelShader>(gfx, L"PixelShader.cso");
 	r.vertexShader = VertexShader(gfx, L"VertexShader.cso");
-	//auto vertexshader = std::make_unique<VertexShader>(gfx, L"VertexShader.cso");
 	ID3DBlob* pBlob = r.vertexShader.getBytecode();
 
 	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied = {
@@ -33,6 +23,10 @@ void Primitive::InitBinds(Graphics& gfx,Render& r,Transform& tr)
 
 	r.topology = Topology(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	//auto topology = std::make_unique <Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	r.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(gfx, tr.orientationMatrix);
+	//auto vertexConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(gfx,tr.orientationMatrix);
+	r.pConstantBuffer = r.vertexConstantBuffer.p_pConstantBuffer;
 
 
 	/*
@@ -46,13 +40,13 @@ void Primitive::InitBinds(Graphics& gfx,Render& r,Transform& tr)
 	r.pBinds.push_back(std::move(topology));
 	*/
 }
+using shared_mesh = std::shared_ptr<Mesh>;
 
 
-
-Mesh Primitive::CreateBoxMesh()
+shared_mesh Primitive::CreateBoxMesh()
 {
-	Mesh mesh;
-	mesh.vertices = {
+	shared_mesh mesh = std::make_shared<Mesh>();
+	mesh->vertices = {
 	{ -1.0f,-1.0f,-1.0f,},
 	{ 1.0f,-1.0f,-1.0f, },
 	{ -1.0f,1.0f,-1.0f, },
@@ -62,7 +56,7 @@ Mesh Primitive::CreateBoxMesh()
 	{ -1.0f,1.0f,1.0f,  },
 	{ 1.0f,1.0f,1.0f,   },
 	};
-	mesh.indices = {
+	mesh->indices = {
 	0,2,1, 2,3,1,
 	1,3,5, 3,7,5,
 	2,6,3, 3,6,7,
@@ -70,7 +64,7 @@ Mesh Primitive::CreateBoxMesh()
 	0,4,2, 2,4,6,
 	0,1,4, 1,5,4
 	};
-	mesh.colors = {
+	mesh->colors = {
 		{
 			{1.0f,0.0f,1.0f},
 			{1.0f,0.0f,0.0f},
@@ -85,32 +79,32 @@ Mesh Primitive::CreateBoxMesh()
 }
 
 
-Mesh Primitive::createCylinderMesh(unsigned int n)
+shared_mesh Primitive::createCylinderMesh(unsigned int n)
 {
-	Mesh mesh;
+	shared_mesh mesh = std::make_shared<Mesh>();
 	float two_pi = 6.28318530718f;
 	float angl;
-	mesh.vertices.reserve(n + 2);
-	mesh.indices.reserve(6 * n);
+	mesh->vertices.reserve(n + 2);
+	mesh->indices.reserve(6 * n);
 	for (unsigned int k = 0; k < n;++k)
 	{
 		angl = (two_pi * k) / n;
-		mesh.vertices.push_back({ cos(angl),0.0f,sin(angl) });
+		mesh->vertices.push_back({ cos(angl),0.0f,sin(angl) });
 
-		mesh.indices.push_back(k);
-		mesh.indices.push_back(n);
-		mesh.indices.push_back((k + 1) % n);
+		mesh->indices.push_back(k);
+		mesh->indices.push_back(n);
+		mesh->indices.push_back((k + 1) % n);
 
-		mesh.indices.push_back(k);
-		mesh.indices.push_back((k + 1) % n);
-		mesh.indices.push_back(n+1);
+		mesh->indices.push_back(k);
+		mesh->indices.push_back((k + 1) % n);
+		mesh->indices.push_back(n+1);
 
 
 	}
-	mesh.vertices.push_back({ 0.0f,1.0f,0.0f });
-	mesh.vertices.push_back({ 0.0f,0.0f,0.0f });
+	mesh->vertices.push_back({ 0.0f,1.0f,0.0f });
+	mesh->vertices.push_back({ 0.0f,0.0f,0.0f });
 
-	mesh.colors = {
+	mesh->colors = {
 		{
 			{1.0f,0.0f,1.0f},
 			{1.0f,0.0f,0.0f},
@@ -124,10 +118,10 @@ Mesh Primitive::createCylinderMesh(unsigned int n)
 	return mesh;
 }
 
-Mesh Primitive::Create2SidedPlaneMesh()
+shared_mesh Primitive::Create2SidedPlaneMesh()
 {
-	Mesh mesh;
-	mesh.vertices = {
+	shared_mesh mesh = std::make_shared<Mesh>();
+	mesh->vertices = {
 	{ -1.0f,-1.0f,0.0f,},
 	{ -1.0f,1.0f,0.0f, },
 	{ 1.0f,1.0f,0.0f,  },
@@ -138,11 +132,11 @@ Mesh Primitive::Create2SidedPlaneMesh()
 	{ 1.0f,1.0f,0.0f,  },
 	{  1.0f,-1.0f,0.0f, },
 	};
-	mesh.indices = {
+	mesh->indices = {
 	0,2,1, 0,3,2,
 	4,5,6, 4,6,7,
 	};
-	mesh.colors = {
+	mesh->colors = {
 		{
 			{0.4f,1.0f,1.0f},
 			{1.0f,0.0f,0.0f},

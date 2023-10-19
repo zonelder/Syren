@@ -6,10 +6,12 @@
 Material::Material(Graphics& gfx,const wchar_t* sVertexShader, const wchar_t* sPixelShader)
 	:
 	vertexShader(sVertexShader),
-	pixelShader(sPixelShader)
+	pixelShader(sPixelShader),
+	_texture(Texture(gfx, L"test_texture.png"))
 {
 	_pixelShader = PixelShader(gfx,pixelShader);
 	_vertexShader = VertexShader(gfx,vertexShader);
+	//_texture = Texture(gfx, L"test_texture.png");
 	ID3DBlob* pBlob = _vertexShader.getBytecode();
 
 	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied = {
@@ -17,6 +19,8 @@ Material::Material(Graphics& gfx,const wchar_t* sVertexShader, const wchar_t* sP
 	};
 
 	_inputLayer = InputLayout(gfx, ied, pBlob);
+
+
 }
 
 
@@ -25,4 +29,5 @@ void Material::bind(Graphics& gfx)
 	_pixelShader.bind(gfx);
 	_vertexShader.bind(gfx);
 	_inputLayer.bind(gfx);
+	_texture.bind(gfx);
 }

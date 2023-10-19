@@ -2,6 +2,8 @@
 #include "../graphics/Drawable/BindComponent/VertexShader.h"
 #include "../graphics/Drawable/BindComponent/PixelShader.h"
 #include "../graphics/Drawable/BindComponent/InputLayout.h"
+#include "../graphics/Drawable/BindComponent/Texture.h" 
+
 struct Material
 {
 public:
@@ -19,4 +21,5 @@ private:
 	VertexShader _vertexShader;
 	PixelShader _pixelShader;
 	InputLayout _inputLayer;
+	Texture _texture;
 };

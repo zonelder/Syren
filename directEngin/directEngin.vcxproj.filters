@@ -114,6 +114,9 @@
     <ClCompile Include="lib\component\Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -248,6 +251,9 @@
     <ClInclude Include="lib\component\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\direct\DXTrace.inl">
@@ -259,9 +265,15 @@
     <None Include="lib\direct\DXGetErrorString.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\VertexShader.hlsl" />
     <FxCompile Include="shaders\PixelShader.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="test_texture.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

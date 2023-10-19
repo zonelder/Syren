@@ -10,6 +10,7 @@
 #include "../Systems/CameraController.h"
 
 
+
 App::App() :_wnd(800, 600, "engin win"),_sceneManager(_wnd){
 
 	_systemManager.addSystem<OrientationSystem>();

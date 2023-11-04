@@ -1,8 +1,8 @@
 #include "Mesh.h"
+///vertex= {DirectX::XMVECTOR - cord,float2 - UV_CORD}
 
 
-
-Mesh::Mesh(Graphics& gfx, const std::vector<DirectX::XMVECTOR>& Verts, const std::vector<unsigned short>& Indices, const ConstantBuffer2& Colors)
+Mesh::Mesh(Graphics& gfx, const std::vector<Vertex>& Verts, const std::vector<unsigned short>& Indices, const ConstantBuffer2& Colors)
 {
 	vertices = Verts;
 	indices = Indices;
@@ -17,5 +17,5 @@ void Mesh::bind(Graphics& gfx)
 {
 	_vertexBuffer.bind(gfx);
 	_indexBuffer.bind(gfx);
-	_pixelConstantBuffer.bind(gfx);
+	//_pixelConstantBuffer.bind(gfx);
 }

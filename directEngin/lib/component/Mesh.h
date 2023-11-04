@@ -4,6 +4,7 @@
 #include "../graphics/Drawable/BindComponent/VertexBuffer.h"
 #include "../graphics/Drawable/BindComponent/IndexBuffer.h"
 #include "../graphics/Drawable/BindComponent/ConstantBuffer.h"
+#include "../graphics/Drawable/BindComponent/Vertex.h"
 
 
 struct Mesh
@@ -16,9 +17,9 @@ struct Mesh
 			float a;
 		} face_colors[6];
 	};
-	Mesh(Graphics& gfx,const std::vector<DirectX::XMVECTOR>& verts,const std::vector<unsigned short>& indices,const ConstantBuffer2& colors);
+	Mesh(Graphics& gfx,const std::vector<Vertex>& verts,const std::vector<unsigned short>& indices,const ConstantBuffer2& colors);
 	void bind(Graphics& gfx);
-	std::vector<DirectX::XMVECTOR> vertices;
+	std::vector<Vertex> vertices;
 	std::vector<unsigned short> indices;
 	ConstantBuffer2 colors;
 

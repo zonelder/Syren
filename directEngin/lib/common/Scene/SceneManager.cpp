@@ -11,7 +11,7 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	
 
 	auto material = makeMaterial();
-
+	/*
 	EntityID first = 0;
 	Transform& t = addComponent<Transform>(first);
 	Render& r = addComponent<Render>(first);
@@ -34,7 +34,9 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	r2.p_mesh = makeCylinderMesh();
 	r2.p_material = material;
 	t2.scale.y = 3.0f;
+	*/
 
+	EntityID second = 1;
 	auto p_plane_mesh = make2SidedPlaneMesh();
 	for (int i = 0; i < 1000; ++i)
 	{
@@ -83,7 +85,7 @@ std::shared_ptr<Material> SceneManager::makeMaterial(const wchar_t* vertexShader
 
 
 std::shared_ptr<Mesh> SceneManager::makeMesh(
-	const std::vector<DirectX::XMVECTOR>& vertices,
+	const std::vector<Vertex>& vertices,
 	const std::vector<unsigned short>& indices,
 	const Mesh::ConstantBuffer2& colors
 )
@@ -91,7 +93,7 @@ std::shared_ptr<Mesh> SceneManager::makeMesh(
 	auto mesh = std::make_shared<Mesh>(_gfx, vertices, indices,colors);
 	return mesh;
 }
-
+/*
 std::shared_ptr<Mesh>  SceneManager::makeBoxMesh()
 {
 	auto mesh = makeMesh({
@@ -128,7 +130,7 @@ std::shared_ptr<Mesh>  SceneManager::makeBoxMesh()
 
 std::shared_ptr<Mesh>  SceneManager::makeCylinderMesh(unsigned int n)
 {
-	std::vector<DirectX::XMVECTOR> vertices;
+	std::vector<Vertex> vertices;
 	vertices.reserve(n + 2);
 	std::vector<unsigned short> indices;
 	indices.reserve(6 * n);
@@ -166,19 +168,20 @@ std::shared_ptr<Mesh>  SceneManager::makeCylinderMesh(unsigned int n)
 
 	return makeMesh(vertices, indices, colors);
 }
+*/
 
 std::shared_ptr<Mesh> SceneManager::make2SidedPlaneMesh()
 {
 	auto mesh = makeMesh({
-	{ -1.0f,-1.0f,0.0f,},
-	{ -1.0f,1.0f,0.0f, },
-	{ 1.0f,1.0f,0.0f,  },
-	{  1.0f,-1.0f,0.0f, },
+		{{ -1.0f,-1.0f,0.0f,},{0.0f,1.0f}},
+		{{ -1.0f,1.0f,0.0f, },{0.0f,0.0f}},
+		{{ 1.0f,1.0f,0.0f,  },{1.0f,0.0f}},
+		{{  1.0f,-1.0f,0.0f, },{1.0f,1.0f}},
 
-	{ -1.0f,-1.0f,0.0f,},
-	{ -1.0f,1.0f,0.0f, },
-	{ 1.0f,1.0f,0.0f,  },
-	{  1.0f,-1.0f,0.0f, },
+		{{ -1.0f,-1.0f,0.0f,},{0.0f,1.0f}},
+		{{ -1.0f,1.0f,0.0f, },{0.0f,0.0f}},
+		{{ 1.0f,1.0f,0.0f,  },{1.0f,0.0f}},
+		{{  1.0f,-1.0f,0.0f, },{1.0f,1.0f}},
 		},
 	{
 	0,2,1, 0,3,2,

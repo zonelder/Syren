@@ -57,7 +57,7 @@ public:
 	/// @brief create new mesh and return ptr to it
 	/// @return 
 	std::shared_ptr<Mesh> makeMesh(
-		const std::vector<DirectX::XMVECTOR>& vertices,
+		const std::vector<Vertex>& vertices,
 		const std::vector<unsigned short> &indices,
 		const Mesh::ConstantBuffer2& colors
 	);

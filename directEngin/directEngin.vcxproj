@@ -180,6 +180,7 @@
     <ClCompile Include="lib\common\Scene\SceneManager.cpp" />
     <ClCompile Include="lib\common\Scene\SystemManager.cpp" />
     <ClCompile Include="lib\Systems\TimedRotationtSystem.cpp" />
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\Vertex.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +228,7 @@
     <ClInclude Include="lib\common\Scene\SceneManager.h" />
     <ClInclude Include="lib\common\Scene\SystemManager.h" />
     <ClInclude Include="lib\Systems\TimedRotationtSystem.h" />
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\Vertex.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>
   <ItemGroup>

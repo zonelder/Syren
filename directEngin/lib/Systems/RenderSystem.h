@@ -7,6 +7,6 @@ public:
 
 	void onFrame(SceneManager&) override;
 private:
-	void renderOne(Render& render, Graphics& gfx, Transform& transform);
+	void renderOne(Render& render, Graphics& gfx, Transform& transform,const Transform& camTr);
 };
 

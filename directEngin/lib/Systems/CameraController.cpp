@@ -26,6 +26,6 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 
 		auto& p = scene.getPool<TimedRotation>();
 
-		p.removeComponent(1);
+		p.removeAll();
 	}
 }

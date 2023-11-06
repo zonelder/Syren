@@ -8,12 +8,14 @@
 #include "../Systems/RenderSystem.h"
 #include "../Systems/TimedRotationtSystem.h"
 #include "../Systems/CameraController.h"
+#include "../Systems/ParentSystem.h"
 
 
 
 App::App() :_wnd(800, 600, "engin win"),_sceneManager(_wnd){
 
 	_systemManager.addSystem<OrientationSystem>();
+	_systemManager.addSystem<ParentSystem>();
 	_systemManager.addSystem<RenderSystem>();
 	
 	_systemManager.addSystem<TimedRotationSystem>();

@@ -4,19 +4,20 @@
 #include "../graphics/Graphics.h"
 
 
-void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform)
+void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform& camTr)
 {
 	INFOMAN(gfx);
 
 	///update transform buffer
 	D3D11_MAPPED_SUBRESOURCE msr;
 	auto pConstantBuffer = transform.vertexConstantBuffer.p_pConstantBuffer;
+	auto FinalView = DirectX::XMMatrixTranspose(transform.orientationMatrix * camTr.orientationMatrix);
 	GFX_THROW_INFO(gfx.getContext()->Map(
 		pConstantBuffer.Get(), 0u,
 		D3D11_MAP_WRITE_DISCARD, 0u,
 		&msr
 	));
-	memcpy(msr.pData, &transform.orientationMatrix, sizeof(transform.orientationMatrix));
+	memcpy(msr.pData, &FinalView, sizeof(FinalView));
 	gfx.getContext()->Unmap(pConstantBuffer.Get(), 0u);
 
 
@@ -37,11 +38,12 @@ void RenderSystem::onFrame(SceneManager& scene)
 
 	auto& _transforms = scene.getPool<Transform>();
 	auto& _renders = scene.getPool<Render>();
+	auto& camTr = scene.getCamera().transform;
 
 	for (auto& [entID, r] : _renders)
 	{
 		if (!_transforms.hasComponent(entID))
 			continue;
-		renderOne(r, gfx, _transforms.getComponent(entID));
+		renderOne(r, gfx, _transforms.getComponent(entID),camTr);
 	}
 }

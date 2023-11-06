@@ -5,5 +5,6 @@
 struct Parent
 {
 	EntityID parent;
+	bool used;
 };
 

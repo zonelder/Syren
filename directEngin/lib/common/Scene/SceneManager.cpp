@@ -43,25 +43,40 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	EntityID id = second;
 	Transform& t = addComponent<Transform>(id);
 	Render& r = addComponent<Render>(id);
-	Parent& p = addComponent<Parent>(id);
 	TimedRotation& tr = addComponent<TimedRotation>(id);
-	tr.zSence = 1.2f;
-	p.parent = second + 1;
+	tr.zSence = 1.0f;
+	tr.xSence = 0.0f;
 	r.p_mesh = p_plane_mesh;
 	r.p_material = material;
-	t.position = {0.0f,0.0f,1.0f};
-	t.scale = { 1.0f,1.0f,1.0f };
-	for (int i = 0; i < 1; ++i)
+	t.position = {1.0f,0.0f,1.0f};
+	const int num = 3;
+	for (int i = 0; i <= num; ++i)
 	{
 		EntityID id = i + second + 1;
 		Transform& t = addComponent<Transform>(id);
 		Render& r = addComponent<Render>(id);
 		TimedRotation& tr = addComponent<TimedRotation>(id);
-		tr.zSence = 1.2f;
-		tr.xSence = 1.0f;
+		//tr.zSence = 1.2f;
+
+		//tr.xSence = 1.0f;
 		r.p_mesh = p_plane_mesh;
 		r.p_material = material;
-		t.position = { float(i % 10)*3.0f,0.0f,float(i / 10)*3.0f };
+		/*
+		if (i == num)
+		{
+			auto& p = addComponent<Parent>(second);
+			p.parent = id;
+			t.position = { 0.0f,0.0f,0.0f };
+			tr.zSence = 1.0f;
+			continue;
+		}
+				*/
+		Parent& p = addComponent<Parent>(id);
+		p.parent = id - 1;
+
+
+		//t.position = { float(i % 10)*3.0f,0.0f,float(i / 10)*3.0f };
+		t.position = { 0.0f,0.0f,1.0f };
 	}
 }
 

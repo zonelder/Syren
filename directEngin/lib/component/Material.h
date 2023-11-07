@@ -14,6 +14,7 @@ public:
 
 	std::wstring vertexShader;
 	std::wstring pixelShader;
+	Texture texture;
 private:
 
 
@@ -21,5 +22,5 @@ private:
 	VertexShader _vertexShader;
 	PixelShader _pixelShader;
 	InputLayout _inputLayer;
-	Texture _texture;
+
 };

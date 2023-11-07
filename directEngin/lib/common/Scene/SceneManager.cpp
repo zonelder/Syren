@@ -49,14 +49,14 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	r.p_mesh = p_plane_mesh;
 	r.p_material = material;
 	t.position = {1.0f,0.0f,1.0f};
-	const int num = 3;
+	const int num = 30;
 	for (int i = 0; i <= num; ++i)
 	{
 		EntityID id = i + second + 1;
 		Transform& t = addComponent<Transform>(id);
 		Render& r = addComponent<Render>(id);
 		TimedRotation& tr = addComponent<TimedRotation>(id);
-		//tr.zSence = 1.2f;
+		tr.zSence = 1.2f;
 
 		//tr.xSence = 1.0f;
 		r.p_mesh = p_plane_mesh;

@@ -7,7 +7,7 @@ Material::Material(Graphics& gfx,const wchar_t* sVertexShader, const wchar_t* sP
 	:
 	vertexShader(sVertexShader),
 	pixelShader(sPixelShader),
-	_texture(Texture(gfx, L"test_texture.dds"))
+	texture(Texture(gfx/*, L"test_texture.dds"*/))
 {
 	_pixelShader = PixelShader(gfx,pixelShader);
 	_vertexShader = VertexShader(gfx,vertexShader);
@@ -30,5 +30,5 @@ void Material::bind(Graphics& gfx)
 	_inputLayer.bind(gfx);
 	_vertexShader.bind(gfx);
 	_pixelShader.bind(gfx);
-	_texture.bind(gfx);
+	texture.bind(gfx);
 }

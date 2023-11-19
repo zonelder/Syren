@@ -4,6 +4,7 @@
 #include "BaseSystem.h"
 #include <memory>
 #include <algorithm>
+#include <map>
 
 template<typename T,typename U>
 concept DeriveFrom = std::is_base_of<U, T>::value;
@@ -11,18 +12,56 @@ concept DeriveFrom = std::is_base_of<U, T>::value;
 class SystemManager
 {
 public:
+
+
+	/// @brief add new system at the end of call queue
+	/// @tparam T Class,that derived from BaseSystem Class
 	template<typename T>
 	void addSystem() requires DeriveFrom<T, BaseSystem>
 	{
-		_systems.emplace_back(new T);
+		addSystem<T>(_maxPriority + 1);
 	}
 
-	void update(SceneManager&,float dt);
 
-	void frame(SceneManager&);
+	/// @brief add new system in processor with priory
+	/// @tparam T Class,that derived from BaseSystem Class
+	/// @param priority Prioriy of calls. Systems with less priority will be called earlier
+	template<typename T>
+	void addSystem(unsigned int priority) requires DeriveFrom<T, BaseSystem>
+	{
+		if (_systems.contains(priority))
+		{
+			//TODO add warn: attempt to add system with priority that already exist. you should set unique priority to system
+			return;
+		}
+		if (priority > _maxPriority)
+		{
+			_maxPriority = priority;
+		}
+		_systems.emplace(priority,new T);
+	}
+
+	/// @brief Remove system from the list with specific priority level
+	/// @param priority 
+	void removeSystem(unsigned int priority) noexcept;
+
+	/// @brief find system with priority level equal curPriority and set new Priority level
+	/// @param curPriority current priority level
+	/// @param prioruty new priority level
+	void resetPriority(unsigned int curPriority, unsigned int priority);
+
+	/// @brief update all systems
+	/// @param  scene Scene, where systems update needed
+	/// @param dt time from last update call
+	void update(SceneManager& scene,float dt);
+
+	/// @brief call "frame" method of system from added list
+	/// @param  scene Scene, where systems update needed
+	void frame(SceneManager& scene);
 
 private:
 	//std::vector<int> _priorities;
-	std::vector<std::unique_ptr<BaseSystem>>  _systems;
+	unsigned int _maxPriority = 0;
+	std::map<unsigned int ,std::unique_ptr<BaseSystem>>  _systems;
 };
 

@@ -13,6 +13,7 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	
 
 	auto material = makeMaterial();
+	material->texture.set(_gfx, L"test_texture.dds");
 	/*
 	EntityID first = 0;
 	Transform& t = addComponent<Transform>(first);
@@ -26,7 +27,7 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	r.p_material = material;
 	 
 	EntityID second = 1;
-	Transform& t2 = addComponent<Transform>(second);
+	Transform& t2 = addComponent<Transform>(second);sys
 	Render& r2 = addComponent<Render>(second);
 	TimedRotation& tr2 = addComponent<TimedRotation>(second);
 
@@ -49,18 +50,21 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 	r.p_mesh = p_plane_mesh;
 	r.p_material = material;
 	t.position = {1.0f,0.0f,1.0f};
-	const int num = 30;
-	for (int i = 0; i <= num; ++i)
+	const int num = 1;
+	auto card_mat = makeMaterial();
+	card_mat->texture.set(_gfx, L"card_test.dds");
+	for (int i = 0; i < num; ++i)
 	{
 		EntityID id = i + second + 1;
 		Transform& t = addComponent<Transform>(id);
 		Render& r = addComponent<Render>(id);
 		TimedRotation& tr = addComponent<TimedRotation>(id);
 		tr.zSence = 1.2f;
+		t.scale = { 0.5f,0.5f,0.5f };
 
 		//tr.xSence = 1.0f;
 		r.p_mesh = p_plane_mesh;
-		r.p_material = material;
+		r.p_material = card_mat;
 		/*
 		if (i == num)
 		{
@@ -72,11 +76,11 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){
 		}
 				*/
 		Parent& p = addComponent<Parent>(id);
-		p.parent = id - 1;
+		p.parent = second;
 
 
 		//t.position = { float(i % 10)*3.0f,0.0f,float(i / 10)*3.0f };
-		t.position = { 0.0f,0.0f,1.0f };
+		t.position = { 0.0f,0.0f,-0.0001f };
 	}
 }
 

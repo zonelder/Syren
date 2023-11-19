@@ -24,15 +24,6 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 	if (Input::IsKeyDown('Q'))
 	{
 
-		//auto& p = scene.getPool<TimedRotation>();
-
-		//	p.removeAll();
-
-		auto&  r0 = scene.getPool<Render>().getComponent(1);
-		if (r0.p_material->texture.getPath().empty())
-			r0.p_material->texture.set(scene.getGraphic(), L"test_texture.dds");
-		else
-			r0.p_material->texture.reset();
 
 	}
 }

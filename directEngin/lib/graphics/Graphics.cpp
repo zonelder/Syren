@@ -63,14 +63,14 @@ Graphics::Graphics(HWND hWnd){
 
 		// create depth stennsil state
 		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
+		ZeroMemory(&dsDesc, sizeof(D3D11_DEPTH_STENCIL_DESC));
+
 		dsDesc.DepthEnable = TRUE;
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-		dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
+		dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> pDSState;
-		GFX_THROW_INFO(_pDevice->CreateDepthStencilState(&dsDesc, &pDSState));
+		GFX_THROW_INFO(_pDevice->CreateDepthStencilState(&dsDesc, &_pDSState));
 
-		_pContext->OMSetDepthStencilState(pDSState.Get(), 1u);
 
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> pDepthStencil;
 
@@ -85,13 +85,34 @@ Graphics::Graphics(HWND hWnd){
 		descDepth.SampleDesc.Quality = 0u;
 		descDepth.Usage = D3D11_USAGE_DEFAULT;
 		descDepth.BindFlags = D3D10_BIND_DEPTH_STENCIL;
+		descDepth.CPUAccessFlags = 0;
+		descDepth.MiscFlags = 0;
 		GFX_THROW_INFO(_pDevice->CreateTexture2D(&descDepth, nullptr, &pDepthStencil));
+		/*
+		Microsoft::WRL::ComPtr <ID3D11BlendState> blend;
+		D3D11_BLEND_DESC bd;
+		ZeroMemory(&bd, sizeof(D3D11_BLEND_DESC));
+		bd.AlphaToCoverageEnable = TRUE;
+		auto& rt = bd.RenderTarget[0];
+		rt.BlendEnable = TRUE;
+		rt.SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		rt.DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		rt.BlendOp = D3D11_BLEND_OP_ADD;
+		rt.SrcBlendAlpha = D3D11_BLEND_ZERO;
+		rt.DestBlendAlpha = D3D11_BLEND_ZERO;
+		rt.BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		rt.RenderTargetWriteMask = D3D10_COLOR_WRITE_ENABLE_ALL;
+		GFX_THROW_INFO(_pDevice->CreateBlendState(&bd, &blend));
 
+		UINT mask = 0xffffffff;
+		_pContext->OMSetBlendState(blend.Get(), 0, mask);
+		*/
 		// create view of depth stensil texture
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
 		descDSV.Format = DXGI_FORMAT_D32_FLOAT;
 		descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 		descDSV.Texture2D.MipSlice = 0u;
+		
 		GFX_THROW_INFO(_pDevice->CreateDepthStencilView(pDepthStencil.Get(), &descDSV, &_pDSV));
 
 		//bind depth stensil view to OM
@@ -128,14 +149,16 @@ void Graphics::endFrame(){
 
 void Graphics::ClearBuffer(float red, float green, float blue) noexcept{
 	const float color[] = { red,green,blue,1.0f };
-	_pContext->ClearRenderTargetView(_pTarget.Get(), color);
-	_pContext->ClearDepthStencilView(_pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
+	ClearBuffer(color);
 }
 
 void Graphics::ClearBuffer(const float color[4]) noexcept
 {
 	_pContext->ClearRenderTargetView(_pTarget.Get(), color);
-	_pContext->ClearDepthStencilView(_pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
+	_pContext->ClearDepthStencilView(_pDSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0u);
+
+	_pContext->OMSetDepthStencilState(_pDSState.Get(), 0);
+
 }
 
 void Graphics::drawTestTriangle(float angle,float x,float y,float z) {

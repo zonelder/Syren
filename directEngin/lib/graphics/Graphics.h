@@ -67,5 +67,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> _pContext;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> _pTarget;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> _pDSV;
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> _pDSState;
 };
 

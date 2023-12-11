@@ -105,3 +105,19 @@ void MouseHandler::onMouseEnter() noexcept {
 		 onWheelDown(x, y);
 	 }
  }
+
+ bool MouseHandler::LeftIsPressed() const noexcept
+ {
+	 return _leftIsPressed;
+ }
+
+ bool MouseHandler::RightIsPressed() const noexcept
+ {
+	 return _rightIsPressed;
+ }
+
+ void MouseHandler::ResetButtons() noexcept
+ {
+	 _leftIsPressed = false;
+	 _rightIsPressed = false;
+ }

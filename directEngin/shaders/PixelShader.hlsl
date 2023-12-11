@@ -2,8 +2,17 @@ cbuffer Cbuf {
 	float4 face_color[6];
 };
 
+Texture2D ObjTexture;
+SamplerState ObjSamplerState;
 
-float4 main(uint tid : SV_PrimitiveID) : SV_Target{
+struct VS_OUTPUT
+{
+	float4 pos : SV_Position;
+	float2 TexCord : TEXCORD;
+};
 
-	return face_color[tid / 2];
+
+float4 main(VS_OUTPUT input) : SV_Target{
+
+	return ObjTexture.Sample( ObjSamplerState, input.TexCord );
 }

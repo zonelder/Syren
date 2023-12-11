@@ -13,7 +13,7 @@ int  CALLBACK WinMain(
 	LPSTR lpCmdLine,//command line
 	int ncmdMode) {
 	try {
-		return App{}.init();
+		return App{}.Init();
 	}
 	catch (const PointedException& e) {
 

@@ -58,7 +58,7 @@ Window::Window(int width, int height, const char* name) noexcept
 	}
 	ShowWindow(_hWnd, SW_SHOWDEFAULT);
 
-	_pGraphic = std::make_unique<Graphics>(_hWnd);
+	//_pGraphic = std::make_unique<Graphics>(_hWnd);
 }
 
 Window::~Window() {
@@ -259,14 +259,6 @@ std::optional<int> Window::processMessage() {
 	return {};
 }
 
-Graphics& Window::getGraphic()
-{
-	if (!_pGraphic) {
-		throw WND_NOGFX_EXCEPT();
-	}
-	return *_pGraphic;
-}
-
 int Window::GetWidth() const noexcept
 {
 	return _width;
@@ -275,4 +267,9 @@ int Window::GetWidth() const noexcept
 int Window::GetHeight() const noexcept
 {
 	return _height;
+}
+
+HWND Window::GetHWND() const noexcept
+{
+	return _hWnd;
 }

@@ -1,4 +1,5 @@
 #include "InputHandler.h"
+#include <iostream>
 
 bool InputHandler::isPressed(unsigned char keycode) const noexcept{
 	return _keyStates[keycode];
@@ -58,6 +59,7 @@ bool InputHandler::isEnabledAutorepeat() noexcept {
 }
 
 void InputHandler::onkeyPressed(unsigned char keycode) noexcept {
+
 	_keyStates[keycode] = true;
 	_keyBuffer.push(InputHandler::Event(InputHandler::Event::Type::Press, keycode));
 	trimBuffer(_keyBuffer);

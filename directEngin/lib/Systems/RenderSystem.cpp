@@ -56,7 +56,7 @@ void DeepRender(Graphics& gfx,Transform& cam,ComponentPool<Render>& rendres, Com
 void RenderSystem::onFrame(SceneManager& scene)
 {
 	Graphics& gfx = scene.getGraphic();
-	std::cout << "----------\n";
+
 	auto& _transforms = scene.getPool<Transform>();
 	auto& _renders = scene.getPool<Render>();
 	auto& _parents = scene.getPool<Parent>();

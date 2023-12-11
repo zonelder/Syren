@@ -151,7 +151,6 @@
     <ClCompile Include="lib\component\Material.cpp" />
     <ClCompile Include="lib\component\Mesh.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Texture.cpp" />
-    <ClCompile Include="lib\Systems\CameraController.cpp" />
     <ClCompile Include="lib\common\Scene\ComponentManager.cpp" />
     <ClCompile Include="lib\common\Scene\ComponentPool.cpp" />
     <ClCompile Include="lib\common\Input.cpp" />
@@ -180,7 +179,6 @@
     <ClCompile Include="lib\Systems\OrientationSystem.cpp" />
     <ClCompile Include="lib\common\Scene\SceneManager.cpp" />
     <ClCompile Include="lib\common\Scene\SystemManager.cpp" />
-    <ClCompile Include="lib\Systems\TimedRotationtSystem.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Vertex.cpp" />
     <ClCompile Include="lib\Systems\ParentSystem.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
@@ -189,7 +187,6 @@
     <ClInclude Include="lib\component\Material.h" />
     <ClInclude Include="lib\component\Parent.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Texture.h" />
-    <ClInclude Include="lib\Systems\CameraController.h" />
     <ClInclude Include="lib\common\Scene\ComponentManager.h" />
     <ClInclude Include="lib\common\Scene\ComponentPool.h" />
     <ClInclude Include="lib\common\Input.h" />
@@ -200,7 +197,6 @@
     <ClInclude Include="lib\common\TransformUtils.h" />
     <ClInclude Include="lib\component\Mesh.h" />
     <ClInclude Include="lib\component\Render.h" />
-    <ClInclude Include="lib\component\TimedRotation.h" />
     <ClInclude Include="lib\component\Transform.h" />
     <ClInclude Include="lib\graphics\Drawable\IDrawable.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\InputLayout.h" />
@@ -231,7 +227,6 @@
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Topology.h" />
     <ClInclude Include="lib\common\Scene\SceneManager.h" />
     <ClInclude Include="lib\common\Scene\SystemManager.h" />
-    <ClInclude Include="lib\Systems\TimedRotationtSystem.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Vertex.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>

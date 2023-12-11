@@ -102,12 +102,6 @@
     <ClCompile Include="lib\common\Scene\SystemManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Systems\TimedRotationtSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Systems\CameraController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lib\component\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -246,15 +240,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\Scene\BaseSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\Systems\TimedRotationtSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\component\TimedRotation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\Systems\CameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\component\Material.h">

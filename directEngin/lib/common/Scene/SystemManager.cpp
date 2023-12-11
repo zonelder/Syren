@@ -32,7 +32,7 @@ void SystemManager::removeSystem(unsigned int priority) noexcept
 	_systems.erase(priority);
 }
 
-void SystemManager::resetPriority(unsigned int curPriority, unsigned int priority)
+void SystemManager::resetPriority(unsigned int curPriority, unsigned int priority) noexcept
 {
 	if (!_systems.contains(curPriority))
 	{

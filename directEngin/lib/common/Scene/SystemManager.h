@@ -13,21 +13,19 @@ class SystemManager
 {
 public:
 
-
 	/// @brief add new system at the end of call queue
 	/// @tparam T Class,that derived from BaseSystem Class
 	template<typename T>
-	void addSystem() requires DeriveFrom<T, BaseSystem>
+	void add() requires DeriveFrom<T, BaseSystem>
 	{
-		addSystem<T>(_maxPriority + 1);
+		add<T>(_maxPriority + 1);
 	}
-
 
 	/// @brief add new system in processor with priory
 	/// @tparam T Class,that derived from BaseSystem Class
 	/// @param priority Prioriy of calls. Systems with less priority will be called earlier
 	template<typename T>
-	void addSystem(unsigned int priority) requires DeriveFrom<T, BaseSystem>
+	void add(unsigned int priority) requires DeriveFrom<T, BaseSystem>
 	{
 		if (_systems.contains(priority))
 		{
@@ -48,7 +46,7 @@ public:
 	/// @brief find system with priority level equal curPriority and set new Priority level
 	/// @param curPriority current priority level
 	/// @param prioruty new priority level
-	void resetPriority(unsigned int curPriority, unsigned int priority);
+	void resetPriority(unsigned int curPriority, unsigned int priority) noexcept;
 
 	/// @brief update all systems
 	/// @param  scene Scene, where systems update needed

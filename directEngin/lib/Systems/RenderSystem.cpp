@@ -69,8 +69,6 @@ void RenderSystem::onFrame(SceneManager& scene)
 		DeepRender(gfx, camTr, _renders, _transforms, _parents, entID);
 	}
 
-
-	std::cout << "----------\n";
 }
 
 void RenderSystem::onUpdate(SceneManager& scene, float t)

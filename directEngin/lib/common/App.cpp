@@ -4,23 +4,10 @@
 #include "TransformUtils.h"
 #include "Input.h"
 
-#include "../Systems/OrientationSystem.h"
-#include "../Systems/RenderSystem.h"
-#include "../Systems/TimedRotationtSystem.h"
-#include "../Systems/CameraController.h"
-#include "../Systems/ParentSystem.h"
 
 
 
-App::App() :_wnd(800, 600, "engin win"),_sceneManager(_wnd){
-
-	_systemManager.addSystem<OrientationSystem>();
-	_systemManager.addSystem<ParentSystem>();
-	_systemManager.addSystem<RenderSystem>();
-	
-	_systemManager.addSystem<TimedRotationSystem>();
-	_systemManager.addSystem<CameraController>();
-}
+App::App() :_wnd(800, 600, "engin win"),_sceneManager(_wnd){}
 
 
 int App::Init(){
@@ -29,6 +16,8 @@ int App::Init(){
 
 	auto& input = Input::GetInstance();
 	input.p_ih = &(_wnd.inputHandler);
+
+	OnInit();
 	while (true) {
 		//if processMessage has a value then it means than we wanna exit from app
 		if (const auto ecode = Window::processMessage()) {

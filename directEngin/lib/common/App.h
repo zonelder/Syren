@@ -13,6 +13,7 @@ class App
 public:
 	App();
 	int Init();
+	void OnInit();
 private:
 	void Update();
 	void Frame();

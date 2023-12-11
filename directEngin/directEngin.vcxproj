@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\common\customApp.cpp" />
     <ClCompile Include="lib\component\Material.cpp" />
     <ClCompile Include="lib\component\Mesh.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Texture.cpp" />

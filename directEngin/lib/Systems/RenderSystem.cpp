@@ -5,6 +5,11 @@
 #include "../component/Parent.h"
 #include <iostream>
 
+#include <initguid.h>
+
+#include "SpriteFont.h"
+#include "SpriteBatch.h"
+
 void renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform& camTr)
 {
 	INFOMAN(gfx);
@@ -39,6 +44,7 @@ void DeepRender(Graphics& gfx,Transform& cam,ComponentPool<Render>& rendres, Com
 	if (!trs.hasComponent(id) || r.is_rendered)
 		return;
 	//before render object we should render its parent
+
 	if (parents.hasComponent(id))
 	{
 		auto p_id = parents.getComponent(id).parent;
@@ -52,6 +58,7 @@ void DeepRender(Graphics& gfx,Transform& cam,ComponentPool<Render>& rendres, Com
 	r.is_rendered = true;
 }
 
+using namespace DirectX::DX11;
 
 void RenderSystem::onFrame(SceneManager& scene)
 {
@@ -61,7 +68,6 @@ void RenderSystem::onFrame(SceneManager& scene)
 	auto& _renders = scene.getPool<Render>();
 	auto& _parents = scene.getPool<Parent>();
 	auto& camTr = scene.getCamera().transform;
-
 
 	for (auto& [entID, r] : _renders)
 	{

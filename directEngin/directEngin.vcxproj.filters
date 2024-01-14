@@ -126,6 +126,9 @@
     <ClCompile Include="lib\common\customApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\Systems\UITextRender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -272,6 +275,12 @@
     <ClInclude Include="lib\Systems\ParentSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lib\component\TextUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Systems\UITextRender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\direct\DXTrace.inl">
@@ -284,6 +293,8 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="..\..\..\..\Desktop\myfile.spritefont" />
+    <None Include="myfile.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\VertexShader.hlsl" />

@@ -80,7 +80,6 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -96,7 +95,6 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -118,7 +116,6 @@
       <AdditionalIncludeDirectories>$(ProjectDir)DirectXTK-main\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -140,7 +137,6 @@
       <AdditionalIncludeDirectories>$(ProjectDir)DirectXTK-main\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -183,11 +179,13 @@
     <ClCompile Include="lib\Systems\TimedRotationtSystem.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Vertex.cpp" />
     <ClCompile Include="lib\Systems\ParentSystem.cpp" />
+    <ClCompile Include="lib\Systems\UITextRender.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\component\Material.h" />
     <ClInclude Include="lib\component\Parent.h" />
+    <ClInclude Include="lib\component\TextUI.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Texture.h" />
     <ClInclude Include="lib\Systems\CameraController.h" />
     <ClInclude Include="lib\common\Scene\ComponentManager.h" />
@@ -233,12 +231,15 @@
     <ClInclude Include="lib\common\Scene\SystemManager.h" />
     <ClInclude Include="lib\Systems\TimedRotationtSystem.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Vertex.h" />
+    <ClInclude Include="lib\Systems\UITextRender.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\Desktop\myfile.spritefont" />
     <None Include="lib\direct\DXGetErrorDescription.inl" />
     <None Include="lib\direct\DXGetErrorString.inl" />
     <None Include="lib\direct\DXTrace.inl" />
+    <None Include="myfile.spritefont" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

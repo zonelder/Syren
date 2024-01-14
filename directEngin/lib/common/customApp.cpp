@@ -4,12 +4,17 @@
 #include "../Systems/TimedRotationtSystem.h"
 #include "../Systems/CameraController.h"
 #include "../Systems/ParentSystem.h"
+#include "../Systems/UITextRender.h"
+
 #include "../component/TimedRotation.h"
 #include "../component/Parent.h"
+#include "../component/TextUI.h"
+
 
 
 void App::OnInit()
 {
+	auto& gfx = _sceneManager.getGraphic();
 	/// init systems
 	_systemManager.add<OrientationSystem>();
 	_systemManager.add<ParentSystem>();
@@ -17,13 +22,14 @@ void App::OnInit()
 
 	_systemManager.add<TimedRotationSystem>();
 	_systemManager.add<CameraController>();
+	_systemManager.add<UITextRender>(gfx, L"myfile.spritefont");
 
 	////
 
 	_sceneManager.getCamera().aspectRatio = _wnd.GetWidth() / _wnd.GetHeight();
 
 
-	auto& gfx = _sceneManager.getGraphic();
+
 	auto material = _sceneManager.makeMaterial();
 	material->texture.set(gfx, L"test_texture.dds");
 	/*
@@ -94,4 +100,15 @@ void App::OnInit()
 		//t.position = { float(i % 10)*3.0f,0.0f,float(i / 10)*3.0f };
 		t.position = { 0.0f,0.0f,-0.0001f };
 	}
+
+	EntityID text_id = num + 4;
+	TextUI& text1 = _sceneManager.addComponent<TextUI>(text_id);
+	text1.content = L"hello world";
+	text1.position = DirectX::XMFLOAT2(10, 10);
+
+	TextUI& text2 = _sceneManager.addComponent<TextUI>(text_id + 1);
+	text2.content = L"Test";
+	text2.position = DirectX::XMFLOAT2(10, 20);
+
+
 }

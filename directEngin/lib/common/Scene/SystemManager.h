@@ -49,6 +49,8 @@ public:
 	/// @param prioruty new priority level
 	void resetPriority(unsigned int curPriority, unsigned int priority) noexcept;
 
+
+	void init(SceneManager& scene);
 	/// @brief update all systems
 	/// @param  scene Scene, where systems update needed
 	/// @param dt time from last update call

@@ -180,11 +180,13 @@
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Vertex.cpp" />
     <ClCompile Include="lib\Systems\ParentSystem.cpp" />
     <ClCompile Include="lib\Systems\UITextRender.cpp" />
+    <ClCompile Include="lib\Systems\TextRenderSystem.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\component\Material.h" />
     <ClInclude Include="lib\component\Parent.h" />
+    <ClInclude Include="lib\component\text.h" />
     <ClInclude Include="lib\component\TextUI.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Texture.h" />
     <ClInclude Include="lib\Systems\CameraController.h" />
@@ -232,6 +234,7 @@
     <ClInclude Include="lib\Systems\TimedRotationtSystem.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Vertex.h" />
     <ClInclude Include="lib\Systems\UITextRender.h" />
+    <ClInclude Include="lib\Systems\TextRenderSystem.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>
   <ItemGroup>
@@ -265,11 +268,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\directxtk_uwp.2023.9.6.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2023.9.6.1\build\native\directxtk_uwp.targets')" />
+    <Import Project="..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets" Condition="Exists('..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\directxtk_uwp.2023.9.6.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2023.9.6.1\build\native\directxtk_uwp.targets'))" />
+    <Error Condition="!Exists('..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets'))" />
   </Target>
 </Project>

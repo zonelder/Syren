@@ -7,7 +7,7 @@
 
 
 
-App::App() :_wnd(800, 600, "engin win"),_sceneManager(_wnd){}
+App::App() :_wnd(800, 600, "engin win"),_scene(_wnd){}
 
 
 int App::Init(){
@@ -18,6 +18,7 @@ int App::Init(){
 	input.p_ih = &(_wnd.inputHandler);
 
 	OnInit();
+	_systemManager.init(_scene);
 	while (true) {
 		//if processMessage has a value then it means than we wanna exit from app
 		if (const auto ecode = Window::processMessage()) {
@@ -32,18 +33,22 @@ int App::Init(){
 
 void App::Update()
 {
-	_systemManager.update(_sceneManager, _time.peek());
+
+
+	_systemManager.update(_scene, _time.peek());
+
 }
 
 void App::Frame() {
 
-	_sceneManager.onStartFrame();
+
+	_scene.onStartFrame();
 
 
-	_systemManager.frame(_sceneManager);
+	_systemManager.frame(_scene);
 
 
-	_sceneManager.onEndFrame();
+	_scene.onEndFrame();
 
 }
 
@@ -65,5 +70,6 @@ void App::SetInputData()
 
 	m._isLeftPressed = mh.LeftIsPressed();
 	m._isRightPressed = mh.RightIsPressed();
+
 
 }

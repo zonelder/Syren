@@ -3,12 +3,11 @@
 #include "../component/Transform.h"
 #include "../graphics/Graphics.h"
 #include "../component/Parent.h"
+#include "../component/text.h"
+
 #include <iostream>
 
-#include <initguid.h>
 
-#include "SpriteFont.h"
-#include "SpriteBatch.h"
 
 void renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform& camTr)
 {
@@ -35,6 +34,9 @@ void renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform
 	//draw
 
 	gfx.DrawIndexed(render.p_mesh->indices);//74
+
+
+	
 }
 
 void DeepRender(Graphics& gfx,Transform& cam,ComponentPool<Render>& rendres, ComponentPool<Transform>& trs, ComponentPool<Parent>& parents,EntityID id )
@@ -52,13 +54,11 @@ void DeepRender(Graphics& gfx,Transform& cam,ComponentPool<Render>& rendres, Com
 	}
 
 	renderOne(r, gfx, trs.getComponent(id), cam);
-	std::cout << id;
 
-
+	
 	r.is_rendered = true;
 }
 
-using namespace DirectX::DX11;
 
 void RenderSystem::onFrame(SceneManager& scene)
 {
@@ -68,11 +68,13 @@ void RenderSystem::onFrame(SceneManager& scene)
 	auto& _renders = scene.getPool<Render>();
 	auto& _parents = scene.getPool<Parent>();
 	auto& camTr = scene.getCamera().transform;
+	auto& _texts = scene.getPool<Text>();
 
 	for (auto& [entID, r] : _renders)
 	{
 
 		DeepRender(gfx, camTr, _renders, _transforms, _parents, entID);
+		
 	}
 
 }
@@ -86,6 +88,5 @@ void RenderSystem::onUpdate(SceneManager& scene, float t)
 
 		r.is_rendered = false;
 	}
-
 
 }

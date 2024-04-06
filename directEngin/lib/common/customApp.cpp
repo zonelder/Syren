@@ -5,32 +5,37 @@
 #include "../Systems/CameraController.h"
 #include "../Systems/ParentSystem.h"
 #include "../Systems/UITextRender.h"
+#include "../Systems/TextRenderSystem.h"
 
 #include "../component/TimedRotation.h"
 #include "../component/Parent.h"
 #include "../component/TextUI.h"
+#include "../component/text.h"
 
 
 
 void App::OnInit()
 {
-	auto& gfx = _sceneManager.getGraphic();
+	auto& gfx = _scene.getGraphic();
 	/// init systems
 	_systemManager.add<OrientationSystem>();
 	_systemManager.add<ParentSystem>();
+
+
 	_systemManager.add<RenderSystem>();
+	_systemManager.add<TextRenderSystem>(gfx);
 
 	_systemManager.add<TimedRotationSystem>();
 	_systemManager.add<CameraController>();
-	_systemManager.add<UITextRender>(gfx, L"myfile.spritefont");
+	//_systemManager.add<UITextRender>(gfx, L"myfile.spritefont");
 
 	////
 
-	_sceneManager.getCamera().aspectRatio = _wnd.GetWidth() / _wnd.GetHeight();
+	_scene.getCamera().aspectRatio = _wnd.GetWidth() / _wnd.GetHeight();
 
+	_scene.getCamera().transform.position = {7.0f,0.0f,-4.0f};
 
-
-	auto material = _sceneManager.makeMaterial();
+	auto material = _scene.makeMaterial();
 	material->texture.set(gfx, L"test_texture.dds");
 	/*
 	EntityID first = 0;
@@ -58,57 +63,26 @@ void App::OnInit()
 	*/
 
 	EntityID second = 1;
-	auto p_plane_mesh = _sceneManager.make2SidedPlaneMesh();
+	auto p_plane_mesh = _scene.make2SidedPlaneMesh();
 	EntityID id = second;
-	Transform& t = _sceneManager.addComponent<Transform>(id);
-	Render& r = _sceneManager.addComponent<Render>(id);
-	TimedRotation& tr = _sceneManager.addComponent<TimedRotation>(id);
+	Transform& t = _scene.addComponent<Transform>(id);
+	Render& r = _scene.addComponent<Render>(id);
+	TimedRotation& tr = _scene.addComponent<TimedRotation>(id);
 	tr.zSence = 1.0f;
 	tr.xSence = 0.0f;
+	//Text& text = _scene.addComponent<Text>(id);
+	//text.content = L"Test Content";
 	r.p_mesh = p_plane_mesh;
 	r.p_material = material;
-	t.position = { 1.0f,0.0f,1.0f };
-	const int num = 1;
-	auto card_mat = _sceneManager.makeMaterial();
-	card_mat->texture.set(gfx, L"card_test.dds");
-	for (int i = 0; i < num; ++i)
-	{
-		EntityID id = i + second + 1;
-		Transform& t = _sceneManager.addComponent<Transform>(id);
-		Render& r = _sceneManager.addComponent<Render>(id);
-		TimedRotation& tr = _sceneManager.addComponent<TimedRotation>(id);
-		tr.zSence = 1.2f;
-		t.scale = { 0.5f,0.5f,0.5f };
+	t.position = { 0.0f,0.0f,0.0f};
 
-		//tr.xSence = 1.0f;
-		r.p_mesh = p_plane_mesh;
-		r.p_material = card_mat;
-		/*
-		if (i == num)
-		{
-			auto& p = addComponent<Parent>(second);
-			p.parent = id;
-			t.position = { 0.0f,0.0f,0.0f };
-			tr.zSence = 1.0f;
-			continue;
-		}
-				*/
-		Parent& p = _sceneManager.addComponent<Parent>(id);
-		p.parent = second;
+	EntityID plane_view = id + 1;
 
+	auto& plane_cords = _scene.addComponent<TextUI>(plane_view);
+	plane_cords.position = { 10,10 };
+	plane_cords.content = L"text view";
+	_scene.addComponent<TextUI>(plane_view + 1);
 
-		//t.position = { float(i % 10)*3.0f,0.0f,float(i / 10)*3.0f };
-		t.position = { 0.0f,0.0f,-0.0001f };
-	}
-
-	EntityID text_id = num + 4;
-	TextUI& text1 = _sceneManager.addComponent<TextUI>(text_id);
-	text1.content = L"hello world";
-	text1.position = DirectX::XMFLOAT2(10, 10);
-
-	TextUI& text2 = _sceneManager.addComponent<TextUI>(text_id + 1);
-	text2.content = L"Test";
-	text2.position = DirectX::XMFLOAT2(10, 20);
 
 
 }

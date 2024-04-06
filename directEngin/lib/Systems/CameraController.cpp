@@ -6,13 +6,18 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 {
 	float speed = 0.01f;
 	Transform& cameraTr = scene.getCamera().transform;
-	if (Input::LeftKeyDown())// moving in left mouse button pressed
+	bool left_pressed = Input::LeftKeyDown();
+	if (left_pressed)// moving in left mouse button pressed
 	{
-		cameraTr.position.x -= speed * Input::GetDeltaX();
-		cameraTr.position.y += speed * Input::GetDeltaY();
-		cameraTr.position.z = -4.0f;
+		float dx = speed * Input::GetDeltaX();
+		float dy = -speed * Input::GetDeltaY();
+		cameraTr.position.x -= dx;
+
+		cameraTr.position.y -= dy;
+
 		return;
 	}
+	/*
 	if (true && Input::RightKeyDown())// rotating in left mouse button pressed
 	{
 		float cam_yaw = -speed * Input::GetDeltaX();
@@ -26,4 +31,5 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 
 
 	}
+	*/
 }

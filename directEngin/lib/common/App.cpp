@@ -14,9 +14,6 @@ int App::Init(){
 	MSG msg;
 	BOOL gResult;
 
-	auto& input = Input::GetInstance();
-	input.p_ih = &(_wnd.inputHandler);
-
 	OnInit();
 	_systemManager.init(_scene);
 	while (true) {
@@ -24,7 +21,7 @@ int App::Init(){
 		if (const auto ecode = Window::processMessage()) {
 			return *ecode;
 		}
-		SetInputData();
+		_scene.updateInput(_wnd);
 		Update();
 		Frame();// TODO better handle vector<servise> so inplementation of each servises can be separete from app class
 	}
@@ -55,21 +52,6 @@ void App::Frame() {
 
 void App::SetInputData()
 {
-	MouseHandler& mh = _wnd.mouseHandler;
-	InputHandler& ih = _wnd.inputHandler;
-	Input& m = Input::GetInstance();
-	int x = mh.getPosX();
-	int y = mh.getPosY();
-	m._dx = x - m._x;
-	m._dy = y - m._y;
-	m._x = x;
-	m._y = y;
-
-	m._clampX = (float)x / _wnd.GetWidth();
-	m._clampY = (float)y / _wnd.GetHeight();
-
-	m._isLeftPressed = mh.LeftIsPressed();
-	m._isRightPressed = mh.RightIsPressed();
 
 
 }

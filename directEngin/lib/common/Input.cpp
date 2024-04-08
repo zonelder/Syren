@@ -2,60 +2,13 @@
 
 
 
-Input::Input(){}
-Input& Input::GetInstance()
+Input::Input(const InputHandler& ih)
 {
-	static Input m;
-
-	return m;
+	p_ih = &ih;
 }
 
 
-int Input::GetDeltaX() noexcept
+bool Input::IsKeyDown(unsigned char keycode) const noexcept
 {
-	return GetInstance()._dx;
-}
-
-int Input::GetDeltaY() noexcept
-{
-	return GetInstance()._dy;
-}
-
-int Input::GetX() noexcept
-{
-	return GetInstance()._dx;
-}
-
-int Input::GetY() noexcept
-{
-	return GetInstance()._dy;
-}
-
-bool Input::LeftKeyDown()
-{
-
-
-	return GetInstance()._isLeftPressed;
-}
-
-bool Input::RightKeyDown()
-{
-	return GetInstance()._isRightPressed;
-}
-
-
-float Input::GetNormedX() noexcept
-{
-	return GetInstance()._clampX;
-}
-
-float Input::GetNormedY() noexcept
-{
-	return GetInstance()._clampY;
-}
-
-
-bool Input::IsKeyDown(unsigned char keycode) noexcept
-{
-	return GetInstance().p_ih->isPressed(keycode);
+	return p_ih->isPressed(keycode);
 }

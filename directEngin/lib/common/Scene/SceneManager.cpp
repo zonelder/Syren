@@ -2,7 +2,10 @@
 
 
 
-SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){}
+SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()),_input(wnd.inputHandler)
+{
+
+}
 
 
 
@@ -26,6 +29,31 @@ Camera& SceneManager::getCamera() noexcept
 Graphics& SceneManager::getGraphic() noexcept
 {
 	return _gfx;
+}
+
+void SceneManager::updateInput(const Window& wnd) noexcept
+{
+
+	const MouseHandler& mh = wnd.mouseHandler;
+	const InputHandler& ih = wnd.inputHandler;
+	int x = mh.getPosX();
+	int y = mh.getPosY();
+	_input.deltaX = x - _input.x;
+	_input.deltaY = y - _input.y;
+	_input.x = x;
+	_input.y = y;
+
+	_input.normedX = (float)x / wnd.GetWidth();
+	_input.normedY = (float)y / wnd.GetHeight();
+
+	_input.isLeftPressed = mh.LeftIsPressed();
+	_input.isRightPressed = mh.RightIsPressed();
+
+}
+
+const Input& SceneManager::getInput() const noexcept
+{
+	return _input;
 }
 
 

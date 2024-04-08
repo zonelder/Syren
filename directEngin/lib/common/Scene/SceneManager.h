@@ -6,6 +6,7 @@
 #include "ComponentManager.h"
 #include "../../component/Render.h"
 #include "../../component/Transform.h"
+#include "../Input.h"
 
 using EntityID = unsigned int;
 
@@ -71,11 +72,18 @@ public:
 
 	void onStartFrame();
 
+
+	/// @brief update input with data from window
+	/// @param wnd # window whose  as input handler
+	void updateInput(const Window& wnd) noexcept;
+
+	const Input& getInput() const noexcept;
+
 	void onEndFrame();
 private:
 	Graphics _gfx;
 	ComponentManager _ComponentManager;
 	Camera _mainCamera;
-
+	Input _input;
 };
 

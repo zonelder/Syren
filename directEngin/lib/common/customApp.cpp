@@ -25,7 +25,7 @@ void App::OnInit()
 	_systemManager.add<RenderSystem>();
 	_systemManager.add<TextRenderSystem>(gfx);
 
-	_systemManager.add<TimedRotationSystem>();
+	//_systemManager.add<TimedRotationSystem>();
 	_systemManager.add<CameraController>();
 	//_systemManager.add<UITextRender>(gfx, L"myfile.spritefont");
 
@@ -33,10 +33,10 @@ void App::OnInit()
 
 	_scene.getCamera().aspectRatio = _wnd.GetWidth() / _wnd.GetHeight();
 
-	_scene.getCamera().transform.position = {7.0f,0.0f,-4.0f};
+	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
 
 	auto material = _scene.makeMaterial();
-	material->texture.set(gfx, L"test_texture.dds");
+	//material->texture.set(gfx, L"test_texture.dds");
 	/*
 	EntityID first = 0;
 	Transform& t = addComponent<Transform>(first);

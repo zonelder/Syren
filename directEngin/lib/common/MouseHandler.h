@@ -94,11 +94,11 @@ private:
 	void onWheelDelta(int x, int y, int delta) noexcept;
 	static constexpr unsigned int _bufferSize = 16u;
 
-	bool _leftIsPressed;
-	bool _rightIsPressed;
-	bool _isInWindow;
-	int _wheelDeltaCarry;
-	int _x, _y;
+	bool _leftIsPressed = false;
+	bool _rightIsPressed = false;
+	bool _isInWindow = false;
+	int _wheelDeltaCarry = 0;
+	int _x, _y = 0;
 	std::queue<Event> _buffer;
 
 };

@@ -12,12 +12,14 @@ bool MouseHandler::isInWindow() const noexcept {
 	return _isInWindow;
 }
 void MouseHandler::onLeftPressed(int x,int y) noexcept{
+
 	_leftIsPressed = true;
 	_buffer.push(MouseHandler::Event(MouseHandler::Event::Type::LPress, *this));
 	trimBuffer();
 }
 
 void MouseHandler::onLeftReleased(int x, int y) noexcept {
+
 	_leftIsPressed = false;
 	_buffer.push(MouseHandler::Event(MouseHandler::Event::Type::LRelease, *this));
 	trimBuffer();

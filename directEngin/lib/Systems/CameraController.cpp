@@ -1,18 +1,26 @@
 #include "CameraController.h"
 #include "../common/Input.h"
 #include "../component/TimedRotation.h"
+#include <cmath>
+
+float sgn(float val)
+{
+	if (val >= 0) return 1.0f;
+	return -1.0f;
+}
 
 void CameraController::onUpdate(SceneManager& scene, float time)
 {
 	float speed = 0.01f;
 	Transform& cameraTr = scene.getCamera().transform;
-	bool left_pressed = Input::LeftKeyDown();
+	const auto& input = scene.getInput();
+	bool left_pressed = input.isLeftPressed;
+
 	if (left_pressed)// moving in left mouse button pressed
 	{
-		float dx = speed * Input::GetDeltaX();
-		float dy = -speed * Input::GetDeltaY();
+		float dx = speed * input.deltaX;
+		float dy = -speed * input.deltaY;
 		cameraTr.position.x -= dx;
-
 		cameraTr.position.y -= dy;
 
 		return;

@@ -25,6 +25,11 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 
 		return;
 	}
+	if (scene.getInput().isRightPressed)
+	{
+		scene.destroyEntity(1);
+		return;
+	}
 	/*
 	if (true && Input::RightKeyDown())// rotating in left mouse button pressed
 	{

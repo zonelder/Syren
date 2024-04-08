@@ -16,6 +16,7 @@ void UITextRender::onFrame(SceneManager& scene)
 	p_spriteBatch->Begin();
 	for (auto& [entID, textUI] : scene.getPool<TextUI>())
 	{
+
 		p_spriteFont->DrawString(p_spriteBatch.get(),textUI.content.c_str(), textUI.position, DirectX::Colors::Black, 0.f);
 	}
 	p_spriteBatch->End();

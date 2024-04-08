@@ -5,8 +5,6 @@
 #include "ComponentPool.h"
 #include "FamilyGenerator.h"
 
-using EntityID = unsigned int;
-
 class ComponentManager
 {
 public:
@@ -69,10 +67,11 @@ public:
 		return res;
 	}
 
+
+	void removeComponent(ComponentID comp_id, EntityID entt_id);
 	void removeAllComponents();
 
 	~ComponentManager();
-
 
 private:
 	std::unordered_map<ComponentID,IComponentPool*> _pools;

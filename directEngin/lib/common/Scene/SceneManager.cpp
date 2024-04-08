@@ -8,6 +8,41 @@ SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()),_input(wnd.inp
 }
 
 
+const Entity& SceneManager::createEntity() noexcept
+{
+	return _entityManager.create();
+}
+
+bool SceneManager::destroyEntity(const Entity& entt) noexcept
+{
+
+	auto entt_id = entt.getID();
+	bool res = _entityManager.hasEntity(entt_id);
+	if (!res) return false;
+
+	for (auto it = entt.begin();it != entt.end();++it)
+	{
+
+		_ComponentManager.removeComponent(*it, entt_id);
+	}
+	return true;
+}
+
+bool SceneManager::destroyEntity(EntityID entt_id) noexcept
+{
+
+	bool res = _entityManager.hasEntity(entt_id);
+	if (!res) return false;
+	const Entity& entt = _entityManager.get(entt_id);
+
+
+	for (auto it = entt.begin(); it != entt.end(); ++it)
+	{
+		_ComponentManager.removeComponent(*it, entt_id);
+	}
+	return true;
+}
+
 
 void SceneManager::onStartFrame()
 {

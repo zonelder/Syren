@@ -7,8 +7,8 @@
 #include "../../component/Render.h"
 #include "../../component/Transform.h"
 #include "../Input.h"
+#include "EntityManager.h"
 
-using EntityID = unsigned int;
 
 class SceneManager
 {
@@ -20,6 +20,11 @@ public:
 
 	Graphics& getGraphic() noexcept;
 
+	const Entity& createEntity() noexcept;
+
+	bool destroyEntity(const Entity& entt) noexcept;
+
+	bool destroyEntity(EntityID id) noexcept;
 
 	template<typename T>
 	ComponentPool<T>& getPool()
@@ -28,25 +33,45 @@ public:
 	}
 
 	template<typename T>
-	T& addComponent(EntityID id)
+	T& addComponent(const Entity& entt)
 	{
-		return _ComponentManager.addComponent<T>(id);
+		auto entt_id = entt.getID();
+		auto type_id = Family::Type<T>();
+		_entityManager.registerComponent(entt_id, type_id);
+		return _ComponentManager.addComponent<T>(entt_id);
 	}
 
 	template<>
-	Transform& addComponent(EntityID id)
+	Transform& addComponent(const Entity& entt)
 	{
-		auto& tr = _ComponentManager.addComponent<Transform>(id);
+		auto entt_id = entt.getID();
+		auto type_id = Family::Type<Transform>();
+		_entityManager.registerComponent(entt_id, type_id);
+		auto& tr = _ComponentManager.addComponent<Transform>(entt_id);
 		tr.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(_gfx, tr.orientationMatrix);
 		return tr;
 	}
 
 	template<>
-	Render& addComponent(EntityID id)
+	Render& addComponent(const Entity& entt)
 	{
-		auto& r = _ComponentManager.addComponent<Render>(id);
+		auto entt_id = entt.getID();
+		auto type_id = Family::Type<Render>();
+		_entityManager.registerComponent(entt_id, type_id);
+		auto& r = _ComponentManager.addComponent<Render>(entt_id);
 		r.topology= Topology(_gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		return r;
+	}
+
+
+
+	template<typename T>
+	void removeComponent(const Entity& entt)
+	{
+		auto entt_id = entt.getID();
+		auto type_id = Family::Type<Render>();
+		_entityManager.unregisterComponent(entt_id, type_id);
+		_ComponentManager.removeComponent<T>(entt_id);
 	}
 
 	/// @brief create new material and return ptr to it
@@ -83,6 +108,7 @@ public:
 private:
 	Graphics _gfx;
 	ComponentManager _ComponentManager;
+	EntityManager _entityManager;
 	Camera _mainCamera;
 	Input _input;
 };

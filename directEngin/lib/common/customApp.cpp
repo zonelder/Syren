@@ -23,11 +23,11 @@ void App::OnInit()
 
 
 	_systemManager.add<RenderSystem>();
-	_systemManager.add<TextRenderSystem>(gfx);
+	//_systemManager.add<TextRenderSystem>(gfx);
 
 	//_systemManager.add<TimedRotationSystem>();
 	_systemManager.add<CameraController>();
-	//_systemManager.add<UITextRender>(gfx, L"myfile.spritefont");
+	_systemManager.add<UITextRender>(gfx, L"myfile.spritefont");
 
 	////
 
@@ -36,7 +36,7 @@ void App::OnInit()
 	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
 
 	auto material = _scene.makeMaterial();
-	//material->texture.set(gfx, L"test_texture.dds");
+	material->texture.set(gfx, L"test_texture.dds");
 	/*
 	EntityID first = 0;
 	Transform& t = addComponent<Transform>(first);
@@ -62,12 +62,11 @@ void App::OnInit()
 	t2.scale.y = 3.0f;
 	*/
 
-	EntityID second = 1;
+	const auto& entt1 = _scene.createEntity();
 	auto p_plane_mesh = _scene.make2SidedPlaneMesh();
-	EntityID id = second;
-	Transform& t = _scene.addComponent<Transform>(id);
-	Render& r = _scene.addComponent<Render>(id);
-	TimedRotation& tr = _scene.addComponent<TimedRotation>(id);
+	Transform& t = _scene.addComponent<Transform>(entt1);
+	Render& r = _scene.addComponent<Render>(entt1);
+	TimedRotation& tr = _scene.addComponent<TimedRotation>(entt1);
 	tr.zSence = 1.0f;
 	tr.xSence = 0.0f;
 	//Text& text = _scene.addComponent<Text>(id);
@@ -76,13 +75,10 @@ void App::OnInit()
 	r.p_material = material;
 	t.position = { 0.0f,0.0f,0.0f};
 
-	EntityID plane_view = id + 1;
+	const auto& plane_view = _scene.createEntity();
 
 	auto& plane_cords = _scene.addComponent<TextUI>(plane_view);
 	plane_cords.position = { 10,10 };
 	plane_cords.content = L"text view";
-	_scene.addComponent<TextUI>(plane_view + 1);
-
-
 
 }

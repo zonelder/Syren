@@ -4,17 +4,10 @@ void ParentSystem::setlGlobalMatrix(ComponentPool<Transform>& trPool, ComponentP
 {
 	EntityID id = curEntity;
 
-	// if parent is not set then we dont have to modify transform. 
-	if (!(parentPool.hasComponent(id)))
-	{
-		return;
-	}
-
 	Transform& main_tr = trPool.getComponent(id);
 	Parent& main_p = parentPool.getComponent(id);
 	DirectX::XMMATRIX globalMatrix =DirectX::XMMatrixIdentity() ;//main_tr.orientationMatrix;
 
-	int tree = id;
 	while (parentPool.hasComponent(id))
 	{
 
@@ -26,7 +19,6 @@ void ParentSystem::setlGlobalMatrix(ComponentPool<Transform>& trPool, ComponentP
 			break;
 		}
 		globalMatrix = globalMatrix* pTr.orientationMatrix;
-		tree = tree * 10 + pComponent.parent;
 		id = pComponent.parent;
 	}
 
@@ -41,15 +33,16 @@ void ParentSystem::onFrame(SceneManager& scene)
 	auto& parentPool = scene.getPool<Parent>();
 	auto& transformPool = scene.getPool<Transform>();
 
-	for (auto& [id, parent] : parentPool)
+	for (auto& entt : scene.getEntitiesWith<Parent, Transform>())
 	{
-		setlGlobalMatrix(transformPool, parentPool, id);//TODO avoid recalculate entities that already been calculated in prev step
+		setlGlobalMatrix(transformPool, parentPool, entt.getID());
 	}
 }
 
 
 void ParentSystem::onUpdate(SceneManager& scene,float dt)
 {
+
 	for (auto& [id, parent] : scene.getPool<Parent>())
 	{
 		parent.used = false;

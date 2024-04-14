@@ -25,7 +25,7 @@ void App::OnInit()
 	_systemManager.add<RenderSystem>();
 	//_systemManager.add<TextRenderSystem>(gfx);
 
-	//_systemManager.add<TimedRotationSystem>();
+	_systemManager.add<TimedRotationSystem>();
 	_systemManager.add<CameraController>();
 	_systemManager.add<UITextRender>(gfx, L"myfile.spritefont");
 
@@ -74,6 +74,32 @@ void App::OnInit()
 	r.p_mesh = p_plane_mesh;
 	r.p_material = material;
 	t.position = { 0.0f,0.0f,0.0f};
+
+	const auto& entt2 = _scene.createEntity();
+
+	Transform& t2 = _scene.addComponent<Transform>(entt2);
+	Render& r2 = _scene.addComponent<Render>(entt2);
+	TimedRotation& tr2 = _scene.addComponent<TimedRotation>(entt2);
+	tr2.zSence = -2.0f;
+	tr2.xSence = 0.0f;
+	//Text& text = _scene.addComponent<Text>(id);
+	//text.content = L"Test Content";
+	r2.p_mesh = p_plane_mesh;
+	r2.p_material = material;
+	t2.position = { 1.0f,0.0f,0.0f };
+
+	const auto& entt3 = _scene.createEntity();
+
+	Transform& t3 = _scene.addComponent<Transform>(entt3);
+	Render& r3 = _scene.addComponent<Render>(entt3);
+	TimedRotation& tr3 = _scene.addComponent<TimedRotation>(entt3);
+	tr3.zSence = -2.0f;
+	tr3.xSence = 0.0f;
+	//Text& text = _scene.addComponent<Text>(id);
+	//text.content = L"Test Content";
+	r3.p_mesh = p_plane_mesh;
+	r3.p_material = material;
+	t3.position = { 1.0f,2.0f,0.0f };
 
 	const auto& plane_view = _scene.createEntity();
 

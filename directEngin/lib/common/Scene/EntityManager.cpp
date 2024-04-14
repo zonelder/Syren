@@ -57,3 +57,4 @@ void EntityManager::unregisterComponent(EntityID entt,ComponentID id) noexcept
 {
 	_entities[entt].unregisterComponent(id);
 }
+ 

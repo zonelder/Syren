@@ -10,11 +10,11 @@ void TimedRotationSystem::onUpdate(SceneManager& scene, float time)
 
 	auto& rotPool = scene.getPool<TimedRotation>();
 
-	for (auto& [entID, rot] : rotPool)
+	for (auto& entt : scene.getEntitiesWith<TimedRotation, Transform>())
 	{
-		if (!trPool.hasComponent(entID))
-			continue;
-		trPool.getComponent(entID).rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle*rot.xSence, angle*rot.ySence, angle*rot.zSence);
 
+		auto& rot = scene.getComponent<TimedRotation>(entt);
+		auto& tr = scene.getComponent<Transform>(entt);
+		tr.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle*rot.xSence, angle*rot.ySence, angle*rot.zSence);
 	}
 }

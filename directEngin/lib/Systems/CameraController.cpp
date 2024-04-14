@@ -27,7 +27,7 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 	}
 	if (scene.getInput().isRightPressed)
 	{
-		scene.destroyEntity(1);
+		scene.destroyEntity(0);
 		return;
 	}
 	/*

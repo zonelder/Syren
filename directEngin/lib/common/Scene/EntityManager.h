@@ -6,6 +6,74 @@
 class EntityManager
 {
 public:
+	// класс итератор который будет итерировать по елементам из EntityManager но только по тем у которых будет заданыый набор компонентов передаваемый как std::array<ComponentID, N>
+	template<size_t N>
+	class Iterator 
+	{
+	public:
+		Iterator(EntityManager& manager,const std::array<ComponentID,N>& ids) : _manager(manager),ids(ids) {
+		
+		
+		}
+
+		Iterator& operator++()
+		{
+
+			while (
+				++_current < _manager._max 
+				&& !(_manager.hasEntity(_current) && _manager._entities[_current].hasComponents(ids)))
+			{
+
+			}
+
+			return *this;
+		}
+
+		Entity& operator*()
+		{
+			return _manager._entities[_current];
+		}
+
+		bool operator!=(const Iterator& other) const
+		{
+			return _current != other._current;
+		}
+
+		bool operator==(const Iterator& other) const
+		{
+			return !(*this != other);
+		}
+
+		Iterator begin()
+		{
+
+			Iterator it = *this;
+			it._current = -1;
+
+			return ++it;
+		}
+
+		Iterator end()
+		{
+			Iterator it = *this;
+			it._current = _manager._max;
+			return it;
+		}
+
+	private:
+		EntityID _current = -1;
+		EntityManager& _manager;
+		const std::array<ComponentID, N> ids;
+	};
+
+
+
+	template<size_t N>
+	Iterator<N> getEntitiesWith(const std::array<ComponentID, N>& ids)
+	{
+		return Iterator<N>(*this, ids);
+	}
+
 	Entity& create() noexcept;
 
 	bool hasEntity(EntityID id) const noexcept;

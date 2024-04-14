@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\common\Scene\Entity.cpp" />
+    <ClCompile Include="lib\common\Scene\EntityManager.cpp" />
     <ClCompile Include="lib\common\customApp.cpp" />
     <ClCompile Include="lib\component\Material.cpp" />
     <ClCompile Include="lib\component\Mesh.cpp" />
@@ -184,6 +186,9 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\common\Scene\Entity.h" />
+    <ClInclude Include="lib\common\Scene\EntityManager.h" />
+    <ClInclude Include="lib\common\Scene\SceneBase.h" />
     <ClInclude Include="lib\component\Material.h" />
     <ClInclude Include="lib\component\Parent.h" />
     <ClInclude Include="lib\component\text.h" />

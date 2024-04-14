@@ -36,6 +36,18 @@ public:
 
 	bool hasComponent(ComponentID id) const noexcept;
 
+	// шаблонная функция hasComponents которая принимает std::array<ComponentID, N> и возвращает bool
+	template<size_t N>
+	bool hasComponents(const std::array<ComponentID, N>& ids) const
+	{
+		bool res = 1;
+		for (auto id : ids)
+		{
+			res&= hasComponent(id);
+		}
+		return res;
+	}
+
 	/// @brief return iterator pointing on id of first existing component of entity
 	/// @return 
 	ComponentIterator begin() const;

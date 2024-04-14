@@ -26,11 +26,29 @@ public:
 
 	bool destroyEntity(EntityID id) noexcept;
 
+	// почему класс итератора может быть не доступен вне класса EntityManager
+	template<typename ... Args>
+	EntityManager::Iterator<sizeof...(Args)>  getEntitiesWith()
+	{
+		std::array<ComponentID, sizeof...(Args)> ids = { Family::Type<Args>()... };
+
+		return _entityManager.getEntitiesWith(ids);
+	}
+	
 	template<typename T>
 	ComponentPool<T>& getPool()
 	{
 		return *(_ComponentManager.getPool<T>());
 	}
+
+	// реализация метода getComponent
+	template<typename T>
+	T& getComponent(const Entity& entt)
+	{
+		auto entt_id = entt.getID();
+		return _ComponentManager.getComponent<T>(entt_id);
+	}
+
 
 	template<typename T>
 	T& addComponent(const Entity& entt)

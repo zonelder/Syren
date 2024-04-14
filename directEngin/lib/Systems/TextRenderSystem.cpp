@@ -43,33 +43,22 @@ void TextRenderSystem::onFrame(SceneManager& scene)
 	auto& _texts = scene.getPool<Text>();
 	auto& _transforms = scene.getPool<Transform>();
 
-	for (auto& [entID, t] : _texts)
+	for (auto& entt : scene.getEntitiesWith<Text, Transform>())
 	{
-		if (_transforms.hasComponent(entID))
-		{
-			auto& t = _texts.getComponent(entID);
-			auto& tr = _transforms.getComponent(entID);
-			FW1_RECTF rect = { 0.0f, 1.0f, 1.0f, 0.0f };
-			p_fontWrapper->DrawString(
-				gfx.getContext(),
-				t.content.c_str(),
-				L"Arial",
-				100,
-				10,
-				10,
-				0xff0000ff,
-				FW1_CENTER | FW1_VCENTER | FW1_STATEPREPARED | FW1_BUFFERSPREPARED
-				/*
-				NULL,
-				t.size,
-				&rect,
-				NULL,
-				0xff0000ff,
-				reinterpret_cast<FLOAT*>(&tr.orientationMatrix),
-				FW1_CENTER | FW1_VCENTER | FW1_STATEPREPARED | FW1_BUFFERSPREPARED
-				*/
-			);
-		}
+		auto& text = scene.getComponent<Text>(entt);
+		auto& tr = scene.getComponent<Transform>(entt);
+		FW1_RECTF rect = { 0.0f, 1.0f, 1.0f, 0.0f };
+		p_fontWrapper->DrawString(
+			gfx.getContext(),
+			text.content.c_str(),
+			L"Arial",
+			100,
+			10,
+			10,
+			0xff0000ff,
+			FW1_CENTER | FW1_VCENTER | FW1_STATEPREPARED | FW1_BUFFERSPREPARED
+		);
+	
 	}
 }
 

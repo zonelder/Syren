@@ -63,17 +63,16 @@ void DeepRender(Graphics& gfx,Transform& cam,ComponentPool<Render>& rendres, Com
 void RenderSystem::onFrame(SceneManager& scene)
 {
 	Graphics& gfx = scene.getGraphic();
-	std::cout << "----------\n";
 	auto& _transforms = scene.getPool<Transform>();
 	auto& _renders = scene.getPool<Render>();
 	auto& _parents = scene.getPool<Parent>();
 	auto& camTr = scene.getCamera().transform;
 	auto& _texts = scene.getPool<Text>();
 
-	for (auto& [entID, r] : _renders)
+	for (auto& entt :scene.getEntitiesWith<Transform,Render>())
 	{
 
-		DeepRender(gfx, camTr, _renders, _transforms, _parents, entID);
+		DeepRender(gfx, camTr, _renders, _transforms, _parents, entt.getID());
 		
 	}
 

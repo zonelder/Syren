@@ -15,17 +15,7 @@ const Entity& SceneManager::createEntity() noexcept
 
 bool SceneManager::destroyEntity(const Entity& entt) noexcept
 {
-
-	auto entt_id = entt.getID();
-	bool res = _entityManager.hasEntity(entt_id);
-	if (!res) return false;
-
-	for (auto it = entt.begin();it != entt.end();++it)
-	{
-
-		_ComponentManager.removeComponent(*it, entt_id);
-	}
-	return true;
+	return destroyEntity(entt.getID());
 }
 
 bool SceneManager::destroyEntity(EntityID entt_id) noexcept
@@ -38,8 +28,14 @@ bool SceneManager::destroyEntity(EntityID entt_id) noexcept
 
 	for (auto it = entt.begin(); it != entt.end(); ++it)
 	{
+
 		_ComponentManager.removeComponent(*it, entt_id);
+
 	}
+
+	_entityManager.destroy(entt);
+	std::cout << "[Scene]Destroy entity " << entt_id << std::endl;
+
 	return true;
 }
 
@@ -88,6 +84,7 @@ void SceneManager::updateInput(const Window& wnd) noexcept
 
 const Input& SceneManager::getInput() const noexcept
 {
+
 	return _input;
 }
 

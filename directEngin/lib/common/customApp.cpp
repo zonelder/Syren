@@ -22,7 +22,7 @@ void App::OnInit()
 	_systemManager.add<ParentSystem>();
 
 
-	_systemManager.add<RenderSystem>();
+	_systemManager.add<RenderSystem>(gfx);
 	//_systemManager.add<TextRenderSystem>(gfx);
 
 	_systemManager.add<TimedRotationSystem>();
@@ -72,6 +72,7 @@ void App::OnInit()
 	//Text& text = _scene.addComponent<Text>(id);
 	//text.content = L"Test Content";
 	r.p_mesh = p_plane_mesh;
+	//r.p_material = _scene.makeMaterial();
 	r.p_material = material;
 	t.position = { 0.0f,0.0f,0.0f};
 

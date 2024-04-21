@@ -1,15 +1,24 @@
 #include "RenderSystem.h"
-#include "../component/Render.h"
-#include "../component/Transform.h"
-#include "../graphics/Graphics.h"
-#include "../component/Parent.h"
-#include "../component/text.h"
 
 #include <iostream>
 
 
 
-void renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform& camTr)
+RenderSystem::RenderSystem(Graphics& gfx)
+{
+	INFOMAN(gfx);
+	D3D11_BUFFER_DESC constantBufferDesc = {};
+
+	constantBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	constantBufferDesc.ByteWidth = sizeof(DirectX::XMFLOAT4);
+	constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	constantBufferDesc.CPUAccessFlags = 0;
+	constantBufferDesc.MiscFlags = 0;
+	GFX_THROW_INFO(gfx.getDevice()->CreateBuffer(&constantBufferDesc, nullptr, &p_colorConstantBuffer));
+	
+}
+
+void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform& camTr)
 {
 	INFOMAN(gfx);
 
@@ -25,10 +34,14 @@ void renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform
 	memcpy(msr.pData, &FinalView, sizeof(FinalView));
 	gfx.getContext()->Unmap(pConstantBuffer.Get(), 0u);
 
-
 	// use binds
 	transform.vertexConstantBuffer.bind(gfx);
 	render.p_mesh->bind(gfx);
+
+	// general material color
+	gfx.getContext()->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.p_material->color), sizeof(DirectX::XMFLOAT4), 0);
+	gfx.getContext()->PSSetConstantBuffers(1u, 1u, p_colorConstantBuffer.GetAddressOf());
+
 	render.p_material->bind(gfx);
 	render.topology.bind(gfx);
 	//draw
@@ -39,7 +52,7 @@ void renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform
 	
 }
 
-void DeepRender(Graphics& gfx,Transform& cam,ComponentPool<Render>& rendres, ComponentPool<Transform>& trs, ComponentPool<Parent>& parents,EntityID id )
+void RenderSystem::DeepRender(Graphics& gfx,Transform& cam,ComponentPool<Render>& rendres, ComponentPool<Transform>& trs, ComponentPool<Parent>& parents,EntityID id )
 {
 
 	auto& r = rendres.getComponent(id);

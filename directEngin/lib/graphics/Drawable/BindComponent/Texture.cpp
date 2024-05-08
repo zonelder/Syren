@@ -30,6 +30,10 @@ Texture::Texture(Graphics& gfx, const wchar_t* path) : Texture(gfx)
 
 void Texture::set(Graphics& gfx, const wchar_t* path)
 {
+	if (!path)
+	{
+		path = L"resource/empty.dds";
+	};
 	INFOMAN(gfx);
 	reset();
 	_pPath = path;

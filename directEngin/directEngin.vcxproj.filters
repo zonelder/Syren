@@ -317,17 +317,14 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="packages.config" />
-    <None Include="..\..\..\..\Desktop\myfile.spritefont" />
-    <None Include="myfile.spritefont" />
+    <None Include="resource\myfile.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\VertexShader.hlsl" />
     <FxCompile Include="shaders\PixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="test_texture.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\..\..\Downloads\test.dds" />
+    <Image Include="resource\test_texture.dds" />
+    <Image Include="resource\empty.dds" />
   </ItemGroup>
 </Project>

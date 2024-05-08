@@ -11,9 +11,10 @@ public:
 	Texture(Graphics& gfx,const wchar_t* path);
 	void bind(Graphics& gfx) noexcept override;
 	void set(Graphics& gfx,const wchar_t* path);
-	void reset();
-	std::wstring getPath();
 
+	std::wstring getPath();
+private:
+	void reset();
 
 private:
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> p_pTextureRV;

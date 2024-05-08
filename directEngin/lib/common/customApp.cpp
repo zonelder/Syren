@@ -27,7 +27,7 @@ void App::OnInit()
 
 	_systemManager.add<TimedRotationSystem>();
 	_systemManager.add<CameraController>();
-	_systemManager.add<UITextRender>(gfx, L"myfile.spritefont");
+	_systemManager.add<UITextRender>(gfx, L"resource/myfile.spritefont");
 
 	////
 
@@ -36,7 +36,9 @@ void App::OnInit()
 	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
 
 	auto material = _scene.makeMaterial();
-	material->texture.set(gfx, L"test_texture.dds");
+	material->texture.set(gfx, L"resource/test_texture.dds");
+
+	material->texture.set(gfx, nullptr);
 	/*
 	EntityID first = 0;
 	Transform& t = addComponent<Transform>(first);

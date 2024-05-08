@@ -243,12 +243,11 @@
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Desktop\myfile.spritefont" />
     <None Include="lib\direct\DXGetErrorDescription.inl" />
     <None Include="lib\direct\DXGetErrorString.inl" />
     <None Include="lib\direct\DXTrace.inl" />
-    <None Include="myfile.spritefont" />
     <None Include="packages.config" />
+    <None Include="resource\myfile.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\PixelShader.hlsl">
@@ -267,8 +266,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Downloads\test.dds" />
-    <Image Include="test_texture.png" />
+    <Image Include="resource\empty.dds" />
+    <Image Include="resource\test_texture.dds" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -108,7 +108,7 @@
     <ClCompile Include="lib\Systems\CameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\component\Mesh.cpp">
+    <ClCompile Include="lib\component\MeshIternal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\component\Material.cpp">
@@ -136,6 +136,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\common\Scene\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\common\Scene\meshPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\component\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -224,7 +230,7 @@
     <ClInclude Include="lib\common\Scene\Camera\ClippingPlane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\component\Mesh.h">
+    <ClInclude Include="lib\component\MeshIternal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\Input.h">
@@ -303,6 +309,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\Scene\SceneBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\common\Scene\meshPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\component\mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

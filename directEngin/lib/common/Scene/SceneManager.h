@@ -8,9 +8,10 @@
 #include "../../component/Transform.h"
 #include "../Input.h"
 #include "EntityManager.h"
+#include "meshPool.h"
 
 
-class SceneManager
+class SceneManager : private MeshPool
 {
 public:
 	SceneManager(const Window& wnd);
@@ -92,6 +93,13 @@ public:
 		_ComponentManager.removeComponent<T>(entt_id);
 	}
 
+	template<typename T>
+	bool hasComponent(const Entity& entt)
+	{
+		auto type_id = Family::Type<T>();
+		return entt.hasComponent(type_id);
+	}
+
 	/// @brief create new material and return ptr to it
 	/// @param vertexShader - path to compiled vertex shader
 	/// @param pixelShader  - path to compiled pixel shader
@@ -100,18 +108,21 @@ public:
 
 	/// @brief create new mesh and return ptr to it
 	/// @return 
-	std::shared_ptr<Mesh> makeMesh(
+	Mesh* makeMesh(
 		const std::vector<Vertex>& vertices,
 		const std::vector<unsigned short> &indices,
-		const Mesh::ConstantBuffer2& colors
+		const MeshIternal::ConstantBuffer2& colors
 	);
 
 
-	std::shared_ptr<Mesh> makeBoxMesh();
+	MeshIternal* getMeshData(Mesh* meshComponent) const noexcept;
 
-	std::shared_ptr<Mesh> makeCylinderMesh(unsigned int n = 8);
 
-	std::shared_ptr<Mesh> make2SidedPlaneMesh();
+	Mesh* makeBoxMesh();
+
+	Mesh* makeCylinderMesh(unsigned int n = 8);
+
+	Mesh* make2SidedPlaneMesh();
 
 	void onStartFrame();
 
@@ -123,6 +134,8 @@ public:
 	const Input& getInput() const noexcept;
 
 	void onEndFrame();
+
+	const Entity& getEntity(EntityID id) const noexcept;
 private:
 	Graphics _gfx;
 	ComponentManager _ComponentManager;

@@ -143,11 +143,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\common\Geometry.cpp" />
     <ClCompile Include="lib\common\Scene\Entity.cpp" />
     <ClCompile Include="lib\common\Scene\EntityManager.cpp" />
     <ClCompile Include="lib\common\customApp.cpp" />
+    <ClCompile Include="lib\common\Scene\meshPool.cpp" />
     <ClCompile Include="lib\component\Material.cpp" />
-    <ClCompile Include="lib\component\Mesh.cpp" />
+    <ClCompile Include="lib\component\mesh.cpp" />
+    <ClCompile Include="lib\component\MeshIternal.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Texture.cpp" />
     <ClCompile Include="lib\Systems\CameraController.cpp" />
     <ClCompile Include="lib\common\Scene\ComponentManager.cpp" />
@@ -186,10 +189,13 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\common\Geometry.h" />
     <ClInclude Include="lib\common\Scene\Entity.h" />
     <ClInclude Include="lib\common\Scene\EntityManager.h" />
+    <ClInclude Include="lib\common\Scene\meshPool.h" />
     <ClInclude Include="lib\common\Scene\SceneBase.h" />
     <ClInclude Include="lib\component\Material.h" />
+    <ClInclude Include="lib\component\mesh.h" />
     <ClInclude Include="lib\component\Parent.h" />
     <ClInclude Include="lib\component\text.h" />
     <ClInclude Include="lib\component\TextUI.h" />
@@ -203,7 +209,7 @@
     <ClInclude Include="lib\common\Scene\FamilyGenerator.h" />
     <ClInclude Include="lib\common\Scene\IComponentPool.h" />
     <ClInclude Include="lib\common\TransformUtils.h" />
-    <ClInclude Include="lib\component\Mesh.h" />
+    <ClInclude Include="lib\component\MeshIternal.h" />
     <ClInclude Include="lib\component\Render.h" />
     <ClInclude Include="lib\component\TimedRotation.h" />
     <ClInclude Include="lib\component\Transform.h" />

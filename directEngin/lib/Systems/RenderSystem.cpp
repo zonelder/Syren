@@ -18,7 +18,7 @@ RenderSystem::RenderSystem(Graphics& gfx)
 	
 }
 
-void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform& camTr)
+void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform& camTr, MeshIternal* mesh)
 {
 	INFOMAN(gfx);
 
@@ -36,7 +36,7 @@ void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform,c
 
 	// use binds
 	transform.vertexConstantBuffer.bind(gfx);
-	render.p_mesh->bind(gfx);
+	mesh->bind(gfx);
 
 	// general material color
 	gfx.getContext()->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.p_material->color), sizeof(DirectX::XMFLOAT4), 0);
@@ -46,27 +46,25 @@ void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform,c
 	render.topology.bind(gfx);
 	//draw
 
-	gfx.DrawIndexed(render.p_mesh->indices);//74
-
-
-	
+	gfx.DrawIndexed(render.p_mesh->IndexCount,render.p_mesh->startIndex);
 }
 
-void RenderSystem::DeepRender(Graphics& gfx,Transform& cam,ComponentPool<Render>& rendres, ComponentPool<Transform>& trs, ComponentPool<Parent>& parents,EntityID id )
+void RenderSystem::DeepRender(SceneManager& scene,Transform& cam,Entity id )
 {
 
-	auto& r = rendres.getComponent(id);
-	if (!trs.hasComponent(id) || r.is_rendered)
+	auto& r = scene.getComponent<Render>(id);
+	if (r.is_rendered)
 		return;
-	//before render object we should render its parent
 
-	if (parents.hasComponent(id))
+
+	//before render object we should render its parent
+	if (scene.hasComponent<Parent>(id))
 	{
-		auto p_id = parents.getComponent(id).parent;
-		DeepRender(gfx, cam, rendres, trs, parents, p_id);
+		auto p_id = scene.getComponent<Parent>(id).parent;
+		DeepRender(scene, cam,scene.getEntity(p_id));
 	}
 
-	renderOne(r, gfx, trs.getComponent(id), cam);
+	renderOne(r, scene.getGraphic(), scene.getComponent<Transform>(id), cam, scene.getMeshData(r.p_mesh));
 
 	
 	r.is_rendered = true;
@@ -79,13 +77,13 @@ void RenderSystem::onFrame(SceneManager& scene)
 	auto& _transforms = scene.getPool<Transform>();
 	auto& _renders = scene.getPool<Render>();
 	auto& _parents = scene.getPool<Parent>();
+
 	auto& camTr = scene.getCamera().transform;
-	auto& _texts = scene.getPool<Text>();
 
 	for (auto& entt :scene.getEntitiesWith<Transform,Render>())
 	{
 
-		DeepRender(gfx, camTr, _renders, _transforms, _parents, entt.getID());
+		DeepRender(scene, camTr,entt);
 		
 	}
 

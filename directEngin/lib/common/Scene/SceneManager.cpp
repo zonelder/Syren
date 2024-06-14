@@ -51,6 +51,11 @@ void SceneManager::onEndFrame()
 	_gfx.endFrame();
 }
 
+const Entity& SceneManager::getEntity(EntityID id) const noexcept
+{
+	return _entityManager.get(id);
+}
+
 
 Camera& SceneManager::getCamera() noexcept
 {
@@ -97,14 +102,17 @@ std::shared_ptr<Material> SceneManager::makeMaterial(const wchar_t* vertexShader
 }
 
 
-std::shared_ptr<Mesh> SceneManager::makeMesh(
+Mesh* SceneManager::makeMesh(
 	const std::vector<Vertex>& vertices,
 	const std::vector<unsigned short>& indices,
-	const Mesh::ConstantBuffer2& colors
+	const MeshIternal::ConstantBuffer2& colors
 )
 {
-	auto mesh = std::make_shared<Mesh>(_gfx, vertices, indices,colors);
-	return mesh;
+	return addMesh(_gfx, vertices, indices, colors);
+}
+MeshIternal* SceneManager::getMeshData(Mesh* meshComponent) const noexcept
+{
+	return getMesh(meshComponent);
 }
 /*
 std::shared_ptr<Mesh>  SceneManager::makeBoxMesh()
@@ -183,7 +191,7 @@ std::shared_ptr<Mesh>  SceneManager::makeCylinderMesh(unsigned int n)
 }
 */
 
-std::shared_ptr<Mesh> SceneManager::make2SidedPlaneMesh()
+Mesh* SceneManager::make2SidedPlaneMesh()
 {
 	auto mesh = makeMesh({
 		{{ -1.0f,-1.0f,0.0f,},{0.0f,1.0f}},

@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="lib\common\Geometry.cpp" />
+    <ClCompile Include="lib\common\GeometryCast.cpp" />
     <ClCompile Include="lib\common\Scene\Entity.cpp" />
     <ClCompile Include="lib\common\Scene\EntityManager.cpp" />
     <ClCompile Include="lib\common\customApp.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="lib\common\App.cpp" />
     <ClCompile Include="lib\common\InputHandler.cpp" />
     <ClCompile Include="lib\common\TransformUtils.cpp" />
+    <ClCompile Include="lib\Systems\CellGame.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lib\vec2.cpp" />
     <ClCompile Include="lib\exeption\PointedException.cpp" />
@@ -190,10 +192,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\Geometry.h" />
+    <ClInclude Include="lib\common\GeometryCast.h" />
     <ClInclude Include="lib\common\Scene\Entity.h" />
     <ClInclude Include="lib\common\Scene\EntityManager.h" />
     <ClInclude Include="lib\common\Scene\meshPool.h" />
     <ClInclude Include="lib\common\Scene\SceneBase.h" />
+    <ClInclude Include="lib\component\GameCell.h" />
     <ClInclude Include="lib\component\Material.h" />
     <ClInclude Include="lib\component\mesh.h" />
     <ClInclude Include="lib\component\Parent.h" />
@@ -226,6 +230,7 @@
     <ClInclude Include="lib\graphics\Graphics.h" />
     <ClInclude Include="lib\common\App.h" />
     <ClInclude Include="lib\common\InputHandler.h" />
+    <ClInclude Include="lib\Systems\CellGame.h" />
     <ClInclude Include="lib\vec2.h" />
     <ClInclude Include="lib\exeption\PointedException.h" />
     <ClInclude Include="lib\common\MouseHandler.h" />

@@ -15,7 +15,7 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 	Transform& cameraTr = scene.getCamera().transform;
 	const auto& input = scene.getInput();
 	bool left_pressed = input.isLeftPressed;
-
+	/*
 	for (auto& entt : scene.getEntitiesWith<Render>())
 	{
 		auto mat = scene.getComponent<Render>(entt).p_material;
@@ -23,7 +23,7 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 		mat->color.z = 1 - mat->color.x;
 		break;
 	}
-
+	*/
 	if (left_pressed)// moving in left mouse button pressed
 	{
 		float dx = speed * input.deltaX;

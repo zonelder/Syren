@@ -6,6 +6,13 @@
 #include "../graphics/Drawable/BindComponent/ConstantBuffer.h"
 #include "../graphics/Drawable/BindComponent/Vertex.h"
 
+struct BoundingBox
+{
+	using Position = DirectX::XMFLOAT3;
+	Position minBound;
+	Position maxBound;
+};
+
 
 struct MeshIternal
 {
@@ -22,10 +29,12 @@ struct MeshIternal
 	std::vector<Vertex> vertices;
 	std::vector<unsigned short> indices;
 	ConstantBuffer2 colors;
+	BoundingBox boundingBox;
 	unsigned int id;
 private:
 	VertexBuffer _vertexBuffer;
 	IndexBuffer _indexBuffer;
 	PixelConstantBuffer<ConstantBuffer2> _pixelConstantBuffer;
+
 
 };

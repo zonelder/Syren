@@ -20,7 +20,7 @@ public:
 		{
 
 			while (
-				++_current < _manager._max 
+				++_current <= _manager._max 
 				&& !(_manager.hasEntity(_current) && _manager._entities[_current].hasComponents(ids)))
 			{
 
@@ -56,7 +56,7 @@ public:
 		Iterator end()
 		{
 			Iterator it = *this;
-			it._current = _manager._max;
+			it._current = _manager._max + 1;
 			return it;
 		}
 
@@ -69,7 +69,7 @@ public:
 
 
 	template<size_t N>
-	Iterator<N> getEntitiesWith(const std::array<ComponentID, N>& ids)
+	Iterator<N> getEntitiesWith(const std::array<ComponentID, N>& ids)noexcept
 	{
 		return Iterator<N>(*this, ids);
 	}

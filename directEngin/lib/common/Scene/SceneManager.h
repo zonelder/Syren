@@ -29,7 +29,7 @@ public:
 
 	// почему класс итератора может быть не доступен вне класса EntityManager
 	template<typename ... Args>
-	EntityManager::Iterator<sizeof...(Args)>  getEntitiesWith()
+	EntityManager::Iterator<sizeof...(Args)>  getEntitiesWith() noexcept
 	{
 		std::array<ComponentID, sizeof...(Args)> ids = { Family::Type<Args>()... };
 
@@ -94,7 +94,7 @@ public:
 	}
 
 	template<typename T>
-	bool hasComponent(const Entity& entt)
+	bool hasComponent(const Entity& entt) const noexcept
 	{
 		auto type_id = Family::Type<T>();
 		return entt.hasComponent(type_id);

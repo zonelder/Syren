@@ -6,11 +6,15 @@
 #include "../Systems/ParentSystem.h"
 #include "../Systems/UITextRender.h"
 #include "../Systems/TextRenderSystem.h"
+#include "../Systems/CellGame.h"
 
 #include "../component/TimedRotation.h"
 #include "../component/Parent.h"
 #include "../component/TextUI.h"
 #include "../component/text.h"
+#include "../component/GameCell.h"
+
+#include "GeometryCast.h"
 
 
 
@@ -25,6 +29,7 @@ void App::OnInit()
 	_systemManager.add<RenderSystem>(gfx);
 	//_systemManager.add<TextRenderSystem>(gfx);
 
+	_systemManager.add<CellGameSystem>();
 	_systemManager.add<TimedRotationSystem>();
 	_systemManager.add<CameraController>();
 	_systemManager.add<UITextRender>(gfx, L"resource/myfile.spritefont");
@@ -35,6 +40,23 @@ void App::OnInit()
 
 	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
 
+	auto p_plane_mesh = _scene.make2SidedPlaneMesh();
+	const int cellInLine = 3;
+	for (int i = 0; i < cellInLine *2; i+=2)
+	{
+		for (int j = 0; j < cellInLine*2; j+=2)
+		{
+			const auto& entt = _scene.createEntity();
+			Transform& t = _scene.addComponent<Transform>(entt);
+			Render& r = _scene.addComponent<Render>(entt);
+			GameCell& cell = _scene.addComponent<GameCell>(entt);
+			r.p_mesh = p_plane_mesh;
+			t.position = { (float)i,(float)j,0.0f };
+
+		}
+	}
+
+	/*
 	auto material = _scene.makeMaterial();
 	material->texture.set(gfx, L"resource/test_texture.dds");
 
@@ -62,19 +84,19 @@ void App::OnInit()
 	r2.p_mesh = makeCylinderMesh();
 	r2.p_material = material;
 	t2.scale.y = 3.0f;
-	*/
+	* /
 
 	const auto& entt1 = _scene.createEntity();
 	auto p_plane_mesh = _scene.make2SidedPlaneMesh();
 	Transform& t = _scene.addComponent<Transform>(entt1);
 	Render& r = _scene.addComponent<Render>(entt1);
-	TimedRotation& tr = _scene.addComponent<TimedRotation>(entt1);
-	tr.zSence = 1.0f;
-	tr.xSence = 0.0f;
+	_scene.addComponent<GameCell>(entt1);
+	//TimedRotation& tr = _scene.addComponent<TimedRotation>(entt1);
+	//tr.zSence = 1.0f;
+	//tr.xSence = 0.0f;
 	//Text& text = _scene.addComponent<Text>(id);
 	//text.content = L"Test Content";
 	r.p_mesh = p_plane_mesh;
-	//r.p_material = _scene.makeMaterial();
 	r.p_material = material;
 	t.position = { 0.0f,0.0f,0.0f};
 
@@ -109,5 +131,6 @@ void App::OnInit()
 	auto& plane_cords = _scene.addComponent<TextUI>(plane_view);
 	plane_cords.position = { 10,10 };
 	plane_cords.content = L"text view";
+	*/
 
 }

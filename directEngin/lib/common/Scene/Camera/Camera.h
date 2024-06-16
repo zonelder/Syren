@@ -12,6 +12,7 @@ public:
 	void OnFrame();
 	void OnUpdate();
 	Transform transform;
+	DirectX::XMMATRIX projection;
 
 	/// @brief The Camera’s view angle, measured in radians
 	float fov = 1.0f;

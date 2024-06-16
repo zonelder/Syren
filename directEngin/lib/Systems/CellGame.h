@@ -11,6 +11,8 @@ public:
 	void onUpdate(SceneManager& scene, float time) override;
 private:
 
+	static DirectX::XMFLOAT3 newBazis(const DirectX::XMFLOAT3&, const DirectX::XMMATRIX& mat);
+
 	MaterialPtr p_selectMat;
 	MaterialPtr p_deselectMat;
 };

@@ -33,24 +33,11 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 
 		return;
 	}
-	if (scene.getInput().isRightPressed)
+	if (input.isRightPressed)// rotating in left mouse button pressed
 	{
-		scene.destroyEntity(0);
-		return;
-	}
-	/*
-	if (true && Input::RightKeyDown())// rotating in left mouse button pressed
-	{
-		float cam_yaw = -speed * Input::GetDeltaX();
-		float cam_pitch = -speed * Input::GetDeltaY();
+		float cam_yaw = -speed * input.deltaX;
+		float cam_pitch = -speed * input.deltaY;
 		cameraTr.rotation = DirectX::XMQuaternionMultiply(cameraTr.rotation, DirectX::XMQuaternionRotationRollPitchYaw(cam_pitch, cam_yaw, 0.0f));
 		return;
 	}
-
-	if (Input::IsKeyDown('Q'))
-	{
-
-
-	}
-	*/
 }

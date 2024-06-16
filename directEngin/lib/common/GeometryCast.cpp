@@ -1,9 +1,11 @@
 #include "GeometryCast.h"
 #include "../component/Transform.h"
 #include <limits>
+#include <math.h>
 
 Hit GeometryCast::raycast(SceneManager& scene, DirectX::XMFLOAT3 origin, DirectX::XMFLOAT3 dir)
 {
+
 
 	for (auto& entt : scene.getEntitiesWith<Render>())
 	{

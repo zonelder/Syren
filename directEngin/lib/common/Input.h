@@ -1,43 +1,34 @@
 #pragma once
-#include "App.h"
+#include "InputHandler.h"
 
 class Input
 {
-	friend class App;
 public:
+	Input(const InputHandler& ih);
 
-	/// @brief  Get mouse x-cordinate changes from last frame
-	static int GetDeltaX() noexcept;
+	bool IsKeyDown(unsigned char) const noexcept;
 
+public:
+	
+	/// @brief Mouse X - position (along horizontal axis from left to right)
+	int x;
+	/// @brief Mouse Y - position (along vertical axis from up to down)
+	int y;
+
+	/// @brief mouse X-position normed by window widht
+	float normedX;
+	/// @brief mouse Y-position normed by window height
+	float normedY;
+
+	/// @brief  Get mouse X-cordinate changes from last frame
+	int deltaX;
 	/// @brief Get mouse Y-cordinate changes from last frame
-	static int GetDeltaY() noexcept;
-
-	/// @brief Get Mouse position along horizontal axis(from left to right) 
-	static int GetX() noexcept;
-
-	/// @brief Get Mouse position along vertical axis(from up to down) 
-	static int GetY() noexcept;
+	int deltaY;
 
 
-	static float GetNormedX() noexcept;
-
-	static float GetNormedY() noexcept;
-
-	static bool LeftKeyDown();
-	static bool RightKeyDown();
-
-
-	static bool IsKeyDown(unsigned char) noexcept;
+	bool isLeftPressed;
+	bool isRightPressed;
 
 private:
-	static Input& GetInstance();
-	Input();
-
-	InputHandler* p_ih = nullptr;
-	int _x, _y;
-	float _clampX, _clampY;
-	int _dx, _dy;
-	bool _isLeftPressed;
-	bool _isRightPressed;
-
+	const InputHandler* p_ih = nullptr;
 };

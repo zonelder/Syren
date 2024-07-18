@@ -2,6 +2,14 @@
 
 
 
+void SystemManager::init(SceneManager& scene)
+{
+	for (auto& [prior, system] : _systems)
+	{
+		system->onInit(scene);
+	}
+}
+
 void SystemManager::update(SceneManager& scene, float dt)
 {
 

@@ -2,7 +2,6 @@
 #include "IComponentPool.h"
 #include <unordered_map>
 
-//using EntityID = unsigned int;
 
 template<typename T>
 class ComponentPool:public IComponentPool
@@ -35,6 +34,7 @@ public:
 	/// @param  
 	bool removeComponent(EntityID id) override
 	{
+
 		if (!_components.contains(id))
 			return false;
 		_components.erase(id);

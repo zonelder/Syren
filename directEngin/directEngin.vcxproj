@@ -80,7 +80,6 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -96,7 +95,6 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -118,7 +116,6 @@
       <AdditionalIncludeDirectories>$(ProjectDir)DirectXTK-main\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -140,16 +137,21 @@
       <AdditionalIncludeDirectories>$(ProjectDir)DirectXTK-main\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\common\Geometry.cpp" />
+    <ClCompile Include="lib\common\GeometryCast.cpp" />
+    <ClCompile Include="lib\common\Scene\Entity.cpp" />
+    <ClCompile Include="lib\common\Scene\EntityManager.cpp" />
     <ClCompile Include="lib\common\customApp.cpp" />
+    <ClCompile Include="lib\common\Scene\meshPool.cpp" />
     <ClCompile Include="lib\component\Material.cpp" />
-    <ClCompile Include="lib\component\Mesh.cpp" />
+    <ClCompile Include="lib\component\mesh.cpp" />
+    <ClCompile Include="lib\component\MeshIternal.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Texture.cpp" />
     <ClCompile Include="lib\common\Scene\ComponentManager.cpp" />
     <ClCompile Include="lib\common\Scene\ComponentPool.cpp" />
@@ -165,6 +167,7 @@
     <ClCompile Include="lib\common\App.cpp" />
     <ClCompile Include="lib\common\InputHandler.cpp" />
     <ClCompile Include="lib\common\TransformUtils.cpp" />
+    <ClCompile Include="lib\Systems\CellGame.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lib\vec2.cpp" />
     <ClCompile Include="lib\exeption\PointedException.cpp" />
@@ -181,11 +184,23 @@
     <ClCompile Include="lib\common\Scene\SystemManager.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\Vertex.cpp" />
     <ClCompile Include="lib\Systems\ParentSystem.cpp" />
+    <ClCompile Include="lib\Systems\UITextRender.cpp" />
+    <ClCompile Include="lib\Systems\TextRenderSystem.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\common\Geometry.h" />
+    <ClInclude Include="lib\common\GeometryCast.h" />
+    <ClInclude Include="lib\common\Scene\Entity.h" />
+    <ClInclude Include="lib\common\Scene\EntityManager.h" />
+    <ClInclude Include="lib\common\Scene\meshPool.h" />
+    <ClInclude Include="lib\common\Scene\SceneBase.h" />
+    <ClInclude Include="lib\component\GameCell.h" />
     <ClInclude Include="lib\component\Material.h" />
+    <ClInclude Include="lib\component\mesh.h" />
     <ClInclude Include="lib\component\Parent.h" />
+    <ClInclude Include="lib\component\text.h" />
+    <ClInclude Include="lib\component\TextUI.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Texture.h" />
     <ClInclude Include="lib\common\Scene\ComponentManager.h" />
     <ClInclude Include="lib\common\Scene\ComponentPool.h" />
@@ -195,7 +210,7 @@
     <ClInclude Include="lib\common\Scene\FamilyGenerator.h" />
     <ClInclude Include="lib\common\Scene\IComponentPool.h" />
     <ClInclude Include="lib\common\TransformUtils.h" />
-    <ClInclude Include="lib\component\Mesh.h" />
+    <ClInclude Include="lib\component\MeshIternal.h" />
     <ClInclude Include="lib\component\Render.h" />
     <ClInclude Include="lib\component\Transform.h" />
     <ClInclude Include="lib\graphics\Drawable\IDrawable.h" />
@@ -211,6 +226,7 @@
     <ClInclude Include="lib\graphics\Graphics.h" />
     <ClInclude Include="lib\common\App.h" />
     <ClInclude Include="lib\common\InputHandler.h" />
+    <ClInclude Include="lib\Systems\CellGame.h" />
     <ClInclude Include="lib\vec2.h" />
     <ClInclude Include="lib\exeption\PointedException.h" />
     <ClInclude Include="lib\common\MouseHandler.h" />
@@ -228,6 +244,8 @@
     <ClInclude Include="lib\common\Scene\SceneManager.h" />
     <ClInclude Include="lib\common\Scene\SystemManager.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\Vertex.h" />
+    <ClInclude Include="lib\Systems\UITextRender.h" />
+    <ClInclude Include="lib\Systems\TextRenderSystem.h" />
     <ClInclude Include="WindowsMessageMap.h" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +253,7 @@
     <None Include="lib\direct\DXGetErrorString.inl" />
     <None Include="lib\direct\DXTrace.inl" />
     <None Include="packages.config" />
+    <None Include="resource\myfile.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\PixelShader.hlsl">
@@ -253,17 +272,19 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Downloads\test.dds" />
-    <Image Include="test_texture.png" />
+    <Image Include="resource\empty.dds" />
+    <Image Include="resource\test_texture.dds" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\directxtk_uwp.2023.9.6.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2023.9.6.1\build\native\directxtk_uwp.targets')" />
+    <Import Project="..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets" Condition="Exists('..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\directxtk_uwp.2023.9.6.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2023.9.6.1\build\native\directxtk_uwp.targets'))" />
+    <Error Condition="!Exists('..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets'))" />
   </Target>
 </Project>

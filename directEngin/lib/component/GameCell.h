@@ -5,3 +5,8 @@ struct GameCell
 {
 	bool isSelected;
 };
+
+struct Chained
+{
+
+};

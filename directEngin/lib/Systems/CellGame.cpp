@@ -17,6 +17,12 @@ void CellGameSystem::onInit(SceneManager& scene)
 	p_selectMat = select;
 	p_deselectMat = deselect;
 
+	for (auto& enttID : scene.getEntitiesWith<GameCell, Render>())
+	{
+		auto& render = scene.getComponent<Render>(enttID);
+		render.p_material = p_deselectMat;
+	}
+
 }
 
 void CellGameSystem::onUpdate(SceneManager& scene, float time)
@@ -35,19 +41,24 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 	
 	auto& cameraPos = scene.getCamera().transform.position;
 	auto hit = GeometryCast::raycast(scene, cameraPos, ray);
-	EntityID hitID = -1;
+
 	if (hit.entt.getID() != -1 && scene.hasComponent<GameCell>(hit.entt))
 	{
-		hitID = hit.entt.getID();
+		scene.addComponent<Chained>(hit.entt);
+		auto& render = scene.getComponent<Render>(hit.entt);
+		render.p_material = p_selectMat;
 	}
-	for (auto& enttID : scene.getEntitiesWith<GameCell, Render,Transform>())
+
+	for (auto& enttID : scene.getEntitiesWith<Chained,GameCell,Render>())
 	{
 
 		auto& cell = scene.getComponent<GameCell>(enttID);
 		auto& render = scene.getComponent<Render>(enttID);
-		cell.isSelected = enttID.getID() == hitID;
-		render.p_material = (cell.isSelected) ? (p_selectMat) : (p_deselectMat);
-
+		if (hit.entt.getID() != enttID.getID())
+		{
+			scene.removeComponent<Chained>(enttID);
+			render.p_material = p_deselectMat;
+		}
 	}
 }
 

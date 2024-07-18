@@ -88,7 +88,7 @@ public:
 	void removeComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
-		auto type_id = Family::Type<Render>();
+		auto type_id = Family::Type<T>();
 		_entityManager.unregisterComponent(entt_id, type_id);
 		_ComponentManager.removeComponent<T>(entt_id);
 	}

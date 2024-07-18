@@ -5,6 +5,8 @@
 #include "lib/exeption/PointedException.h"
 #include "lib//common/MouseHandler.h"
 
+#define CONSOLE_ENABLE
+
 InputHandler inputHandler;
 
 int  CALLBACK WinMain(
@@ -12,6 +14,13 @@ int  CALLBACK WinMain(
 	HINSTANCE hPrevInstance,//always null
 	LPSTR lpCmdLine,//command line
 	int ncmdMode) {
+
+#ifdef CONSOLE_ENABLE
+	FILE* conout = stdout;
+	AllocConsole();
+	AttachConsole(GetCurrentProcessId());
+	freopen_s(&conout,"CON", "w", stdout);
+#endif
 	try {
 		return App{}.Init();
 	}

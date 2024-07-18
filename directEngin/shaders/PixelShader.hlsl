@@ -1,6 +1,9 @@
-cbuffer Cbuf {
-	float4 face_color[6];
-};
+cbuffer MatBuff : register(b1)
+{
+    float4 MaterialColor;
+}
+
+
 
 Texture2D ObjTexture;
 SamplerState ObjSamplerState;
@@ -14,5 +17,6 @@ struct VS_OUTPUT
 
 float4 main(VS_OUTPUT input) : SV_Target{
 
-	return ObjTexture.Sample( ObjSamplerState, input.TexCord );
+    float4 textureColor = ObjTexture.Sample(ObjSamplerState, input.TexCord);
+    return MaterialColor*textureColor;
 }

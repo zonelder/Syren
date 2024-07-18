@@ -1,7 +1,6 @@
 #pragma once
+#include "SceneBase.h"
 
-
-using ComponentID = unsigned int;
 
 class Family
 {

@@ -2,8 +2,42 @@
 
 
 
-SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()){}
+SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()),_input(wnd.inputHandler)
+{
 
+}
+
+
+const Entity& SceneManager::createEntity() noexcept
+{
+	return _entityManager.create();
+}
+
+bool SceneManager::destroyEntity(const Entity& entt) noexcept
+{
+	return destroyEntity(entt.getID());
+}
+
+bool SceneManager::destroyEntity(EntityID entt_id) noexcept
+{
+
+	bool res = _entityManager.hasEntity(entt_id);
+	if (!res) return false;
+	const Entity& entt = _entityManager.get(entt_id);
+
+
+	for (auto it = entt.begin(); it != entt.end(); ++it)
+	{
+
+		_ComponentManager.removeComponent(*it, entt_id);
+
+	}
+
+	_entityManager.destroy(entt);
+	std::cout << "[Scene]Destroy entity " << entt_id << std::endl;
+
+	return true;
+}
 
 
 void SceneManager::onStartFrame()
@@ -17,6 +51,11 @@ void SceneManager::onEndFrame()
 	_gfx.endFrame();
 }
 
+const Entity& SceneManager::getEntity(EntityID id) const noexcept
+{
+	return _entityManager.get(id);
+}
+
 
 Camera& SceneManager::getCamera() noexcept
 {
@@ -28,6 +67,32 @@ Graphics& SceneManager::getGraphic() noexcept
 	return _gfx;
 }
 
+void SceneManager::updateInput(const Window& wnd) noexcept
+{
+
+	const MouseHandler& mh = wnd.mouseHandler;
+	const InputHandler& ih = wnd.inputHandler;
+	int x = mh.getPosX();
+	int y = mh.getPosY();
+	_input.deltaX = x - _input.x;
+	_input.deltaY = y - _input.y;
+	_input.x = x;
+	_input.y = y;
+
+	_input.normedX = (float)x / wnd.GetWidth();
+	_input.normedY = (float)y / wnd.GetHeight();
+
+	_input.isLeftPressed = mh.LeftIsPressed();
+	_input.isRightPressed = mh.RightIsPressed();
+
+}
+
+const Input& SceneManager::getInput() const noexcept
+{
+
+	return _input;
+}
+
 
 std::shared_ptr<Material> SceneManager::makeMaterial(const wchar_t* vertexShader, const wchar_t* pixelShader)
 {
@@ -37,14 +102,17 @@ std::shared_ptr<Material> SceneManager::makeMaterial(const wchar_t* vertexShader
 }
 
 
-std::shared_ptr<Mesh> SceneManager::makeMesh(
+Mesh* SceneManager::makeMesh(
 	const std::vector<Vertex>& vertices,
 	const std::vector<unsigned short>& indices,
-	const Mesh::ConstantBuffer2& colors
+	const MeshIternal::ConstantBuffer2& colors
 )
 {
-	auto mesh = std::make_shared<Mesh>(_gfx, vertices, indices,colors);
-	return mesh;
+	return addMesh(_gfx, vertices, indices, colors);
+}
+MeshIternal* SceneManager::getMeshData(Mesh* meshComponent) const noexcept
+{
+	return getMesh(meshComponent);
 }
 /*
 std::shared_ptr<Mesh>  SceneManager::makeBoxMesh()
@@ -123,7 +191,7 @@ std::shared_ptr<Mesh>  SceneManager::makeCylinderMesh(unsigned int n)
 }
 */
 
-std::shared_ptr<Mesh> SceneManager::make2SidedPlaneMesh()
+Mesh* SceneManager::make2SidedPlaneMesh()
 {
 	auto mesh = makeMesh({
 		{{ -1.0f,-1.0f,0.0f,},{0.0f,1.0f}},

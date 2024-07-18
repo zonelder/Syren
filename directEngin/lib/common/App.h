@@ -22,7 +22,7 @@ private:
 	void SetInputData();
 private:
 	Window _wnd;
-	SceneManager _sceneManager;
+	SceneManager _scene;
 	SystemManager _systemManager;
 	Timer _time;//TODO change it to Time class after all
 

@@ -1,6 +1,5 @@
 #pragma once
-
-using EntityID = unsigned int;
+#include "SceneBase.h"
 
 class IComponentPool
 {

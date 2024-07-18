@@ -253,9 +253,9 @@ void Graphics::drawTestTriangle(float angle,float x,float y,float z) {
 	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)std::size(indices),0u, 0u));
 }
 
-void Graphics::DrawIndexed(const std::vector<unsigned short>& indices)
+void Graphics::DrawIndexed(size_t indexCount,size_t startIndex)
 {
-	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)std::size(indices), 0u, 0u));
+	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)indexCount, startIndex, 0u));
 }
 
 Graphics::HrException::HrException(int line, const char* file, HRESULT hr,std::vector<std::string> infoMsgs) noexcept:

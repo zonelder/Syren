@@ -13,19 +13,19 @@ class SystemManager
 {
 public:
 
-	/// @brief add new system at the end of call queue
+	/// @brief create new system at the end of call queue
 	/// @tparam T Class,that derived from BaseSystem Class
-	template<typename T>
-	void add() requires DeriveFrom<T, BaseSystem>
+	template<typename T,class... Args>
+	void add(Args&&... args) requires DeriveFrom<T, BaseSystem>
 	{
-		add<T>(_maxPriority + 1);
+		add<T>(_maxPriority + 1,std::forward<Args>(args)...);
 	}
 
-	/// @brief add new system in processor with priory
+	/// @brief create new system in processor with setted priory
 	/// @tparam T Class,that derived from BaseSystem Class
 	/// @param priority Prioriy of calls. Systems with less priority will be called earlier
-	template<typename T>
-	void add(unsigned int priority) requires DeriveFrom<T, BaseSystem>
+	template<typename T, class... Args>
+	void add(unsigned int priority,Args&&... args) requires DeriveFrom<T, BaseSystem>
 	{
 		if (_systems.contains(priority))
 		{
@@ -36,8 +36,9 @@ public:
 		{
 			_maxPriority = priority;
 		}
-		_systems.emplace(priority,new T);
+		_systems.emplace(priority,new T(std::forward<Args>(args)...));
 	}
+	
 
 	/// @brief Remove system from the list with specific priority level
 	/// @param priority 
@@ -48,6 +49,8 @@ public:
 	/// @param prioruty new priority level
 	void resetPriority(unsigned int curPriority, unsigned int priority) noexcept;
 
+
+	void init(SceneManager& scene);
 	/// @brief update all systems
 	/// @param  scene Scene, where systems update needed
 	/// @param dt time from last update call

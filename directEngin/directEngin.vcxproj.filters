@@ -153,6 +153,9 @@
     <ClCompile Include="lib\common\GeometryCast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\common\Containers\sparse_set.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -336,6 +339,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\GeometryCast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\common\Containers\sparse_set.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -74,6 +74,16 @@ public:
 		return reverse_iterator(_data.begin() + _data.size()); 
 	}
 
+	auto ebegin() noexcept
+	{
+		return sparse_set_type::begin();
+	}
+
+	auto eend() noexcept
+	{
+		retrun sparse_set_type::end();
+	}
+
 	auto end() noexcept
 	{
 		return reverse_iterator(_data.begin());

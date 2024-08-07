@@ -261,6 +261,7 @@ namespace
 		using with_tuple = std::tuple< typle_element_type...>;
 		template<unsigned I>
 		using tuple_type = std::tuple_element_t<I, typle_element_type...>;
+		using entity_iterator = std::vector<EntityID>::iterator;
 
 		ComponentView(ComponentManager& scene) noexcept : _pools({ scene.getPool<WithArgs>()... })
 		{}
@@ -277,13 +278,14 @@ namespace
 		auto& get(const EntityID& entt) noexcept
 		{
 			static_assert(isWith<T>);
-			std::get< typle_element_type>(_pools)[entt];
+			return std::get<ComponentPool<T>*>(_pools)[entt];
 		}
 
 		template<class T>
 		static constexpr bool isWith = (... || std::is_same_v<T, WithArgs>);
 
 		static constexpr size_t withN = sizeof...(WithArgs);
+
 		class iterator
 		{
 		public:
@@ -324,41 +326,37 @@ namespace
 				return _it == other._it;
 			}
 
-			const auto& operator*() const noexcept
-			{
-				return *_it;
-			}
-
 			auto operator*() noexcept
 			{
-				auto en
-				return std::tuple<EntityID, WithArgs&...>(1, std::get<WithArgs>(_pools)[en]);
+				const auto& entt = *_it;
+				return std::tuple<const EntityID&, WithArgs&...>(entt, std::get<WithArgs>(_pools)[entt]...);
 			}
 
 			
 		private:
 
 			with_tuple& _pools;
-			tuple_type<0>::iterator _it;
+			entity_iterator _it;
 		};
 
 		auto begin() noexcept
 		{
-			return iterator(_pools.get<0>.begin());
+			return iterator(_pools,_pools.get<0>.ebegin());
 		}
 
 		auto end() noexcept
 		{
-			return iterator(_pools.get<0>.end());
+			return iterator(_pools,_pools.get<0>.eend());
 		}
 
+		/*
 		//this function is not check if component exist. undefined behaviour in other case
 		auto get(const Entity& entt) const noexcept
 		{
 			auto entt_id = entt.getID();
-			return std::tuple<WithArgs&...>(std::get<ComponentPool<WithArgs>&>(_pools)[entt_id]...);
+			return std::tuple<WithArgs&...>(std::get<typle_element_type>(_pools)[entt_id]...);
 		}
-
+		*/
 	private:
 		with_tuple _pools;
 	};

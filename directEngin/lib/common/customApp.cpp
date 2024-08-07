@@ -57,8 +57,9 @@ void App::OnInit()
 	}
 
 	auto& view = _scene.view<Transform,Render>();
+	auto& t   = view.get<Transform>(1);
 	auto b = view.begin();
-	for (auto a : view)
+	for (auto [entt, tr, r] : view)
 	{
 
 	}

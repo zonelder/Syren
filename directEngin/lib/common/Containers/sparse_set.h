@@ -63,12 +63,12 @@ public:
 	{
 		// using reverse_iterator to enshure that modification of SparseArray
 		// during iteration will not trigger any exeptions
-		return reverse_iterator(_data.begin() + _data.size()); 
+		return _densed.begin();//reverse_iterator(densed.begin() + _data.size()); 
 	}
 
 	auto end() noexcept
 	{
-		return reverse_iterator(_data.begin());
+		return _densed.end();
 	}
 
 	bool contains(const key_type& key) const noexcept

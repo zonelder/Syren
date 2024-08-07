@@ -84,8 +84,12 @@ public:
 		return _sparse[key] != tombstone;
 	}
 
+	auto pair(const key_type& key) noexcept
+	{
+		return std::tuple<const key_type&,Data&>()
+	}
 
-	Data& operator[](const key_type& key) const noexcept
+	Data& operator[](const key_type& key) noexcept
 	{
 		return _data[_set[key]];
 	}

@@ -11,6 +11,12 @@
 #include "meshPool.h"
 
 
+namespace
+{
+	template<class... Args>
+	class ComponentView;
+}
+
 class SceneManager : private MeshPool
 {
 public:
@@ -36,6 +42,13 @@ public:
 		return _entityManager.getEntitiesWith(ids);
 	}
 	
+
+	template<class... Args>
+	auto& view() noexcept
+	{
+		static ComponentView< Args...> m(*this);// create view on each filter once and then reuse it
+		return m;
+	}
 
 
 
@@ -201,7 +214,7 @@ namespace
 	template<class... WithArgs,class... WithoutArgs>
 	struct ComponentView<With<WithArgs...>, Without<WithoutArgs...>>
 	{
-		ComponentView(SceneManager& scene) noexcept :
+		ComponentView(ComponentManager& scene) noexcept :
 			_includes({ scene.getPool<WithArgs>()... }),
 			_excludes({ scene.getPool<WithoutArgs>()... })
 		{
@@ -243,9 +256,13 @@ namespace
 	template<class... WithArgs>
 	struct ComponentView
 	{
-		using with_tuple = std::tuple< ComponentPool<WithArgs>&...>;
 
-		ComponentView(SceneManager& scene) noexcept : _pools({ scene.getPool<WithArgs>()... })
+		using typle_element_type = ComponentPool<WithArgs>*;
+		using with_tuple = std::tuple< typle_element_type...>;
+		template<unsigned I>
+		using tuple_type = std::tuple_element_t<I, typle_element_type...>;
+
+		ComponentView(ComponentManager& scene) noexcept : _pools({ scene.getPool<WithArgs>()... })
 		{}
 
 
@@ -253,18 +270,24 @@ namespace
 		template<class T>
 		auto& get(const Entity& entt) noexcept
 		{
-			static_assert(isWith<T>);
-			return std::get< ComponentPool<T>&>(_pools).getComponent(entt.getID());
+			return get<T>(entt.getID());
 		}
+
+		template<class T>
+		auto& get(const EntityID& entt) noexcept
+		{
+			static_assert(isWith<T>);
+			std::get< typle_element_type>(_pools)[entt];
+		}
+
 		template<class T>
 		static constexpr bool isWith = (... || std::is_same_v<T, WithArgs>);
 
 		static constexpr size_t withN = sizeof...(WithArgs);
-
 		class iterator
 		{
 		public:
-			iterator(const with_tuple& view_pools ) : _pools(view_pools),it(view_pools.get<0>.begin())
+			iterator(const with_tuple& view_pools,decltype(_it) it ) : _pools(view_pools),_it(it)
 			{
 
 			}
@@ -282,53 +305,62 @@ namespace
 				bool find = true;
 				do
 				{
-					++it;
-					const auto entt_id = *it;
+					++_it;
+					const auto entt_id = *_it;
 					find = all_of(_pools, entt_id);
 					if (all_of(_pools, entt_id))
 						break;
 				}while (true)
-
 				return *this;
 			}
 
 			bool operator!=(const iterator& other) const noexcept
 			{
-				return it != other.it;
+				return _it != other._it;
 			}
 
 			bool operator==(const iterator& other) const noexcept
 			{
-				return it == other.it;
+				return _it == other._it;
+			}
+
+			const auto& operator*() const noexcept
+			{
+				return *_it;
+			}
+
+			auto operator*() noexcept
+			{
+				auto en
+				return std::tuple<EntityID, WithArgs&...>(1, std::get<WithArgs>(_pools)[en]);
 			}
 
 			
-
-			with_tuple _pools;
 		private:
-			auto it;
-			auto end;
+
+			with_tuple& _pools;
+			tuple_type<0>::iterator _it;
 		};
 
 		auto begin() noexcept
 		{
-
+			return iterator(_pools.get<0>.begin());
 		}
 
 		auto end() noexcept
 		{
-
+			return iterator(_pools.get<0>.end());
 		}
 
 		//this function is not check if component exist. undefined behaviour in other case
 		auto get(const Entity& entt) const noexcept
 		{
 			auto entt_id = entt.getID();
-			return std::tuple<WithArgs&...>(std::get<ComponentPool<WithArgs>&>(_pools).getComponent(entt_id)...);
+			return std::tuple<WithArgs&...>(std::get<ComponentPool<WithArgs>&>(_pools)[entt_id]...);
 		}
 
-		with_tuple _pools;
 	private:
+		with_tuple _pools;
 	};
 
 #include "../Containers/sparse_array.h"
@@ -363,20 +395,6 @@ namespace
 
 		}
 
-		SceneManager scene;
-		auto view = ComponentView < With<Transform, Render>,Without<Render>>(scene);
-		auto onlyWith = ComponentView<Transform, Render>(scene);
-		constexpr auto a = view.isWith<Transform>;
-		auto entt = scene.createEntity();
-		auto& tr = view.get<Transform>(entt);
-
-		auto r = onlyWith.get<Render>(entt);
-
-		all_of(onlyWith._pools, entt);
-
-		//none_of(ids<Transform>, entt);
-
-		auto[tr,r] = onlyWith.get(entt);
 
 	}
 }

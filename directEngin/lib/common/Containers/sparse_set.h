@@ -111,6 +111,8 @@ public:
 		_sparse.clear();
 		_densed.clear();
 	}
+
+	virtual ~SparseSet() {};
 		 
 private:
 

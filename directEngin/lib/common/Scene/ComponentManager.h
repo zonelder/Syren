@@ -10,18 +10,11 @@ class ComponentManager
 public:
 	using pool_base_type = SparseSet<EntityID, MAX_ENTITY>;
 
-	template<unsigned N>
-	struct component_traits{};
 	template<typename T>
 	void addPool()
 	{
 
-		constexpr ComponentID id = Family::Type<T>();
-		template<>
-		component_traits<id>
-		{
-			using component_type = T;
-		};
+		ComponentID id = Family::Type<T>();
 
 		_pools[id] = new ComponentPool<T>();
 	}
@@ -30,11 +23,11 @@ public:
 	ComponentPool<T>* getPool()
 	{
 
-		constexpr ComponentID id = Family::Type<T>();
+		ComponentID id = Family::Type<T>();
 		if (!_pools.contains(id))
 			addPool<T>();
 
-		ComponentPool<T>* ptr = static_cast<ComponentPool<T>*>(_pools[id]);
+		ComponentPool<T>* ptr = dynamic_cast<ComponentPool<T>*>(_pools[id]);
 		return ptr;
 	}
 
@@ -66,12 +59,6 @@ public:
 		ComponentPool<T>* pool = getPool<T>();
 		return pool->remove(id);
 	}
-
-
-	void removeComponent(ComponentID comp_id, EntityID entt_id)
-	{
-	}
-	void removeAllComponents();
 
 	~ComponentManager();
 

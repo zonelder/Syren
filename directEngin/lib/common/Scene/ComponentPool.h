@@ -7,7 +7,7 @@
 
 
 template<typename T>
-class ComponentPool final :public SparseArray<T, EntityID, MAX_ENTITY>
+class ComponentPool final : private SparseArray<T, EntityID, MAX_ENTITY>
 {
 
 };

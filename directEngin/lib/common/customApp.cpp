@@ -56,6 +56,13 @@ void App::OnInit()
 		}
 	}
 
+	auto& view = _scene.view<Transform,Render>();
+	auto b = view.begin();
+	for (auto a : view)
+	{
+
+	}
+
 	/*
 	auto material = _scene.makeMaterial();
 	material->texture.set(gfx, L"resource/test_texture.dds");

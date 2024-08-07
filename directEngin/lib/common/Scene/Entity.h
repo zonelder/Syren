@@ -34,19 +34,34 @@ public:
 
 	void unregisterComponent(ComponentID component_id) noexcept;
 
-	bool hasComponent(ComponentID id) const noexcept;
+	constexpr bool hasComponent(ComponentID id) const noexcept
+	{
+		return _components[id];
+	}
 
 	// шаблонная функция hasComponents которая принимает std::array<ComponentID, N> и возвращает bool
 	template<size_t N>
-	bool hasComponents(const std::array<ComponentID, N>& ids) const
+	constexpr bool hasComponents(const std::array<ComponentID, N>& ids) const
 	{
-		bool res = 1;
+		bool res = true;
 		for (auto id : ids)
 		{
 			res&= hasComponent(id);
 		}
 		return res;
 	}
+
+	template<size_t N>
+	constexpr bool hasNotComponents(const std::array<ComponentID, N>& ids) const
+	{
+		bool res = false;
+		for (auto id : ids)
+		{
+			res |= hasComponent(id);
+		}
+		return !res;
+	}
+
 
 	/// @brief return iterator pointing on id of first existing component of entity
 	/// @return 
@@ -55,6 +70,11 @@ public:
 	ComponentIterator end() const;
 
 	const EntityID getID() const noexcept;
+
+	constexpr bool isValid() const noexcept
+	{
+		return _ID != -1;
+	}
 private:
 	EntityID _ID;
 	ComponentSet _components;

@@ -13,10 +13,9 @@ public:
 	template<typename T>
 	void addPool()
 	{
+		IComponentPool* cp_ptr = new ComponentPool<T>();
 
-		ComponentID id = Family::Type<T>();
-
-		_pools[id] = new ComponentPool<T>();
+		_pools[Family::Type<T>()] = cp_ptr;
 	}
 
 	template<typename T>
@@ -35,9 +34,6 @@ public:
 	template<typename T>
 	T& getComponent(EntityID id)
 	{
-		auto type_id = Family::Type<T>();
-		if (!_pools.contains(type_id))
-			addPool<T>();
 		ComponentPool<T>* pool = getPool<T>();
 		return pool[id];
 	}

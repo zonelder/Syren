@@ -17,13 +17,15 @@
 #include "GeometryCast.h"
 
 
+#include <chrono>  //используем chrono для работы со временем
+
 
 void App::OnInit()
 {
 	auto& gfx = _scene.getGraphic();
 	/// init systems
 	_systemManager.add<OrientationSystem>();
-	_systemManager.add<ParentSystem>();
+	//_systemManager.add<ParentSystem>();
 
 
 	_systemManager.add<RenderSystem>(gfx);
@@ -55,6 +57,38 @@ void App::OnInit()
 
 		}
 	}
+	for (auto i = 0; i < MAX_ENTITY - 200; ++i)
+	{
+		const auto& entt = _scene.createEntity();
+		Transform& t = _scene.addComponent<Transform>(entt);
+		GameCell& cell = _scene.addComponent<GameCell>(entt);
+	}
+
+
+
+	const auto test2_start = std::chrono::high_resolution_clock::now();
+
+	for (auto& entt : _scene.getEntitiesWith< Transform, GameCell>())
+	{
+		auto& cell = _scene.getComponent<GameCell>(entt);
+		cell.isSelected = std::rand() % 2;
+	}
+
+	const auto test2_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test2_start).count();
+
+	const auto test1_start = std::chrono::high_resolution_clock::now();
+
+	for (auto& entt : _scene.entities() | with<Transform, GameCell>())
+	{
+		auto& cell = _scene.getComponent<GameCell>(entt);
+		cell.isSelected = std::rand() % 2;
+	}
+
+	const auto test1_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test1_start).count();
+
+	std::cout << "test 1 = " << test1_diff << "\ntest 2 = " << test2_diff << std::endl;
+
+
 
 	auto& view = _scene.view<Transform,Render>();
 	auto& t   = view.get<Transform>(1);

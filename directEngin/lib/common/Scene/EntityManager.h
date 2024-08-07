@@ -2,6 +2,8 @@
 #include <array>
 #include <vector>
 #include "Entity.h"
+#include <ranges>
+
 
 class EntityManager
 {
@@ -72,6 +74,13 @@ public:
 	Iterator<N> getEntitiesWith(const std::array<ComponentID, N>& ids)noexcept
 	{
 		return Iterator<N>(*this, ids);
+	}
+
+	constexpr auto entities() const noexcept
+	{
+		return _entities | std::views::filter([](const Entity& entt)->bool {
+			return entt.isValid();
+			});
 	}
 
 	Entity& create() noexcept;

@@ -9,7 +9,32 @@
 #include "../Input.h"
 #include "EntityManager.h"
 #include "meshPool.h"
+#include <ranges>
 
+namespace
+{
+	template<class ...Args>
+	constexpr std::array<ComponentID, sizeof...(Args)> ids = { Family::Type<Args>()... };
+
+	template<class ...Args>
+	inline consteval auto with() noexcept
+	{
+		return std::views::filter([](const Entity& entt)->bool {
+			return entt.hasComponents(ids<Args...>);
+			});
+	}
+
+	
+
+	template<class ...Args>
+	inline constexpr auto without() noexcept
+	{
+		return std::views::filter([](const Entity& entt)->bool {
+			return entt.hasNotComponents(ids<Args...>);
+			});
+	}
+
+}
 
 namespace
 {
@@ -41,6 +66,12 @@ public:
 
 		return _entityManager.getEntitiesWith(ids);
 	}
+
+
+	constexpr auto entities() const noexcept
+	{
+		return _entityManager.entities();
+	}
 	
 
 	template<class... Args>
@@ -71,8 +102,7 @@ public:
 	T& addComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
-		auto type_id = Family::Type<T>();
-		_entityManager.registerComponent(entt_id, type_id);
+		_entityManager.registerComponent(entt_id, Family::Type<T>());
 		return _ComponentManager.addComponent<T>(entt_id);
 	}
 
@@ -80,8 +110,7 @@ public:
 	Transform& addComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
-		auto type_id = Family::Type<Transform>();
-		_entityManager.registerComponent(entt_id, type_id);
+		_entityManager.registerComponent(entt_id, Family::Type<Transform>());
 		auto& tr = _ComponentManager.addComponent<Transform>(entt_id);
 		tr.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(_gfx, tr.orientationMatrix);
 		return tr;
@@ -91,8 +120,7 @@ public:
 	Render& addComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
-		auto type_id = Family::Type<Render>();
-		_entityManager.registerComponent(entt_id, type_id);
+		_entityManager.registerComponent(entt_id, Family::Type<Render>());
 		auto& r = _ComponentManager.addComponent<Render>(entt_id);
 		r.topology= Topology(_gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		return r;
@@ -104,16 +132,14 @@ public:
 	void removeComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
-		auto type_id = Family::Type<T>();
-		_entityManager.unregisterComponent(entt_id, type_id);
+		_entityManager.unregisterComponent(entt_id, Family::Type<T>());
 		_ComponentManager.removeComponent<T>(entt_id);
 	}
 
 	template<typename T>
 	bool hasComponent(const Entity& entt) const noexcept
 	{
-		auto type_id = Family::Type<T>();
-		return entt.hasComponent(type_id);
+		return entt.hasComponent(Family::Type<T>());
 	}
 
 	/// @brief create new material and return ptr to it

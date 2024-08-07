@@ -8,29 +8,33 @@
 class ComponentManager
 {
 public:
+	using pool_base_type = SparseSet<EntityID, MAX_ENTITY>;
 
+	template<unsigned N>
+	struct component_traits{};
 	template<typename T>
 	void addPool()
 	{
 
-		ComponentID id = Family::Type<T>();
-		IComponentPool* cp_ptr = new ComponentPool<T>();
+		constexpr ComponentID id = Family::Type<T>();
+		template<>
+		component_traits<id>
+		{
+			using component_type = T;
+		};
 
-		_pools[id] = cp_ptr;
+		_pools[id] = new ComponentPool<T>();
 	}
 
 	template<typename T>
 	ComponentPool<T>* getPool()
 	{
 
-		ComponentID id = Family::Type<T>();
+		constexpr ComponentID id = Family::Type<T>();
 		if (!_pools.contains(id))
 			addPool<T>();
 
-
-		IComponentPool* int_ptr = _pools[id];
-
-		ComponentPool<T>* ptr = dynamic_cast<ComponentPool<T>*>(int_ptr);
+		ComponentPool<T>* ptr = static_cast<ComponentPool<T>*>(_pools[id]);
 		return ptr;
 	}
 
@@ -42,7 +46,7 @@ public:
 		if (!_pools.contains(type_id))
 			addPool<T>();
 		ComponentPool<T>* pool = getPool<T>();
-		return pool->getComponent(id);
+		return pool[id];
 	}
 
 	template<typename T>
@@ -53,27 +57,26 @@ public:
 			addPool<T>();
 
 		ComponentPool<T>* p_pool= getPool<T>();
-
-		p_pool->addComponent(id);
-		return p_pool->getComponent(id);
+		return p_pool->add(id);
 	}
 
 	template<typename T>
 	bool removeComponent(EntityID id)
 	{
-		auto type_id = Family::Type<T>();
 		ComponentPool<T>* pool = getPool<T>();
-		bool res = pool->removeComponent(id);
-		return res;
+		return pool->remove(id);
 	}
 
 
-	void removeComponent(ComponentID comp_id, EntityID entt_id);
+	void removeComponent(ComponentID comp_id, EntityID entt_id)
+	{
+	}
 	void removeAllComponents();
 
 	~ComponentManager();
 
 private:
-	std::unordered_map<ComponentID,IComponentPool*> _pools;
+
+	std::unordered_map<ComponentID, pool_base_type*> _pools;
 };
 

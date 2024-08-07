@@ -1,16 +1,16 @@
 #pragma once
-
+#include "sparse_set.h"
 #include <vector>
 
-template<typename Entity,unsigned N>
-class SparseSet
+template<typename Data,typename Entity,unsigned N>
+class SparseArray : private SparseSet<Entity,N>
 {
 public:
 
 
 	using key_type = Entity;
-	using densed_container_type = std::vector<key_type>;
-	using sparse_container_type = std::vector<key_type>;
+	using sparse_set_type = SparseSet<Entity, N>;
+	using data_densed_container_type = std::vector<Data>;
 
 	static constexpr key_type tombstone = N-1;
 
@@ -19,7 +19,7 @@ public:
 	{
 	public:
 
-		reverse_iterator(densed_container_type::iterator it):_curIt(it)
+		reverse_iterator(data_densed_container_type::iterator it):_curIt(it)
 
 		auto operator++(int) const noexcept
 		{
@@ -50,13 +50,21 @@ public:
 		}
 
 	private:
-		densed_container_type::iterator _curIt;
+		sparse_set_type::reverse_iterator _itEnttID;
+		data_densed_container_type::iterator _curIt;
 	};
 
-	SparseSet() noexcept : _sparse(N, tombstone),_densed(N,tombstone)
+	SparseArray() noexcept : _sparse(N, tombstone),_densed(N,tombstone)
 	{
 		//reserve(N);
-		//_data.reserve(capacity);
+		_data.reserve(capacity);
+	}
+
+	void reserve(size_t capacity) noexcept
+	{
+		_densed.reserve(capacity);
+		_sparse.reserve(capacity);
+		_data.reserve(capacity);
 	}
 
 	auto begin() noexcept
@@ -77,44 +85,37 @@ public:
 	}
 
 
-	key_type& operator[](const key_type& key) const noexcept
+	Data& operator[](const key_type& key) const noexcept
 	{
-		return _sparse[key];
+		return _data[_set[key]];
 	}
 
-	void add(const key_type& key) noexcept
+	Data& add(const key_type& key) noexcept
 	{
-		if (contains(key))
+		if(_set.contains(key))
 			return this->operator[key];
 
-		auto pos = _densed.size();
-		_densed.push_back(key);
-		_sparse[key] = pos;
+		_set.add(key);
+		_data.push_back();
+		return _data.back();
 	}
 
 	bool remove(const key_type& key) noexcept
 	{
-		auto& pos = _sparse[key];
-		if (pos == tombstone)// Data not exist
+
+		if (!_set.remove(key))
 			return false;
 
-		const auto last = _densed.back();
-		_sparse[last] = pos;
-		pos = tombstone;
-		std::swap(_densed[pos],_densed.back());
-		_densed.pop_back();
+		std::swap(_data[pos], _data.back());
+		_data.pop_back();
 		return true;
+
 	}
 
-	void clear() noexcept
-	{
-		_sparse.clear();
-		_densed.clear();
-	}
 		 
 private:
 
-	sparse_container_type _sparse;
-	densed_container_type _densed;
+	sparse_set_type _set;
+	data_densed_container_type _data;
 
 };

@@ -331,31 +331,34 @@ namespace
 	private:
 	};
 
-#include "../Containers/sparse_set.h"
+#include "../Containers/sparse_array.h"
 
 
-	template<class T>
-	class ComponentPool:public IComponentPool,public SparseArray<T, EntityID, MAX_ENTITY>{};
 	void ftest()
 	{
-		ComponentPool<Transform> arr;
+		SparseArray<Transform, EntityID, MAX_ENTITY> pool;
+		SparseSet<EntityID, MAX_ENTITY> constexprTest;
 		
-		for (auto& tr : arr)
+		for (auto tr : pool)
 		{
 
 		}
 
-		if (arr.contains(2))
+		for (auto& tr : pool)
 		{
 
-			auto& dat =	arr.add(2);
-			arr.remove(2);
-			arr.remove(2);
-			dat.scale = { 1,1,1 };
+		}
+
+		if (pool.contains(2))
+		{
+			auto& obj = pool[2];
+			pool.add(3);
+			pool.remove(3);
+			obj.scale = { 1,1,1 };
 		}
 
 
-		for (auto it = arr.begin(); it != arr.end(); ++it)
+		for (auto it = pool.begin(); it != pool.end(); ++it)
 		{
 
 		}

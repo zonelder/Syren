@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\common\Containers\sparse_array.cpp" />
     <ClCompile Include="lib\common\Containers\sparse_set.cpp" />
     <ClCompile Include="lib\common\Geometry.cpp" />
     <ClCompile Include="lib\common\GeometryCast.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\common\Containers\sparse_array.h" />
     <ClInclude Include="lib\common\Containers\sparse_set.h" />
     <ClInclude Include="lib\common\Geometry.h" />
     <ClInclude Include="lib\common\GeometryCast.h" />

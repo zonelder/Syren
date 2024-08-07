@@ -1,8 +1,20 @@
 #pragma once
 #include "IComponentPool.h"
+#include "../Containers/sparse_array.h"
 #include <unordered_map>
 
 
+
+
+template<typename T>
+class ComponentPool final :public SparseArray<T, EntityID, MAX_ENTITY>
+{
+
+};
+
+
+
+/*
 template<typename T>
 class ComponentPool:public IComponentPool
 {
@@ -62,3 +74,4 @@ private:
 	std::unordered_map<EntityID, T> _components;
 };
 
+*/

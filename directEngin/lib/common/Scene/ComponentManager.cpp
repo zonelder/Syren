@@ -10,9 +10,3 @@ ComponentManager::~ComponentManager()
 	}
 }
 
-
-
-void ComponentManager::removeComponent(ComponentID comp_id, EntityID entt_id)
-{
-	_pools[comp_id]->removeComponent(entt_id);
-}

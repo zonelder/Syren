@@ -10,7 +10,7 @@ class EntityManager
 public:
 	EntityManager()
 	{
-
+		_entities.reserve(MAX_ENTITY);//TODO initialize with max entity at start
 	}
 	// класс итератор который будет итерировать по елементам из EntityManager но только по тем у которых будет заданыый набор компонентов передаваемый как std::array<ComponentID, N>
 	template<size_t N>
@@ -99,7 +99,7 @@ public:
 
 	
 private:
-	std::array<Entity, MAX_ENTITY> _entities;
+	std::vector<Entity> _entities;
 	EntityID _max = -1;
 	std::vector<EntityID> _gaps;
 };

@@ -8,12 +8,12 @@
 class ComponentManager
 {
 public:
-	using pool_base_type = SparseSet<EntityID, MAX_ENTITY>;
+	using pool_base_type = IComponentPool;
 
 	template<typename T>
 	void addPool()
 	{
-		IComponentPool* cp_ptr = new ComponentPool<T>();
+		pool_base_type* cp_ptr = new ComponentPool<T>;
 
 		_pools[Family::Type<T>()] = cp_ptr;
 	}
@@ -35,7 +35,7 @@ public:
 	T& getComponent(EntityID id)
 	{
 		ComponentPool<T>* pool = getPool<T>();
-		return pool[id];
+		return pool->operator[](id);
 	}
 
 	template<typename T>
@@ -54,6 +54,11 @@ public:
 	{
 		ComponentPool<T>* pool = getPool<T>();
 		return pool->remove(id);
+	}
+
+	bool removeComponent(ComponentID compID, EntityID id)
+	{
+		return  _pools[compID]->removeComponent(id);
 	}
 
 	~ComponentManager();

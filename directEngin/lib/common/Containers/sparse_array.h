@@ -3,7 +3,7 @@
 #include <vector>
 
 template<typename Data,typename Entity,unsigned N>
-class SparseArray : private SparseSet<Entity,N>
+class SparseArray
 {
 public:
 
@@ -14,12 +14,12 @@ public:
 
 	static constexpr key_type tombstone = N-1;
 
-
+/*
 	class reverse_iterator
 	{
 	public:
 
-		reverse_iterator(data_densed_container_type::iterator it):_curIt(it)
+		reverse_iterator(data_densed_container_type::iterator it) :_curIt(it) {}
 
 		auto operator++(int) const noexcept
 		{
@@ -53,50 +53,39 @@ public:
 		sparse_set_type::reverse_iterator _itEnttID;
 		data_densed_container_type::iterator _curIt;
 	};
-
-	SparseArray() noexcept : _sparse(N, tombstone),_densed(N,tombstone)
-	{
-		//reserve(N);
-		_data.reserve(capacity);
-	}
+	*/
+	SparseArray() noexcept : _data(N) {}
 
 	void reserve(size_t capacity) noexcept
 	{
-		_densed.reserve(capacity);
-		_sparse.reserve(capacity);
-		_data.reserve(capacity);
 	}
 
-	auto begin() noexcept
+
+
+	auto ebegin() noexcept
+	{
+		return _set.begin();
+	}
+
+	auto eend() noexcept
+	{
+		return _set.end();
+	}
+	/*
+	* 	auto begin() noexcept
 	{
 		// using reverse_iterator to enshure that modification of SparseArray
 		// during iteration will not trigger any exeptions
 		return reverse_iterator(_data.begin() + _data.size()); 
 	}
-
-	auto ebegin() noexcept
-	{
-		return sparse_set_type::begin();
-	}
-
-	auto eend() noexcept
-	{
-		retrun sparse_set_type::end();
-	}
-
 	auto end() noexcept
 	{
 		return reverse_iterator(_data.begin());
-	}
+	*/
 
 	bool contains(const key_type& key) const noexcept
 	{
-		return _sparse[key] != tombstone;
-	}
-
-	auto pair(const key_type& key) noexcept
-	{
-		return std::tuple<const key_type&,Data&>()
+		return _set.contains(key);
 	}
 
 	Data& operator[](const key_type& key) noexcept
@@ -107,25 +96,32 @@ public:
 	Data& add(const key_type& key) noexcept
 	{
 		if(_set.contains(key))
-			return this->operator[key];
+			return this->operator[](key);
 
 		_set.add(key);
-		_data.push_back();
+		_data.push_back({});
 		return _data.back();
 	}
 
 	bool remove(const key_type& key) noexcept
 	{
-
-		if (!_set.remove(key))
+		if (!_set.contains(key))
 			return false;
 
-		std::swap(_data[pos], _data.back());
+		std::swap(_data[_set[key]], _data.back());
 		_data.pop_back();
 		return true;
 
 	}
 
+	auto begin()
+	{
+		return _data.begin();
+	}
+	auto end()
+	{
+		return _data.end();
+	}
 		 
 private:
 

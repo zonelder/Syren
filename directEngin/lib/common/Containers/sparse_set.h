@@ -19,7 +19,7 @@ public:
 	{
 	public:
 
-		reverse_iterator(densed_container_type::iterator it):_curIt(it)
+		reverse_iterator(densed_container_type::iterator it) :_curIt(it) {}
 
 		auto operator++(int) const noexcept
 		{
@@ -77,7 +77,7 @@ public:
 	}
 
 
-	key_type& operator[](const key_type& key) const noexcept
+	auto operator[](const key_type& key) const noexcept
 	{
 		return _sparse[key];
 	}
@@ -85,7 +85,7 @@ public:
 	void add(const key_type& key) noexcept
 	{
 		if (contains(key))
-			return this->operator[key];
+			return;
 
 		auto pos = _densed.size();
 		_densed.push_back(key);

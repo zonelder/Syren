@@ -32,7 +32,6 @@ void ParentSystem::onFrame(SceneManager& scene)
 {
 	auto& parentPool = scene.getPool<Parent>();
 	auto& transformPool = scene.getPool<Transform>();
-
 	for (auto& entt : scene.getEntitiesWith<Parent, Transform>())
 	{
 		setlGlobalMatrix(transformPool, parentPool, entt.getID());
@@ -42,8 +41,8 @@ void ParentSystem::onFrame(SceneManager& scene)
 
 void ParentSystem::onUpdate(SceneManager& scene,float dt)
 {
-
-	for (auto& [id, parent] : scene.getPool<Parent>())
+	auto& pool = scene.getPool<Parent>();
+	for (auto& parent : pool)
 	{
 		parent.used = false;
 	}

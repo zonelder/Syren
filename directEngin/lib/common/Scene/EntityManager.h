@@ -8,6 +8,10 @@
 class EntityManager
 {
 public:
+	EntityManager()
+	{
+
+	}
 	// класс итератор который будет итерировать по елементам из EntityManager но только по тем у которых будет заданыый набор компонентов передаваемый как std::array<ComponentID, N>
 	template<size_t N>
 	class Iterator 

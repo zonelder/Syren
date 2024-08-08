@@ -74,9 +74,6 @@ void RenderSystem::DeepRender(SceneManager& scene,Transform& cam,Entity id )
 void RenderSystem::onFrame(SceneManager& scene)
 {
 	Graphics& gfx = scene.getGraphic();
-	auto& _transforms = scene.getPool<Transform>();
-	auto& _renders = scene.getPool<Render>();
-	auto& _parents = scene.getPool<Parent>();
 
 	auto& camTr = scene.getCamera().transform;
 
@@ -93,7 +90,8 @@ void RenderSystem::onUpdate(SceneManager& scene, float t)
 {
 
 	auto& rs = scene.getPool<Render>();
-	for (auto& [entID, r] : rs)
+	//auto& view = scene.view<Render>();
+	for (auto& r : rs)
 	{
 
 		r.is_rendered = false;

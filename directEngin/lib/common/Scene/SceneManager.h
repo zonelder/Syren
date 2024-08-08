@@ -10,6 +10,7 @@
 #include "EntityManager.h"
 #include "meshPool.h"
 #include <ranges>
+#include <tuple>
 
 namespace
 {
@@ -73,14 +74,14 @@ public:
 		return _entityManager.entities();
 	}
 	
-
+	/*
 	template<class... Args>
 	auto& view() noexcept
 	{
-		static ComponentView< Args...> m(*this);// create view on each filter once and then reuse it
+		static ComponentView< Args...> m(_ComponentManager);// create view on each filter once and then reuse it
 		return m;
 	}
-
+	*/
 
 
 	template<typename T>
@@ -185,7 +186,7 @@ private:
 	Camera _mainCamera;
 	Input _input;
 };
-
+/*
 #include <tuple>
 
 namespace
@@ -193,22 +194,6 @@ namespace
 	template<class... Args>
 	struct With
 	{
-		With(SceneManager& scene) noexcept : pools({ scene.getPool<WithArgs>()... })
-		{
-
-		}
-
-		auto begin()
-		{
-
-		}
-
-		auto end()
-		{
-
-		}
-
-		std::tuple< ComponentPool<WithArgs>&...> pools;
 	};
 
 	template<class... Args>
@@ -221,25 +206,34 @@ namespace
 	{
 	};
 
-	template<typename Pools,typename Entity>
-	bool all_of(const Pools& pools, const Entity& entt) noexcept
+
+	template<typename Pools,typename Entity,size_t I = 0>
+	inline bool all_of(const Pools& pools, const Entity& entt) noexcept
 	{
-		constexpr auto size = std::tuple_size_v<Pools>;
-		for (size_t i = 0; i < size && pools.get<i>().hasComponent(entt); ++i) {};
-		return i == size;
+		if constexpr(I >= std::tuple_size_v<Pools>)
+			return true;
+		else
+		{
+			if (!std::get<I>(pools)->contains(entt))
+				return false;
+			return all_of<Pools, Entity, I + 1>(pools, entt);
+		}
 	}
 	
-	template<typename Pools,typename Entity>
-	bool none_of(const Pools& pools, const Entity& entt) noexcept
+	template<typename Pools,typename Entity,size_t I = 0>
+	inline bool none_of(const Pools& pools, const Entity& entt) noexcept
 	{
-		constexpr auto size = std::tuple_size_v<Pools>;
-		for (size_t i = 0; i < size && !pools.get<i>().hasComponent(entt); ++i) {};
-		return i == size;
+		if constexpr (I >= std::tuple_size_v<Pools>)
+			return true;
+		if (std::get<I>(pools)->contains(entt))
+			return false;
+		return none_of<Pools, Entity, I + 1>(pools, entt);
 	}
 
 	template<class... WithArgs,class... WithoutArgs>
-	struct ComponentView<With<WithArgs...>, Without<WithoutArgs...>>
+	class ComponentView<With<WithArgs...>, Without<WithoutArgs...>>
 	{
+	public:
 		ComponentView(ComponentManager& scene) noexcept :
 			_includes({ scene.getPool<WithArgs>()... }),
 			_excludes({ scene.getPool<WithoutArgs>()... })
@@ -280,13 +274,10 @@ namespace
 
 
 	template<class... WithArgs>
-	struct ComponentView
+	class ComponentView
 	{
-
-		using typle_element_type = ComponentPool<WithArgs>*;
-		using with_tuple = std::tuple< typle_element_type...>;
-		template<unsigned I>
-		using tuple_type = std::tuple_element_t<I, typle_element_type...>;
+	public:
+		using with_tuple = std::tuple< ComponentPool<WithArgs>*...>;
 		using entity_iterator = std::vector<EntityID>::iterator;
 
 		ComponentView(ComponentManager& scene) noexcept : _pools({ scene.getPool<WithArgs>()... })
@@ -314,11 +305,14 @@ namespace
 
 		class iterator
 		{
+			using entity_iterator_type = entity_iterator;
 		public:
-			iterator(const with_tuple& view_pools,decltype(_it) it ) : _pools(view_pools),_it(it)
+			iterator(with_tuple& view_pools, entity_iterator_type it, entity_iterator_type end) noexcept : _pools(view_pools),_it(it),_end(end)
 			{
 
 			}
+
+			iterator(with_tuple& view_pools, entity_iterator_type it) noexcept : iterator(view_pools, it, it) {}
 
 			iterator operator++(int) const noexcept
 			{
@@ -330,15 +324,11 @@ namespace
 
 			iterator& operator++() noexcept
 			{
-				bool find = true;
-				do
+				while (++_it != _end)
 				{
-					++_it;
-					const auto entt_id = *_it;
-					find = all_of(_pools, entt_id);
-					if (all_of(_pools, entt_id))
+					if (all_of(_pools, *_it))
 						break;
-				}while (true)
+				}
 				return *this;
 			}
 
@@ -355,24 +345,27 @@ namespace
 			auto operator*() noexcept
 			{
 				const auto& entt = *_it;
-				return std::tuple<const EntityID&, WithArgs&...>(entt, std::get<WithArgs>(_pools)[entt]...);
+				return std::make_tuple<const EntityID&, WithArgs&...>(entt, (std::get<ComponentPool<WithArgs>*>(_pools)->operator[](entt))...);
 			}
 
 			
 		private:
 
 			with_tuple& _pools;
-			entity_iterator _it;
+			entity_iterator_type _it;
+			entity_iterator_type _end;
 		};
 
-		auto begin() noexcept
+		iterator begin() noexcept
 		{
-			return iterator(_pools,_pools.get<0>.ebegin());
+			auto& pool = std::get<0>(_pools);
+			return iterator(_pools, pool->ebegin(), pool->eend());
 		}
 
-		auto end() noexcept
+		iterator end() noexcept
 		{
-			return iterator(_pools,_pools.get<0>.eend());
+			auto& pool = std::get<0>(_pools);
+			return iterator(_pools, pool->eend());
 		}
 
 		/*
@@ -382,7 +375,7 @@ namespace
 			auto entt_id = entt.getID();
 			return std::tuple<WithArgs&...>(std::get<typle_element_type>(_pools)[entt_id]...);
 		}
-		*/
+		* /
 	private:
 		with_tuple _pools;
 	};
@@ -394,31 +387,9 @@ namespace
 	{
 		SparseArray<Transform, EntityID, MAX_ENTITY> pool;
 		SparseSet<EntityID, MAX_ENTITY> constexprTest;
-		
-		for (auto tr : pool)
-		{
 
-		}
-
-		for (auto& tr : pool)
-		{
-
-		}
-
-		if (pool.contains(2))
-		{
-			auto& obj = pool[2];
-			pool.add(3);
-			pool.remove(3);
-			obj.scale = { 1,1,1 };
-		}
-
-
-		for (auto it = pool.begin(); it != pool.end(); ++it)
-		{
-
-		}
-
-
+		std::tuple<ComponentPool<Transform>*, ComponentPool<Render>*> t;
+		//auto b = all_of(t, 1);
 	}
 }
+*/

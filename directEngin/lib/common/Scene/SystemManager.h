@@ -12,7 +12,9 @@ concept DeriveFrom = std::is_base_of<U, T>::value;
 class SystemManager
 {
 public:
+	SystemManager() :_maxPriority(0){
 
+	};
 	/// @brief create new system at the end of call queue
 	/// @tparam T Class,that derived from BaseSystem Class
 	template<typename T,class... Args>

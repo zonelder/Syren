@@ -12,8 +12,6 @@ public:
 	using sparse_set_type = SparseSet<Entity, N>;
 	using data_densed_container_type = std::vector<Data>;
 
-	static constexpr key_type tombstone = N-1;
-
 /*
 	class reverse_iterator
 	{
@@ -54,7 +52,9 @@ public:
 		data_densed_container_type::iterator _curIt;
 	};
 	*/
-	SparseArray() noexcept : _data(N) {}
+	SparseArray() noexcept {
+		_data.reserve(N);
+	}
 
 	void reserve(size_t capacity) noexcept
 	{
@@ -99,8 +99,7 @@ public:
 			return this->operator[](key);
 
 		_set.add(key);
-		_data.push_back({});
-		return _data.back();
+		return _data.emplace_back();
 	}
 
 	bool remove(const key_type& key) noexcept
@@ -109,6 +108,7 @@ public:
 			return false;
 
 		std::swap(_data[_set[key]], _data.back());
+		_set.remove(key);
 		_data.pop_back();
 		return true;
 

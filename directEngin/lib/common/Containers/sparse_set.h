@@ -53,8 +53,10 @@ public:
 		densed_container_type::iterator _curIt;
 	};
 
-	SparseSet() noexcept : _sparse(N, tombstone),_densed(N,tombstone)
+	SparseSet() noexcept : _sparse(N, tombstone)
 	{
+		_densed.reserve(N);
+		_densed.push_back(tombstone);
 		//reserve(N);
 		//_data.reserve(capacity);
 	}
@@ -87,8 +89,9 @@ public:
 		if (contains(key))
 			return;
 
-		auto pos = _densed.size();
-		_densed.push_back(key);
+		auto pos = _densed.size()-1;
+		_densed[pos] = key;
+		_densed.push_back(tombstone);//always keep tombstone last
 		_sparse[key] = pos;
 	}
 
@@ -97,12 +100,12 @@ public:
 		auto& pos = _sparse[key];
 		if (pos == tombstone)// Data not exist
 			return false;
-
-		const auto last = _densed.back();
-		_sparse[last] = pos;
-		pos = tombstone;
+		_densed.pop_back();//remove tombstone
+		const auto last = _densed.back();//get real Data
+		std::swap(_sparse[last], pos);
 		std::swap(_densed[pos],_densed.back());
-		_densed.pop_back();
+		_sparse[key] = tombstone;//nullifie key
+		_densed.back() = tombstone;//set tombstone
 		return true;
 	}
 

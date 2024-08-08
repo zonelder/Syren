@@ -57,12 +57,20 @@ constexpr auto counter = Val;
 
 class Family
 {
+    static const auto identifier()
+    {
+        static ComponentID v = 0;
+        return v++;
+    }
 public:
+    /*//TODO need to rework. compile calculate some counter<> not properly
+    template<typename T>
+    static constexpr ComponentID type_id = counter<>;
+    */
 	template<typename T>
-	static constexpr ComponentID Type() noexcept
-	{
-
-		constexpr ComponentID value = counter<>;
-		return value;
-	}
+    static const ComponentID type_id() noexcept
+    {
+        static const ComponentID id = identifier();
+        return id;
+    }
 };

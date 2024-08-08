@@ -8,13 +8,14 @@ Entity& EntityManager::create() noexcept
 	{
 		id = _gaps.back();
 		_gaps.pop_back();
+		_entities[id] = Entity(id);
 	}
 	else
 	{
 		id = ++_max;
+		_entities.emplace_back(id);
 	}
 
-	_entities[id] = Entity(id);
 
 	return _entities[id];
 }

@@ -70,6 +70,7 @@ void App::OnInit()
 
 	for (auto& entt : _scene.getEntitiesWith< Transform, GameCell>())
 	{
+		auto& tr = _scene.getComponent<Transform>(entt);
 		auto& cell = _scene.getComponent<GameCell>(entt);
 		cell.isSelected = std::rand() % 2;
 	}
@@ -81,31 +82,24 @@ void App::OnInit()
 	for (auto& entt : _scene.entities() | with<Transform, GameCell>())
 	{
 		auto& cell = _scene.getComponent<GameCell>(entt);
+		auto& tr = _scene.getComponent<Transform>(entt);
 		cell.isSelected = std::rand() % 2;
 	}
 
 	const auto test1_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test1_start).count();
 
 
-	/*
-	auto view = _scene.view<Transform, GameCell>();
+	auto& view = _scene.view<Transform, GameCell>();
 	
 	const auto test3_start = std::chrono::high_resolution_clock::now();
 	for (auto [entt, tr, cell] : view)
 	{
 		cell.isSelected = std::rand() % 2;
 	}
-	const auto test3_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test1_start).count();
+	const auto test3_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test3_start).count();
 	std::cout << "test 1 = " << test1_diff << "\ntest 2 = " << test2_diff << "\ntest 3 = " << test3_diff << std::endl;
 
-	auto& view = _scene.view<Transform,Render>();
-	auto& t   = view.get<Transform>(1);
-	auto b = view.begin();
-	for (auto [entt, tr, r] : view)
-	{
-
-	}
-	*/
+	//*/
 	/*
 	auto material = _scene.makeMaterial();
 	material->texture.set(gfx, L"resource/test_texture.dds");

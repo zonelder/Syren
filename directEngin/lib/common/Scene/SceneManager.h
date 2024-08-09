@@ -74,14 +74,12 @@ public:
 		return _entityManager.entities();
 	}
 	
-	/*
 	template<class... Args>
 	auto& view() noexcept
 	{
-		static ComponentView< Args...> m(_ComponentManager);// create view on each filter once and then reuse it
+		static ComponentView<Args...> m(_ComponentManager);// create view on each filter once and then reuse it
 		return m;
 	}
-	*/
 
 
 	template<typename T>
@@ -186,9 +184,6 @@ private:
 	Camera _mainCamera;
 	Input _input;
 };
-/*
-#include <tuple>
-
 namespace
 {
 	template<class... Args>
@@ -229,7 +224,7 @@ namespace
 			return false;
 		return none_of<Pools, Entity, I + 1>(pools, entt);
 	}
-
+	/*
 	template<class... WithArgs,class... WithoutArgs>
 	class ComponentView<With<WithArgs...>, Without<WithoutArgs...>>
 	{
@@ -272,13 +267,15 @@ namespace
 		std::tuple<ComponentPool< WithoutArgs>&...> _excludes;
 	};
 
-
+	*/
 	template<class... WithArgs>
 	class ComponentView
 	{
 	public:
 		using with_tuple = std::tuple< ComponentPool<WithArgs>*...>;
 		using entity_iterator = std::vector<EntityID>::iterator;
+
+		ComponentView(with_tuple&& pools) noexcept : _pools(pools) {}
 
 		ComponentView(ComponentManager& scene) noexcept : _pools({ scene.getPool<WithArgs>()... })
 		{}
@@ -295,7 +292,7 @@ namespace
 		auto& get(const EntityID& entt) noexcept
 		{
 			static_assert(isWith<T>);
-			return std::get<ComponentPool<T>*>(_pools)[entt];
+			return std::get<ComponentPool<T>*>(_pools)->operator[](entt);
 		}
 
 		template<class T>
@@ -375,13 +372,10 @@ namespace
 			auto entt_id = entt.getID();
 			return std::tuple<WithArgs&...>(std::get<typle_element_type>(_pools)[entt_id]...);
 		}
-		* /
+		*/
 	private:
 		with_tuple _pools;
 	};
-
-#include "../Containers/sparse_array.h"
-
 
 	void ftest()
 	{
@@ -391,5 +385,26 @@ namespace
 		std::tuple<ComponentPool<Transform>*, ComponentPool<Render>*> t;
 		//auto b = all_of(t, 1);
 	}
+		
+	template<typename... Args>
+	void f1(){}
+
+	template<size_t ...Args>
+	struct st
+	{
+
+	};
+
+	template<size_t ...Args>
+	void f2()
+	{
+		//st<Args...> a;
+		f1();
+	}
+
+
+	void f3()
+	{
+		f2<2, 2>();
+	}
 }
-*/

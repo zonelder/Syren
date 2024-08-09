@@ -6,13 +6,8 @@
 
 void OrientationSystem::onFrame(SceneManager& scene)
 {
-	ComponentPool<Transform>& _transforms = scene.getPool<Transform>();
-
-	 for (auto& entt : scene.getEntitiesWith<Transform>())
+	 for (auto [entt,tr]:scene.view<Transform>())
 	 {
-
-
-	     auto& tr = scene.getComponent<Transform>(entt);
 	     tr.orientationMatrix = toOrientationMatrix(tr);
 
 	 }

@@ -97,12 +97,12 @@ public:
 
 	bool remove(const key_type& key) noexcept
 	{
-		auto& pos = _sparse[key];
+		const auto pos = _sparse[key];
 		if (pos == tombstone)// Data not exist
 			return false;
 		_densed.pop_back();//remove tombstone
 		const auto last = _densed.back();//get real Data
-		std::swap(_sparse[last], pos);
+		_sparse[last] = pos;
 		std::swap(_densed[pos],_densed.back());
 		_sparse[key] = tombstone;//nullifie key
 		_densed.back() = tombstone;//set tombstone

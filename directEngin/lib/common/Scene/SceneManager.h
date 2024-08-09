@@ -115,7 +115,8 @@ public:
 	template<class TWith, class TWithout = Without<>> requires is_component_filters< TWith, TWithout>
 	auto& view() noexcept
 	{
-		static ComponentView<TWith, TWithout> m(_ComponentManager);// create view on each filter once and then reuse it
+		// TODO each filter can be crate once if component manageer wont relocate em view on each filter once and then reuse it
+		static ComponentView<TWith, TWithout> m(_ComponentManager);
 		return m;
 	}
 	
@@ -283,12 +284,12 @@ namespace
 		{
 			using entity_iterator_type = entity_iterator;
 		public:
-			iterator(with_tuple& include,without_tuple exclude, entity_iterator_type it, entity_iterator_type end) noexcept : _include(include), _exclude(exclude), _it(it), _end(end)
+			iterator(with_tuple& include,without_tuple& exclude, entity_iterator_type it, entity_iterator_type end) noexcept : _include(include), _exclude(exclude), _it(it), _end(end)
 			{
 
 			}
 
-			iterator(with_tuple& include, without_tuple exclude, entity_iterator_type it) noexcept : iterator(include, exclude, it, it) {}
+			iterator(with_tuple& include, without_tuple& exclude, entity_iterator_type it) noexcept : iterator(include, exclude, it, it) {}
 
 			iterator operator++(int) const noexcept
 			{

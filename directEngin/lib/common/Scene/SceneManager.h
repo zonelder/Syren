@@ -141,22 +141,32 @@ public:
 		auto entt_id = entt.getID();
 		return _ComponentManager.getComponent<T>(entt_id);
 	}
+	// реализация метода getComponent
+	template<typename T>
+	T& getComponent(const EntityID& entt)
+	{
+		return _ComponentManager.getComponent<T>(entt);
+	}
 
 
 	template<typename T>
 	T& addComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
-		_entityManager.registerComponent(entt_id, Family::type_id<T>());
-		return _ComponentManager.addComponent<T>(entt_id);
+		return addComponent<T>(entt_id);
+	}
+	template<typename T>
+	T& addComponent(const EntityID& entt)
+	{
+		_entityManager.registerComponent(entt, Family::type_id<T>());
+		return _ComponentManager.addComponent<T>(entt);
 	}
 
 	template<>
 	Transform& addComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
-		_entityManager.registerComponent(entt_id, Family::type_id<Transform>());
-		auto& tr = _ComponentManager.addComponent<Transform>(entt_id);
+		auto& tr = addComponent<Transform>(entt_id);
 		tr.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(_gfx, tr.orientationMatrix);
 		return tr;
 	}
@@ -165,8 +175,7 @@ public:
 	Render& addComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
-		_entityManager.registerComponent(entt_id, Family::type_id<Render>());
-		auto& r = _ComponentManager.addComponent<Render>(entt_id);
+		auto& r = addComponent<Render>(entt_id);
 		r.topology= Topology(_gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		return r;
 	}
@@ -190,6 +199,11 @@ public:
 	bool hasComponent(const Entity& entt) const noexcept
 	{
 		return entt.hasComponent(Family::type_id<T>());
+	}
+	template<typename T>
+	bool hasComponent(const EntityID& entt) const noexcept
+	{
+		return _entityManager.get(entt).hasComponent(Family::type_id<T>());
 	}
 
 	/// @brief create new material and return ptr to it

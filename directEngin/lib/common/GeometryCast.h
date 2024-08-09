@@ -3,11 +3,11 @@
 
 struct Hit
 {
-	Hit(Entity& entt) :entt(entt) {};
-	explicit Hit(EntityID id):entt(Entity( id))
+	Hit(Entity& entt) :entt(entt.getID()) {};
+	explicit Hit(EntityID id):entt(id)
 	{
 	}
-	const Entity& entt;
+	const EntityID entt;
 };
 
 class GeometryCast

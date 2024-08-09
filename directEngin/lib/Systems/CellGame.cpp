@@ -41,7 +41,7 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 	auto& cameraPos = scene.getCamera().transform.position;
 	auto hit = GeometryCast::raycast(scene, cameraPos, ray);
 
-	if (hit.entt.getID() != -1 && scene.hasComponent<GameCell>(hit.entt))
+	if (hit.entt != -1 && scene.hasComponent<GameCell>(hit.entt))
 	{
 		scene.addComponent<Chained>(hit.entt);
 		auto& render = scene.getComponent<Render>(hit.entt);
@@ -51,9 +51,9 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 	for (auto [enttID,ch,cell,render] : viewComp)
 	{
 
-		if (hit.entt.getID() != enttID)
+		if (hit.entt != enttID)
 		{
-			scene.removeComponent<Chained>(enttID);
+			//scene.removeComponent<Chained>(enttID);
 			render.p_material = p_deselectMat;
 		}
 	}

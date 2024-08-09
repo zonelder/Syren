@@ -15,9 +15,8 @@ void UITextRender::onFrame(SceneManager& scene)
 
 	p_spriteBatch->Begin();
 	// переделай цикл с использованием range-based for через метод getEntityWith<TextUI> и range-based
-	for (auto& entt : scene.getEntitiesWith<TextUI>())
+	for (auto [entt,textUI] : scene.view<TextUI>())
 	{
-		auto& textUI = scene.getComponent<TextUI>(entt);
 		p_spriteFont->DrawString(p_spriteBatch.get(), textUI.content.c_str(), textUI.position, DirectX::Colors::Black, 0.f);
 	}
 	p_spriteBatch->End();

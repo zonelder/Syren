@@ -70,7 +70,7 @@ public:
 
 	auto end() noexcept
 	{
-		return _densed.end();
+		return _densed.end()-1;
 	}
 
 	bool contains(const key_type& key) const noexcept

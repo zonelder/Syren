@@ -17,9 +17,8 @@ void CellGameSystem::onInit(SceneManager& scene)
 	p_selectMat = select;
 	p_deselectMat = deselect;
 
-	for (auto& enttID : scene.getEntitiesWith<GameCell, Render>())
+	for (auto [enttID,cell,render] : scene.view<GameCell, Render>())
 	{
-		auto& render = scene.getComponent<Render>(enttID);
 		render.p_material = p_deselectMat;
 	}
 
@@ -48,13 +47,11 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 		auto& render = scene.getComponent<Render>(hit.entt);
 		render.p_material = p_selectMat;
 	}
-
-	for (auto& enttID : scene.getEntitiesWith<Chained,GameCell,Render>())
+	auto& viewComp = scene.view<Chained, GameCell, Render>();
+	for (auto [enttID,ch,cell,render] : viewComp)
 	{
 
-		auto& cell = scene.getComponent<GameCell>(enttID);
-		auto& render = scene.getComponent<Render>(enttID);
-		if (hit.entt.getID() != enttID.getID())
+		if (hit.entt.getID() != enttID)
 		{
 			scene.removeComponent<Chained>(enttID);
 			render.p_material = p_deselectMat;

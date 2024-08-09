@@ -8,14 +8,17 @@
 class RenderSystem:public BaseSystem
 {
 public:
-	RenderSystem(Graphics&);
+	using WithComponents = With<Parent, Render, Transform>;
+	using RenderView = ComponentView <WithComponents,Without<>>;
+	RenderSystem(SceneManager& scene);
 	void onFrame(SceneManager&) override;
 	void onUpdate(SceneManager&, float dt) override;
 
 private:
-	void DeepRender(SceneManager& scene, Transform& cam, Entity id);
-	void renderOne(Render& render, Graphics& gfx, Transform& transform, const Transform& camTr,MeshIternal* mesh);
+	void DeepRender(RenderView& view, Transform& cam, EntityID id);
+	void renderOne(Render& render, Transform& transform, const Transform& camTr);
 	//void renderOne(Render& render, Graphics& gfx, Transform& transform,const Transform& camTr);
 	Microsoft::WRL::ComPtr<ID3D11Buffer> p_colorConstantBuffer;
+	SceneManager& _scene;
 };
 

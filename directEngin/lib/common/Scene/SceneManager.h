@@ -12,44 +12,56 @@
 #include <ranges>
 #include <tuple>
 
-namespace
+namespace to_future
 {
-	template<class ...Args>
-	std::array<ComponentID, sizeof...(Args)> ids = { Family::type_id<Args>()...};
-
-	template<class ...Args>
-	inline consteval auto with() noexcept
+	namespace constexpr_filters
 	{
-		return std::views::filter([](const Entity& entt)->bool {
-			return entt.hasComponents(ids<Args...>);
-			});
-	}
+		template<class ...Args>
+		std::array<ComponentID, sizeof...(Args)> ids = { Family::type_id<Args>()... };
 
-	
+		template<class ...Args>
+		inline consteval auto with() noexcept
+		{
+			return std::views::filter([](const Entity& entt)->bool {
+				return entt.hasComponents(ids<Args...>);
+				});
+		}
 
-	template<class ...Args>
-	inline constexpr auto without() noexcept
-	{
-		return std::views::filter([](const Entity& entt)->bool {
-			return entt.hasNotComponents(ids<Args...>);
-			});
+		template<class ...Args>
+		inline constexpr auto without() noexcept
+		{
+			return std::views::filter([](const Entity& entt)->bool {
+				return entt.hasNotComponents(ids<Args...>);
+				});
+		}
 	}
 
 }
 
 namespace
 {
-	template<class... Args>
-	class ComponentView;
 
+
+	template<class Wt,class Wtout>
+	class ComponentView;
+	struct filter_type{};
 	template<class... Args>
 	struct With
 	{
+		using ComponentFilterWith = filter_type;
 	};
 
 	template<class... Args>
 	struct Without
 	{
+		using ComponentFilterWithout = filter_type;
+	};
+
+	template<class TWith, class TWithout>
+	concept is_component_filters = requires(TWith tw, TWithout twout)
+	{
+		typename TWith::ComponentFilterWith;
+		typename TWithout::ComponentFilterWithout;
 	};
 }
 
@@ -69,25 +81,44 @@ public:
 
 	bool destroyEntity(EntityID id) noexcept;
 
-	// почему класс итератора может быть не доступен вне класса EntityManager
-	template<typename ... Args>
-	EntityManager::Iterator<sizeof...(Args)>  getEntitiesWith() noexcept
-	{
-		std::array<ComponentID, sizeof...(Args)> ids = { Family::type_id<Args>()...};
-
-		return _entityManager.getEntitiesWith(ids);
-	}
 	
 
-
-	template<class... Args> requires (sizeof...(Args) > 0)
+	/// @brief create simple view with include types only
+	/// @tparam ...Args List of types we want to include in filter
+	/// @return ComponentView
+	template<class... Args>
 	auto& view() noexcept
 	{
 		using with = With<Args...>;
 		using without = Without<>;
+		return view <with, without>();
+	}
+	/*
+	/// @brief create component view with includes\excludes
+	/// @tparam ...WithArgs  List of types we want to include in filter
+	/// @tparam ...WithoutArgs  List of types we want to exclude from filter
+	/// @return ComponentView
+	template<class... WithArgs,class... WithoutArgs>
+	auto& view<With<WithArgs...>,Without<WithoutArgs...>>() noexcept
+	{
+		using with = With<WithArgs...>;
+		using without = Without<WithoutArgs...>;
 		static ComponentView<with, without> m(_ComponentManager);// create view on each filter once and then reuse it
 		return m;
 	}
+	*/
+
+	/// @brief create view by type of other view.
+	/// @tparam TWith
+	/// @tparam TWithout
+	/// @return ComponentView
+	template<class TWith, class TWithout = Without<>> requires is_component_filters< TWith, TWithout>
+	auto& view() noexcept
+	{
+		static ComponentView<TWith, TWithout> m(_ComponentManager);// create view on each filter once and then reuse it
+		return m;
+	}
+	
 
 	/// @brief return view of all entities
 	/// @return 
@@ -144,9 +175,14 @@ public:
 	template<typename T>
 	void removeComponent(const Entity& entt)
 	{
-		auto entt_id = entt.getID();
-		_entityManager.unregisterComponent(entt_id, Family::type_id<T>());
-		_ComponentManager.removeComponent<T>(entt_id);
+		removeComponent<T>(entt.getID());
+	}
+
+	template<typename T>
+	void removeComponent(const EntityID& entt)
+	{
+		_entityManager.unregisterComponent(entt, Family::type_id<T>());
+		_ComponentManager.removeComponent<T>(entt);
 	}
 
 	template<typename T>
@@ -200,12 +236,6 @@ private:
 };
 namespace
 {
-
-
-	template<>
-	class ComponentView<>
-	{
-	};
 
 	template<typename Pools,typename Entity,size_t I = 0>
 	inline bool all_of(const Pools& pools, const Entity& entt) noexcept
@@ -292,7 +322,12 @@ namespace
 			auto operator*() noexcept
 			{
 				const auto& entt = *_it;
-				return std::make_tuple<const EntityID&, WithArgs&...>(entt, (std::get<ComponentPool<WithArgs>*>(_include)->operator[](entt))...);
+				return std::tuple<const EntityID&, WithArgs&...>(
+					entt,
+					(std::forward<WithArgs&>(
+						std::get<ComponentPool<WithArgs>*>(_include)->operator[](entt)
+					)
+					)...);
 			}
 
 
@@ -313,17 +348,38 @@ namespace
 		}
 
 		template<class T>
+		auto& get(const EntityID& entt) noexcept
+		{
+			static_assert (isWith<T>);
+			return std::get< ComponentPool<T>*>(_includes)->operator[](entt);
+		}
+
+
+		template<class T>
+		auto contains(const EntityID& entt) noexcept
+		{
+			return all_of(_includes, entt) && none_of(_excludes, entt);
+		}
+
+		template<class T>
+		auto has(const EntityID& entt) noexcept
+		{
+			static_assert (isWith<T>);
+			return std::get< ComponentPool<T>*>(_includes)->contains(entt);
+		}
+
+		template<class T>
 		static constexpr bool isWith =  (... || std::is_same_v<T, WithArgs>);
 
 		iterator begin() noexcept
 		{
-			auto& pool = std::get<0>(_includes);
+			auto* pool = std::get<0>(_includes);
 			return iterator(_includes, _excludes, pool->ebegin(), pool->eend());
 		}
 
 		iterator end() noexcept
 		{
-			auto& pool = std::get<0>(_includes);
+			auto* pool = std::get<0>(_includes);
 			return iterator(_includes, _excludes, pool->eend());
 		}
 
@@ -331,145 +387,4 @@ namespace
 		with_tuple _includes;
 		without_tuple _excludes;
 	};
-	/*
-	template<class... WithArgs>
-	class ComponentView
-	{
-	public:
-		using with_tuple = std::tuple< ComponentPool<WithArgs>*...>;
-		using entity_iterator = std::vector<EntityID>::iterator;
-
-		ComponentView(with_tuple&& pools) noexcept : _pools(pools) {}
-
-		ComponentView(ComponentManager& scene) noexcept : _pools({ scene.getPool<WithArgs>()... })
-		{}
-
-
-
-		template<class T>
-		auto& get(const Entity& entt) noexcept
-		{
-			return get<T>(entt.getID());
-		}
-
-		template<class T>
-		auto& get(const EntityID& entt) noexcept
-		{
-			static_assert(isWith<T>);
-			return std::get<ComponentPool<T>*>(_pools)->operator[](entt);
-		}
-
-		template<class T>
-		static constexpr bool isWith = (... || std::is_same_v<T, WithArgs>);
-
-		static constexpr size_t withN = sizeof...(WithArgs);
-
-		class iterator
-		{
-			using entity_iterator_type = entity_iterator;
-		public:
-			iterator(with_tuple& view_pools, entity_iterator_type it, entity_iterator_type end) noexcept : _pools(view_pools),_it(it),_end(end)
-			{
-
-			}
-
-			iterator(with_tuple& view_pools, entity_iterator_type it) noexcept : iterator(view_pools, it, it) {}
-
-			iterator operator++(int) const noexcept
-			{
-				auto copy = *this;
-				++(*this);
-
-				return copy;
-			}
-
-			iterator& operator++() noexcept
-			{
-				while (++_it != _end)
-				{
-					if (all_of(_pools, *_it))
-						break;
-				}
-				return *this;
-			}
-
-			bool operator!=(const iterator& other) const noexcept
-			{
-				return _it != other._it;
-			}
-
-			bool operator==(const iterator& other) const noexcept
-			{
-				return _it == other._it;
-			}
-
-			auto operator*() noexcept
-			{
-				const auto& entt = *_it;
-				return std::make_tuple<const EntityID&, WithArgs&...>(entt, (std::get<ComponentPool<WithArgs>*>(_pools)->operator[](entt))...);
-			}
-
-			
-		private:
-
-			with_tuple& _pools;
-			entity_iterator_type _it;
-			entity_iterator_type _end;
-		};
-
-		iterator begin() noexcept
-		{
-			auto& pool = std::get<0>(_pools);
-			return iterator(_pools, pool->ebegin(), pool->eend());
-		}
-
-		iterator end() noexcept
-		{
-			auto& pool = std::get<0>(_pools);
-			return iterator(_pools, pool->eend());
-		}
-
-		/*
-		//this function is not check if component exist. undefined behaviour in other case
-		auto get(const Entity& entt) const noexcept
-		{
-			auto entt_id = entt.getID();
-			return std::tuple<WithArgs&...>(std::get<typle_element_type>(_pools)[entt_id]...);
-		}
-		* /
-	private:
-		with_tuple _pools;
-	};
-	*/
-
-	void ftest()
-	{
-		SparseArray<Transform, EntityID, MAX_ENTITY> pool;
-		SparseSet<EntityID, MAX_ENTITY> constexprTest;
-
-		std::tuple<ComponentPool<Transform>*, ComponentPool<Render>*> t;
-		//auto b = all_of(t, 1);
-	}
-		
-	template<typename... Args>
-	void f1(){}
-
-	template<size_t ...Args>
-	struct st
-	{
-
-	};
-
-	template<size_t ...Args>
-	void f2()
-	{
-		//st<Args...> a;
-		f1();
-	}
-
-
-	void f3()
-	{
-		f2<2, 2>();
-	}
 }

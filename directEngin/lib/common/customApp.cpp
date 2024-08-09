@@ -28,7 +28,7 @@ void App::OnInit()
 	//_systemManager.add<ParentSystem>();
 
 
-	_systemManager.add<RenderSystem>(gfx);
+	_systemManager.add<RenderSystem>(_scene);
 	//_systemManager.add<TextRenderSystem>(gfx);
 
 	_systemManager.add<CellGameSystem>();
@@ -64,19 +64,6 @@ void App::OnInit()
 		GameCell& cell = _scene.addComponent<GameCell>(entt);
 	}
 
-
-
-	const auto test2_start = std::chrono::high_resolution_clock::now();
-
-	for (auto& entt : _scene.getEntitiesWith< Transform, GameCell>())
-	{
-		auto& tr = _scene.getComponent<Transform>(entt);
-		auto& cell = _scene.getComponent<GameCell>(entt);
-		cell.isSelected = std::rand() % 2;
-	}
-
-	const auto test2_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test2_start).count();
-
 	const auto test1_start = std::chrono::high_resolution_clock::now();
 
 	const auto test1_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test1_start).count();
@@ -90,7 +77,7 @@ void App::OnInit()
 		cell.isSelected = std::rand() % 2;
 	}
 	const auto test3_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test3_start).count();
-	std::cout << "test 1 = " << test1_diff << "\ntest 2 = " << test2_diff << "\ntest 3 = " << test3_diff << std::endl;
+	std::cout << "test 1 = " << test1_diff << "\ntest 3 = " << test3_diff << std::endl;
 
 	//*/
 	/*

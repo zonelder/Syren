@@ -4,8 +4,9 @@
 
 
 
-RenderSystem::RenderSystem(Graphics& gfx)
+RenderSystem::RenderSystem(SceneManager& scene): _scene(scene)
 {
+	auto& gfx = scene.getGraphic();
 	INFOMAN(gfx);
 	D3D11_BUFFER_DESC constantBufferDesc = {};
 
@@ -18,8 +19,10 @@ RenderSystem::RenderSystem(Graphics& gfx)
 	
 }
 
-void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform,const Transform& camTr, MeshIternal* mesh)
+void RenderSystem::renderOne(Render& render,Transform& transform,const Transform& camTr)
 {
+	Graphics& gfx = _scene.getGraphic();
+	MeshIternal* mesh = _scene.getMeshData(render.p_mesh);
 	INFOMAN(gfx);
 
 	///update transform buffer
@@ -49,22 +52,22 @@ void RenderSystem::renderOne(Render& render,Graphics& gfx,Transform& transform,c
 	gfx.DrawIndexed(render.p_mesh->IndexCount,render.p_mesh->startIndex);
 }
 
-void RenderSystem::DeepRender(SceneManager& scene,Transform& cam,Entity id )
+void RenderSystem::DeepRender(RenderView& view,Transform& cam,EntityID id )
 {
 
-	auto& r = scene.getComponent<Render>(id);
+	auto& r = view.get<Render>(id);
 	if (r.is_rendered)
 		return;
 
 
 	//before render object we should render its parent
-	if (scene.hasComponent<Parent>(id))
+	if (view.has<Parent>(id))
 	{
-		auto p_id = scene.getComponent<Parent>(id).parent;
-		DeepRender(scene, cam,scene.getEntity(p_id));
+		auto p_id = view.get<Parent>(id).parent;
+		DeepRender(view, cam,p_id);
 	}
 
-	renderOne(r, scene.getGraphic(), scene.getComponent<Transform>(id), cam, scene.getMeshData(r.p_mesh));
+	renderOne(r, view.get<Transform>(id), cam);
 
 	
 	r.is_rendered = true;
@@ -76,12 +79,18 @@ void RenderSystem::onFrame(SceneManager& scene)
 	Graphics& gfx = scene.getGraphic();
 
 	auto& camTr = scene.getCamera().transform;
-
-	for (auto& entt :scene.getEntitiesWith<Transform,Render>())
+	RenderView& view = scene.view<WithComponents>();
+	for (auto [entt,p,r,tr] : view)
 	{
 
-		DeepRender(scene, camTr,entt);
+		DeepRender(view, camTr,entt);
 		
+	}
+
+	auto& commponView = scene.view<With<Render, Transform>, Without<Parent>>();
+	for (auto [antt, r, tr] : commponView)
+	{
+		renderOne(r, tr, camTr);
 	}
 
 }

@@ -7,11 +7,8 @@ Hit GeometryCast::raycast(SceneManager& scene, DirectX::XMFLOAT3 origin, DirectX
 {
 
 
-	for (auto& entt : scene.getEntitiesWith<Render>())
+	for (auto [entt,render,tr] : scene.view<Render,Transform>())
 	{
-		auto& render = scene.getComponent<Render>(entt);
-		auto& tr = scene.getComponent<Transform>(entt);
-
 		const auto& bb = scene.getMeshData(render.p_mesh)->boundingBox;
 
 		const auto minGlobal = getGlobalPos(tr.orientationMatrix, bb.minBound);
@@ -19,7 +16,7 @@ Hit GeometryCast::raycast(SceneManager& scene, DirectX::XMFLOAT3 origin, DirectX
 
 		if (IsBoxHit(origin, dir, minGlobal, maxGlobal))
 		{
-			return { entt };
+			return Hit(entt);
 		}
 
 	}

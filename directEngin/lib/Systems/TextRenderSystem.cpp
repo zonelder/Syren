@@ -43,10 +43,8 @@ void TextRenderSystem::onFrame(SceneManager& scene)
 	auto& _texts = scene.getPool<Text>();
 	auto& _transforms = scene.getPool<Transform>();
 
-	for (auto& entt : scene.getEntitiesWith<Text, Transform>())
+	for (auto [entt,text,tr] : scene.view<Text, Transform>())
 	{
-		auto& text = scene.getComponent<Text>(entt);
-		auto& tr = scene.getComponent<Transform>(entt);
 		FW1_RECTF rect = { 0.0f, 1.0f, 1.0f, 0.0f };
 		p_fontWrapper->DrawString(
 			gfx.getContext(),

@@ -93,6 +93,11 @@ public:
 		return _data[_set[key]];
 	}
 
+	const Data& operator[](const key_type& key) const noexcept
+	{
+		return _data[_set[key]];
+	}
+
 	Data& add(const key_type& key) noexcept
 	{
 		if(_set.contains(key))
@@ -101,6 +106,7 @@ public:
 		_set.add(key);
 		return _data.emplace_back();
 	}
+
 
 	bool remove(const key_type& key) noexcept
 	{

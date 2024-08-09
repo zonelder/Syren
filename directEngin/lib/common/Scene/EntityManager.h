@@ -3,12 +3,14 @@
 #include <vector>
 #include "Entity.h"
 #include <ranges>
-
+#include "../Containers/sparse_array.h"
 
 class EntityManager
 {
 public:
-	EntityManager()
+	using entity_container_type = SparseArray<Entity, EntityID, MAX_ENTITY>;
+	using entity_iterator = std::vector<Entity>::iterator;
+	EntityManager() : _max(-1)
 	{
 		_entities.reserve(MAX_ENTITY);//TODO initialize with max entity at start
 	}
@@ -73,19 +75,12 @@ public:
 	};
 
 
-
 	template<size_t N>
 	Iterator<N> getEntitiesWith(const std::array<ComponentID, N>& ids)noexcept
 	{
 		return Iterator<N>(*this, ids);
 	}
 
-	constexpr auto entities() const noexcept
-	{
-		return _entities | std::views::filter([](const Entity& entt)->bool {
-			return entt.isValid();
-			});
-	}
 
 	Entity& create() noexcept;
 
@@ -97,10 +92,49 @@ public:
 
 	bool destroy(const Entity& entity) noexcept;
 
+
+	auto begin() noexcept
+	{
+		return _entities.begin();
+	}
+
+	auto end() noexcept
+	{
+		return _entities.end();
+	}
+
+	/// @brief create view wich can iterate throught all entities
+	/// @return 
+	auto entityView() noexcept
+	{
+		struct EntityView
+		{
+			using iterator_type = decltype(_entities.begin());
+			EntityView(iterator_type b, iterator_type e) : _begin(b),_end(e){}
+			auto begin() noexcept
+			{
+				return _begin;
+			}
+
+			auto end() noexcept
+			{
+				return _end;
+			}
+ 
+		private:
+			const iterator_type _begin;
+			const iterator_type _end;
+		};
+		EntityView view({ _entities.begin() ,_entities.end() });
+
+		return view;
+	}
+
+
 	
 private:
-	std::vector<Entity> _entities;
-	EntityID _max = -1;
+	entity_container_type _entities;
 	std::vector<EntityID> _gaps;
+	EntityID _max;
 };
 

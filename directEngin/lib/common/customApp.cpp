@@ -79,13 +79,6 @@ void App::OnInit()
 
 	const auto test1_start = std::chrono::high_resolution_clock::now();
 
-	for (auto& entt : _scene.entities() | with<Transform, GameCell>())
-	{
-		auto& cell = _scene.getComponent<GameCell>(entt);
-		auto& tr = _scene.getComponent<Transform>(entt);
-		cell.isSelected = std::rand() % 2;
-	}
-
 	const auto test1_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test1_start).count();
 
 

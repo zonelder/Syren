@@ -3,9 +3,11 @@
 #include "SceneBase.h"
 
 using ComponentSet = std::bitset<MAX_COMPONENT>;
+class EntityManager;
 
 class Entity
 {
+	friend EntityManager;
 public:
 
 	/// @brief iterator through all existing components of entity

@@ -1,8 +1,8 @@
 #pragma once
-#include "../graphics/Drawable/BindComponent/VertexShader.h"
-#include "../graphics/Drawable/BindComponent/PixelShader.h"
-#include "../graphics/Drawable/BindComponent/InputLayout.h"
-#include "../graphics/Drawable/BindComponent/Texture.h" 
+#include "../graphics/Drawable/BindComponent/vertex_shader.h"
+#include "../graphics/Drawable/BindComponent/pixel_shader.h"
+#include "../graphics/Drawable/BindComponent/input_layout.h"
+#include "../graphics/Drawable/BindComponent/texture.h" 
 
 struct Material
 {

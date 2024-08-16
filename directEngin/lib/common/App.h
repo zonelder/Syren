@@ -2,10 +2,10 @@
 #include "Window.h"
 #include "../Time/Timer.h"
 #include <vector>
-#include "Scene/SceneManager.h"
-#include "Scene/ComponentManager.h"
+#include "Scene/scene_manager.h"
+#include "Scene/component_manager.h"
 #include <unordered_map>
-#include "Scene/SystemManager.h"
+#include "Scene/system_manager.h"
 
 
 class App

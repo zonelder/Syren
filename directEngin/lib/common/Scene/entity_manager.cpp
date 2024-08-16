@@ -1,4 +1,4 @@
-#include "EntityManager.h"
+#include "entity_manager.h"
 
 
 Entity& EntityManager::create() noexcept

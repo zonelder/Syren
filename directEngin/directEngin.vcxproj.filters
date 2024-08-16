@@ -21,16 +21,16 @@
     <ClCompile Include="WindowsMessageMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Window.cpp">
+    <ClCompile Include="lib\common\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\exeption\PointedException.cpp">
+    <ClCompile Include="lib\exeption\pointed_exception.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Time\Timer.cpp">
+    <ClCompile Include="lib\Time\timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Graphics.cpp">
+    <ClCompile Include="lib\graphics\graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\direct\dxerr.cpp">
@@ -39,64 +39,64 @@
     <ClCompile Include="lib\direct\DxgiInfoManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\VertexBuffer.cpp">
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\IndexBuffer.cpp">
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\index_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\ConstantBuffer.cpp">
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\constant_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\PixelShader.cpp">
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\pixel_shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\VertexShader.cpp">
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex_shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\Topology.cpp">
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\topology.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\graphics\Drawable\BindComponent\InputLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\Camera\Camera.cpp">
+    <ClCompile Include="lib\common\Scene\Camera\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Input.cpp">
+    <ClCompile Include="lib\common\input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\SceneManager.cpp">
+    <ClCompile Include="lib\common\Scene\scene_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\ComponentPool.cpp">
+    <ClCompile Include="lib\common\Scene\component_pool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\ComponentManager.cpp">
+    <ClCompile Include="lib\common\Scene\component_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\IComponentPool.cpp">
+    <ClCompile Include="lib\common\Scene\icomponent_pool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\SystemManager.cpp">
+    <ClCompile Include="lib\common\Scene\system_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\Texture.cpp">
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\Vertex.cpp">
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\EntityManager.cpp">
+    <ClCompile Include="lib\common\Scene\entity_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\Entity.cpp">
+    <ClCompile Include="lib\common\Scene\entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\common\Scene\meshPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Geometry.cpp">
+    <ClCompile Include="lib\common\geometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\components\material.cpp">
@@ -161,10 +161,10 @@
     <ClInclude Include="WindowsMessageMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Window.h">
+    <ClInclude Include="lib\common\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\exeption\PointedException.h">
+    <ClInclude Include="lib\exeption\pointed_exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -173,10 +173,10 @@
     <ClInclude Include="lib\common\app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Time\Timer.h">
+    <ClInclude Include="lib\Time\timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Graphics.h">
+    <ClInclude Include="lib\graphics\graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\direct\dxerr.h">
@@ -185,7 +185,7 @@
     <ClInclude Include="lib\direct\DxgiInfoManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\GraphicsThrowMacros.h">
+    <ClInclude Include="lib\graphics\graphics_throw_macros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\WindowThrowMacros.h">
@@ -194,82 +194,82 @@
     <ClInclude Include="lib\graphics\Drawable\BindComponent\IBindable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\VertexBuffer.h">
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex_buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\BindableComponents.h">
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\bindable_components.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\IndexBuffer.h">
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\index_buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\ConstantBuffer.h">
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\constant_buffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\PixelShader.h">
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\pixel_shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\VertexShader.h">
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex_shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\Topology.h">
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\topology.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\InputLayout.h">
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\input_layout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\IDrawable.h">
+    <ClInclude Include="lib\graphics\Drawable\idrawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\Camera\Camera.h">
+    <ClInclude Include="lib\common\Scene\Camera\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\Scene\Camera\ClippingPlane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Input.h">
+    <ClInclude Include="lib\common\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\SceneManager.h">
+    <ClInclude Include="lib\common\Scene\scene_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\ComponentPool.h">
+    <ClInclude Include="lib\common\Scene\component_pool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\FamilyGenerator.h">
+    <ClInclude Include="lib\common\Scene\family_generator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\ComponentManager.h">
+    <ClInclude Include="lib\common\Scene\component_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\IComponentPool.h">
+    <ClInclude Include="lib\common\Scene\icomponent_pool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\SystemManager.h">
+    <ClInclude Include="lib\common\Scene\system_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\BaseSystem.h">
+    <ClInclude Include="lib\common\Scene\base_system.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\Texture.h">
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\Vertex.h">
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\EntityManager.h">
+    <ClInclude Include="lib\common\Scene\entity_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\Entity.h">
+    <ClInclude Include="lib\common\Scene\entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\SceneBase.h">
+    <ClInclude Include="lib\common\Scene\scene_base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\meshPool.h">
+    <ClInclude Include="lib\common\Scene\mesh_pool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Geometry.h">
+    <ClInclude Include="lib\common\geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\game_cell.h">

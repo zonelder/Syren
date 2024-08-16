@@ -2,8 +2,8 @@
 #include <memory>
 #include <vector>
 #include <unordered_map>
-#include "ComponentPool.h"
-#include "FamilyGenerator.h"
+#include "component_pool.h"
+#include "family_generator.h"
 
 class ComponentManager
 {

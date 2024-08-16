@@ -1,10 +1,10 @@
 #pragma once
 #include <vector>
 #include <DirectXMath.h>
-#include "../graphics/Drawable/BindComponent/VertexBuffer.h"
-#include "../graphics/Drawable/BindComponent/IndexBuffer.h"
-#include "../graphics/Drawable/BindComponent/ConstantBuffer.h"
-#include "../graphics/Drawable/BindComponent/Vertex.h"
+#include "../graphics/Drawable/BindComponent/vertex_buffer.h"
+#include "../graphics/Drawable/BindComponent/index_buffer.h"
+#include "../graphics/Drawable/BindComponent/constant_buffer.h"
+#include "../graphics/Drawable/BindComponent/vertex.h"
 
 struct BoundingBox
 {

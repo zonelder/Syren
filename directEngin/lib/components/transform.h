@@ -1,6 +1,6 @@
 #pragma once
 #include <DirectXMath.h>
-#include "graphics/Drawable/BindComponent/ConstantBuffer.h"
+#include "graphics/Drawable/BindComponent/constant_buffer.h"
 
 struct Transform
 {

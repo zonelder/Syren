@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
-#include "..\exeption\PointedException.h"
-#include "..\graphics\Graphics.h"
+#include "..\exeption\pointed_exception.h"
+#include "..\graphics\graphics.h"
 #include <memory>
 #include "input_handler.h"
 #include "mouse_handler.h"

@@ -1,5 +1,5 @@
 #pragma once
-#include "../common/Scene/BaseSystem.h"
+#include "../common/Scene/base_system.h"
 
 using MaterialPtr = std::shared_ptr<Material>;
 

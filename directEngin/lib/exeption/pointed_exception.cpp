@@ -1,4 +1,4 @@
-#include "PointedException.h"
+#include "pointed_exception.h"
 #include <sstream>
 
 

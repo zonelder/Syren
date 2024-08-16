@@ -1,6 +1,6 @@
 #pragma once
-#include "../../Graphics.h"
-#include "../../GraphicsThrowMacros.h"
+#include "../../graphics.h"
+#include "../../graphics_throw_macros.h"
 
 class IBindable
 {

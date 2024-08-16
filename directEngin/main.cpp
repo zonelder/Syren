@@ -1,7 +1,7 @@
 #include <Windows.h>
 #include <sstream>
 #include "lib/common/app.h"
-#include "lib/exeption/PointedException.h"
+#include "lib/exeption/pointed_exception.h"
 #include "lib//common/mouse_handler.h"
 
 #define CONSOLE_ENABLE

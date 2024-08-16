@@ -1,6 +1,6 @@
 #pragma once
 #include <bitset>
-#include "SceneBase.h"
+#include "scene_base.h"
 
 using ComponentSet = std::bitset<MAX_COMPONENT>;
 class EntityManager;

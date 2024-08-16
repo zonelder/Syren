@@ -1,5 +1,5 @@
-#include "GeometryCast.h"
-#include "../component/Transform.h"
+#include "geometry_cast.h"
+#include "components/transform.h"
 #include <limits>
 #include <math.h>
 

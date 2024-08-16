@@ -1,5 +1,5 @@
 #pragma once
-#include "../component/Transform.h"
+#include "components/transform.h"
 #include "../common/Scene/BaseSystem.h"
 
 class OrientationSystem:public BaseSystem

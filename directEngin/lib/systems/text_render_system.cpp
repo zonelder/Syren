@@ -1,5 +1,5 @@
-#include "TextRenderSystem.h"
-#include "../component/text.h"
+#include "text_render_system.h"
+#include "components/text.h"
 
 
 

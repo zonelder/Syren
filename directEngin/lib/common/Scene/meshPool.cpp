@@ -1,5 +1,5 @@
 #include "meshPool.h"
-#include "../../component/mesh.h"
+#include "components/mesh.h"
 
 Mesh* MeshPool::addMesh(Graphics& gfx,const std::vector<Vertex>& vertices, const std::vector<unsigned short>& indices, const MeshIternal::ConstantBuffer2& colors)
 {

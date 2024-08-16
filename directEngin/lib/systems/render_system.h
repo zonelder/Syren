@@ -1,9 +1,9 @@
 #pragma once
 #include "../common/Scene/BaseSystem.h"
-#include "../component/Render.h"
-#include "../component/Transform.h"
+#include "components/render.h"
+#include "components/transform.h"
 #include "../graphics/Graphics.h"
-#include "../component/Parent.h"
+#include "components/parent.h"
 
 class RenderSystem:public BaseSystem
 {

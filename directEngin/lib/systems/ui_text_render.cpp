@@ -1,5 +1,5 @@
-#include "UITextRender.h"
-#include "../component/TextUI.h"
+#include "ui_text_render.h"
+#include "components/text_ui.h"
 #include <iostream>
 
 UITextRender::UITextRender(Graphics& gfx, const wchar_t* font)

@@ -1,7 +1,7 @@
 #pragma once
 #include "../common/Scene/BaseSystem.h"
-#include "../component/Parent.h"
-#include "../component/Transform.h"
+#include "components/parent.h"
+#include "components/transform.h"
 
 
 class ParentSystem: public BaseSystem

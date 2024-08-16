@@ -1,12 +1,12 @@
 #pragma once
 #include "Camera/Camera.h"
-#include "../Window.h"
+#include "../window.h"
 #include <unordered_map>
 #include "ComponentPool.h"
 #include "ComponentManager.h"
-#include "../../component/Render.h"
-#include "../../component/Transform.h"
-#include "../Input.h"
+#include "components/render.h"
+#include "components/transform.h"
+#include "../input.h"
 #include "EntityManager.h"
 #include "meshPool.h"
 #include <ranges>

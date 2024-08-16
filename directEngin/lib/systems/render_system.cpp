@@ -1,4 +1,4 @@
-#include "RenderSystem.h"
+#include "render_system.h"
 
 #include <iostream>
 

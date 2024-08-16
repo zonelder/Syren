@@ -1,9 +1,8 @@
 #include <Windows.h>
 #include <sstream>
-#include "lib/vec2.h"
-#include "lib/common/App.h"
+#include "lib/common/app.h"
 #include "lib/exeption/PointedException.h"
-#include "lib//common/MouseHandler.h"
+#include "lib//common/mouse_handler.h"
 
 #define CONSOLE_ENABLE
 

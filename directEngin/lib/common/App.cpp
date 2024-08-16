@@ -1,8 +1,8 @@
 #include "App.h"
 #include <cmath>
-#include "../component/Transform.h"
-#include "TransformUtils.h"
-#include "Input.h"
+#include "components/transform.h"
+#include "transform_utils.h"
+#include "input.h"
 
 
 

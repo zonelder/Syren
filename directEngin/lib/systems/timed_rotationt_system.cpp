@@ -1,6 +1,6 @@
-#include "TimedRotationtSystem.h"
-#include "../component/TimedRotation.h"
-#include "../common/Input.h"
+#include "timed_rotationt_system.h"
+#include "components/timed_rotation.h"
+#include "../common/input.h"
 
 
 void TimedRotationSystem::onUpdate(SceneManager& scene, float time)

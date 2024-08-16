@@ -1,6 +1,6 @@
-#include "OrientationSystem.h"
-#include "../common/TransformUtils.h"
-#include "../component/TextUI.h"
+#include "orientation_system.h"
+#include "../common/transform_utils.h"
+#include "components/text_ui.h"
 #include <iostream>
 
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "IComponentPool.h"
-#include "../Containers/sparse_array.h"
+#include "common/containers/sparse_array.h"
 #include <unordered_map>
 
 

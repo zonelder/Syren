@@ -1,20 +1,21 @@
 #include "App.h"
-#include "../Systems/OrientationSystem.h"
-#include "../Systems/RenderSystem.h"
-#include "../Systems/TimedRotationtSystem.h"
-#include "../Systems/CameraController.h"
-#include "../Systems/ParentSystem.h"
-#include "../Systems/UITextRender.h"
-#include "../Systems/TextRenderSystem.h"
-#include "../Systems/CellGame.h"
 
-#include "../component/TimedRotation.h"
-#include "../component/Parent.h"
-#include "../component/TextUI.h"
-#include "../component/text.h"
-#include "../component/GameCell.h"
+#include "systems/orientation_system.h"
+#include "systems/render_system.h"
+#include "systems/timed_rotationt_system.h"
+#include "systems/camera_controller.h"
+#include "systems/parent_system.h"
+#include "systems/ui_text_render.h"
+#include "systems/text_render_system.h"
+#include "systems/cell_game.h"
 
-#include "GeometryCast.h"
+#include "components/timed_rotation.h"
+#include "components/parent.h"
+#include "components/text_ui.h"
+#include "components/text.h"
+#include "components/game_cell.h"
+
+#include "geometry_cast.h"
 
 
 #include <chrono>  //используем chrono для работы со временем

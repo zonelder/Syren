@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory.h>
-#include "../../component/meshIternal.h"
+#include "components/mesh_iternal.h"
 
 
 using meshPtrVector = std::vector<std::shared_ptr<MeshIternal>>;

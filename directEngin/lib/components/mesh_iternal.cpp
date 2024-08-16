@@ -1,4 +1,4 @@
-#include "MeshIternal.h"
+#include "mesh_iternal.h"
 #include <algorithm>
 #include <limits>
 ///vertex= {DirectX::XMVECTOR - cord,float2 - UV_CORD}

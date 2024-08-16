@@ -1,4 +1,4 @@
-#include "InputHandler.h"
+#include "input_handler.h"
 #include <iostream>
 
 bool InputHandler::isPressed(unsigned char keycode) const noexcept{

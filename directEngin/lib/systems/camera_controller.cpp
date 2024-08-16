@@ -1,6 +1,6 @@
-#include "CameraController.h"
+#include "camera_controller.h"
 #include "../common/Input.h"
-#include "../component/TimedRotation.h"
+#include "components/timed_rotation.h"
 #include <cmath>
 
 float sgn(float val)

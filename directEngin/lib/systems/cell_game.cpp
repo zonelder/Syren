@@ -1,6 +1,6 @@
-#include "CellGame.h"
-#include "../component/GameCell.h"
-#include "../common/GeometryCast.h"
+#include "cell_game.h"
+#include "components/game_cell.h"
+#include "common/geometry_cast.h"
 
 void CellGameSystem::onInit(SceneManager& scene)
 {

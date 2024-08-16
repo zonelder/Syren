@@ -1,4 +1,4 @@
-#include "ParentSystem.h"
+#include "parent_system.h"
 
 void ParentSystem::setlGlobalMatrix(ComponentPool<Transform>& trPool, ComponentPool<Parent>& parentPool, EntityID curEntity)
 {

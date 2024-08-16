@@ -172,7 +172,6 @@
     <ClCompile Include="lib\common\TransformUtils.cpp" />
     <ClCompile Include="lib\Systems\CellGame.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="lib\vec2.cpp" />
     <ClCompile Include="lib\exeption\PointedException.cpp" />
     <ClCompile Include="lib\common\MouseHandler.cpp" />
     <ClCompile Include="lib\common\Window.cpp" />
@@ -235,7 +234,6 @@
     <ClInclude Include="lib\common\App.h" />
     <ClInclude Include="lib\common\InputHandler.h" />
     <ClInclude Include="lib\Systems\CellGame.h" />
-    <ClInclude Include="lib\vec2.h" />
     <ClInclude Include="lib\exeption\PointedException.h" />
     <ClInclude Include="lib\common\MouseHandler.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\PixelShader.h" />

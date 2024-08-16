@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <array>
 
 template<typename Entity,unsigned N>
 class SparseSet
@@ -53,7 +54,7 @@ public:
 		densed_container_type::iterator _curIt;
 	};
 
-	SparseSet() noexcept : _sparse(N, tombstone)
+	SparseSet() : _sparse(N, tombstone)
 	{
 		_densed.reserve(N);
 		_densed.push_back(tombstone);
@@ -73,29 +74,29 @@ public:
 		return _densed.end()-1;
 	}
 
-	bool contains(const key_type& key) const noexcept
+	bool contains(key_type key) const
 	{
 		return _sparse[key] != tombstone;
 	}
 
 
-	auto operator[](const key_type& key) const noexcept
+	auto operator[](key_type key) const
 	{
 		return _sparse[key];
 	}
 
-	void add(const key_type& key) noexcept
+	void add(key_type key)
 	{
 		if (contains(key))
 			return;
 
-		auto pos = _densed.size()-1;
+		auto pos = size();
 		_densed[pos] = key;
-		_densed.push_back(tombstone);//always keep tombstone last
+		_densed.push_back(tombstone);//always keep tombstone last. it cannot throw exeption cause we
 		_sparse[key] = pos;
 	}
 
-	bool remove(const key_type& key) noexcept
+	bool remove(key_type key)
 	{
 		const auto pos = _sparse[key];
 		if (pos == tombstone)// Data not exist
@@ -113,6 +114,11 @@ public:
 	{
 		_sparse.clear();
 		_densed.clear();
+	}
+
+	auto size() const noexcept
+	{
+		return _densed.size() - 1;
 	}
 
 	virtual ~SparseSet() {};

@@ -52,13 +52,11 @@ public:
 		data_densed_container_type::iterator _curIt;
 	};
 	*/
-	SparseArray() noexcept {
+	SparseArray()
+	{
 		_data.reserve(N);
 	}
 
-	void reserve(size_t capacity) noexcept
-	{
-	}
 
 
 
@@ -83,22 +81,22 @@ public:
 		return reverse_iterator(_data.begin());
 	*/
 
-	bool contains(const key_type& key) const noexcept
+	bool contains(key_type key) const
 	{
 		return _set.contains(key);
 	}
 
-	Data& operator[](const key_type& key) noexcept
+	Data& operator[](key_type key)
 	{
 		return _data[_set[key]];
 	}
 
-	const Data& operator[](const key_type& key) const noexcept
+	const Data& operator[](key_type key) const
 	{
 		return _data[_set[key]];
 	}
 
-	Data& add(const key_type& key) noexcept
+	Data& add(key_type key)
 	{
 		if(_set.contains(key))
 			return this->operator[](key);
@@ -108,7 +106,7 @@ public:
 	}
 
 
-	bool remove(const key_type& key) noexcept
+	bool remove(key_type key)
 	{
 		if (!_set.contains(key))
 			return false;
@@ -127,6 +125,11 @@ public:
 	auto end()
 	{
 		return _data.end();
+	}
+
+	auto size() const noexcept
+	{
+		return _set.size();
 	}
 		 
 private:

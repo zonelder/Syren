@@ -11,8 +11,6 @@ App::App() :_wnd(800, 600, "engin win"),_scene(_wnd){}
 
 
 int App::Init(){
-	MSG msg;
-	BOOL gResult;
 
 	OnInit();
 	_systemManager.init(_scene);

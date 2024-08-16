@@ -3,7 +3,6 @@
 #include <string>
 #include <queue>
 #include <bitset>
-#include "../vec2.h"
 
 class MouseHandler
 {
@@ -49,9 +48,6 @@ public:
 		Type getType() const noexcept {
 			return _type;
 ;		}
-		Vec2 getPos() const noexcept {
-			return Vec2(_x, _y);
-		}
 
 		int getPosX() const noexcept;
 
@@ -63,7 +59,6 @@ public:
 	MouseHandler(const MouseHandler&) = delete;
 	MouseHandler& operator=(const MouseHandler&) = delete;
 
-	Vec2 getPos() const noexcept;
 	int getPosX() const noexcept;
 	int getPosY() const noexcept;
 	bool isInWindow() const noexcept;

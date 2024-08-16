@@ -89,10 +89,6 @@ void MouseHandler::onMouseEnter() noexcept {
 	 _buffer = std::queue<Event>();
  }
 
- Vec2 MouseHandler::getPos() const noexcept{
-
-	 return Vec2(_x, _y);
- }
 
 
  void MouseHandler::onWheelDelta(int x,int y,int delta) noexcept{

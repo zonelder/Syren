@@ -12,7 +12,6 @@ public:
 	using entity_iterator = std::vector<Entity>::iterator;
 	EntityManager() : _max(-1)
 	{
-		_entities.reserve(MAX_ENTITY);//TODO initialize with max entity at start
 	}
 
 	Entity& create() noexcept;

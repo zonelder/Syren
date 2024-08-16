@@ -1,6 +1,6 @@
 #pragma once
 #include "../../transform_utils.h"
-#include "ClippingPlane.h"
+#include "clipping_plane.h"
 
 class Camera
 {

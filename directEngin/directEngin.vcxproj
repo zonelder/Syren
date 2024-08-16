@@ -151,7 +151,7 @@
     <ClCompile Include="lib\common\mouse_handler.cpp" />
     <ClCompile Include="lib\common\Scene\entity.cpp" />
     <ClCompile Include="lib\common\Scene\entity_manager.cpp" />
-    <ClCompile Include="lib\common\Scene\meshPool.cpp" />
+    <ClCompile Include="lib\common\Scene\mesh_pool.cpp" />
     <ClCompile Include="lib\common\transform_utils.cpp" />
     <ClCompile Include="lib\components\material.cpp" />
     <ClCompile Include="lib\components\mesh.cpp" />
@@ -162,7 +162,7 @@
     <ClCompile Include="lib\common\input.cpp" />
     <ClCompile Include="lib\common\Scene\Camera\camera.cpp" />
     <ClCompile Include="lib\common\Scene\icomponent_pool.cpp" />
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\InputLayout.cpp" />
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\Input_layout.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\constant_buffer.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\index_buffer.cpp" />
     <ClCompile Include="lib\direct\DxgiInfoManager.cpp" />

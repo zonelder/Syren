@@ -224,7 +224,7 @@
     <ClInclude Include="lib\common\Scene\Camera\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\Camera\ClippingPlane.h">
+    <ClInclude Include="lib\common\Scene\Camera\clipping_plane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\input.h">

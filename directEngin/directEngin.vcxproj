@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="filters.cpp" />
     <ClCompile Include="lib\common\app.cpp" />
     <ClCompile Include="lib\common\custom_app.cpp" />
     <ClCompile Include="lib\common\geometry.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="filters.h" />
     <ClInclude Include="lib\common\geometry.h" />
     <ClInclude Include="lib\common\geometry_cast.h" />
     <ClInclude Include="lib\common\input_handler.h" />

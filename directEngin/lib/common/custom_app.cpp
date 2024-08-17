@@ -8,6 +8,7 @@
 #include "systems/ui_text_render.h"
 #include "systems/text_render_system.h"
 #include "systems/cell_game.h"
+#include "systems/tile_system.h"
 
 #include "components/timed_rotation.h"
 #include "components/parent.h"
@@ -16,7 +17,7 @@
 #include "components/game_cell.h"
 
 #include "geometry_cast.h"
-
+#include "components/tilemap.h"
 
 #include <chrono>  //используем chrono для работы со временем
 
@@ -24,6 +25,7 @@
 void App::OnInit()
 {
 	auto& gfx = _scene.getGraphic();
+	srand(time(0));
 	/// init systems
 	_systemManager.add<OrientationSystem>();
 	//_systemManager.add<ParentSystem>();
@@ -36,6 +38,7 @@ void App::OnInit()
 	_systemManager.add<TimedRotationSystem>();
 	_systemManager.add<CameraController>();
 	_systemManager.add<UITextRender>(gfx, L"resource/myfile.spritefont");
+	_systemManager.add<TileSystem>();
 
 	////
 
@@ -44,6 +47,7 @@ void App::OnInit()
 	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
 
 	auto p_plane_mesh = _scene.make2SidedPlaneMesh();
+	/*
 	const int cellInLine = 3;
 	for (int i = 0; i < cellInLine *2; i+=2)
 	{
@@ -53,32 +57,35 @@ void App::OnInit()
 			Transform& t = _scene.addComponent<Transform>(entt);
 			Render& r = _scene.addComponent<Render>(entt);
 			GameCell& cell = _scene.addComponent<GameCell>(entt);
+
 			r.p_mesh = p_plane_mesh;
 			t.position = { (float)i,(float)j,0.0f };
 
 		}
 	}
-	for (auto i = 0; i < MAX_ENTITY - 200; ++i)
+	*/
+	const auto& chunkHolder = _scene.createEntity();
+	auto& map = _scene.addComponent<TileMap>(chunkHolder);
+
+	for (size_t x = 0; x < TileMap::N; ++x)
 	{
-		const auto& entt = _scene.createEntity();
-		Transform& t = _scene.addComponent<Transform>(entt);
-		GameCell& cell = _scene.addComponent<GameCell>(entt);
+		for (size_t y = 0; y < TileMap::N; ++y)
+		{
+			const auto& tileEntt = _scene.createEntity();
+			map.tiles[x][y].entt = tileEntt.getID();
+			_scene.addComponent<Tile>(tileEntt);
+			Transform& t = _scene.addComponent<Transform>(tileEntt);
+			Render& r = _scene.addComponent<Render>(tileEntt);
+			r.p_mesh = p_plane_mesh;
+			r.p_material = _scene.makeMaterial();
+			r.p_material->texture.set(gfx,nullptr);
+			r.p_material->color = { 0,0,0,1 };
+			t.position = { (float)(2*x),(float)(2*y),10.0f };
+
+		}
 	}
 
-	const auto test1_start = std::chrono::high_resolution_clock::now();
-
-	const auto test1_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test1_start).count();
-
-
-	auto& view = _scene.view<Transform, GameCell>();
-	
-	const auto test3_start = std::chrono::high_resolution_clock::now();
-	for (auto [entt, tr, cell] : view)
-	{
-		cell.isSelected = std::rand() % 2;
-	}
-	const auto test3_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test3_start).count();
-	std::cout << "test 1 = " << test1_diff << "\ntest 3 = " << test3_diff << std::endl;
+	_scene.addComponent<Selected>(map.tiles[0, 0]->entt);
 
 	//*/
 	/*

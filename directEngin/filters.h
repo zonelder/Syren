@@ -166,7 +166,6 @@ namespace filters
 		}
 
 
-		template<class T>
 		auto contains(const EntityID& entt) noexcept
 		{
 			return all_of(_includes, entt) && none_of(_excludes, entt);

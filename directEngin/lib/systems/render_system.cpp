@@ -88,7 +88,7 @@ void RenderSystem::onFrame(SceneManager& scene)
 		
 	}
 
-	auto& commponView = scene.view<With<Render, Transform>, Without<Parent>>();
+	auto& commponView = scene.view<filters::With<Render, Transform>, filters::Without<Parent>>();
 	for (auto [antt, r, tr] : commponView)
 	{
 		renderOne(r, tr, camTr);

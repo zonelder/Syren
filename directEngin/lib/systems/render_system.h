@@ -8,8 +8,8 @@
 class RenderSystem:public BaseSystem
 {
 public:
-	using WithComponents = With<Parent, Render, Transform>;
-	using RenderView = ComponentView <WithComponents,Without<>>;
+	using WithComponents = filters::With<Parent, Render, Transform>;
+	using RenderView = filters::ComponentView <WithComponents, filters::Without<>>;
 	RenderSystem(SceneManager& scene);
 	void onFrame(SceneManager&) override;
 	void onUpdate(SceneManager&, float dt) override;

@@ -80,6 +80,11 @@ void App::OnInit()
 	const auto test3_diff = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - test3_start).count();
 	std::cout << "test 1 = " << test1_diff << "\ntest 3 = " << test3_diff << std::endl;
 
+
+
+
+
+
 	//*/
 	/*
 	auto material = _scene.makeMaterial();

@@ -1,6 +1,5 @@
 #pragma once
 #include "sparse_set.h"
-#include <vector>
 
 template<typename Data,typename Entity,unsigned N>
 class SparseArray

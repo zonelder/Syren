@@ -39,7 +39,7 @@ void App::OnInit()
 
 	////
 
-	_scene.getCamera().aspectRatio = _wnd.GetWidth() / _wnd.GetHeight();
+	_scene.getCamera().aspectRatio = float(_wnd.GetWidth()) / _wnd.GetHeight();
 
 	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
 

@@ -13,12 +13,12 @@ class ComponentPool final :public IComponentPool, public SparseArray<T, EntityID
 public:
 	ComponentPool() = default;
 
-	auto& getComponent(const EntityID& entt)
+	auto& getComponent(EntityID entt)
 	{
 		return this->operator[](entt);
 	}
 
-	bool hasComponent(const EntityID entt)
+	bool hasComponent(EntityID entt)
 	{
 		return this->contains(entt);
 	}

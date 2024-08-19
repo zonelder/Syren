@@ -14,8 +14,8 @@ void CellGameSystem::onInit(SceneManager& scene)
 	deselect->texture.set(gfx, nullptr);
 	deselect->color = { 0.0f,.0f,.0f,1.0f };
 
-	p_selectMat = select;
-	p_deselectMat = deselect;
+	p_selectMat = std::move(select);
+	p_deselectMat = std::move(deselect);
 
 	for (auto [enttID,cell,render] : scene.view<GameCell, Render>())
 	{
@@ -26,19 +26,19 @@ void CellGameSystem::onInit(SceneManager& scene)
 
 void CellGameSystem::onUpdate(SceneManager& scene, float time)
 {
-
-	const auto& proj = scene.getCamera().projection;
+	const auto& camera = scene.getCamera();
+	const auto& proj = camera.projection;
 	float px = 2.0f*scene.getInput().normedX -1.0f;
 	px /= DirectX::XMVectorGetX(proj.r[0]);
 	auto py = -2.0f*scene.getInput().normedY + 1.0f;
 	py/= DirectX::XMVectorGetY(proj.r[1]);
 	auto pz = DirectX::XMVectorGetZ(proj.r[2]);
-	const auto& view = scene.getCamera().transform.orientationMatrix;
+	const auto& view = camera.transform.orientationMatrix;
 	DirectX::XMFLOAT3 ray = newBazis({ px,py,1.0f }, view);
 
 
 	
-	auto& cameraPos = scene.getCamera().transform.position;
+	auto& cameraPos = camera.transform.position;
 	auto hit = GeometryCast::raycast(scene, cameraPos, ray);
 
 	if (hit.entt != -1 && scene.hasComponent<GameCell>(hit.entt))

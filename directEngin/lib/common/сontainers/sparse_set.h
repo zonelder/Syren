@@ -121,7 +121,7 @@ public:
 		return _densed.size() - 1;
 	}
 
-	virtual ~SparseSet() {};
+	virtual ~SparseSet() = default;
 		 
 private:
 

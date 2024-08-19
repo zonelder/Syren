@@ -143,7 +143,7 @@ public:
 	}
 	// реализация метода getComponent
 	template<typename T>
-	T& getComponent(const EntityID& entt)
+	T& getComponent(EntityID entt)
 	{
 		return _ComponentManager.getComponent<T>(entt);
 	}
@@ -156,7 +156,7 @@ public:
 		return addComponent<T>(entt_id);
 	}
 	template<typename T>
-	T& addComponent(const EntityID& entt)
+	T& addComponent(EntityID entt)
 	{
 		_entityManager.registerComponent(entt, Family::type_id<T>());
 		return _ComponentManager.addComponent<T>(entt);
@@ -189,7 +189,7 @@ public:
 	}
 
 	template<typename T>
-	void removeComponent(const EntityID& entt)
+	void removeComponent(EntityID entt)
 	{
 		_entityManager.unregisterComponent(entt, Family::type_id<T>());
 		_ComponentManager.removeComponent<T>(entt);
@@ -201,7 +201,7 @@ public:
 		return entt.hasComponent(Family::type_id<T>());
 	}
 	template<typename T>
-	bool hasComponent(const EntityID& entt) const noexcept
+	bool hasComponent(EntityID entt) const noexcept
 	{
 		return _entityManager.get(entt).hasComponent(Family::type_id<T>());
 	}
@@ -337,7 +337,7 @@ namespace
 			auto operator*() noexcept
 			{
 				const auto& entt = *_it;
-				return std::tuple<const EntityID&, WithArgs&...>(
+				return std::tuple<EntityID, WithArgs&...>(
 					entt,
 					(std::forward<WithArgs&>(
 						std::get<ComponentPool<WithArgs>*>(_include)->operator[](entt)
@@ -363,7 +363,7 @@ namespace
 		}
 
 		template<class T>
-		auto& get(const EntityID& entt) noexcept
+		auto& get(EntityID entt) noexcept
 		{
 			static_assert (isWith<T>);
 			return std::get< ComponentPool<T>*>(_includes)->operator[](entt);
@@ -371,13 +371,13 @@ namespace
 
 
 		template<class T>
-		auto contains(const EntityID& entt) noexcept
+		auto contains(EntityID entt) noexcept
 		{
 			return all_of(_includes, entt) && none_of(_excludes, entt);
 		}
 
 		template<class T>
-		auto has(const EntityID& entt) noexcept
+		auto has(EntityID entt) noexcept
 		{
 			static_assert (isWith<T>);
 			return std::get< ComponentPool<T>*>(_includes)->contains(entt);

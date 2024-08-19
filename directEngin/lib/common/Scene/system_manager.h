@@ -38,7 +38,7 @@ public:
 		{
 			_maxPriority = priority;
 		}
-		_systems.emplace(priority,new T(std::forward<Args>(args)...));
+		_systems.try_emplace(priority,new T(std::forward<Args>(args)...));
 	}
 	
 

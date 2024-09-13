@@ -105,7 +105,7 @@ public:
 	}
 	// реализация метода getComponent
 	template<typename T>
-	T& getComponent(const EntityID& entt)
+	T& getComponent(EntityID entt)
 	{
 		return _ComponentManager.getComponent<T>(entt);
 	}
@@ -118,7 +118,7 @@ public:
 		return addComponent<T>(entt_id);
 	}
 	template<typename T>
-	T& addComponent(const EntityID& entt)
+	T& addComponent(EntityID entt)
 	{
 		_entityManager.registerComponent(entt, Family::type_id<T>());
 		return _ComponentManager.addComponent<T>(entt);
@@ -151,7 +151,7 @@ public:
 	}
 
 	template<typename T>
-	void removeComponent(const EntityID& entt)
+	void removeComponent(EntityID entt)
 	{
 		_entityManager.unregisterComponent(entt, Family::type_id<T>());
 		_ComponentManager.removeComponent<T>(entt);
@@ -163,7 +163,7 @@ public:
 		return entt.hasComponent(Family::type_id<T>());
 	}
 	template<typename T>
-	bool hasComponent(const EntityID& entt) const noexcept
+	bool hasComponent(EntityID entt) const noexcept
 	{
 		return _entityManager.get(entt).hasComponent(Family::type_id<T>());
 	}

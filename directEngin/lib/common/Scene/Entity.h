@@ -29,6 +29,7 @@ public:
 
 	Entity();
 	explicit Entity(EntityID id);
+	Entity(const Entity& other) = default;
 
 	Entity& operator=(const Entity& other);
 

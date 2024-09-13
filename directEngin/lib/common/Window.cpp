@@ -17,7 +17,6 @@ Window::WindowClass::WindowClass() noexcept
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
 	wc.lpszClassName = getName();
-	wc.hIcon = nullptr;
 	RegisterClassEx(&wc);
 }
 Window::WindowClass Window::WindowClass::_wndClass;
@@ -34,7 +33,7 @@ HINSTANCE Window::WindowClass::getInstance() noexcept {
 	return _wndClass._hInst;
 }
 
-Window::Window(int width, int height, const char* name) noexcept 
+Window::Window(int width, int height, const char* name) 
 	:
 	_width(width),
 	_height(height){
@@ -106,10 +105,6 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		break;
 	//< Input message >
 	case WM_SYSKEYDOWN:
-		if (!(lParam & 0x40000000) || inputHandler.isEnabledAutorepeat()) {//filter in case user hold button
-			inputHandler.onkeyPressed(static_cast<unsigned char>(wParam));
-		}
-		break;
 	case WM_KEYDOWN:
 		// TODO change key states to Down\up\pressed\unvalid to procces the hold-key case 
 		if (!(lParam & 0x40000000) || inputHandler.isEnabledAutorepeat()) {//filter in case user hold button
@@ -117,8 +112,6 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		}
 		break;
 	case WM_SYSKEYUP:
-		inputHandler.onKeyReleased(static_cast<unsigned char>(wParam));
-		break;
 	case WM_KEYUP:
 		inputHandler.onKeyReleased(static_cast<unsigned char>(wParam));
 		break;

@@ -22,6 +22,7 @@ RenderSystem::RenderSystem(SceneManager& scene): _scene(scene)
 void RenderSystem::renderOne(Render& render,Transform& transform,const Transform& camTr)
 {
 	Graphics& gfx = _scene.getGraphic();
+	auto* context = gfx.getContext();
 	MeshIternal* mesh = _scene.getMeshData(render.p_mesh);
 	INFOMAN(gfx);
 
@@ -29,21 +30,21 @@ void RenderSystem::renderOne(Render& render,Transform& transform,const Transform
 	D3D11_MAPPED_SUBRESOURCE msr;
 	auto pConstantBuffer = transform.vertexConstantBuffer.p_pConstantBuffer;
 	auto FinalView = DirectX::XMMatrixTranspose(transform.orientationMatrix * camTr.orientationMatrix);
-	GFX_THROW_INFO(gfx.getContext()->Map(
+	GFX_THROW_INFO(context->Map(
 		pConstantBuffer.Get(), 0u,
 		D3D11_MAP_WRITE_DISCARD, 0u,
 		&msr
 	));
 	memcpy(msr.pData, &FinalView, sizeof(FinalView));
-	gfx.getContext()->Unmap(pConstantBuffer.Get(), 0u);
+	context->Unmap(pConstantBuffer.Get(), 0u);
 
 	// use binds
 	transform.vertexConstantBuffer.bind(gfx);
 	mesh->bind(gfx);
 
 	// general material color
-	gfx.getContext()->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.p_material->color), sizeof(DirectX::XMFLOAT4), 0);
-	gfx.getContext()->PSSetConstantBuffers(1u, 1u, p_colorConstantBuffer.GetAddressOf());
+	context->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.p_material->color), sizeof(DirectX::XMFLOAT4), 0);
+	context->PSSetConstantBuffers(1u, 1u, p_colorConstantBuffer.GetAddressOf());
 
 	render.p_material->bind(gfx);
 	render.topology.bind(gfx);

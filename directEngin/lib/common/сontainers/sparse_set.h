@@ -6,16 +6,58 @@
 template<typename Entity,unsigned N>
 class SparseSet
 {
-public:
-
-
 	using key_type = Entity;
-	using densed_container_type = std::vector<key_type>;
-	using sparse_container_type = std::vector<key_type>;
+	static constexpr key_type tombstone = N - 1;
+public:
+	class sentinel{};
 
-	static constexpr key_type tombstone = N-1;
+	class iterator
+	{
+	public:
+		iterator(Entity* ptr) noexcept : _ptr(ptr) {};
+
+		bool operator==(const iterator& other) const noexcept
+		{
+			return _ptr == other._ptr;
+		}
+
+		bool operator==(const sentinel& other) const noexcept
+		{
+			return *_ptr == tombstone;
+		}
+
+		iterator& operator++() noexcept
+		{
+			++_ptr;
+			return *this;
+		}
+
+		iterator operator++(int) noexcept
+		{
+			auto copy = *this;
+			++(*this);
+			return copy;
+		}
+
+		Entity& operator*() const noexcept
+		{
+			return *_ptr;
+		}
+
+		Entity& operator->() const noexcept
+		{
+			return *_ptr;
+		}
 
 
+	private:
+		Entity* _ptr;
+	};
+
+
+
+
+	/*
 	class reverse_iterator
 	{
 	public:
@@ -53,36 +95,39 @@ public:
 	private:
 		densed_container_type::iterator _curIt;
 	};
+	*/
 
-	SparseSet() : _sparse(N, tombstone)
+
+	SparseSet() : _pSparse( new Entity[N]),_densedBegin(new Entity[N]),_densedEnd(_densedBegin),_size(0)
 	{
-		_densed.reserve(N);
-		_densed.push_back(tombstone);
-		//reserve(N);
-		//_data.reserve(capacity);
+		for (size_t i = 0;i < N;++i)
+		{
+			_pSparse[i] = tombstone;
+			_densedBegin[i] = tombstone;
+		}
 	}
 
 	auto begin() noexcept
 	{
 		// using reverse_iterator to enshure that modification of SparseArray
 		// during iteration will not trigger any exeptions
-		return _densed.begin();//reverse_iterator(densed.begin() + _data.size()); 
+		return iterator(_densedBegin);
 	}
 
 	auto end() noexcept
 	{
-		return _densed.end()-1;
+		return sentinel{};
 	}
 
 	bool contains(key_type key) const
 	{
-		return _sparse[key] != tombstone;
+		return _pSparse[key] != tombstone;
 	}
 
 
 	auto operator[](key_type key) const
 	{
-		return _sparse[key];
+		return _pSparse[key];
 	}
 
 	void add(key_type key)
@@ -91,41 +136,45 @@ public:
 			return;
 
 		auto pos = size();
-		_densed[pos] = key;
-		_densed.push_back(tombstone);//always keep tombstone last. it cannot throw exeption cause we
-		_sparse[key] = pos;
+		*_densedEnd = key;
+		++_densedEnd;
+		_pSparse[key] = pos;
+		++_size;
 	}
 
 	bool remove(key_type key)
 	{
-		const auto pos = _sparse[key];
+		const auto pos = _pSparse[key];
 		if (pos == tombstone)// Data not exist
 			return false;
-		_densed.pop_back();//remove tombstone
-		const auto last = _densed.back();//get real Data
-		_sparse[last] = pos;
-		std::swap(_densed[pos],_densed.back());
-		_sparse[key] = tombstone;//nullifie key
-		_densed.back() = tombstone;//set tombstone
+		_pSparse[*_densedEnd] = pos;
+		std::swap(_densedBegin[pos], *_densedEnd);
+		_pSparse[key] = tombstone;
+		*_densedEnd = tombstone;
+		--_size;
 		return true;
-	}
-
-	void clear() noexcept
-	{
-		_sparse.clear();
-		_densed.clear();
 	}
 
 	auto size() const noexcept
 	{
-		return _densed.size() - 1;
+		return _size;
 	}
 
-	virtual ~SparseSet() {};
+	virtual ~SparseSet() 
+	{
+		delete[] _pSparse;
+		delete[] _densedBegin;
+		_densedEnd = nullptr;
+	};
 		 
 private:
 
-	sparse_container_type _sparse;
-	densed_container_type _densed;
+	Entity* _pSparse;
+
+	Entity* _densedBegin;
+
+	//end look at back element
+	Entity* _densedEnd;
+	size_t _size;
 
 };

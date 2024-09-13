@@ -84,7 +84,8 @@ namespace filters
 
 		using with_tuple = std::tuple< ComponentPool<WithArgs>*...>;
 		using without_tuple = std::tuple<ComponentPool< WithoutArgs>*...>;
-		using entity_iterator = std::vector<EntityID>::iterator;
+		using entity_iterator = SparseSet<EntityID,MAX_ENTITY>::iterator;
+		using entity_sentinel = SparseSet<EntityID,MAX_ENTITY>::sentinel;
 
 		ComponentView(ComponentManager& scene) :
 			_includes({ scene.getPool<WithArgs>()... }),
@@ -92,17 +93,15 @@ namespace filters
 		{
 
 		}
-
+		class sentinel {};
 		class iterator
 		{
 			using entity_iterator_type = entity_iterator;
 		public:
-			iterator(with_tuple& include, without_tuple& exclude, entity_iterator_type it, entity_iterator_type end) : _include(include), _exclude(exclude), _it(it), _end(end)
+			iterator(with_tuple& include, without_tuple& exclude, entity_iterator_type it) : _include(include), _exclude(exclude), _it(it)
 			{
 
 			}
-
-			iterator(with_tuple& include, without_tuple& exclude, entity_iterator_type it) : iterator(include, exclude, it, it) {}
 
 			iterator operator++(int) const noexcept
 			{
@@ -114,7 +113,7 @@ namespace filters
 
 			iterator& operator++() noexcept
 			{
-				while (++_it != _end)
+				for (constexpr  entity_sentinel s{}; ++_it != s;)
 				{
 					auto entt = *_it;
 					if (all_of(_include, entt) && none_of(_exclude, entt))
@@ -133,6 +132,12 @@ namespace filters
 				return _it == other._it;
 			}
 
+			bool operator==(const sentinel& other) const noexcept
+			{
+				constexpr entity_sentinel s{};
+				return _it == s;
+			}
+
 			auto operator*() noexcept
 			{
 				const auto& entt = *_it;
@@ -148,7 +153,6 @@ namespace filters
 			with_tuple& _include;
 			without_tuple& _exclude;
 			entity_iterator_type _it;
-			entity_iterator_type _end;
 		};
 
 
@@ -184,13 +188,12 @@ namespace filters
 		iterator begin() noexcept
 		{
 			auto* pool = std::get<0>(_includes);
-			return iterator(_includes, _excludes, pool->ebegin(), pool->eend());
+			return iterator(_includes, _excludes, pool->ebegin());
 		}
 
-		iterator end() noexcept
+		auto end() noexcept
 		{
-			auto* pool = std::get<0>(_includes);
-			return iterator(_includes, _excludes, pool->eend());
+			return sentinel{};
 		}
 
 	private:

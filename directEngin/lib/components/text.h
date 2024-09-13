@@ -3,7 +3,7 @@
 
 struct Text
 {
-	std::wstring content;
-	HFONT font;
+	std::wstring content{};
+	HFONT font{ nullptr };
 	float size = 40.0f;
 };

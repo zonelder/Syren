@@ -1,5 +1,6 @@
 #pragma once
 #include "scene_base.h"
+/*
 #include <type_traits>
 
 
@@ -52,7 +53,7 @@ constexpr auto counter = Val;
 //constexpr auto state1 = inject_state(reader<10>{});
 //static_assert(reader<10>::value == 10);
 //static_assert(state1.value == 11);
-
+*/
 
 
 class Family

@@ -1,6 +1,5 @@
 #pragma once
 #include "sparse_set.h"
-#include <vector>
 
 template<typename Data,typename Entity,unsigned N>
 class SparseArray
@@ -10,7 +9,6 @@ public:
 
 	using key_type = Entity;
 	using sparse_set_type = SparseSet<Entity, N>;
-	using data_densed_container_type = std::vector<Data>;
 
 /*
 	class reverse_iterator
@@ -52,9 +50,13 @@ public:
 		data_densed_container_type::iterator _curIt;
 	};
 	*/
-	SparseArray()
+	SparseArray() :_begin(new Data[N]), _end(_begin)
 	{
-		_data.reserve(N);
+	}
+
+	~SparseArray()
+	{
+		delete[] _begin;
 	}
 
 
@@ -88,12 +90,12 @@ public:
 
 	Data& operator[](key_type key)
 	{
-		return _data[_set[key]];
+		return *(_begin +_set[key]);
 	}
 
 	const Data& operator[](key_type key) const
 	{
-		return _data[_set[key]];
+		return *(_begin + _set[key]);
 	}
 
 	Data& add(key_type key)
@@ -102,7 +104,7 @@ public:
 			return this->operator[](key);
 
 		_set.add(key);
-		return _data.emplace_back();
+		return emplace_back();
 	}
 
 
@@ -111,30 +113,44 @@ public:
 		if (!_set.contains(key))
 			return false;
 
-		std::swap(_data[_set[key]], _data.back());
+		std::swap(*(_begin +_set[key]),*(_end - 1));
 		_set.remove(key);
-		_data.pop_back();
+		pop_back();
 		return true;
 
 	}
 
 	auto begin()
 	{
-		return _data.begin();
+		return _begin;//_data.begin();
 	}
 	auto end()
 	{
-		return _data.end();
+		return _end;//_data.end();
 	}
 
 	auto size() const noexcept
 	{
 		return _set.size();
 	}
+
+
 		 
 private:
 
-	sparse_set_type _set;
-	data_densed_container_type _data;
+	auto& emplace_back() noexcept(std::is_nothrow_constructible_v<Data>)
+	{
+		Data* pData = new (_end++) Data{};
+		return *pData;
+	}
 
+	auto pop_back() noexcept(std::is_nothrow_destructible_v<Data>)
+	{
+		--_end;
+		_end->~Data();
+	}
+
+	sparse_set_type _set;
+	Data* _begin;
+	Data* _end;
 };

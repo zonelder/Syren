@@ -14,14 +14,6 @@
 doxygen/
 pydoc/
 build/
-lib/boost
-server/baseapp/Hybrid64/*
-server/cellapp/Hybrid64/*
-server/baseappmgr/Hybrid64/*
-server/cellappmgr/Hybrid64/*
-server/dbmgr/Hybrid64/*
-server/tools/consolidate_dbs/Hybrid64/*
-server/tools/sync_db/Hybrid64/*
 
 [SearchableFiles.include]
 *
@@ -73,5 +65,3 @@ obj\Win32\*
 doxygen/
 pydoc/
 build/
-client/enc_temp_folder/
-tools/worldeditor/enc_temp_folder/

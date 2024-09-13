@@ -63,7 +63,7 @@ void App::OnInit()
 
 		}
 	}
-	*/
+*/
 	const auto& chunkHolder = _scene.createEntity();
 	auto& map = _scene.addComponent<TileMap>(chunkHolder);
 

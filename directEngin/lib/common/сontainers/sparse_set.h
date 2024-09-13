@@ -151,6 +151,7 @@ public:
 		std::swap(_densedBegin[pos], *_densedEnd);
 		_pSparse[key] = tombstone;
 		*_densedEnd = tombstone;
+		--_densedEnd;
 		--_size;
 		return true;
 	}

@@ -98,9 +98,13 @@ namespace filters
 		{
 			using entity_iterator_type = entity_iterator;
 		public:
-			iterator(with_tuple& include, without_tuple& exclude, entity_iterator_type it) : _include(include), _exclude(exclude), _it(it)
+			iterator(with_tuple& include, without_tuple& exclude, entity_iterator_type it) : 
+				_include(include),
+				_exclude(exclude),
+				_it(it)
 			{
-
+				if (!isValidCurrent())
+					++(*this);
 			}
 
 			iterator operator++(int) const noexcept
@@ -113,18 +117,8 @@ namespace filters
 
 			iterator& operator++() noexcept
 			{
-				for (constexpr  entity_sentinel s{}; ++_it != s;)
-				{
-					auto entt = *_it;
-					if (all_of(_include, entt) && none_of(_exclude, entt))
-						break;
-				}
+				for (constexpr  entity_sentinel s{}; ++_it != s && !isValidCurrent();){}
 				return *this;
-			}
-
-			bool operator!=(const iterator& other) const noexcept
-			{
-				return _it != other._it;
 			}
 
 			bool operator==(const iterator& other) const noexcept
@@ -149,7 +143,10 @@ namespace filters
 
 
 		private:
-
+			bool isValidCurrent() const noexcept
+			{
+				return all_of(_include, *_it) && none_of(_exclude, *_it);
+			}
 			with_tuple& _include;
 			without_tuple& _exclude;
 			entity_iterator_type _it;

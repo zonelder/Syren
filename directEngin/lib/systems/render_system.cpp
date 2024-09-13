@@ -74,7 +74,7 @@ void RenderSystem::DeepRender(RenderView& view,Transform& cam,EntityID id )
 	r.is_rendered = true;
 }
 
-
+#pragma optimize("", off)
 void RenderSystem::onFrame(SceneManager& scene)
 {
 	Graphics& gfx = scene.getGraphic();
@@ -91,6 +91,8 @@ void RenderSystem::onFrame(SceneManager& scene)
 	auto& commponView = scene.view<filters::With<Render, Transform>, filters::Without<Parent>>();
 	for (auto [antt, r, tr] : commponView)
 	{
+		auto color = r.p_material->color;
+		auto x = std::abs(color.x -1.0f);
 		renderOne(r, tr, camTr);
 	}
 

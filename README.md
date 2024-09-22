@@ -12,7 +12,3 @@ Project provides framework for accelerate building computer modeling and develop
 Syren based on concepts of ECS and provide light-weighted tool for manipulating with objects.
 Project use DirectX 12 to provide high-quality and efficient rendering, allowing you to create visually appealing games with advanced graphical effects.
 
-
-## SAST Tools
-
-[PVS-Studio](https://pvs-studio.com/pvs-studio/?utm_source=website&utm_medium=github&utm_campaign=open_source) - static analyzer for C, C++, C#, and Java code.

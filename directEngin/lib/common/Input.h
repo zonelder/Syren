@@ -1,5 +1,5 @@
 #pragma once
-#include "InputHandler.h"
+#include "input_handler.h"
 
 class Input
 {

@@ -1,8 +1,8 @@
 #include "App.h"
 #include <cmath>
-#include "../component/Transform.h"
-#include "TransformUtils.h"
-#include "Input.h"
+#include "components/transform.h"
+#include "transform_utils.h"
+#include "input.h"
 
 
 
@@ -11,8 +11,6 @@ App::App() :_wnd(800, 600, "engin win"),_scene(_wnd){}
 
 
 int App::Init(){
-	MSG msg;
-	BOOL gResult;
 
 	OnInit();
 	_systemManager.init(_scene);

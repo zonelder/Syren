@@ -1,10 +1,10 @@
 #pragma once
 #include <windows.h>
-#include "..\exeption\PointedException.h"
-#include "..\graphics\Graphics.h"
+#include "..\exeption\pointed_exception.h"
+#include "..\graphics\graphics.h"
 #include <memory>
-#include "InputHandler.h"
-#include "MouseHandler.h"
+#include "input_handler.h"
+#include "mouse_handler.h"
 #include <optional>
 
 
@@ -51,7 +51,7 @@ private:
 
 	};
 public:
-	Window(int width, int height, const char* name) noexcept;
+	Window(int width, int height, const char* name);
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;

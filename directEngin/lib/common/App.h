@@ -2,10 +2,10 @@
 #include "Window.h"
 #include "../Time/Timer.h"
 #include <vector>
-#include "Scene/SceneManager.h"
-#include "Scene/ComponentManager.h"
+#include "Scene/scene_manager.h"
+#include "Scene/component_manager.h"
 #include <unordered_map>
-#include "Scene/SystemManager.h"
+#include "Scene/system_manager.h"
 
 
 class App
@@ -23,7 +23,7 @@ private:
 private:
 	Window _wnd;
 	SceneManager _scene;
-	SystemManager _systemManager;
+	SystemManager _systemManager{};
 	Timer _time;//TODO change it to Time class after all
 
 };

@@ -1,348 +1,373 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <FxCompile Include="shaders\VertexShader.hlsl">
+      <Filter>resource\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\PixelShader.hlsl">
+      <Filter>resource\shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\geometry.cpp" />
+    <ClCompile Include="lib\common\geometry_cast.cpp" />
+    <ClCompile Include="lib\common\transform_utils.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="lib\Time\timer.cpp" />
+    <ClCompile Include="lib\common\app.cpp">
+      <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="WindowsMessageMap.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\Scene\Camera\camera.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\InputHandler.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\systems\camera_controller.cpp">
+      <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="lib\vec2.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\systems\cell_game.cpp">
+      <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Window.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\Scene\component_manager.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\exeption\PointedException.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\Scene\component_pool.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\MouseHandler.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\constant_buffer.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\App.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\Time\Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\graphics\Graphics.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\custom_app.cpp">
+      <Filter>app</Filter>
     </ClCompile>
     <ClCompile Include="lib\direct\dxerr.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>visual\directX</Filter>
     </ClCompile>
     <ClCompile Include="lib\direct\DxgiInfoManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\VertexBuffer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\Scene\entity.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\IndexBuffer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\Scene\entity_manager.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\ConstantBuffer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="filters.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\PixelShader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\graphics\graphics.cpp">
+      <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\VertexShader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\Scene\icomponent_pool.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\Topology.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\index_buffer.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\InputLayout.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\input.cpp">
+      <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\TransformUtils.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\input_handler.cpp">
+      <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\Camera\Camera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\Input_layout.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Input.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\components\material.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Systems\RenderSystem.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\components\mesh.cpp">
+      <Filter>component</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Systems\OrientationSystem.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\components\mesh_iternal.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\SceneManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\Scene\mesh_pool.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\ComponentPool.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\mouse_handler.cpp">
+      <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\ComponentManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\systems\orientation_system.cpp">
+      <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\IComponentPool.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\systems\parent_system.cpp">
+      <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\SystemManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\pixel_shader.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
-    <ClCompile Include="lib\component\MeshIternal.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\exeption\pointed_exception.cpp">
+      <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="lib\component\Material.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\systems\render_system.cpp">
+      <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\Texture.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\Scene\scene_manager.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\Vertex.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\Scene\system_manager.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Systems\ParentSystem.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\systems\text_render_system.cpp">
+      <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\customApp.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\systems\timed_rotationt_system.cpp">
+      <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Systems\UITextRender.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Systems\TextRenderSystem.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex_shader.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\EntityManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex_buffer.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\Entity.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\common\window.cpp">
+      <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\meshPool.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="WindowsMessageMap.cpp">
+      <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="lib\component\mesh.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\systems\ui_text_render.cpp">
+      <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Geometry.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\topology.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
-    <ClCompile Include="lib\Systems\CellGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\GeometryCast.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\texture.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WindowsMessageMap.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\geometry.h" />
+    <ClInclude Include="lib\common\geometry_cast.h" />
+    <ClInclude Include="lib\common\transform_utils.h" />
+    <ClInclude Include="lib\Time\timer.h" />
+    <ClInclude Include="lib\common\app.h">
+      <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\InputHandler.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\base_system.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\vec2.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\bindable_components.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Window.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\Camera\camera.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\exeption\PointedException.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\systems\camera_controller.h">
+      <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\systems\cell_game.h">
+      <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\MouseHandler.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\Camera\clipping_plane.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\App.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\component_manager.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Time\Timer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\component_pool.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Graphics.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\constant_buffer.h">
+      <Filter>visual</Filter>
     </ClInclude>
     <ClInclude Include="lib\direct\dxerr.h">
-      <Filter>Header Files</Filter>
+      <Filter>visual\directX</Filter>
     </ClInclude>
     <ClInclude Include="lib\direct\DxgiInfoManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\GraphicsThrowMacros.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\entity.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\WindowThrowMacros.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\entity_manager.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\common\Scene\family_generator.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="filters.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\components\game_cell.h">
+      <Filter>component</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\graphics\graphics.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\graphics\graphics_throw_macros.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\graphics\Drawable\idrawable.h">
+      <Filter>visual</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\common\Scene\icomponent_pool.h">
+      <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="lib\graphics\Drawable\BindComponent\IBindable.h">
-      <Filter>Header Files</Filter>
+      <Filter>visual</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\VertexBuffer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\index_buffer.h">
+      <Filter>visual</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\BindableComponents.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\input.h">
+      <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\IndexBuffer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\input_handler.h">
+      <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\ConstantBuffer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\input_layout.h">
+      <Filter>visual</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\PixelShader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\components\material.h">
+      <Filter>visual</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\VertexShader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\components\mesh.h">
+      <Filter>component</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\Topology.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\components\mesh_iternal.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\InputLayout.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\mesh_pool.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\IDrawable.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\mouse_handler.h">
+      <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\component\Transform.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\systems\orientation_system.h">
+      <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\TransformUtils.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\systems\parent_system.h">
+      <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\Camera\Camera.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\exeption\pointed_exception.h">
+      <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\Camera\ClippingPlane.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\components\parent.h">
+      <Filter>component</Filter>
     </ClInclude>
-    <ClInclude Include="lib\component\MeshIternal.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\components\render.h">
+      <Filter>component</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Input.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\systems\render_system.h">
+      <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="lib\component\Render.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\scene_base.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Systems\RenderSystem.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\scene_manager.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Systems\OrientationSystem.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\Scene\system_manager.h">
+      <Filter>scene</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\SceneManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\texture.h">
+      <Filter>visual</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\ComponentPool.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\components\text.h">
+      <Filter>component</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\FamilyGenerator.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\systems\text_render_system.h">
+      <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\ComponentManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\systems\timed_rotationt_system.h">
+      <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\IComponentPool.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex.h">
+      <Filter>visual</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\SystemManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex_shader.h">
+      <Filter>visual</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\BaseSystem.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex_buffer.h">
+      <Filter>visual</Filter>
     </ClInclude>
-    <ClInclude Include="lib\component\Material.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\WindowThrowMacros.h">
+      <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\Texture.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\common\window.h">
+      <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\Vertex.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="WindowsMessageMap.h">
+      <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\component\Parent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\systems\ui_text_render.h">
+      <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Systems\ParentSystem.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\components\timed_rotation.h">
+      <Filter>component</Filter>
     </ClInclude>
-    <ClInclude Include="lib\component\TextUI.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\components\text_ui.h">
+      <Filter>component</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Systems\UITextRender.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\topology.h">
+      <Filter>visual</Filter>
     </ClInclude>
-    <ClInclude Include="lib\component\text.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\components\transform.h">
+      <Filter>component</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Systems\TextRenderSystem.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\pixel_shader.h">
+      <Filter>visual</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\EntityManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\SceneBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\meshPool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\component\mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Geometry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\component\GameCell.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\Systems\CellGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\GeometryCast.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="resource.h">
+      <Filter>resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\direct\DXTrace.inl">
-      <Filter>Header Files</Filter>
+    <Image Include="resource\test_texture.dds">
+      <Filter>resource\texture</Filter>
+    </Image>
+    <Image Include="resource\empty.dds">
+      <Filter>resource\texture</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="lib\direct\DXGetErrorString.inl">
+      <Filter>visual\directX</Filter>
     </None>
     <None Include="lib\direct\DXGetErrorDescription.inl">
-      <Filter>Header Files</Filter>
+      <Filter>visual\directX</Filter>
     </None>
-    <None Include="lib\direct\DXGetErrorString.inl">
-      <Filter>Header Files</Filter>
+    <None Include="lib\direct\DXTrace.inl">
+      <Filter>visual\directX</Filter>
     </None>
-    <None Include="packages.config" />
-    <None Include="resource\myfile.spritefont" />
+    <None Include="resource\myfile.spritefont">
+      <Filter>resource\font</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shaders\VertexShader.hlsl" />
-    <FxCompile Include="shaders\PixelShader.hlsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="resource\test_texture.dds" />
-    <Image Include="resource\empty.dds" />
+    <Filter Include="component">
+      <UniqueIdentifier>{d228440a-89cf-4147-b994-b4e9c155776b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="app">
+      <UniqueIdentifier>{3c027019-46e0-4789-8673-db77c40fda02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{2e02508a-1a59-4d96-adfb-011af2f493e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system">
+      <UniqueIdentifier>{8d507a13-3c87-404b-981f-d0cb11508931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="visual">
+      <UniqueIdentifier>{f2a75eb0-21f7-484a-a95e-e99de1d2b30f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="visual\directX">
+      <UniqueIdentifier>{6d812892-67b8-4c34-b43e-b24f3f3d7f62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{1e299217-a286-4f8c-8223-043481a14fdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\shader">
+      <UniqueIdentifier>{42557f3d-3e69-4aa6-b5f6-9fb74d5c9c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\texture">
+      <UniqueIdentifier>{328d58f4-2332-4cfd-8415-f686d2e7c9dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\font">
+      <UniqueIdentifier>{b888e108-6451-4abf-bb81-415993123fe8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

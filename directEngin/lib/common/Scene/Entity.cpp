@@ -17,11 +17,6 @@ void Entity::unregisterComponent(ComponentID id) noexcept
 	_components.set(id, false);
 }
 
-bool Entity::hasComponent(ComponentID id) const noexcept
-{
-	return _components[id];
-}
-
 const EntityID Entity::getID() const noexcept
 {
 	return _ID;

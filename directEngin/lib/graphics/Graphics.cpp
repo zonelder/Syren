@@ -1,10 +1,10 @@
-#include "Graphics.h"
+#include "graphics.h"
 #include "../direct/dxerr.h"
 #include <sstream>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
-#include "GraphicsThrowMacros.h"
-#include "Drawable/BindComponent/BindableComponents.h"
+#include "graphics_throw_macros.h"
+#include "Drawable/BindComponent/bindable_components.h"
 #include <vector>
 
 #pragma comment(lib,"d3d11.lib")

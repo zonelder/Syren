@@ -192,6 +192,7 @@
     <ClCompile Include="WindowsMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="component_serializer.h" />
     <ClInclude Include="filters.h" />
     <ClInclude Include="lib\common\geometry.h" />
     <ClInclude Include="lib\common\geometry_cast.h" />

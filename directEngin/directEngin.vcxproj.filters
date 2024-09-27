@@ -137,6 +137,11 @@
     <ClCompile Include="lib\graphics\Drawable\BindComponent\texture.cpp">
       <Filter>visual</Filter>
     </ClCompile>
+    <ClCompile Include="lib\systems\tile_system.cpp" />
+    <ClCompile Include="xml_parser.cpp" />
+    <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp">
+      <Filter>third_party\pugixml</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry.h" />
@@ -314,6 +319,17 @@
     <ClInclude Include="resource.h">
       <Filter>resource</Filter>
     </ClInclude>
+    <ClInclude Include="component_serializer.h" />
+    <ClInclude Include="lib\components\tilemap.h" />
+    <ClInclude Include="lib\systems\tile_system.h" />
+    <ClInclude Include="tilemap.h" />
+    <ClInclude Include="xml_parser.hpp" />
+    <ClInclude Include="..\third_party\pugixml\src\pugiconfig.hpp">
+      <Filter>third_party\pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\pugixml\src\pugixml.hpp">
+      <Filter>third_party\pugixml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\test_texture.dds">
@@ -369,5 +385,16 @@
     <Filter Include="resource\font">
       <UniqueIdentifier>{b888e108-6451-4abf-bb81-415993123fe8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="third_party">
+      <UniqueIdentifier>{704c3c71-250c-48ad-82ff-2fdb61017cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\pugixml">
+      <UniqueIdentifier>{c98afe7b-009e-4bcb-8769-dd37e5e17063}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\third_party\pugixml\readme.txt">
+      <Filter>third_party\pugixml</Filter>
+    </Text>
   </ItemGroup>
 </Project>

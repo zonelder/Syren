@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp" />
     <ClCompile Include="filters.cpp" />
     <ClCompile Include="lib\common\app.cpp" />
     <ClCompile Include="lib\common\custom_app.cpp" />
@@ -190,8 +191,11 @@
     <ClCompile Include="lib\common\Scene\system_manager.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
+    <ClCompile Include="xml_parser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\third_party\pugixml\src\pugiconfig.hpp" />
+    <ClInclude Include="..\third_party\pugixml\src\pugixml.hpp" />
     <ClInclude Include="component_serializer.h" />
     <ClInclude Include="filters.h" />
     <ClInclude Include="lib\common\geometry.h" />
@@ -257,6 +261,7 @@
     <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex.h" />
     <ClInclude Include="tilemap.h" />
     <ClInclude Include="WindowsMessageMap.h" />
+    <ClInclude Include="xml_parser.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\direct\DXGetErrorDescription.inl" />
@@ -284,6 +289,9 @@
   <ItemGroup>
     <Image Include="resource\empty.dds" />
     <Image Include="resource\test_texture.dds" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\third_party\pugixml\readme.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

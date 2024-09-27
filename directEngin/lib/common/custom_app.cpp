@@ -21,9 +21,22 @@
 
 #include <chrono>  //используем chrono дл€ работы со временем
 
+#include "../xml_parser.hpp"
 
 void App::OnInit()
 {
+	////
+	std::string file = "test_xml.xml";
+	XMLParser parser;
+	//parser.loadFile(file);
+	parser.loadString("<root><element>Hello, World!</element></root>");
+	auto root = parser.root();
+	std::cout << "Value of the element: " << root.child("element").value() << std::endl; // ¬ывод: Hello, World!
+	auto fields = root.child("Field1");
+	for (const auto& field : fields)
+	{
+		std::cout << field.identifier() << "  " << field.value() << std::endl;
+	}
 	auto& gfx = _scene.getGraphic();
 	srand(time(0));
 	/// init systems
@@ -40,7 +53,6 @@ void App::OnInit()
 	_systemManager.add<UITextRender>(gfx, L"resource/myfile.spritefont");
 	_systemManager.add<TileSystem>();
 
-	////
 
 	_scene.getCamera().aspectRatio = float(_wnd.GetWidth()) / _wnd.GetHeight();
 

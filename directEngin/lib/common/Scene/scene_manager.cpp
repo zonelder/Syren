@@ -1,5 +1,5 @@
 #include "scene_manager.h"
-
+#include "../xml_parser.hpp"
 
 
 SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()),_input(wnd.inputHandler)
@@ -216,4 +216,46 @@ Mesh* SceneManager::make2SidedPlaneMesh()
 	}
 	);
 	return mesh;
+}
+
+
+
+template<class T>
+void poolSerializer<T>::deserialize(XMLNode& poolNode, SceneManager& manager)
+{
+	auto componentSections = poolNode.child("components");
+	for (auto componentSection : componentSections)
+	{
+		auto enttID = componentSection.child("entityID").value<size_t>(g_invalidEntity);
+		if (enttID == g_invalidEntity)
+		{
+			std::cerr << std::format("Error:: try load component of type {} but get invalid enttity id\n", typeid(T).name());
+			continue;
+		}
+		auto& comp = manager.addComponent<T>(enttID);
+		serializer<T>::deserialize(componentSection, comp);
+	}
+}
+
+
+void serializer<SceneManager>::deserialize(XMLNode& node, SceneManager& manager)
+{
+	auto pools = node.child("pools");
+
+	if (!pools)
+	{
+		return;
+	}
+
+	for (auto pool : pools)
+	{
+		auto guid = pool.child("guid").value<size_t>();
+		if (!s_poolDeserializer.contains(guid))
+		{
+			std::cerr << "Error: cant find deserializer for component pool  with hash " + guid << std::endl;
+			continue;
+		}
+
+		s_poolDeserializer[guid](pool, manager);
+	}
 }

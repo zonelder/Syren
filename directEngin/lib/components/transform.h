@@ -1,6 +1,9 @@
 #pragma once
 #include <DirectXMath.h>
 #include "graphics/Drawable/BindComponent/constant_buffer.h"
+#include "../component_serializer.h"
+
+
 
 struct Transform
 {
@@ -15,3 +18,6 @@ struct Transform
 	VertexConstantBuffer<DirectX::XMMATRIX> vertexConstantBuffer;
 
 };
+
+
+SERIALIZE(Transform);

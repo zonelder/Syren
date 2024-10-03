@@ -7,7 +7,7 @@
 
 
 
-App::App() :_wnd(800, 600, "engin win"),_scene(_wnd){}
+App::App() :_wnd(800, 600, "engin win"),_scene(_wnd),_sceneLoader(_scene){}
 
 
 int App::Init(){

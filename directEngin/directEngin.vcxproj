@@ -82,6 +82,9 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>python "$(ProjectDir)build\codegenerators\init.py"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -99,6 +102,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>python "$(ProjectDir)build\codegenerators\init.py"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -118,6 +124,9 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>python "$(ProjectDir)build\codegenerators\init.py"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -141,9 +150,13 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>python "$(ProjectDir)build\codegenerators\init.py"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp" />
+    <ClCompile Include="component_serializer.cpp" />
     <ClCompile Include="filters.cpp" />
     <ClCompile Include="lib\common\app.cpp" />
     <ClCompile Include="lib\common\custom_app.cpp" />
@@ -190,6 +203,7 @@
     <ClCompile Include="lib\common\Scene\scene_manager.cpp" />
     <ClCompile Include="lib\common\Scene\system_manager.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex.cpp" />
+    <ClCompile Include="scene_loader.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
     <ClCompile Include="xml_parser.cpp" />
   </ItemGroup>
@@ -259,11 +273,13 @@
     <ClInclude Include="lib\common\Scene\scene_manager.h" />
     <ClInclude Include="lib\common\Scene\system_manager.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex.h" />
+    <ClInclude Include="scene_loader.hpp" />
     <ClInclude Include="tilemap.h" />
     <ClInclude Include="WindowsMessageMap.h" />
     <ClInclude Include="xml_parser.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="build\codegenerators\init.lua" />
     <None Include="lib\direct\DXGetErrorDescription.inl" />
     <None Include="lib\direct\DXGetErrorString.inl" />
     <None Include="lib\direct\DXTrace.inl" />

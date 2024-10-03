@@ -6,7 +6,7 @@
 #include "Scene/component_manager.h"
 #include <unordered_map>
 #include "Scene/system_manager.h"
-
+#include "../scene_loader.hpp"
 
 class App
 {
@@ -23,6 +23,7 @@ private:
 private:
 	Window _wnd;
 	SceneManager _scene;
+	SceneLoader _sceneLoader;
 	SystemManager _systemManager{};
 	Timer _time;//TODO change it to Time class after all
 

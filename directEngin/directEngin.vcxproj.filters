@@ -142,6 +142,10 @@
     <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp">
       <Filter>third_party\pugixml</Filter>
     </ClCompile>
+    <ClCompile Include="scene_loader.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="component_serializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry.h" />
@@ -330,6 +334,7 @@
     <ClInclude Include="..\third_party\pugixml\src\pugixml.hpp">
       <Filter>third_party\pugixml</Filter>
     </ClInclude>
+    <ClInclude Include="scene_loader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\test_texture.dds">
@@ -352,6 +357,9 @@
     </None>
     <None Include="resource\myfile.spritefont">
       <Filter>resource\font</Filter>
+    </None>
+    <None Include="build\codegenerators\init.lua">
+      <Filter>build\codegenerators</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -390,6 +398,12 @@
     </Filter>
     <Filter Include="third_party\pugixml">
       <UniqueIdentifier>{c98afe7b-009e-4bcb-8769-dd37e5e17063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="build">
+      <UniqueIdentifier>{34433bf9-3898-4af3-91a0-df6b2663cfdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="build\codegenerators">
+      <UniqueIdentifier>{f4adeef3-b9d7-4fa8-8036-b9e4d804952d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

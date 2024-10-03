@@ -13,32 +13,8 @@
 
 #include "../filters.h"
 
-namespace to_future
-{
-	namespace constexpr_filters
-	{
-		template<class ...Args>
-		std::array<ComponentID, sizeof...(Args)> ids = { Family::type_id<Args>()... };
-
-		template<class ...Args>
-		inline consteval auto with() noexcept
-		{
-			return std::views::filter([](const Entity& entt)->bool {
-				return entt.hasComponents(ids<Args...>);
-				});
-		}
-
-		template<class ...Args>
-		inline constexpr auto without() noexcept
-		{
-			return std::views::filter([](const Entity& entt)->bool {
-				return entt.hasNotComponents(ids<Args...>);
-				});
-		}
-	}
-
-}
-
+#include <functional>
+#include "../xml_parser.hpp"
 
 class SceneManager : private MeshPool
 {
@@ -95,7 +71,11 @@ public:
 	{
 		return *(_ComponentManager.getPool<T>());
 	}
+	template<typename T>
+	ComponentPool<T>& getPoolByGuid(std::string& guid)
+	{
 
+	}
 	// реализация метода getComponent
 	template<typename T>
 	T& getComponent(const Entity& entt)
@@ -211,3 +191,24 @@ private:
 	Camera _mainCamera;
 	Input _input;
 };
+
+
+
+
+
+template<class T>
+struct poolSerializer
+{
+	static void deserialize(XMLNode& poolNode, SceneManager& manager);
+};
+
+template<>
+struct serializer<SceneManager>
+{
+
+	static std::unordered_map<size_t, std::function<void(XMLNode, SceneManager&)>> s_poolDeserializer;
+
+	static void deserialize(XMLNode& node, SceneManager& manager);
+};
+
+

@@ -28,16 +28,15 @@ void App::OnInit()
 	////
 	std::string file = "test_xml.xml";
 	XMLParser parser;
-	//parser.loadFile(file);
-	parser.loadString("<root><element>Hello, World!</element></root>");
+	parser.loadFile(file);
 	auto root = parser.root();
-	std::cout << "Value of the element: " << root.child("element").value() << std::endl; // Вывод: Hello, World!
-	auto fields = root.child("Field1");
-	for (const auto& field : fields)
-	{
-		std::cout << field.identifier() << "  " << field.value() << std::endl;
-	}
+	auto field = root.child("Field1");
+	DirectX::XMFLOAT3 def = { 0,0,0 };
+	auto v = field.value<DirectX::XMFLOAT3>(def);
+	//std::cout << field.identifier() << "  " << field.value<DirectX::XMFLOAT3>() << std::endl;
 	auto& gfx = _scene.getGraphic();
+
+	auto poolDeser = serializer<SceneManager>::s_poolDeserializer;
 	srand(time(0));
 	/// init systems
 	_systemManager.add<OrientationSystem>();

@@ -35,22 +35,31 @@ public:
 	}
 
 
-	childIterator begin() const noexcept;
+	childIterator begin() noexcept;
 
-	constexpr auto end() const noexcept
+	constexpr auto end() noexcept
 	{
 		return ChildSentinel{};
 	}
 
-	template<class T>
-	T value() const;
+	template<class T>requires (!std::is_fundamental_v<T>)
+	T value(const T& def = T()) const;
 
-	const char* value() const
+	template<class T> requires std::is_fundamental_v<T>
+	T value(T def = T()) const;
+
+	operator bool() const
 	{
-		return const_cast<base_node_type&>(pBaseNode_).text().get();
+		return pBaseNode_;
 	}
 
 private:
+
+	auto text() const
+	{
+		return const_cast<base_node_type&>(pBaseNode_).text();
+	}
+
 	base_node_type pBaseNode_;
 };
 

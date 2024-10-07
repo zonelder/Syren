@@ -16,11 +16,12 @@ def get_lib_path(cur_dir,levels_up, lib_name="lib"):
     for _ in range(levels_up):
         cur_dir = os.path.dirname(cur_dir)
 
+
     lib_path = os.path.join(cur_dir, lib_name)
     return lib_path
 
 print("----------start serching serialize properties----------")
-analyzer = SerializAnalizer(get_lib_path(__file__,3), [".cpp", ".h"])
+analyzer = SerializAnalizer(get_lib_path(os.path.abspath(__file__),3), [".cpp", ".h"])
 serializable_types, errors = analyzer.find_serializable_types()
 
 

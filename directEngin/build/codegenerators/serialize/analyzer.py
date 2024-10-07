@@ -28,36 +28,42 @@ class SerializAnalizer:
         print("serching serializable types in ",self.root_dir)
         for root,dirnames, files in os.walk(self.root_dir):
             for file in files:
-                if os.path.splitext(file)[1] in self.extensions and os.path.splitext(file)[1] == ".h":
+                if os.path.splitext(file)[1] in self.extensions :
                     #print("Serialization: serching for serializable type in file ",file)
                     self.analyze_file(os.path.join(root, file))
 
         return self.serializable_types,self.errors
 
     def analyze_file(self, file_path):
-        file_name_with_ext = os.path.basename(file_path)
-        if file_name_with_ext != "text.h" :
-            return
         with open(file_path, "r") as file:
             lines = file.readlines()
         print("Serialization::analyze file ",file_path)
-        print("lines:",lines)
+        skip_count = 0
         for i, line in enumerate(lines):
+            if skip_count > 0 :
+                skip_count = skip_count - 1
+                continue
 
-            if "SERIALIZE" in line:
-                print("find SERIALIZE definition",line)# не читает файл
+            if re.search(r"^SERIALIZE$", line):
                 class_name = self.find_type_name(lines, i)
                 print("find SERIALIZE typename = ",class_name)# не читает файл
                 if not class_name:
-                    # Ошибка: SERIALIZABLE найден, но класс не найден
                     self.errors.append(f"Ошибка в файле {file_path}({i}): SERIALIZE найден, но класс не определен.")
                     continue
+                end_index = self.get_obj_lines(lines,i)
+                print("end index count:",end_index)
+                if end_index == -1 :
+                    self.errors.append(f"Ошибка в файле {file_path}({i}): SERIALIZE найден, но класс не определен.")
+                    continue
+
+                skip_count = end_index - i
                 self.serializable_types[class_name] = SerializableType(
                     name=class_name,
                     fields={}  # Инициализируем словарь полей
                 )
+
                 # После определения типа, ищем поля SERIALIZE_FIELD
-                self.extract_fields(lines, class_name,i)
+                self.extract_fields(lines, class_name,i,end_index)
 
 
     def find_type_name(self, lines, line_index):
@@ -72,19 +78,30 @@ class SerializAnalizer:
 
         return None  # Класс не найден
 
-    def find_type_name_in_line(self,text) :
-        pattern = rf"\b(?:{keywords_pattern})\b\s*(\w+)"
-        return re.search(pattern, text)
-
-    def extract_fields(self, lines, class_name,line_index):
-        # Ищем строки с SERIALIZE_FIELD
-        i = line_index
-        for i in range(line_index, len(lines)):
+    def get_obj_lines(self,lines,start_index) :
+        # Ищем все строки который принадлежат обьекту
+        open_braces = 0
+        for i in range(start_index, len(lines)):
             line = lines[i].strip()
-            if not re.search(r"SERIALIZE_FIELD", line):
+            old_braces = open_braces
+            open_braces += line.count("{")
+            open_braces -= line.count("}")
+            if old_braces != 0 and open_braces == 0:
+                return i+1
+
+        return -1
+
+    def extract_fields(self, lines, class_name,start_index,end_index):
+        # Ищем строки с SERIALIZE_FIELD
+        for i in range(start_index, end_index):
+            line = lines[i].strip()
+            print("serch field:",line)# не читает файл
+            if not re.search(r"\bSERIALIZE_FIELD\b", line):
                 continue
+            print("find serializable field in type ",class_name,line)
             # Ищем тип и имя поля
-            match = re.search(r"(\w+)\s+(\w+)", line)
+            match = None
+            match = re.search(r"SERIALIZE_FIELD\s+(.+?)\s+(\w+)", line)
             if match:
                 field_type = match.group(1)
                 field_name = match.group(2)
@@ -93,14 +110,16 @@ class SerializAnalizer:
                 # Ищем тип и имя поля на следующей строке
                 if i + 1 < len(lines):
                     next_line = lines[i + 1].strip()
-                    match = re.search(r"(\w+)\s+(\w+)", next_line)
+                    match = re.search(r"(.+?)\s+(\w+)", next_line)
                     if match:
                         field_type = match.group(1)
                         field_name = match.group(2)
                         self.serializable_types[class_name].fields[field_name] = field_type
             if not match:
-                self.errors.append(
-                    f"Ошибка в файле {file_path}({i}): SERIALIZE_FIELD найден, но имя поля не определено."
-                )
+                err =    f"Ошибка в типе {class_name} ({i}): SERIALIZE_FIELD найден, но поле не определено."
+                self.errors.append(err)
                 continue
-        return i
+
+    def find_type_name_in_line(self,text) :
+        pattern = rf"\b(?:{keywords_pattern})\b\s*(\w+)"
+        return re.search(pattern, text)

@@ -5,7 +5,7 @@
 SERIALIZE
 struct Text
 {
-	std::wstring content{};
+	SERIALIZE_FIELD std::wstring content{};
 	HFONT font{ nullptr };
 	SERIALIZE_FIELD float size = 40.0f;
 };

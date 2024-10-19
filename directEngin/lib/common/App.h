@@ -6,7 +6,7 @@
 #include "Scene/component_manager.h"
 #include <unordered_map>
 #include "Scene/system_manager.h"
-#include "../scene_loader.hpp"
+#include "Scene/scene_loader.hpp"
 
 class App
 {

@@ -21,7 +21,7 @@
 
 #include <chrono>  //используем chrono для работы со временем
 #include "serialization/xml_parser.hpp"
-#include "../scene_loader.hpp"
+
 void App::OnInit()
 {
 	////

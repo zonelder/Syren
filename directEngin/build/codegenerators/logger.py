@@ -7,6 +7,12 @@ logLevel = logging.INFO
 log = logging.getLogger("BuildScriptLogger")
 log.setLevel(logLevel)  # Уровень по умолчанию INFO
 # Формат вывода сообщений
+
+# Удаляем стандартные обработчики
+for handler in log.handlers:
+    if isinstance(handler, logging.StreamHandler):
+        log.removeHandler(handler)
+
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 # Вывод в консоль

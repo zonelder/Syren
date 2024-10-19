@@ -50,9 +50,6 @@
     <ClCompile Include="lib\common\Scene\entity_manager.cpp">
       <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="filters.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="lib\graphics\graphics.cpp">
       <Filter>app</Filter>
     </ClCompile>
@@ -125,9 +122,6 @@
     <ClCompile Include="lib\common\window.cpp">
       <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="WindowsMessageMap.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
     <ClCompile Include="lib\systems\ui_text_render.cpp">
       <Filter>system</Filter>
     </ClCompile>
@@ -141,11 +135,17 @@
     <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp">
       <Filter>third_party\pugixml</Filter>
     </ClCompile>
-    <ClCompile Include="scene_loader.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="lib\resmngr\xml_node.cpp">
       <Filter>resmngr</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\common\Scene\filters.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\common\windows_message_map.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\common\Scene\scene_loader.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,9 +196,6 @@
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\Scene\family_generator.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="filters.h">
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\game_cell.h">
@@ -300,9 +297,6 @@
     <ClInclude Include="lib\common\window.h">
       <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="WindowsMessageMap.h">
-      <Filter>app</Filter>
-    </ClInclude>
     <ClInclude Include="lib\systems\ui_text_render.h">
       <Filter>system</Filter>
     </ClInclude>
@@ -334,9 +328,17 @@
     <ClInclude Include="..\third_party\pugixml\src\pugixml.hpp">
       <Filter>third_party\pugixml</Filter>
     </ClInclude>
-    <ClInclude Include="scene_loader.hpp" />
     <ClInclude Include="lib\resmngr\xml_node.h">
       <Filter>resmngr</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\common\Scene\filters.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\common\windows_message_map.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\common\Scene\scene_loader.hpp">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

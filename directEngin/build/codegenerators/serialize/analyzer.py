@@ -1,6 +1,6 @@
 import os
 import re
-
+from logger import log
 
 type_key_words = [
     "class",
@@ -9,15 +9,33 @@ type_key_words = [
 
 keywords_pattern = "|".join(type_key_words)
 
+def get_relative_path(full_path: str, lib_dir: str) -> str:
+    # Преобразуем пути в абсолютные
+    full_path = os.path.abspath(full_path)
+    lib_dir = os.path.abspath(lib_dir)
+
+    # Получаем общий префикс для обоих путей
+    common_prefix = os.path.commonprefix([full_path, lib_dir])
+
+    # Определяем относительный путь от lib к файлу
+    relative_path = os.path.relpath(full_path, common_prefix)
+
+    # Удаляем часть пути к lib, если она присутствует
+    if relative_path.startswith(os.path.basename(lib_dir)):
+        relative_path = relative_path[len(os.path.basename(lib_dir)) + 1:]
+
+    return relative_path
+
 class SerializableType:
-    def __init__(self,name,fields) :
+    def __init__(self,name,path,fields) :
         self.name = name
+        self.path = path
         self.fields = fields
 
 
 class SerializAnalizer:
     def __init__(self, root_dir, extensions):
-        print("create serialize analyzer in folders (" + root_dir +"). with extensions" + str(extensions))
+        log.debug("create serialize analyzer in folders (" + root_dir +"). with extensions" + str(extensions))
         self.root_dir = root_dir
         self.extensions = extensions
         self.serializable_types = {}
@@ -25,7 +43,7 @@ class SerializAnalizer:
 
 
     def find_serializable_types(self):
-        print("serching serializable types in ",self.root_dir)
+        log.debug("serching serializable types in ",self.root_dir)
         for root,dirnames, files in os.walk(self.root_dir):
             for file in files:
                 if os.path.splitext(file)[1] in self.extensions :
@@ -37,7 +55,7 @@ class SerializAnalizer:
     def analyze_file(self, file_path):
         with open(file_path, "r") as file:
             lines = file.readlines()
-        print("Serialization::analyze file ",file_path)
+        log.debug("Serialization::analyze file ",file_path)
         skip_count = 0
         for i, line in enumerate(lines):
             if skip_count > 0 :
@@ -46,12 +64,11 @@ class SerializAnalizer:
 
             if re.search(r"^SERIALIZE$", line):
                 class_name = self.find_type_name(lines, i)
-                print("find SERIALIZE typename = ",class_name)# не читает файл
+                log.debug("find SERIALIZE typename = ",class_name)# не читает файл
                 if not class_name:
                     self.errors.append(f"Ошибка в файле {file_path}({i}): SERIALIZE найден, но класс не определен.")
                     continue
                 end_index = self.get_obj_lines(lines,i)
-                print("end index count:",end_index)
                 if end_index == -1 :
                     self.errors.append(f"Ошибка в файле {file_path}({i}): SERIALIZE найден, но класс не определен.")
                     continue
@@ -59,6 +76,7 @@ class SerializAnalizer:
                 skip_count = end_index - i
                 self.serializable_types[class_name] = SerializableType(
                     name=class_name,
+                    path = get_relative_path(file_path,self.root_dir),
                     fields={}  # Инициализируем словарь полей
                 )
 
@@ -95,10 +113,10 @@ class SerializAnalizer:
         # Ищем строки с SERIALIZE_FIELD
         for i in range(start_index, end_index):
             line = lines[i].strip()
-            print("serch field:",line)# не читает файл
+            log.debug("serch field:",line)# не читает файл
             if not re.search(r"\bSERIALIZE_FIELD\b", line):
                 continue
-            print("find serializable field in type ",class_name,line)
+            log.debug("find serializable field in type ",class_name,line)
             # Ищем тип и имя поля
             match = None
             match = re.search(r"SERIALIZE_FIELD\s+(.+?)\s+(\w+)", line)

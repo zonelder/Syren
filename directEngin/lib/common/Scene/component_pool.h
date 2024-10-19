@@ -3,9 +3,6 @@
 #include <unordered_map>
 
 #include "common/ñontainers/sparse_array.h"
-#include "../component_serializer.h"
-
-
 
 template<typename T>
 class ComponentPool final :public IComponentPool, public SparseArray<T, EntityID, MAX_ENTITY>

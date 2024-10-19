@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "serialization/component_serializer.h"
+#include "serialization/base.h"
 
 SERIALIZE
 struct Text

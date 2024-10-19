@@ -138,14 +138,15 @@
       <Filter>visual</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\tile_system.cpp" />
-    <ClCompile Include="xml_parser.cpp" />
     <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp">
       <Filter>third_party\pugixml</Filter>
     </ClCompile>
     <ClCompile Include="scene_loader.cpp">
       <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="component_serializer.cpp" />
+    <ClCompile Include="lib\resmngr\xml_node.cpp">
+      <Filter>resmngr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry.h" />
@@ -323,7 +324,6 @@
     <ClInclude Include="resource.h">
       <Filter>resource</Filter>
     </ClInclude>
-    <ClInclude Include="component_serializer.h" />
     <ClInclude Include="lib\components\tilemap.h" />
     <ClInclude Include="lib\systems\tile_system.h" />
     <ClInclude Include="tilemap.h" />
@@ -335,6 +335,9 @@
       <Filter>third_party\pugixml</Filter>
     </ClInclude>
     <ClInclude Include="scene_loader.hpp" />
+    <ClInclude Include="lib\resmngr\xml_node.h">
+      <Filter>resmngr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\test_texture.dds">
@@ -404,6 +407,9 @@
     </Filter>
     <Filter Include="build\codegenerators">
       <UniqueIdentifier>{f4adeef3-b9d7-4fa8-8036-b9e4d804952d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resmngr">
+      <UniqueIdentifier>{367d206e-6f77-40d7-a5fc-7b59838088ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

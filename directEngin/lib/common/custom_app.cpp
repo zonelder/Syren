@@ -20,9 +20,8 @@
 #include "components/tilemap.h"
 
 #include <chrono>  //используем chrono для работы со временем
-
-#include "../xml_parser.hpp"
-
+#include "serialization/xml_parser.hpp"
+#include "../scene_loader.hpp"
 void App::OnInit()
 {
 	////
@@ -32,11 +31,12 @@ void App::OnInit()
 	auto root = parser.root();
 	auto field = root.child("Field1");
 	DirectX::XMFLOAT3 def = { 0,0,0 };
+
+	auto trSer = Serializer<Transform>::deserialize(field);
 	auto v = field.value<DirectX::XMFLOAT3>(def);
 	//std::cout << field.identifier() << "  " << field.value<DirectX::XMFLOAT3>() << std::endl;
 	auto& gfx = _scene.getGraphic();
 
-	auto poolDeser = serializer<SceneManager>::s_poolDeserializer;
 	srand(time(0));
 	/// init systems
 	_systemManager.add<OrientationSystem>();

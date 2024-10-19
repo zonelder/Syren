@@ -1,5 +1,28 @@
-from serialize.analyzer import SerializAnalizer 
 import os
+import logging
+import sys
+
+logLevel = logging.INFO
+
+# Создаем глобальный логгер
+log = logging.getLogger("MyScriptLogger")
+log.setLevel(logLevel)  # Уровень по умолчанию INFO
+# Формат вывода сообщений
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# Вывод в консоль
+console_handler = logging.StreamHandler(sys.stdout)
+console_handler.setLevel(logLevel)  # Уровень по умолчанию INFO
+console_handler.setFormatter(formatter)
+log.addHandler(console_handler)
+
+#end global definitions
+
+
+from serialize.analyzer import SerializAnalizer 
+from serialize.generator import SerializerGenerator
+
+
 
 def get_lib_path(cur_dir,levels_up, lib_name="lib"):
     """
@@ -20,25 +43,24 @@ def get_lib_path(cur_dir,levels_up, lib_name="lib"):
     lib_path = os.path.join(cur_dir, lib_name)
     return lib_path
 
-print("----------start serching serialize properties----------")
-analyzer = SerializAnalizer(get_lib_path(os.path.abspath(__file__),3), [".cpp", ".h"])
+log.info("----------start serching serialize properties----------")
+libPath = get_lib_path(os.path.abspath(__file__),3)
+
+libGeneratedFolder = os.path.join(libPath,"generation_iternal")
+mainSerializerFile = "serializer_gen.h" # этот файлит будет собирать в себе все сериализаторы 
+analyzer = SerializAnalizer(libPath, [".cpp", ".h"])
 serializable_types, errors = analyzer.find_serializable_types()
 
 
 if errors and len(errors) >0 :
-    print("find errors:")
-    for error in errors:
-        print(error)
+    log.error("find errors:" + '\n'.join(errors))
 else:
     if(len(serializable_types.items()) == 0) :
-        print("there is not any user defined serializable types.")
+        log.info("there is not any user defined serializable types.")
     else :
-        print("Serializable types:")
-        for type_name, type_info in serializable_types.items():
-            print(f"  {type_info.name}")
-            print(f"    fields:")
-            for field_name, field_type in type_info.fields.items():
-                print(f"      {field_name}: {field_type}")
+
+        generator =  SerializerGenerator(libGeneratedFolder)
+        generator.generate_from_list(serializable_types.values())
 
 
-print("----------end searching serialize properties-----------")
+log.info("----------end searching serialize properties-----------")

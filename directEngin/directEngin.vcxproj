@@ -156,7 +156,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp" />
-    <ClCompile Include="component_serializer.cpp" />
     <ClCompile Include="filters.cpp" />
     <ClCompile Include="lib\common\app.cpp" />
     <ClCompile Include="lib\common\custom_app.cpp" />
@@ -183,6 +182,7 @@
     <ClCompile Include="lib\direct\DxgiInfoManager.cpp" />
     <ClCompile Include="lib\direct\dxerr.cpp" />
     <ClCompile Include="lib\graphics\graphics.cpp" />
+    <ClCompile Include="lib\resmngr\xml_node.cpp" />
     <ClCompile Include="lib\systems\camera_controller.cpp" />
     <ClCompile Include="lib\systems\cell_game.cpp" />
     <ClCompile Include="lib\systems\orientation_system.cpp" />
@@ -205,12 +205,10 @@
     <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex.cpp" />
     <ClCompile Include="scene_loader.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
-    <ClCompile Include="xml_parser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\third_party\pugixml\src\pugiconfig.hpp" />
     <ClInclude Include="..\third_party\pugixml\src\pugixml.hpp" />
-    <ClInclude Include="component_serializer.h" />
     <ClInclude Include="filters.h" />
     <ClInclude Include="lib\common\geometry.h" />
     <ClInclude Include="lib\common\geometry_cast.h" />
@@ -252,6 +250,7 @@
     <ClInclude Include="lib\direct\dxerr.h" />
     <ClInclude Include="lib\graphics\graphics.h" />
     <ClInclude Include="lib\common\app.h" />
+    <ClInclude Include="lib\resmngr\xml_node.h" />
     <ClInclude Include="lib\systems\camera_controller.h" />
     <ClInclude Include="lib\exeption\pointed_exception.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\pixel_shader.h" />

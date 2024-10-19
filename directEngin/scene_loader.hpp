@@ -1,6 +1,10 @@
 #pragma once
-#include "../xml_parser.hpp"
+#include "serialization/xml_parser.hpp"
 #include "common/Scene/scene_manager.h"
+
+//WARN this include must be generated in pre-build event. if you have error  with that. check build/init.py and pre-build event isssues
+#include "generation_iternal/agregator.h"
+
 
 class SceneLoader
 {

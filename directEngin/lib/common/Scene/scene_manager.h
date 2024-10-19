@@ -14,7 +14,6 @@
 #include "../filters.h"
 
 #include <functional>
-#include "../xml_parser.hpp"
 
 class SceneManager : private MeshPool
 {
@@ -191,24 +190,3 @@ private:
 	Camera _mainCamera;
 	Input _input;
 };
-
-
-
-
-
-template<class T>
-struct poolSerializer
-{
-	static void deserialize(XMLNode& poolNode, SceneManager& manager);
-};
-
-template<>
-struct serializer<SceneManager>
-{
-
-	static std::unordered_map<size_t, std::function<void(XMLNode, SceneManager&)>> s_poolDeserializer;
-
-	static void deserialize(XMLNode& node, SceneManager& manager);
-};
-
-

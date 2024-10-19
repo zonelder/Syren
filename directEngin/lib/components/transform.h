@@ -1,7 +1,7 @@
 #pragma once
 #include <DirectXMath.h>
 #include "graphics/Drawable/BindComponent/constant_buffer.h"
-#include "../serialization/component_serializer.h"
+#include "serialization/base.h"
 
 
 SERIALIZE

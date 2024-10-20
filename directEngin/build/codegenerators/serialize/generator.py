@@ -47,7 +47,7 @@ struct Serializer<{type.name}> {{
     static void serialize(XMLNode node, const {type.name}& value) {{
 """)
             for field_name, field_type in type.fields.items():
-                f.write(f"        Serializer<{field_type}>::serialize(node.saveGetChild(\"{field_name}\"), value.{field_name});\n")
+                f.write(self.serialize_field_str(field_type))
             f.write(f"""    }}
 
     static {type.name} deserialize(const XMLNode node) {{
@@ -55,8 +55,7 @@ struct Serializer<{type.name}> {{
 """)
 
             for field_name, field_type in type.fields.items():
-                f.write(f"        if ( auto fieldNode = node.child(\"{field_name}\"))\n")
-                f.write(f"            value.{field_name} = Serializer<{field_type}>::deserialize(fieldNode);\n")
+                f.write(self.deserialize_field_str(field_type))
 
             f.write(f"""        return value;
     }}
@@ -85,3 +84,40 @@ struct Serializer<{type.name}> {{
             # Инклуды файлов сериализаторов типов
             for type in types:
                 f.write(f'#include "{type.name}_serializer.h"\n')
+
+    def serialize_field_str(self,field_type) :
+        if not field_type.is_array() :
+            return f"        Serializer<{field_type.type}>::serialize(node.saveGetChild(\"{field_type.name}\"), value.{field_type.name});\n"
+        res = f"""        {{
+            auto arrayNode = node.saveGetChild(\"{field_type.name}\");
+            int i = 0;
+            for(auto it =  std::begin(value.{field_type.name});it != std::end(value.{field_type.name});++it)
+            {{
+                Serializer<{field_type.type}>::serialize(arrayNode.saveGetChild(std::to_string(i)),*it);
+                ++i;
+            }}
+        }}\n"""
+
+        return res
+
+
+
+    def deserialize_field_str(self,field_type) :
+        if not field_type.is_array() :
+            res = f"        if ( auto fieldNode = node.child(\"{field_type.name}\"))\n" 
+            res += f"            value.{field_type.name} = Serializer<{field_type.type}>::deserialize(fieldNode);\n"
+            return res
+
+            #TODO we may add Defaut property implementation here
+        res = f"""
+        if ( auto fieldNode = node.child(\"{field_type.name}\"))
+        {{
+            int i =0;
+            for(auto it =  std::begin(value.{field_type.name});it != std::end(value.{field_type.name});++it)
+            {{
+                if(auto indexNode = fieldNode.child(std::to_string(i++)))
+                    *it = indexNode.value<{field_type.type}>();
+            }}
+        }}\n"""
+        return res
+        

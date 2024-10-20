@@ -41,6 +41,14 @@ else:
         log.info("there is not any user defined serializable types.")
     else :
 
+        for n,type in serializable_types.items() :
+            log.info(n)
+            for name, t in type.fields.items() :
+                str  = f"     {t.type} {name}"
+                if(t.is_array()) :
+                    str+= f"{t.array_size }"
+                log.info(str)
+
         generator =  SerializerGenerator(libGeneratedFolder)
         generator.generate_from_list(serializable_types.values())
 

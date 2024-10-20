@@ -26,6 +26,16 @@ def get_relative_path(full_path: str, lib_dir: str) -> str:
 
     return relative_path
 
+class Field:
+    def __init__(self, name: str, field_type: str, array_size: str = None):
+        self.name = name
+        self.type = field_type
+        self.array_size = array_size
+
+    def is_array(self):
+        return self.array_size is not None
+
+
 class SerializableType:
     def __init__(self,name,path,fields) :
         self.name = name
@@ -119,24 +129,20 @@ class SerializAnalizer:
             log.debug("find serializable field in type ",class_name,line)
             # Ищем тип и имя поля
             match = None
-            match = re.search(r"SERIALIZE_FIELD\s+(.+?)\s+(\w+)", line)
-            if match:
-                field_type = match.group(1)
-                field_name = match.group(2)
-                self.serializable_types[class_name].fields[field_name] = field_type
-            else:
+
+            match = re.search(r"SERIALIZE_FIELD\s+(.+?)\s+(\w+)(\[.*?\])?", line)
+            if not match:
                 # Ищем тип и имя поля на следующей строке
                 if i + 1 < len(lines):
                     next_line = lines[i + 1].strip()
-                    match = re.search(r"(.+?)\s+(\w+)", next_line)
-                    if match:
-                        field_type = match.group(1)
-                        field_name = match.group(2)
-                        self.serializable_types[class_name].fields[field_name] = field_type
+                    match = re.search(r"(.+?)\s+(\w+)(\[.*?\])?", next_line)
             if not match:
                 err =    f"Ошибка в типе {class_name} ({i}): SERIALIZE_FIELD найден, но поле не определено."
                 self.errors.append(err)
                 continue
+            field = Field(match.group(2),match.group(1),match.group(3))
+            self.serializable_types[class_name].fields[field.name] = field
+            
 
     def find_type_name_in_line(self,text) :
         pattern = rf"\b(?:{keywords_pattern})\b\s*(\w+)"

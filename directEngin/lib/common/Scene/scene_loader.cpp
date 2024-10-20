@@ -1,5 +1,8 @@
 #include "scene_loader.hpp"
 #include <format>
+void SceneLoader::save(const std::string& path)
+{
+}
 bool SceneLoader::load(const std::string& path)
 {
 	if (!_xmlParser.loadFile(path))

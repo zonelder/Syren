@@ -91,7 +91,7 @@ struct Serializer<{type.name}> {{
         res = f"""        {{
             auto arrayNode = node.saveGetChild(\"{field_type.name}\");
             int i = 0;
-            for(auto it =  std::begin(value.{field_type.name});it != std::end(value.{field_type.name});++it)
+            for(auto it = std::begin(value.{field_type.name});it != std::end(value.{field_type.name});++it)
             {{
                 Serializer<{field_type.type}>::serialize(arrayNode.saveGetChild(std::to_string(i)),*it);
                 ++i;
@@ -113,7 +113,7 @@ struct Serializer<{type.name}> {{
         if ( auto fieldNode = node.child(\"{field_type.name}\"))
         {{
             int i =0;
-            for(auto it =  std::begin(value.{field_type.name});it != std::end(value.{field_type.name});++it)
+            for(auto it = std::begin(value.{field_type.name});it != std::end(value.{field_type.name});++it)
             {{
                 if(auto indexNode = fieldNode.child(std::to_string(i++)))
                     *it = indexNode.value<{field_type.type}>();

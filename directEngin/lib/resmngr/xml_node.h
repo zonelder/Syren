@@ -1,6 +1,6 @@
 #ifndef __XML_NODE_H__
 #define __XML_NODE_H__
-#include "../../third_party/pugixml/src/pugixml.hpp"
+#include "pugixml/src/pugixml.hpp"
 class ChildSentinel {};
 
 class XMLNode

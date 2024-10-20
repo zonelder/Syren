@@ -340,6 +340,9 @@
     <ClInclude Include="lib\common\Scene\scene_loader.hpp">
       <Filter>scene</Filter>
     </ClInclude>
+    <ClInclude Include="lib\common\Scene\scene_saver.h">
+      <Filter>scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\test_texture.dds">

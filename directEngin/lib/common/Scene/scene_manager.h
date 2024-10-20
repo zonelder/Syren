@@ -12,6 +12,7 @@
 #include <ranges>
 
 #include "filters.h"
+#include "resmngr/xml_node.h"
 
 #include <functional>
 
@@ -190,3 +191,24 @@ private:
 	Camera _mainCamera;
 	Input _input;
 };
+
+
+template<>
+struct Serializer<SceneManager>
+{
+	static void serialize(XMLNode node, const SceneManager& scene)
+	{
+		auto poolsNode = node.saveGetChild("pools");
+		if (!poolsNode)
+		{
+			std::cerr << "cant find or create node for scene pools";
+			return;
+		}
+
+	}
+
+	static void deserialize(XMLNode node, SceneManager& scene)
+	{
+
+	}
+}

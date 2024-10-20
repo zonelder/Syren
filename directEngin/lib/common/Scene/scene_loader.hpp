@@ -11,6 +11,7 @@ class SceneLoader
 public:
 	SceneLoader(SceneManager& sceneManager) noexcept : _sceneManager(sceneManager) {}
 
+	void save(const std::string& path);
 
 	bool load(const std::string& path);
 

@@ -72,6 +72,12 @@ public:
 		return *(_ComponentManager.getPool<T>());
 	}
 	template<typename T>
+	const ComponentPool<T>& getPool() const
+	{
+		return *(_ComponentManager.getPool<T>());
+	}
+
+	template<typename T>
 	ComponentPool<T>& getPoolByGuid(std::string& guid)
 	{
 
@@ -184,6 +190,11 @@ public:
 	void onEndFrame();
 
 	const Entity& getEntity(EntityID id) const noexcept;
+
+	const auto pools() const noexcept
+	{
+		return _ComponentManager.pools();
+	}
 private:
 	Graphics _gfx;
 	ComponentManager _ComponentManager;
@@ -191,24 +202,3 @@ private:
 	Camera _mainCamera;
 	Input _input;
 };
-
-
-template<>
-struct Serializer<SceneManager>
-{
-	static void serialize(XMLNode node, const SceneManager& scene)
-	{
-		auto poolsNode = node.saveGetChild("pools");
-		if (!poolsNode)
-		{
-			std::cerr << "cant find or create node for scene pools";
-			return;
-		}
-
-	}
-
-	static void deserialize(XMLNode node, SceneManager& scene)
-	{
-
-	}
-}

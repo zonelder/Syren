@@ -1,4 +1,5 @@
 #include <Windows.h>
+
 #include <sstream>
 #include "lib/common/app.h"
 #include "lib/exeption/pointed_exception.h"

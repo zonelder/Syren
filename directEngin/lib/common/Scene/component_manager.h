@@ -28,7 +28,19 @@ public:
 		if (!_pools.contains(id))
 			return addPool<T>();
 
-		ComponentPool<T>* ptr = dynamic_cast<ComponentPool<T>*>(_pools[id]);
+		ComponentPool<T>* ptr = static_cast<ComponentPool<T>*>(_pools[id]);
+		return ptr;
+	}
+
+	template<typename T>
+	const ComponentPool<T>* getPool() const
+	{
+
+		ComponentID id = Family::type_id<T>();
+		auto it = _pools.find(id);
+		if (it == _pools.end())
+			return nullptr;
+		const ComponentPool<T>* ptr = static_cast<const ComponentPool<T>*>(it->second);
 		return ptr;
 	}
 
@@ -61,6 +73,11 @@ public:
 	}
 
 	~ComponentManager();
+
+	const auto& pools() const noexcept
+	{
+		return _pools;
+	}
 
 private:
 

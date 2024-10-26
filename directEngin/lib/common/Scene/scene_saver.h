@@ -3,6 +3,7 @@
 
 #include "resmngr/xml_node.h"
 #include "scene_manager.h"
+#include "generation_iternal/agregator.h"
 
 
 #include <iostream>
@@ -13,7 +14,7 @@ public:
     void save(const std::string& path, const SceneManager& scene) {
         // Создаем документ XML
         pugi::xml_document doc;
-        pugi::xml_node root = doc.append_child("Scene");  // Создаем корневой узел "Scene"
+        pugi::xml_node root = doc.append_child("scene");  // Создаем корневой узел "Scene"
 
         // Сериализуем SceneManager
         Serializer<SceneManager>::serialize(root, scene);

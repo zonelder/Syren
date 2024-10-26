@@ -1,5 +1,8 @@
 #include "scene_loader.hpp"
 #include <format>
+#include "generation_iternal/scene_serializer.h"
+
+/*
 void SceneLoader::save(const std::string& path)
 {
 }
@@ -10,21 +13,6 @@ bool SceneLoader::load(const std::string& path)
 
 	auto root = _xmlParser.root();
 	auto pools = root.child("pools");
-
-	for (auto pPool : pools)
-	{
-		auto poolName = pPool.value<std::string>();
-		if (poolName.empty())
-		{
-			std::cerr<<std::format("Error: error occured while parsing the scene {}. Pool name is empty.\n",path);
-			continue;
-		}
-		if (!loadPool(pPool))
-		{
-			std::cerr<<std::format("Error: error occured while parsing the scene {}. Failed to load pool{}\n",path, poolName);
-			continue;
-		}
-	}
 
 	return true;
 }
@@ -43,10 +31,5 @@ bool SceneLoader::loadPool(const XMLNode& node)
 	{
 		std::cerr<< std::format("Error: error occured while parsing the scene. Pool {} has empty guid.\n",node.value<std::string>());
 	}
-	//auto pool = _sceneManager.getPoolByGuid<int>(guid);
-	for (auto compSection : node.child("components"))
-	{
-
-	}
 	return false;
-}
+}*/

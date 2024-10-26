@@ -116,25 +116,20 @@ DirectX::XMFLOAT4X4 XMLNode::value<DirectX::XMFLOAT4X4>(const DirectX::XMFLOAT4X
 ///TODO реализуй value методы для других классов из DirectXMath
 
 
-childIterator XMLNode::begin() noexcept
-{
-	return childIterator(pBaseNode_);
-}
-
 [[nodiscard]]
-bool operator==(const childIterator& a, const childIterator& b) noexcept
+bool operator==(const ChildIterator& a, const ChildIterator& b) noexcept
 {
 	return a.pBaseNode() == b.pBaseNode();
 }
 
 [[nodiscard]]
-bool operator==(const childIterator& a, const ChildSentinel&) noexcept
+bool operator==(const ChildIterator& a, const ChildSentinel&) noexcept
 {
 	return a.pBaseNode() == nullptr;
 }
 
 [[nodiscard]]
-bool operator==(const ChildSentinel&, const childIterator& a) noexcept
+bool operator==(const ChildSentinel&, const ChildIterator& a) noexcept
 {
 	return a.pBaseNode() == nullptr;
 }
@@ -173,4 +168,10 @@ void XMLNode::setValue<DirectX::XMVECTOR>(const DirectX::XMVECTOR& def)
 		DirectX::XMVectorGetByIndex(def, 2),
 		DirectX::XMVectorGetByIndex(def, 3)
 		).c_str());
+}
+
+[[nodiscard]]
+ChildRange XMLNode::childs() const
+{
+	return ChildRange(pBaseNode_.first_child());
 }

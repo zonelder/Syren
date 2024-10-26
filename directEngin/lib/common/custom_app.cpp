@@ -21,6 +21,7 @@
 
 #include <chrono>  //используем chrono для работы со временем
 #include "serialization/xml_parser.hpp"
+#include "Scene/scene_saver.h"
 
 void App::OnInit()
 {
@@ -34,6 +35,9 @@ void App::OnInit()
 
 	auto trSer = Serializer<Transform>::deserialize(field);
 	auto v = field.value<DirectX::XMFLOAT3>(def);
+
+	SceneSaver saver;
+
 	//std::cout << field.identifier() << "  " << field.value<DirectX::XMFLOAT3>() << std::endl;
 	auto& gfx = _scene.getGraphic();
 
@@ -95,7 +99,7 @@ void App::OnInit()
 
 		}
 	}
-
+	saver.save("my_scene.xml",_scene);
 	_scene.addComponent<Selected>(map.tiles[0, 0]->entt);
 
 

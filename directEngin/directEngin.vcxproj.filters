@@ -147,6 +147,7 @@
     <ClCompile Include="lib\common\Scene\scene_loader.cpp">
       <Filter>scene</Filter>
     </ClCompile>
+    <ClCompile Include="lib\generation_iternal\scene_serializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry.h" />

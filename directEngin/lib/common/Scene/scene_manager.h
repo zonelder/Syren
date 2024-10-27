@@ -1,20 +1,23 @@
 #pragma once
-#include "Camera/camera.h"
-#include "../window.h"
 #include <unordered_map>
+#include <functional>
+
+#include "common/window.h"
+#include "common/input.h"
+
+#include "Camera/camera.h"
+
+#include "mesh_pool.h"
 #include "component_pool.h"
 #include "component_manager.h"
+
 #include "components/render.h"
 #include "components/transform.h"
-#include "../input.h"
+
 #include "entity_manager.h"
-#include "mesh_pool.h"
-#include <ranges>
-
 #include "filters.h"
-#include "resmngr/xml_node.h"
 
-#include <functional>
+
 
 class SceneManager : private MeshPool
 {

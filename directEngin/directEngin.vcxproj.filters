@@ -135,7 +135,7 @@
     <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp">
       <Filter>third_party\pugixml</Filter>
     </ClCompile>
-    <ClCompile Include="lib\resmngr\xml_node.cpp">
+    <ClCompile Include="lib\resmngr\xml_node.ipp">
       <Filter>resmngr</Filter>
     </ClCompile>
     <ClCompile Include="lib\common\Scene\filters.cpp">

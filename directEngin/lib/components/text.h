@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "serialization/base.h"
+#include <Windows.h>
 
 SERIALIZE
 struct Text

@@ -1,3 +1,5 @@
+#ifndef __XML_NODE_INL_H__
+#define __XML_NODE_INL_H__
 #include "xml_node.h"
 #include <DirectXMath.h>
 #include <sstream>
@@ -175,3 +177,6 @@ ChildRange XMLNode::childs() const
 {
 	return ChildRange(pBaseNode_.first_child());
 }
+
+
+#endif 

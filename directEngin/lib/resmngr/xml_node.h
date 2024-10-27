@@ -1,6 +1,7 @@
 #ifndef __XML_NODE_H__
 #define __XML_NODE_H__
 #include "pugixml/src/pugixml.hpp"
+
 class ChildSentinel {};
 class ChildRange;
 class XMLNode
@@ -139,5 +140,7 @@ public:
 private:
 	ChildIterator begin_;
 };
+
+#include "xml_node.ipp"
 
 #endif //!__XML_NODE_H__

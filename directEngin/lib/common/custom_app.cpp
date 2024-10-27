@@ -20,21 +20,11 @@
 #include "components/tilemap.h"
 
 #include <chrono>  //используем chrono для работы со временем
-#include "serialization/xml_parser.hpp"
 #include "Scene/scene_saver.h"
 
 void App::OnInit()
 {
 	////
-	std::string file = "test_xml.xml";
-	XMLParser parser;
-	parser.loadFile(file);
-	auto root = parser.root();
-	auto field = root.child("Field1");
-	DirectX::XMFLOAT3 def = { 0,0,0 };
-
-	auto trSer = Serializer<Transform>::deserialize(field);
-	auto v = field.value<DirectX::XMFLOAT3>(def);
 
 	SceneSaver saver;
 

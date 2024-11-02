@@ -1,6 +1,8 @@
-#ifndef __XML_NODE_H__
-#define __XML_NODE_H__
+#ifndef __SYREN_XML_NODE_H__
+#define __SYREN_XML_NODE_H__
 
+
+#pragma message("compiling file xml_node.h as new.")
 #include "pugixml/src/pugixml.hpp"
 #include <Windows.h>
 #include <DirectXMath.h>
@@ -148,7 +150,9 @@ private:
 };
 
 
-
+#ifndef __SYREN_XML_NODE_IPP__
+#define __SYREN_XML_NODE_IPP__
+#pragma message("compiling file xml_node.ipp as new.")
 template<>
 int XMLNode::value<int>(int def) const
 {
@@ -348,5 +352,5 @@ ChildRange XMLNode::childs() const
 	return ChildRange(pBaseNode_.first_child());
 }
 
-
-#endif //!__XML_NODE_H__
+#endif //!__SYREN_XML_NODE_IPP__
+#endif //!__SYREN_XML_NODE_H__

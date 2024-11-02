@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -78,7 +78,6 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)DirectXTK-main\Inc;$(ProjectDir)lib;$(ProjectDir)..\third_party</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -185,6 +184,7 @@
     <ClCompile Include="lib\direct\DxgiInfoManager.cpp" />
     <ClCompile Include="lib\direct\dxerr.cpp" />
     <ClCompile Include="lib\graphics\graphics.cpp" />
+    <ClCompile Include="lib\resmngr\xml_node.ipp" />
     <ClCompile Include="lib\systems\camera_controller.cpp" />
     <ClCompile Include="lib\systems\cell_game.cpp" />
     <ClCompile Include="lib\systems\orientation_system.cpp" />
@@ -219,6 +219,7 @@
     <ClInclude Include="lib\common\Scene\mesh_pool.h" />
     <ClInclude Include="lib\common\Scene\scene_base.h" />
     <ClInclude Include="lib\common\Scene\scene_loader.hpp" />
+    <ClInclude Include="lib\common\Scene\scene_saver.h" />
     <ClInclude Include="lib\common\transform_utils.h" />
     <ClInclude Include="lib\common\windows_message_map.h" />
     <ClInclude Include="lib\components\game_cell.h" />
@@ -275,6 +276,7 @@
     <ClInclude Include="lib\common\Scene\system_manager.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex.h" />
     <ClInclude Include="tilemap.h" />
+    <ClInclude Include="unimplemented_error.h" />
     <ClInclude Include="xml_parser.hpp" />
   </ItemGroup>
   <ItemGroup>

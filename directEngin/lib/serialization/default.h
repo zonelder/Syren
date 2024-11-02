@@ -13,6 +13,11 @@ struct Serializer
 	{
 		return node.value<T>();
 	}
+
+	static void deserialize(XMLNode node, T& value)
+	{
+		value = node.value<T>();
+	}
 };
 
 #endif // !__SERIALIZATION_DEFAULT__

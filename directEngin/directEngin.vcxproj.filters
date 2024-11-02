@@ -135,9 +135,6 @@
     <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp">
       <Filter>third_party\pugixml</Filter>
     </ClCompile>
-    <ClCompile Include="lib\resmngr\xml_node.ipp">
-      <Filter>resmngr</Filter>
-    </ClCompile>
     <ClCompile Include="lib\common\Scene\filters.cpp">
       <Filter>scene</Filter>
     </ClCompile>
@@ -338,9 +335,6 @@
       <Filter>app</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\Scene\scene_loader.hpp">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\scene_saver.h">
       <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>

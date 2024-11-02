@@ -38,28 +38,32 @@ class SerializerGenerator:
 #include <fstream>
 #include <string>
 
-//#include "../resmngr/xml_node.h"
-//#include "..\{type.path}"
-
 template<class T>
 struct Serializer;
 
 template <>
 struct Serializer<{type.name}> {{
-    static void serialize(XMLNode node, const {type.name}& value) {{
+    static void serialize(XMLNode node, const {type.name}& value) 
+    {{
 """)
             for field_name, field_type in type.fields.items():
                 f.write(self.serialize_field_str(field_type))
             f.write(f"""    }}
 
-    static {type.name} deserialize(const XMLNode node) {{
+    static {type.name} deserialize(const XMLNode node) 
+    {{
         {type.name} value;
+        deserialize(node,value);
+        return value;
+    }}
+    
+    static void deserialize(const XMLNode node,{type.name}& value)
+    {{
 """)
-
             for field_name, field_type in type.fields.items():
                 f.write(self.deserialize_field_str(field_type))
 
-            f.write(f"""        return value;
+            f.write(f"""
     }}
 }};
 
@@ -111,8 +115,9 @@ struct Serializer<{type.name}> {{
 
     def deserialize_field_str(self,field_type) :
         if not field_type.is_array() :
-            res = f"        if ( auto fieldNode = node.child(\"{field_type.name}\"))\n" 
-            res += f"            value.{field_type.name} = Serializer<{field_type.type}>::deserialize(fieldNode);\n"
+            res = f"        if ( auto fieldNode = node.child(\"{field_type.name}\"))\n"
+
+            res += f"           Serializer<{field_type.type}>::deserialize(fieldNode,value.{field_type.name});\n"
             return res
 
             #TODO we may add Defaut property implementation here
@@ -133,11 +138,12 @@ struct Serializer<{type.name}> {{
             f.write(f"""
 #ifndef __SCENE_SERIALIZE_GENERATED__
 #define __SCENE_SERIALIZE_GENERATED__
-#include \"..\common\Scene\scene_manager.h";
-//#include "serialization\default.h"
+
 #include <functional>
 #include <string>
 #include <unordered_map>
+
+#include "common/Scene/scene_manager.h"
 
 struct PoolSerializer
 {{
@@ -167,6 +173,23 @@ struct PoolSerializer
 
     static void deserialize(XMLNode poolsNode,SceneManager& manager)
     {{
+        if(poolsNode.identifier() != "pools")
+        {{
+            std::cerr << "PoolSerializer::serialize: get invalid node to serialization.\\n";
+            return;
+        }}
+
+        for (auto& pool : poolsNode.childs())
+        {{
+            auto it = deserialize_pool.find(pool.identifier());
+            if(it == deserialize_pool.end())
+            {{
+                std::cerr << "PoolSerializer::deserialize: attempt to deserialize pool but exact type is unknown."<<std::endl;
+                continue;
+            }}
+            it->second(pool,manager);
+        }}
+
 
     }}
 }};
@@ -178,6 +201,12 @@ struct Serializer<SceneManager>
     {{
         auto poolsNode = node.saveGetChild("pools");
         PoolSerializer::serialize(poolsNode,manager);
+    }}
+
+    static void deserialize(XMLNode node,SceneManager& manager)
+    {{
+        auto poolsNode = node.saveGetChild("pools");
+        PoolSerializer::deserialize(poolsNode,manager);
     }}
 }};
 
@@ -200,7 +229,7 @@ constexpr auto get_pool_loader()
         {{
             auto enttID =  std::stoi(dataNode.identifier());
             auto& comp = manager.addComponent<T>(enttID);
-            comp = Serializer<T>::deserialize(dataNode);
+            Serializer<T>::deserialize(dataNode,comp);
         }}
     }};
 }};

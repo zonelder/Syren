@@ -1,10 +1,13 @@
-#pragma once
-/*
-#include "serialization/xml_parser.hpp"
-#include "common/Scene/scene_manager.h"
+#ifndef __SCENE_LOADER__
+#define __SCENE_LOADER__
 
-//WARN this include must be generated in pre-build event. if you have error  with that. check build/init.py and pre-build event isssues
-//#include "generation_iternal/agregator.h"
+#include "serialization/xml_parser.hpp"
+#include "scene_manager.h"
+
+#include <stdexcept>
+#include <iostream>
+#include <fstream>
+
 
 
 class SceneLoader
@@ -12,17 +15,22 @@ class SceneLoader
 public:
 	SceneLoader(SceneManager& sceneManager) noexcept : _sceneManager(sceneManager) {}
 
-	void save(const std::string& path);
+	void save(const std::string& path, const SceneManager& scene);
 
 	bool load(const std::string& path);
 
 	bool loadPool(const XMLNode& node);
 
-	bool unload(const std::string& path);
+	bool unload(const std::string& path)
+	{
+		throw std::runtime_error("SceneLoader::unload: function Not implemented");
+	}
 
 private:
 
 	XMLParser _xmlParser;
 	std::vector<std::string> _loadedScenes;
 	SceneManager& _sceneManager;
-};*/
+};
+
+#endif //

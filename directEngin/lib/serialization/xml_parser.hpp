@@ -1,7 +1,15 @@
 #pragma once
-#include "resmngr/xml_node.h"
+//#include "resmngr/xml_node.h"
 #include <string>
 #include <iostream>
+
+class XMLNode;
+
+namespace pugi
+{
+	struct xml_parse_result;
+	class xml_document;
+}
 
 class XMLParser
 {
@@ -25,11 +33,11 @@ private:
 	
 	static bool handleResult(const pugi::xml_parse_result& res)
 	{
-		if (!res)
+		/*if (!res)
 		{
 			std::cerr << "Parsing Error:: " << res.description() << std::endl;
 			return false;
-		}
+		}*/
 		return true;
 	}
 

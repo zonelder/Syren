@@ -1,4 +1,5 @@
 #pragma once
+/*
 #include "serialization/xml_parser.hpp"
 #include "common/Scene/scene_manager.h"
 
@@ -24,4 +25,4 @@ private:
 	XMLParser _xmlParser;
 	std::vector<std::string> _loadedScenes;
 	SceneManager& _sceneManager;
-};
+};*/

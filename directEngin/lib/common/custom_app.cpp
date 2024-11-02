@@ -26,7 +26,7 @@ void App::OnInit()
 {
 	////
 
-	SceneSaver saver;
+	//SceneSaver saver;
 
 	//std::cout << field.identifier() << "  " << field.value<DirectX::XMFLOAT3>() << std::endl;
 	auto& gfx = _scene.getGraphic();
@@ -89,7 +89,7 @@ void App::OnInit()
 
 		}
 	}
-	saver.save("my_scene.xml",_scene);
+	//saver.save("D:\\my_scene.xml",_scene);
 	_scene.addComponent<Selected>(map.tiles[0, 0]->entt);
 
 

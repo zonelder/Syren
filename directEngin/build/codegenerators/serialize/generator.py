@@ -18,7 +18,7 @@ class SerializerGenerator:
             self.generate(type)
 
         self.generate_pools_serializer_header(serializableTypesList,os.path.join(self.output_path,"scene_serializer.h"))
-        self.generate_pools_serializer_cpp(serializableTypesList,os.path.join(self.output_path,"scene_serializer.cpp"),"agregator.h")
+        self.generate_pools_serializer_cpp(serializableTypesList,os.path.join(self.output_path,"scene_serializer.ipp"),"agregator.h")
         self.generate_aggregator_file(serializableTypesList,os.path.join(self.output_path,"agregator.h"))
 
     def generate(self,type : SerializableType) :
@@ -89,6 +89,7 @@ struct Serializer<{type.name}> {{
                 f.write(f'#include "{type.name}_serializer.h"\n')
 
             f.write('#include "scene_serializer.h"\n')
+            f.write('#include "scene_serializer.ipp"\n')
             f.write('#endif')
 
     def serialize_field_str(self,field_type) :
@@ -133,7 +134,7 @@ struct Serializer<{type.name}> {{
 #ifndef __SCENE_SERIALIZE_GENERATED__
 #define __SCENE_SERIALIZE_GENERATED__
 #include \"..\common\Scene\scene_manager.h";
-#include "serialization\default.h"
+//#include "serialization\default.h"
 #include <functional>
 #include <string>
 #include <unordered_map>
@@ -179,13 +180,16 @@ struct Serializer<SceneManager>
         PoolSerializer::serialize(poolsNode,manager);
     }}
 }};
+
 #endif
 """)
     def generate_pools_serializer_cpp(self,types,path,agreg) :
 
         with open(path, "w") as f:
-            f.write(f"""#include "{agreg}"\n""")
+           # f.write(f"""#include "{agreg}"\n""")
             f.write(f"""
+#ifndef __SCENE_SERIALIZER_IPP__
+#define __SCENE_SERIALIZER_IPP__
 template<typename T>
 constexpr auto get_pool_loader()
 {{
@@ -233,5 +237,7 @@ constexpr auto get_pool_saver()
 
             for type in types :
                 f.write(f"""\n        {{Family::type_id<{type.name}>(),"{type.name}\"}},""")
-            f.write(f"""\n}};""");
+            f.write(f"""\n}};
+#endif//            
+            """);
 

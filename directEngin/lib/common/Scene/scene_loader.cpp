@@ -1,6 +1,5 @@
-#include "scene_loader.hpp"
+
 #include <format>
-#include "generation_iternal/scene_serializer.h"
 
 /*
 void SceneLoader::save(const std::string& path)

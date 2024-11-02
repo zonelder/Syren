@@ -1,6 +1,5 @@
 #ifndef __SERIALIZATION_DEFAULT__
 #define __SERIALIZATION_DEFAULT__
-#include "../resmngr/xml_node.h"
 
 template<typename T>
 struct Serializer
@@ -15,7 +14,5 @@ struct Serializer
 		return node.value<T>();
 	}
 };
-
-//TODO implement default serializers
 
 #endif // !__SERIALIZATION_DEFAULT__

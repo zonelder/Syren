@@ -5,18 +5,7 @@ from serialize.analyzer import SerializAnalizer
 from serialize.generator import SerializerGenerator
 
 
-
 def get_lib_path(cur_dir,levels_up, lib_name="lib"):
-    """
-    Возвращает путь к папке lib, находящейся на указанном количестве уровней выше текущей папки.
-
-    Args:
-        levels_up (int): Количество уровней выше текущей папки.
-        lib_name (str, optional): Имя папки lib. По умолчанию "lib".
-
-    Returns:
-        str: Путь к папке lib.
-    """
 
     for _ in range(levels_up):
         cur_dir = os.path.dirname(cur_dir)

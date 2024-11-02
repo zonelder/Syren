@@ -172,7 +172,6 @@
     <ClCompile Include="lib\components\material.cpp" />
     <ClCompile Include="lib\components\mesh.cpp" />
     <ClCompile Include="lib\components\mesh_iternal.cpp" />
-    <ClCompile Include="lib\generation_iternal\scene_serializer.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\texture.cpp" />
     <ClCompile Include="lib\common\Scene\component_manager.cpp" />
     <ClCompile Include="lib\common\Scene\component_pool.cpp" />

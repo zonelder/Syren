@@ -1,14 +1,18 @@
 #ifndef __SYREN_XML_NODE_H__
 #define __SYREN_XML_NODE_H__
 
-
-#pragma message("compiling file xml_node.h as new.")
 #include "pugixml/src/pugixml.hpp"
 #include <Windows.h>
 #include <DirectXMath.h>
 #include <sstream>
 #include <format>
 #include <string>
+
+#define VALUE_METHOD_DECLARATION(type) type value(type def = type()) const;
+#define REF_VALUE_METHOD_DECLARATION(type) type value(const type& def = type()) const;
+
+#define SETVALUE_METHOD_DECLARATION(type) void setValue(type value);
+#define REF_SETVALUE_METHOD_DECLARATION(type) void setValue(const type& value);
 
 class ChildSentinel {};
 class ChildRange;
@@ -30,13 +34,6 @@ public:
 		return pBaseNode_.name();
 	}
 
-	/*
-	//TODO заменить на свою Обертку Range
-	[[nodiscard]] auto childs(const std::string& identifier) const
-	{
-		return pBaseNode_.children(identifier.c_str());
-	}
-	*/
 	[[nodiscard]] ChildRange childs() const;
 
 	[[nodiscard]] XMLNode child(const std::string& identifier) const
@@ -55,12 +52,40 @@ public:
 
 		return XMLNode(child);
 	}
+	//<primitive types>
+	VALUE_METHOD_DECLARATION(bool);
+	VALUE_METHOD_DECLARATION(int);
+	VALUE_METHOD_DECLARATION(unsigned int);
+	VALUE_METHOD_DECLARATION(size_t);
+	VALUE_METHOD_DECLARATION(float);
+	VALUE_METHOD_DECLARATION(double);
 
-	template<class T>requires (!std::is_fundamental_v<T>)
-		T value(const T& def = T()) const;
+	SETVALUE_METHOD_DECLARATION(bool);
+	SETVALUE_METHOD_DECLARATION(int);
+	SETVALUE_METHOD_DECLARATION(unsigned int);
+	SETVALUE_METHOD_DECLARATION(size_t);
+	SETVALUE_METHOD_DECLARATION(float);
+	SETVALUE_METHOD_DECLARATION(double);
+	//</primitive types>
 
-	template<class T> requires std::is_fundamental_v<T>
-	T value(T def = T()) const;
+	//<reference types>
+	REF_VALUE_METHOD_DECLARATION(std::string);
+	REF_VALUE_METHOD_DECLARATION(std::wstring);
+	REF_VALUE_METHOD_DECLARATION(DirectX::XMFLOAT3);
+	REF_VALUE_METHOD_DECLARATION(DirectX::XMFLOAT2);
+	REF_VALUE_METHOD_DECLARATION(DirectX::XMVECTOR);
+	REF_VALUE_METHOD_DECLARATION(DirectX::XMMATRIX);
+	REF_VALUE_METHOD_DECLARATION(DirectX::XMFLOAT4X4);
+
+	REF_SETVALUE_METHOD_DECLARATION(std::string);
+	REF_SETVALUE_METHOD_DECLARATION(std::wstring);
+	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMFLOAT3);
+	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMFLOAT2);
+	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMVECTOR);
+	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMMATRIX);
+	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMFLOAT4X4);
+
+	//</reference types>
 
 	operator bool() const
 	{
@@ -68,9 +93,10 @@ public:
 	}
 
 	template<typename T>
-	void setValue(const T& v);
-
-
+	T value(const T& def = T()) const
+	{
+		return value(def);
+	}
 private:
 
 	auto text() const
@@ -150,207 +176,10 @@ private:
 };
 
 
-#ifndef __SYREN_XML_NODE_IPP__
-#define __SYREN_XML_NODE_IPP__
-#pragma message("compiling file xml_node.ipp as new.")
-template<>
-int XMLNode::value<int>(int def) const
-{
-	return text().as_int(def);
-}
+#undef VALUE_METHOD_DECLARATION
+#undef REF_VALUE_METHOD_DECLARATION
 
-template<>
-std::string XMLNode::value<std::string>(const std::string& def) const
-{
-	return text().as_string(def.c_str());
-}
-template<>
-std::wstring XMLNode::value<std::wstring>(const std::wstring& def) const
-{
-	//TODO create string_utils.h and replace this mess with good-lokking code
-	auto str = text().as_string(nullptr);
-	if (!str)
-	{
-		return def;
-	}
-	int size = MultiByteToWideChar(CP_UTF8, 0, str, -1, nullptr, 0);
-	std::wstring wstr(size, L'\0'); // Создаем строку с нужным размером
+#undef SETVALUE_METHOD_DECLARATION
+#undef REF_SETVALUE_METHOD_DECLARATION
 
-	MultiByteToWideChar(CP_UTF8, 0, str, -1, wstr.data(), size);
-	return wstr;
-
-}
-
-template<>
-float XMLNode::value<float>(float def) const
-{
-	return text().as_float(def);
-}
-
-template<>
-bool XMLNode::value<bool>(bool def) const
-{
-	return text().as_bool(def);
-}
-
-template<>
-size_t XMLNode::value<size_t>(size_t def) const
-{
-	return text().as_ullong(def);
-}
-
-
-/////// DirectX Data Types ///////
-template<>
-DirectX::XMFLOAT3 XMLNode::value<DirectX::XMFLOAT3>(const DirectX::XMFLOAT3& def) const
-{
-	std::stringstream ss(text().get());
-	float x, y, z;
-	ss >> x >> y >> z;
-	if (ss.fail())
-	{
-		return def;
-	}
-	return { x, y, z };
-}
-
-template<>
-DirectX::XMFLOAT2 XMLNode::value<DirectX::XMFLOAT2>(const DirectX::XMFLOAT2& def) const
-{
-	std::stringstream ss(text().get());
-	float x, y;
-	ss >> x >> y;
-	if (ss.fail())
-	{
-		return def;
-	}
-	return { x,y };
-}
-
-template<>
-DirectX::XMVECTOR XMLNode::value<DirectX::XMVECTOR>(const DirectX::XMVECTOR& def) const
-{
-	std::stringstream ss(text().get());
-	float x, y, z, w;
-	ss >> x >> y >> z >> w;
-	if (ss.fail())
-	{
-		return def;
-	}
-	return DirectX::XMVectorSet(x, y, z, w);
-}
-
-template<>
-DirectX::XMMATRIX XMLNode::value<DirectX::XMMATRIX>(const DirectX::XMMATRIX& def) const
-{
-	std::stringstream ss(text().get());
-	DirectX::XMFLOAT4X4 matrix;
-	for (int i = 0; i < 4; ++i)
-	{
-		for (int j = 0; j < 4; ++j)
-		{
-			ss >> matrix.m[i][j];
-		}
-	}
-	if (ss.fail())
-	{
-		return def;
-	}
-	return DirectX::XMLoadFloat4x4(&matrix);
-}
-
-template<>
-DirectX::XMFLOAT4X4 XMLNode::value<DirectX::XMFLOAT4X4>(const DirectX::XMFLOAT4X4& def) const
-{
-	std::stringstream ss(text().get());
-	DirectX::XMFLOAT4X4 matrix;
-	for (int i = 0; i < 4; ++i)
-	{
-		for (int j = 0; j < 4; ++j)
-		{
-			ss >> matrix.m[i][j];
-		}
-	}
-	if (ss.fail())
-	{
-		return def;
-	}
-	return matrix;
-}
-
-
-///TODO реализуй value методы для других классов из DirectXMath
-
-
-[[nodiscard]]
-bool operator==(const ChildIterator& a, const ChildIterator& b) noexcept
-{
-	return a.pBaseNode() == b.pBaseNode();
-}
-
-[[nodiscard]]
-bool operator==(const ChildIterator& a, const ChildSentinel&) noexcept
-{
-	return a.pBaseNode() == nullptr;
-}
-
-[[nodiscard]]
-bool operator==(const ChildSentinel&, const ChildIterator& a) noexcept
-{
-	return a.pBaseNode() == nullptr;
-}
-
-
-////////////SETTERS/////////////////////
-
-template<typename T>
-void XMLNode::setValue(const T& v)
-{
-	text().set(v);
-}
-
-
-
-template<>
-void XMLNode::setValue<std::string>(const std::string& val)
-{
-	text().set(val.c_str());
-}
-
-template<>
-void XMLNode::setValue<std::wstring>(const std::wstring& val)
-{
-	//TODO create string_utils.h and replace this mess with good-lokking code
-	int size = WideCharToMultiByte(CP_UTF8, 0, val.c_str(), -1, nullptr, 0, nullptr, nullptr);
-	std::string str(size, '\0');
-	WideCharToMultiByte(CP_UTF8, 0, val.c_str(), -1, str.data(), size, nullptr, nullptr);
-	text().set(str.c_str());
-}
-
-template<>
-void XMLNode::setValue<DirectX::XMFLOAT3>(const DirectX::XMFLOAT3& def)
-{
-	text().set(std::format("{} {} {}", def.x, def.y, def.z).c_str());
-}
-
-
-template<>
-void XMLNode::setValue<DirectX::XMVECTOR>(const DirectX::XMVECTOR& def)
-{
-
-	text().set(std::format("{} {} {} {}",
-		DirectX::XMVectorGetByIndex(def, 0),
-		DirectX::XMVectorGetByIndex(def, 1),
-		DirectX::XMVectorGetByIndex(def, 2),
-		DirectX::XMVectorGetByIndex(def, 3)
-	).c_str());
-}
-
-[[nodiscard]]
-ChildRange XMLNode::childs() const
-{
-	return ChildRange(pBaseNode_.first_child());
-}
-
-#endif //!__SYREN_XML_NODE_IPP__
 #endif //!__SYREN_XML_NODE_H__

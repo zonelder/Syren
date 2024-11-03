@@ -6,17 +6,17 @@ struct Serializer
 {
 	static void serialize(XMLNode node, const T& value)
 	{
-		node.setValue<T>(value);
+		node.setValue(value);
 	}
 
 	static T deserialize(XMLNode node)
 	{
-		return node.value<T>();
+		return node.value(T());
 	}
 
 	static void deserialize(XMLNode node, T& value)
 	{
-		value = node.value<T>();
+		value = node.value(T());
 	}
 };
 

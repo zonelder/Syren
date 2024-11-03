@@ -185,6 +185,7 @@
     <ClCompile Include="lib\direct\DxgiInfoManager.cpp" />
     <ClCompile Include="lib\direct\dxerr.cpp" />
     <ClCompile Include="lib\graphics\graphics.cpp" />
+    <ClCompile Include="lib\resmngr\xml_node.cpp" />
     <ClCompile Include="lib\systems\camera_controller.cpp" />
     <ClCompile Include="lib\systems\cell_game.cpp" />
     <ClCompile Include="lib\systems\orientation_system.cpp" />

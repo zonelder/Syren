@@ -114,19 +114,19 @@ public:
 	}
 
 	template<>
-	Transform& addComponent(const Entity& entt)
+	Transform& addComponent(EntityID entt)
 	{
-		auto entt_id = entt.getID();
-		auto& tr = addComponent<Transform>(entt_id);
+		_entityManager.registerComponent(entt, Family::type_id<Transform>());
+		auto& tr =  _ComponentManager.addComponent<Transform>(entt);
 		tr.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(_gfx, tr.orientationMatrix);
 		return tr;
 	}
 
 	template<>
-	Render& addComponent(const Entity& entt)
+	Render& addComponent(EntityID entt)
 	{
-		auto entt_id = entt.getID();
-		auto& r = addComponent<Render>(entt_id);
+		_entityManager.registerComponent(entt, Family::type_id<Render>());
+		auto& r = _ComponentManager.addComponent<Render>(entt);
 		r.topology= Topology(_gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		return r;
 	}

@@ -219,20 +219,47 @@ struct Serializer<SceneManager>
             f.write(f"""
 #ifndef __SCENE_SERIALIZER_IPP__
 #define __SCENE_SERIALIZER_IPP__
+#include <limits>
+#include <format>
+#include <cstdio>
+
+#undef max
+
+size_t getEntityID(const std::string& entityStr)
+{{
+    constexpr size_t separator_prefix_size = 7;// we expect string like "Entity_10" if its not save - something get wront;
+    std::string numberString = entityStr.substr(separator_prefix_size);
+    size_t number = std::stoi(numberString);//Possibly can throw
+    return number;
+}}
+
+std::string getEntityStr(size_t id)
+{{
+    return std::format("Entity_{{}}",id);
+}}
+
 template<typename T>
 constexpr auto get_pool_loader()
 {{
     return [](XMLNode node,SceneManager& manager)
     {{
         manager.getPool<T>();// in case pool did not load earlier this method create it;
-        for(auto dataNode : node.childs())
+        for(auto enttNode : node.childs())
         {{
-            auto enttID =  std::stoi(dataNode.identifier());
+            auto enttID = getEntityID(enttNode.identifier());
+            if(enttID == std::numeric_limits<size_t>::max())
+            {{
+                std::cerr<< "cant read entity data in pool"<<std::endl;
+                continue;
+            }}
+            auto dataNode  = enttNode.saveGetChild("data");
             auto& comp = manager.addComponent<T>(enttID);
             Serializer<T>::deserialize(dataNode,comp);
         }}
     }};
 }};
+
+
 
 template<typename T>
 constexpr auto get_pool_saver()
@@ -247,7 +274,7 @@ constexpr auto get_pool_saver()
 
        for(;eIt != eend;++eIt,++dataIt)
        {{
-            auto enttNode =  node.saveGetChild(std::to_string(*eIt));
+            auto enttNode =  node.saveGetChild(getEntityStr(*eIt));
             auto dataNode = enttNode.saveGetChild("data");
             Serializer<T>::serialize(dataNode,*dataIt);
         }}

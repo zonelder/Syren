@@ -25,8 +25,8 @@ bool SceneLoader::load(const std::string& path)
 	if (!_xmlParser.loadFile(path))
 		return false;
 
-	auto root = _xmlParser.root();
-	auto scene = root.child("scene");
+	auto scene = _xmlParser.root();
+	//auto scene = root.child("scene");
 
 	// Сериализуем SceneManager
 	Serializer<SceneManager>::deserialize(scene, _sceneManager);

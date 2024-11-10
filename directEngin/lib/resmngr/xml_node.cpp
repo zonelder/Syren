@@ -194,7 +194,7 @@ void XMLNode::setValue(const DirectX::XMVECTOR& def)
 
 [[nodiscard]] ChildRange XMLNode::childs() const
 {
-	return ChildRange(pBaseNode_.first_child());
+	return ChildRange(pBaseNode_);
 }
 
 

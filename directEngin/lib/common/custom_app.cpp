@@ -52,6 +52,9 @@ void App::OnInit()
 	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
 
 	auto p_plane_mesh = _scene.make2SidedPlaneMesh();
+
+	_scene.saveMesh(p_plane_mesh, ".\\plane.syrenmesh");
+	auto ploadedMesh = _scene.loadMesh(".\\plane.syrenmesh");
 	/*
 	const int cellInLine = 3;
 	for (int i = 0; i < cellInLine *2; i+=2)
@@ -92,10 +95,6 @@ void App::OnInit()
 	saver.save("D:\\my_scene.xml",_scene);
 	//saver.load("D:\\my_scene.xml");
 	_scene.addComponent<Selected>(map.tiles[0][0].entt);
-
-
-
-
 
 
 	//*/

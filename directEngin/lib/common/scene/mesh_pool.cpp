@@ -104,7 +104,7 @@ bool ResourceManager::loadMeshInternal(MeshPtr pMesh,const std::string& file)
 	size_t indexCount = 0u;
 	size_t colorCount =  0u;
 
-	if (!fileHandler >> vertexCount)
+	if (!(fileHandler >> vertexCount))
 	{
 		return false;
 	}
@@ -159,6 +159,7 @@ bool ResourceManager::loadMeshInternal(MeshPtr pMesh,const std::string& file)
 
 	fileHandler.close();
 	pMesh->resourceID = file;
+	meshHelpers::updateBB(pMesh.get());
 
 	return true;
 

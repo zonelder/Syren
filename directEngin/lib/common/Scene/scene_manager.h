@@ -170,6 +170,19 @@ public:
 
 	MeshPtr make2SidedPlaneMesh();
 
+	bool saveMesh(MeshPtr pMesh, const std::string& resourceID)
+	{
+		if (!pMesh)
+			return false;
+		_ResourceManager.saveMesh(pMesh, resourceID);
+		return true;
+	}
+
+	MeshPtr loadMesh(const std::string& resourceID)
+	{
+		return _ResourceManager.getMesh(resourceID);
+	}
+
 	void onStartFrame();
 
 

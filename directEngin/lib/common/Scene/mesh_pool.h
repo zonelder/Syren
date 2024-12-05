@@ -5,13 +5,15 @@
 #include "components/mesh_iternal.h"
 
 
-using meshPtrVector = std::vector<std::shared_ptr<MeshIternal>>;
+using meshPtrVector = std::vector<std::shared_ptr<MeshInternal>>;
 
 struct Mesh;
 class VertexShader;
 class PixelShader;
-class Material;
+struct Material;
 
+using MeshPtr = std::shared_ptr<Mesh>;
+/*
 class MeshPool
 {
 public:
@@ -23,47 +25,49 @@ public:
 		Graphics& gfx,
 		const std::vector<Vertex>& vertices,
 		const std::vector<unsigned short>& indices,
-		const MeshIternal::ConstantBuffer2& colors
+		const MeshInternal::ConstantBuffer2& colors
 	);
 
-	MeshIternal* getMesh(Mesh* mesh) const noexcept;
+	MeshInternal* getMesh(Mesh* mesh) const noexcept;
 
 private:
 
 	meshPtrVector meshes_;
 	std::vector<Mesh> wrappers_;
 };
-
+*/
 /// @brief class that control loading of Resources. it handles construct\destruct login by itsself.
 /// deleting anything that has been returned from ResourceManager emits UB 
 class ResourceManager
 {
 public:
+	ResourceManager(Graphics& gfx);
+
 	//@seems to need getResource<T>()
 	template<class T>
-	using ResourceContainer_t = std::unordered_map<std::string,T>;
+	using ResourceContainer_t = std::unordered_map<std::string,std::shared_ptr<T>>;
 
 	template<class T>
 	using UnhandleResources_t = std::vector<T>;
 
 	//getters
-	Mesh* getMesh(const std::string& resourceID);
+	MeshPtr getMesh(const std::string& resourceID);
 	VertexShader* getVertexShader(const std::string& resourceID);
 	PixelShader* getPixelShader(const std::string& resorceID);
 	Material* getMaterial(const std::string& resourceID);
 
 
 	//build resource on run
-	bool saveMesh(const Mesh* pMesh,const std::string& resourceID);
+	bool saveMesh(const MeshPtr pMesh,const std::string& resourceID);
 	bool saveMaterial(const Material* pMaterial, const std::string& resourceID);
 
 private:
-	bool loadMeshIternal(Mesh& mesh,const std::string& file);
-	bool saveMeshIternal(const Mesh& mesh, const std::string& file);
+	bool loadMeshInternal(MeshPtr mesh,const std::string& file);
+	bool saveMeshInternal(const MeshPtr mesh, const std::string& file);
 
 private:
-	Graphics& gfx_;//to init buffers;
-
+	Graphics& _gfx;//to init buffers;
+	//TODO fonts and textures also should count as resources.
 	ResourceContainer_t<Mesh>			meshes_;
 	ResourceContainer_t<VertexShader>	vertexShaders_;
 	ResourceContainer_t<PixelShader>	pixelShaders_;

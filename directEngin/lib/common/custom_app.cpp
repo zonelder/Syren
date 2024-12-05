@@ -63,7 +63,7 @@ void App::OnInit()
 			Render& r = _scene.addComponent<Render>(entt);
 			GameCell& cell = _scene.addComponent<GameCell>(entt);
 
-			r.p_mesh = p_plane_mesh;
+			r.pMesh = p_plane_mesh;
 			t.position = { (float)i,(float)j,0.0f };
 
 		}
@@ -81,17 +81,17 @@ void App::OnInit()
 			_scene.addComponent<Tile>(tileEntt);
 			Transform& t = _scene.addComponent<Transform>(tileEntt);
 			Render& r = _scene.addComponent<Render>(tileEntt);
-			r.p_mesh = p_plane_mesh;
-			r.p_material = _scene.makeMaterial();
-			r.p_material->texture.set(gfx,nullptr);
-			r.p_material->color = { 0,0,0,1 };
+			r.pMesh = p_plane_mesh;
+			r.pMaterial = _scene.makeMaterial();
+			r.pMaterial->texture.set(gfx,nullptr);
+			r.pMaterial->color = { 0,0,0,1 };
 			t.position = { (float)(2*x),(float)(2*y),10.0f };
 
 		}
 	}
 	saver.save("D:\\my_scene.xml",_scene);
 	//saver.load("D:\\my_scene.xml");
-	_scene.addComponent<Selected>(map.tiles[0, 0]->entt);
+	_scene.addComponent<Selected>(map.tiles[0][0].entt);
 
 
 
@@ -113,8 +113,8 @@ void App::OnInit()
 	tr.xSence = 0.0f;
 	tr.ySence = 1.0f;
 	tr.zSence = 1.0f;
-	r.p_mesh = makeBoxMesh();
-	r.p_material = material;
+	r.pMesh = makeBoxMesh();
+	r.pMaterial = material;
 
 	EntityID second = 1;
 	Transform& t2 = addComponent<Transform>(second);sys
@@ -124,8 +124,8 @@ void App::OnInit()
 	tr2.xSence = 1.0f;
 	tr2.ySence = 0.0f;
 	tr2.zSence = 1.0f;
-	r2.p_mesh = makeCylinderMesh();
-	r2.p_material = material;
+	r2.pMesh = makeCylinderMesh();
+	r2.pMaterial = material;
 	t2.scale.y = 3.0f;
 	* /
 
@@ -139,8 +139,8 @@ void App::OnInit()
 	//tr.xSence = 0.0f;
 	//Text& text = _scene.addComponent<Text>(id);
 	//text.content = L"Test Content";
-	r.p_mesh = p_plane_mesh;
-	r.p_material = material;
+	r.pMesh = p_plane_mesh;
+	r.pMaterial = material;
 	t.position = { 0.0f,0.0f,0.0f};
 
 	const auto& entt2 = _scene.createEntity();
@@ -152,8 +152,8 @@ void App::OnInit()
 	tr2.xSence = 0.0f;
 	//Text& text = _scene.addComponent<Text>(id);
 	//text.content = L"Test Content";
-	r2.p_mesh = p_plane_mesh;
-	r2.p_material = material;
+	r2.pMesh = p_plane_mesh;
+	r2.pMaterial = material;
 	t2.position = { 1.0f,0.0f,0.0f };
 
 	const auto& entt3 = _scene.createEntity();
@@ -165,8 +165,8 @@ void App::OnInit()
 	tr3.xSence = 0.0f;
 	//Text& text = _scene.addComponent<Text>(id);
 	//text.content = L"Test Content";
-	r3.p_mesh = p_plane_mesh;
-	r3.p_material = material;
+	r3.pMesh = p_plane_mesh;
+	r3.pMaterial = material;
 	t3.position = { 1.0f,2.0f,0.0f };
 
 	const auto& plane_view = _scene.createEntity();

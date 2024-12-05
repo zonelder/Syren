@@ -4,6 +4,8 @@
 #include "../graphics/Drawable/BindComponent/input_layout.h"
 #include "../graphics/Drawable/BindComponent/texture.h" 
 
+#include <memory>
+
 struct Material
 {
 public:
@@ -22,3 +24,5 @@ private:
 	InputLayout _inputLayer;
 
 };
+
+using MaterialPtr = std::shared_ptr<Material>;

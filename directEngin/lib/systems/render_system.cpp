@@ -23,7 +23,7 @@ void RenderSystem::renderOne(Render& render,Transform& transform,const Transform
 {
 	Graphics& gfx = _scene.getGraphic();
 	auto* context = gfx.getContext();
-	MeshIternal* mesh = _scene.getMeshData(render.p_mesh);
+	MeshInternal mesh(gfx,render.pMesh.get());//maybe we can create an instance once and just ypdate the buffers
 	INFOMAN(gfx);
 
 	///update transform buffer
@@ -40,17 +40,17 @@ void RenderSystem::renderOne(Render& render,Transform& transform,const Transform
 
 	// use binds
 	transform.vertexConstantBuffer.bind(gfx);
-	mesh->bind(gfx);
+	mesh.bind(gfx);
 
 	// general material color
-	context->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.p_material->color), sizeof(DirectX::XMFLOAT4), 0);
+	context->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.pMaterial->color), sizeof(DirectX::XMFLOAT4), 0);
 	context->PSSetConstantBuffers(1u, 1u, p_colorConstantBuffer.GetAddressOf());
 
-	render.p_material->bind(gfx);
+	render.pMaterial->bind(gfx);
 	render.topology.bind(gfx);
 	//draw
 
-	gfx.DrawIndexed(render.p_mesh->IndexCount,render.p_mesh->startIndex);
+	gfx.DrawIndexed(render.pMesh->indices.size()/*TODO change to index count data in mesh*/, render.pMesh->startIndex);
 }
 
 void RenderSystem::DeepRender(RenderView& view,Transform& cam,EntityID id )
@@ -91,7 +91,7 @@ void RenderSystem::onFrame(SceneManager& scene)
 	auto& commponView = scene.view<filters::With<Render, Transform>, filters::Without<Parent>>();
 	for (auto [antt, r, tr] : commponView)
 	{
-		auto color = r.p_material->color;
+		auto color = r.pMaterial->color;
 		auto x = std::abs(color.x -1.0f);
 		renderOne(r, tr, camTr);
 	}

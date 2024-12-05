@@ -19,7 +19,7 @@
 
 
 
-class SceneManager : private MeshPool
+class SceneManager
 {
 public:
 	SceneManager(const Window& wnd);
@@ -163,23 +163,12 @@ public:
 	/// @return - material with a given shaders
 	std::shared_ptr<Material> makeMaterial(const wchar_t* vertexShader = L"VertexShader.cso", const wchar_t* pixelShader = L"PixelShader.cso");
 
-	/// @brief create new mesh and return ptr to it
-	/// @return 
-	Mesh* makeMesh(
-		const std::vector<Vertex>& vertices,
-		const std::vector<unsigned short> &indices,
-		const MeshIternal::ConstantBuffer2& colors
-	);
 
+	MeshPtr makeBoxMesh();
 
-	MeshIternal* getMeshData(Mesh* meshComponent) const noexcept;
+	MeshPtr makeCylinderMesh(unsigned int n = 8);
 
-
-	Mesh* makeBoxMesh();
-
-	Mesh* makeCylinderMesh(unsigned int n = 8);
-
-	Mesh* make2SidedPlaneMesh();
+	MeshPtr make2SidedPlaneMesh();
 
 	void onStartFrame();
 
@@ -194,12 +183,13 @@ public:
 
 	const Entity& getEntity(EntityID id) const noexcept;
 
-	const auto pools() const noexcept
+	const auto& pools() const noexcept
 	{
 		return _ComponentManager.pools();
 	}
 private:
 	Graphics _gfx;
+	ResourceManager _ResourceManager;
 	ComponentManager _ComponentManager;
 	EntityManager _entityManager;
 	Camera _mainCamera;

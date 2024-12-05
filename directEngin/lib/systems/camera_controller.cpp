@@ -18,7 +18,7 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 	/*
 	for (auto& entt : scene.getEntitiesWith<Render>())
 	{
-		auto mat = scene.getComponent<Render>(entt).p_material;
+		auto mat = scene.getComponent<Render>(entt).pMaterial;
 		mat->color.x = sinf(time);
 		mat->color.z = 1 - mat->color.x;
 		break;

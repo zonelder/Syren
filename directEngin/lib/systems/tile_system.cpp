@@ -25,8 +25,8 @@ void TileSystem::onUpdate(SceneManager& scene,float time)
 
 				scene.removeComponent<Selected>(data.entt);
 				auto& r = view.get<Render>(data.entt);
-				r.p_material->color = { 0.0f,0.0f,0.0f,1.0f };
-				auto oldMat = r.p_material;
+				r.pMaterial->color = { 0.0f,0.0f,0.0f,1.0f };
+				auto oldMat = r.pMaterial;
 				int x_random = 1 - 2*(rand() % 2);
 				if (x_random + x >= 10)
 					x_random = 0;
@@ -43,7 +43,7 @@ void TileSystem::onUpdate(SceneManager& scene,float time)
 				const auto& newSelectedData = chunk.tiles[x_random+x][y_random+y];
 				scene.addComponent<Selected>(newSelectedData.entt);
 				r = view.get<Render>(newSelectedData.entt);
-				r.p_material->color = { 1.0f,0.0f,0.0f,1.0f };
+				r.pMaterial->color = { 1.0f,0.0f,0.0f,1.0f };
 				return;
 
 			}

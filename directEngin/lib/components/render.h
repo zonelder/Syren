@@ -8,8 +8,8 @@
 
 struct Render
 {
-	Mesh* p_mesh;
-	std::shared_ptr<Material> p_material;
+	MeshPtr pMesh;
+	MaterialPtr pMaterial;
 	Topology topology;
 	bool is_rendered;
 

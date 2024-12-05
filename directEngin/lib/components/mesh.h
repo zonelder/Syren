@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <memory>
+
+#include <DirectXMath.h>
 
 struct Color
 {
@@ -10,6 +13,15 @@ struct Color
 	float a{ 1.0f };
 };
 
+struct BoundingBox
+{
+	using Position = DirectX::XMFLOAT3;
+	Position minBound;
+	Position maxBound;
+};
+
+struct Vertex;
+
 struct Mesh
 {
 	//in case i will implement more catch friendly container
@@ -17,7 +29,7 @@ struct Mesh
 	using ElementContainer = std::vector<T>;
 public:
 	Mesh() = default;
-	Mesh(size_t id, size_t MeshSize);
+	Mesh(ElementContainer<Vertex>&& verts, ElementContainer<unsigned short>&& inds, ElementContainer<Color>&& colors);
 	std::string resourceID;
 	size_t IndexCount;
 	size_t startIndex;
@@ -25,4 +37,12 @@ public:
 	ElementContainer<Vertex> vertexes;
 	ElementContainer<unsigned short> indices;
 	ElementContainer< Color > colors;
+	BoundingBox boundingBox;
 };
+
+using MeshPtr = std::shared_ptr<Mesh>;
+
+namespace meshHelpers
+{
+	void updateBB(Mesh* pMesh);
+}

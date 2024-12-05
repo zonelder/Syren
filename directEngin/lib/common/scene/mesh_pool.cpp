@@ -1,8 +1,11 @@
 #include "mesh_pool.h"
 #include "components/mesh.h"
+#include "components/material.h"
+#include "graphics/Drawable/BindComponent/vertex_shader.h"
+#include "graphics/Drawable/BindComponent/pixel_shader.h"
+
 #include <filesystem>
 #include <fstream>
-#include "resmngr/xml_node.h"
 
 namespace fileSystem
 {
@@ -40,31 +43,23 @@ namespace fileSystem
 	}
 }
 
-Mesh* MeshPool::addMesh(Graphics& gfx,const std::vector<Vertex>& vertices, const std::vector<unsigned short>& indices, const MeshIternal::ConstantBuffer2& colors)
-{
-	meshes_.emplace_back(new  MeshIternal(gfx, vertices, indices, colors));
-	wrappers_.emplace_back(meshes_.size()-1,std::size(indices));
-	return &(wrappers_.back());
-}
-
-MeshIternal* MeshPool::getMesh(Mesh* mesh) const noexcept
-{
-	return meshes_[mesh->id].get();
-}
-
 /// @brief //////////////////////RESOURCE MANAGER ////////////////////
 
 
 
+ResourceManager::ResourceManager(Graphics& gfx) : _gfx(gfx)
+{
+}
+
 /// @brief getPtr to exact resource.if resource isnot loaded then load it and return to user;
 /// @param resourceID full path to resource;
 /// @return 
-Mesh* ResourceManager::getMesh(const std::string& resourceID)
+MeshPtr ResourceManager::getMesh(const std::string& resourceID)
 {
 	auto it = meshes_.find(resourceID);
 	if (it != meshes_.end())
 	{
-		return &(it->second);
+		return (it->second);
 	}
 
 	if (fileSystem::getExtension(resourceID) != "syrenmesh")
@@ -72,28 +67,29 @@ Mesh* ResourceManager::getMesh(const std::string& resourceID)
 		//TODO(log) an error
 		return nullptr;
 	}
-	meshes_[resourceID] = Mesh();
-	auto res = loadMeshIternal(meshes_[resourceID],resourceID);
+	meshes_[resourceID] = std::make_shared<Mesh>();
+
+	auto res = loadMeshInternal(meshes_[resourceID],resourceID);
 	if (!res)
 	{
 		meshes_.erase(resourceID);
 		return nullptr;
 	}
-	return &(meshes_[resourceID]);
+	return meshes_[resourceID];
 }
 
-bool ResourceManager::saveMesh(const Mesh* pMesh, const std::string& resourceID)
+bool ResourceManager::saveMesh(const MeshPtr pMesh, const std::string& resourceID)
 {
 	if (fileSystem::getExtension(resourceID) != "syrenmesh")
 	{
 		//TODO(log) an error
 		return false;
 	}
-	//TODO check if this mesh is unhandled mesh and make it handeled;
-	return saveMeshIternal(*pMesh, resourceID);
+	//TODO check if this pMesh is unhandled pMesh and make it handeled;
+	return saveMeshInternal(pMesh, resourceID);
 }
 
-bool ResourceManager::loadMeshIternal(Mesh& mesh,const std::string& file)
+bool ResourceManager::loadMeshInternal(MeshPtr pMesh,const std::string& file)
 {
 	if(!fileSystem::fileExist(file))
 		return false;
@@ -104,16 +100,18 @@ bool ResourceManager::loadMeshIternal(Mesh& mesh,const std::string& file)
 		return false;
 	}
 	std::string line;
-	size_t vertexCount,indexCount,colorCount;
+	size_t vertexCount = 0u;
+	size_t indexCount = 0u;
+	size_t colorCount =  0u;
 
 	if (!fileHandler >> vertexCount)
 	{
 		return false;
 	}
-	mesh.vertexes.reserve(vertexCount);
+	pMesh->vertexes.reserve(vertexCount);
 	for (size_t i = 0; i < vertexCount; ++i)
 	{
-		auto& v = mesh.vertexes.emplace_back();
+		auto& v = pMesh->vertexes.emplace_back();
 		auto pos = v.position.m128_f32;
 		if (!(fileHandler >> pos[0] >> pos[1] >> pos[2]))
 		{
@@ -132,11 +130,11 @@ bool ResourceManager::loadMeshIternal(Mesh& mesh,const std::string& file)
 		return false;
 	}
 
-	mesh.indices.reserve(indexCount);
+	pMesh->indices.reserve(indexCount);
 
 	for (size_t i = 0; i < indexCount; ++i)
 	{
-		auto& index = mesh.indices.emplace_back();
+		auto& index = pMesh->indices.emplace_back();
 		if (!(fileHandler >> index))
 		{
 			return false;
@@ -148,11 +146,11 @@ bool ResourceManager::loadMeshIternal(Mesh& mesh,const std::string& file)
 		return false;
 	}
 
-	mesh.colors.reserve(colorCount);
+	pMesh->colors.reserve(colorCount);
 
 	for (size_t i = 0; i < colorCount; ++i)
 	{
-		auto& color = mesh.colors.emplace_back();
+		auto& color = pMesh->colors.emplace_back();
 		if (!(fileHandler >> color.r >> color.g >> color.b >> color.a))
 		{
 			return false;
@@ -160,13 +158,13 @@ bool ResourceManager::loadMeshIternal(Mesh& mesh,const std::string& file)
 	}
 
 	fileHandler.close();
-	mesh.resourceID = file;
+	pMesh->resourceID = file;
 
 	return true;
 
 }
 
-bool ResourceManager::saveMeshIternal(const Mesh& mesh, const std::string& filename)
+bool ResourceManager::saveMeshInternal(const MeshPtr pMesh, const std::string& filename)
 {
 	std::ofstream file(filename);
 	if (!file.is_open()) 
@@ -174,22 +172,22 @@ bool ResourceManager::saveMeshIternal(const Mesh& mesh, const std::string& filen
 		return false;
 	}
 
-	file << mesh.vertexes.size() << std::endl;
-	for (const auto& vertex : mesh.vertexes) 
+	file << pMesh->vertexes.size() << std::endl;
+	for (const auto& vertex : pMesh->vertexes) 
 	{
 		auto pos = vertex.position.m128_f32;
 		file << pos[0] << " " << pos[1] << " " << pos[2] << std::endl;
 		file << vertex.uv.x << " " << vertex.uv.y << std::endl;
 	}
 
-	file << mesh.indices.size() << std::endl;
-	for (const auto& index : mesh.indices) 
+	file << pMesh->indices.size() << std::endl;
+	for (const auto& index : pMesh->indices) 
 	{
 		file << index << std::endl;
 	}
 
-	file << mesh.colors.size() << std::endl;
-	for (const auto& color : mesh.colors) 
+	file << pMesh->colors.size() << std::endl;
+	for (const auto& color : pMesh->colors) 
 	{
 		file << color.r << " " << color.g << " " << color.b << " " << color.a << std::endl;
 	}

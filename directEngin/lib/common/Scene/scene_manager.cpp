@@ -1,7 +1,7 @@
 #include "scene_manager.h"
 
 
-SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()),_input(wnd.inputHandler)
+SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()),_input(wnd.inputHandler),_ResourceManager(_gfx)
 {
 
 }
@@ -99,20 +99,6 @@ std::shared_ptr<Material> SceneManager::makeMaterial(const wchar_t* vertexShader
 
 	return mat;
 }
-
-
-Mesh* SceneManager::makeMesh(
-	const std::vector<Vertex>& vertices,
-	const std::vector<unsigned short>& indices,
-	const MeshIternal::ConstantBuffer2& colors
-)
-{
-	return addMesh(_gfx, vertices, indices, colors);
-}
-MeshIternal* SceneManager::getMeshData(Mesh* meshComponent) const noexcept
-{
-	return getMesh(meshComponent);
-}
 /*
 std::shared_ptr<Mesh>  SceneManager::makeBoxMesh()
 {
@@ -190,9 +176,11 @@ std::shared_ptr<Mesh>  SceneManager::makeCylinderMesh(unsigned int n)
 }
 */
 
-Mesh* SceneManager::make2SidedPlaneMesh()
+MeshPtr SceneManager::make2SidedPlaneMesh()
 {
-	auto mesh = makeMesh({
+	MeshPtr mesh = std::make_shared<Mesh>();
+	mesh->vertexes = 
+	{
 		{{ -1.0f,-1.0f,0.0f,},{0.0f,1.0f}},
 		{{ -1.0f,1.0f,0.0f, },{0.0f,0.0f}},
 		{{ 1.0f,1.0f,0.0f,  },{1.0f,0.0f}},
@@ -202,17 +190,13 @@ Mesh* SceneManager::make2SidedPlaneMesh()
 		{{ -1.0f,1.0f,0.0f, },{0.0f,0.0f}},
 		{{ 1.0f,1.0f,0.0f,  },{1.0f,0.0f}},
 		{{  1.0f,-1.0f,0.0f, },{1.0f,1.0f}},
-		},
+	};
+	mesh->indices =
 	{
 	0,2,1, 0,3,2,
 	4,5,6, 4,6,7,
-	},
-	{
-		{
-			{0.4f,1.0f,1.0f},
-			{1.0f,0.0f,0.0f},
-		}
-	}
-	);
+	};
+
+	meshHelpers::updateBB(mesh.get());
 	return mesh;
 }

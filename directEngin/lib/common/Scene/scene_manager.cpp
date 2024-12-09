@@ -93,9 +93,12 @@ const Input& SceneManager::getInput() const noexcept
 }
 
 
-std::shared_ptr<Material> SceneManager::makeMaterial(const wchar_t* vertexShader, const wchar_t* pixelShader)
+MaterialPtr SceneManager::makeMaterial(const char* vertexShader, const char* pixelShader)
 {
-	auto mat = std::make_shared<Material>(_gfx, vertexShader, pixelShader);
+	auto mat = std::make_shared<Material>(_gfx);
+
+	mat->pVertexShader = _ResourceManager.getVertexShader(vertexShader);
+	mat->pPixelShader = _ResourceManager.getPixelShader(pixelShader);
 
 	return mat;
 }

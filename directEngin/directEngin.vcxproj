@@ -173,6 +173,7 @@
     <ClCompile Include="lib\components\material.cpp" />
     <ClCompile Include="lib\components\mesh.cpp" />
     <ClCompile Include="lib\components\mesh_iternal.cpp" />
+    <ClCompile Include="lib\cstdmf\string_converter.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\texture.cpp" />
     <ClCompile Include="lib\common\Scene\component_manager.cpp" />
     <ClCompile Include="lib\common\Scene\component_pool.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="lib\components\tilemap.h" />
     <ClInclude Include="lib\components\timed_rotation.h" />
     <ClInclude Include="lib\components\transform.h" />
+    <ClInclude Include="lib\cstdmf\string_converter.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\texture.h" />
     <ClInclude Include="lib\common\Scene\component_manager.h" />
     <ClInclude Include="lib\common\Scene\component_pool.h" />

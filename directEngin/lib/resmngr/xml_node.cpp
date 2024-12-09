@@ -1,4 +1,5 @@
 #include "xml_node.h"
+#include "cstdmf/string_converter.h"
 
 #define DEFAULT_SETVALUE_METHOD_DEFINITION(type) \
 void XMLNode::setValue(type v) \
@@ -43,11 +44,8 @@ std::wstring XMLNode::value(const std::wstring& def) const
 	{
 		return def;
 	}
-	int size = MultiByteToWideChar(CP_UTF8, 0, str, -1, nullptr, 0);
-	std::wstring wstr(size, L'\0'); // Создаем строку с нужным размером
 
-	MultiByteToWideChar(CP_UTF8, 0, str, -1, wstr.data(), size);
-	return wstr;
+	return stringHelper::to_wstring(str);
 
 }
 
@@ -167,10 +165,8 @@ void XMLNode::setValue(const std::string& val)
 
 void XMLNode::setValue(const std::wstring& val)
 {
-	//TODO create string_utils.h and replace this mess with good-lokking code
-	int size = WideCharToMultiByte(CP_UTF8, 0, val.c_str(), -1, nullptr, 0, nullptr, nullptr);
-	std::string str(size, '\0');
-	WideCharToMultiByte(CP_UTF8, 0, val.c_str(), -1, str.data(), size, nullptr, nullptr);
+	std::string str = stringHelper::to_string(val);
+
 	text().set(str.c_str());
 }
 

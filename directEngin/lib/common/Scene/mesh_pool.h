@@ -13,6 +13,8 @@ class PixelShader;
 struct Material;
 
 using MeshPtr = std::shared_ptr<Mesh>;
+using VertexShaderPtr = std::shared_ptr<VertexShader>;
+using PixelShaderPtr = std::shared_ptr<PixelShader>;
 /*
 class MeshPool
 {
@@ -52,17 +54,19 @@ public:
 
 	//getters
 	MeshPtr getMesh(const std::string& resourceID);
-	VertexShader* getVertexShader(const std::string& resourceID);
-	PixelShader* getPixelShader(const std::string& resorceID);
-	Material* getMaterial(const std::string& resourceID);
-
+	VertexShaderPtr getVertexShader(const std::string& resourceID);
+	PixelShaderPtr getPixelShader(const std::string& resorceID);
+	MaterialPtr getMaterial(const std::string& resourceID);
 
 	//build resource on run
 	bool saveMesh(const MeshPtr pMesh,const std::string& resourceID);
-	bool saveMaterial(const Material* pMaterial, const std::string& resourceID);
+	bool saveMaterial(const MaterialPtr pMaterial, const std::string& resourceID);
 
 private:
 	bool loadMeshInternal(MeshPtr mesh,const std::string& file);
+	bool loadMaterialInternal(MaterialPtr pMat, const std::string& file);
+
+
 	bool saveMeshInternal(const MeshPtr mesh, const std::string& file);
 
 private:

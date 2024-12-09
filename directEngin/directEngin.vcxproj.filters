@@ -147,6 +147,9 @@
     <ClCompile Include="lib\resmngr\xml_node.cpp">
       <Filter>resmngr</Filter>
     </ClCompile>
+    <ClCompile Include="lib\cstdmf\string_converter.cpp">
+      <Filter>cstdmf</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry.h" />
@@ -340,6 +343,9 @@
     <ClInclude Include="lib\common\Scene\scene_loader.hpp">
       <Filter>scene</Filter>
     </ClInclude>
+    <ClInclude Include="lib\cstdmf\string_converter.h">
+      <Filter>cstdmf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\test_texture.dds">
@@ -412,6 +418,9 @@
     </Filter>
     <Filter Include="resmngr">
       <UniqueIdentifier>{367d206e-6f77-40d7-a5fc-7b59838088ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cstdmf">
+      <UniqueIdentifier>{03e1fef6-3afc-4a93-ae6d-d157586fd1b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

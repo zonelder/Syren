@@ -161,7 +161,7 @@ public:
 	/// @param vertexShader - path to compiled vertex shader
 	/// @param pixelShader  - path to compiled pixel shader
 	/// @return - material with a given shaders
-	std::shared_ptr<Material> makeMaterial(const wchar_t* vertexShader = L"VertexShader.cso", const wchar_t* pixelShader = L"PixelShader.cso");
+	MaterialPtr makeMaterial(const char* vertexShader = "VertexShader.cso", const char* pixelShader = "PixelShader.cso");
 
 
 	MeshPtr makeBoxMesh();

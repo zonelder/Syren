@@ -19,7 +19,7 @@
 #include "geometry_cast.h"
 #include "components/tilemap.h"
 
-#include <chrono>  //используем chrono для работы со временем
+#include <chrono>  //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ chrono пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 #include "Scene/scene_loader.hpp"
 
 void App::OnInit()
@@ -51,10 +51,10 @@ void App::OnInit()
 
 	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
 
-	auto p_plane_mesh = _scene.make2SidedPlaneMesh();
-
-	_scene.saveMesh(p_plane_mesh, ".\\plane.syrenmesh");
 	auto ploadedMesh = _scene.loadMesh(".\\plane.syrenmesh");
+	auto pLoadedMaterial = _scene.resManager().getMaterial(".\\resource\\material\\default.syrenmaterial");
+
+
 	/*
 	const int cellInLine = 3;
 	for (int i = 0; i < cellInLine *2; i+=2)
@@ -75,6 +75,8 @@ void App::OnInit()
 	const auto& chunkHolder = _scene.createEntity();
 	auto& map = _scene.addComponent<TileMap>(chunkHolder);
 
+	auto pDefaultTile = _scene.resManager().getMaterial(".\\resource\\example\\material\\tile_black.syrenmaterial");
+
 	for (size_t x = 0; x < TileMap::N; ++x)
 	{
 		for (size_t y = 0; y < TileMap::N; ++y)
@@ -84,10 +86,8 @@ void App::OnInit()
 			_scene.addComponent<Tile>(tileEntt);
 			Transform& t = _scene.addComponent<Transform>(tileEntt);
 			Render& r = _scene.addComponent<Render>(tileEntt);
-			r.pMesh = p_plane_mesh;
-			r.pMaterial = _scene.makeMaterial();
-			r.pMaterial->texture.set(gfx,nullptr);
-			r.pMaterial->color = { 0,0,0,1 };
+			r.pMesh = ploadedMesh;
+			r.pMaterial = pDefaultTile;
 			t.position = { (float)(2*x),(float)(2*y),10.0f };
 
 		}

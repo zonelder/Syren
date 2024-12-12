@@ -69,6 +69,18 @@ size_t XMLNode::value(size_t def) const
 
 /////// DirectX Data Types ///////
 
+DirectX::XMFLOAT4 XMLNode::value(const DirectX::XMFLOAT4& def) const
+{
+    std::stringstream ss(text().get());
+    DirectX::XMFLOAT4 result;
+    if (!(ss >> result.x >> result.y >> result.z >> result.w))
+    {
+        return def;
+    }
+    return result;
+}
+
+
 DirectX::XMFLOAT3 XMLNode::value(const DirectX::XMFLOAT3& def) const
 {
 	std::stringstream ss(text().get());
@@ -175,6 +187,10 @@ void XMLNode::setValue(const DirectX::XMFLOAT3& def)
 	text().set(std::format("{} {} {}", def.x, def.y, def.z).c_str());
 }
 
+void XMLNode::setValue(const DirectX::XMFLOAT4& v)
+{
+	text().set(std::format("{} {} {} {}", v.x, v.y, v.z, v.w).c_str());
+}
 
 void XMLNode::setValue(const DirectX::XMVECTOR& def)
 {

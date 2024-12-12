@@ -4,7 +4,7 @@
 
 
 Material::Material(Graphics& gfx) :
-	texture(Texture(gfx/*, L"test_texture.dds"*/))
+	pTexture(nullptr)
 {
 	//_texture = Texture(gfx, L"test_texture.png");
 }
@@ -16,5 +16,15 @@ void Material::bind(Graphics& gfx)
 		pPixelShader->bind(gfx);
 	if (pVertexShader)
 		pVertexShader->bind(gfx);
-	texture.bind(gfx);
+
+	if(pTexture)
+		pTexture->bind(gfx);
+	else
+	{
+		//TODO replace this
+		static TexturePtr  pEmptyTexture = std::make_shared<Texture>(gfx, nullptr);
+		pEmptyTexture->set(gfx, nullptr);
+		pEmptyTexture->bind(gfx);
+	}
+
 }

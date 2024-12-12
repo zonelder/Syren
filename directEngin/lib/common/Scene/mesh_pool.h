@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <memory.h>
 #include "components/mesh_iternal.h"
+#include "components/material.h"
 
 
 using meshPtrVector = std::vector<std::shared_ptr<MeshInternal>>;
@@ -10,7 +11,6 @@ using meshPtrVector = std::vector<std::shared_ptr<MeshInternal>>;
 struct Mesh;
 class VertexShader;
 class PixelShader;
-struct Material;
 
 using MeshPtr = std::shared_ptr<Mesh>;
 using VertexShaderPtr = std::shared_ptr<VertexShader>;

@@ -40,7 +40,7 @@ public:
 	{
 		return pBaseNode_.child(identifier.c_str());
 	}
-	/// @brief возвращает дочерний нод с определнным идентификатором. если такого нода нет - то создает.
+	/// @brief пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 	/// @param identifier 
 	/// @return 
 	[[nodiscard]] XMLNode saveGetChild(const std::string& identifier)
@@ -71,14 +71,17 @@ public:
 	//<reference types>
 	REF_VALUE_METHOD_DECLARATION(std::string);
 	REF_VALUE_METHOD_DECLARATION(std::wstring);
+	REF_VALUE_METHOD_DECLARATION(DirectX::XMFLOAT4);
 	REF_VALUE_METHOD_DECLARATION(DirectX::XMFLOAT3);
 	REF_VALUE_METHOD_DECLARATION(DirectX::XMFLOAT2);
 	REF_VALUE_METHOD_DECLARATION(DirectX::XMVECTOR);
 	REF_VALUE_METHOD_DECLARATION(DirectX::XMMATRIX);
 	REF_VALUE_METHOD_DECLARATION(DirectX::XMFLOAT4X4);
 
+
 	REF_SETVALUE_METHOD_DECLARATION(std::string);
 	REF_SETVALUE_METHOD_DECLARATION(std::wstring);
+	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMFLOAT4);
 	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMFLOAT3);
 	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMFLOAT2);
 	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMVECTOR);

@@ -1,6 +1,7 @@
 #pragma once
 #include "IBindable.h"
 #include <iostream>
+#include <memory>
 
 class Texture:public IBindable
 {
@@ -22,3 +23,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11SamplerState > _pSampleState;
 	std::wstring _pPath;
 };
+
+
+using TexturePtr = std::shared_ptr<Texture>;

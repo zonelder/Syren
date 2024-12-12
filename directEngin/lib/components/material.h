@@ -14,10 +14,10 @@ public:
 	Material(Graphics& gfx);
 	void bind(Graphics& gfx);
 
-	Texture texture;
+	TexturePtr pTexture{ nullptr };
 	DirectX::XMFLOAT4 color = { 1.0f,0.0f,0.0f,1.0f };
-	VertexShaderPtr pVertexShader;
-	PixelShaderPtr pPixelShader;
+	VertexShaderPtr pVertexShader{ nullptr };
+	PixelShaderPtr pPixelShader{ nullptr };
 };
 
 using MaterialPtr = std::shared_ptr<Material>;

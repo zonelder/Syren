@@ -200,6 +200,11 @@ public:
 	{
 		return _ComponentManager.pools();
 	}
+
+	auto& resManager() noexcept
+	{
+		return _ResourceManager;
+	}
 private:
 	Graphics _gfx;
 	ResourceManager _ResourceManager;

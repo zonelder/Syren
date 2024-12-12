@@ -1,10 +1,7 @@
 #include "mesh_pool.h"
 
-#include <Windows.h>
-
 #include "resmngr/xml_node.h"
 #include "components/mesh.h"
-#include "components/material.h"
 #include "graphics/Drawable/BindComponent/vertex_shader.h"
 #include "graphics/Drawable/BindComponent/pixel_shader.h"
 #include <filesystem>
@@ -50,23 +47,65 @@ namespace fileSystem
 	/// @return 
 	std::string resolvePath(const std::string& path)
 	{
-		//char fullPath[MAX_PATH];
-		std::string fullPath;
-		fullPath.reserve(MAX_PATH);
-		
-		if (GetFullPathName(path.c_str(), MAX_PATH, &fullPath[0], nullptr) == 0)
+		if(path.empty())
+			return "";
+
+		std::error_code ec;
+		std::filesystem::path fsPath(path);
+		auto absolutePath = std::filesystem::absolute(fsPath, ec);
+
+		if(ec)
 		{
 			//TODO(log) error to resolve path
 			return "";
 		}
 
-		return fullPath;
+		return absolutePath.string();
 	}
+
+	std::string relativePath(const std::string& path)
+	{
+		std::error_code ec;
+		std::filesystem::path fsPath(path);
+		auto relativePath = std::filesystem::relative(fsPath, std::filesystem::current_path(), ec);
+		if(ec)
+		{
+			//TODO(log) error to resolve path
+			return "";
+		}
+		return relativePath.string();
+	}
+
+	std::wstring relativePath(const std::wstring& path)
+	{
+		std::error_code ec;
+		std::filesystem::path fsPath(path);
+		auto relativePath = std::filesystem::relative(fsPath, std::filesystem::current_path(), ec);
+		if(ec)
+		{
+			//TODO(log) error to resolve path
+			return L"";
+		}
+		return relativePath.wstring();
+	}
+
+	std::wstring resolvePath(const std::wstring& path)
+	{
+		std::error_code ec;
+		std::filesystem::path fsPath(path);
+		auto absolutePath = std::filesystem::absolute(fsPath, ec);
+		if(ec)
+		{
+			//TODO(log) error to resolve path
+			return L"";
+		}
+		return absolutePath.wstring();
+	}
+
+
 }
 
 /// @brief //////////////////////RESOURCE MANAGER ////////////////////
-
-
 
 ResourceManager::ResourceManager(Graphics& gfx) : _gfx(gfx)
 {
@@ -149,7 +188,7 @@ MaterialPtr ResourceManager::getMaterial(const std::string& resourceID)
 		return nullptr;
 	}
 
-	materials_[path] = std::make_shared<Material>();
+	materials_[path] = std::make_shared<Material>(_gfx);
 
 	auto res = loadMaterialInternal(materials_[path], path);
 	if (!res)
@@ -174,6 +213,43 @@ bool ResourceManager::saveMesh(const MeshPtr pMesh, const std::string& resourceI
 
 bool ResourceManager::saveMaterial(const MaterialPtr pMaterial, const std::string& resourceID)
 {
+	if(!pMaterial)
+		return false;
+
+	std::ofstream file(resourceID);
+	if (!file.is_open())
+	{
+		return false;
+	}
+
+	pugi::xml_document doc;
+	pugi::xml_node root = doc.append_child("Material");
+	XMLNode rootNode(root);
+
+	auto colorNode = rootNode.saveGetChild("Color");
+	colorNode.setValue(pMaterial->color);
+	
+	if(pMaterial->pVertexShader)
+	{
+		auto vertexShaderNode = rootNode.saveGetChild("VertexShader");
+		vertexShaderNode.setValue(fileSystem::relativePath(pMaterial->pVertexShader->resourceID()));
+	}
+
+	if(pMaterial->pPixelShader)
+	{
+		auto pixelShaderNode = rootNode.saveGetChild("PixelShader");
+		pixelShaderNode.setValue(fileSystem::relativePath( pMaterial->pPixelShader->resourceID()));
+	}
+
+	//TODO textures can be uuser defined in runtime and not loaded from file. have to defer this
+	if(pMaterial->pTexture && pMaterial->pTexture->getPath().empty())
+	{
+		auto textureNode = rootNode.saveGetChild("Texture");
+		textureNode.setValue(fileSystem::relativePath( pMaterial->pTexture->getPath()));
+	}
+
+	doc.save(file, "\t", pugi::format_default);
+	file.close();
 	//todo save as xml 
 }
 
@@ -184,7 +260,7 @@ bool ResourceManager::loadMeshInternal(MeshPtr pMesh,const std::string& file)
 
 	std::ifstream fileHandler(file);
 	if (!fileHandler.is_open()) {
-		//std::cerr << "Не удалось открыть файл: " << filename << std::endl;
+		//std::cerr << "пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ: " << filename << std::endl;
 		return false;
 	}
 	std::string line;
@@ -255,17 +331,42 @@ bool ResourceManager::loadMeshInternal(MeshPtr pMesh,const std::string& file)
 
 bool ResourceManager::loadMaterialInternal(MaterialPtr pMat, const std::string& file)
 {
-	if (!fileSystem::fileExist(file))
+	if (!fileSystem::fileExist(file) || !pMat || fileSystem::getExtension(file) != "syrenmaterial")
 		return false;
 
-	std::ifstream fileHandler(file);
-	if (!fileHandler.is_open()) {
-		//std::cerr << "Не удалось открыть файл: " << filename << std::endl;
+	pugi::xml_document doc;
+	auto res = doc.load_file(file.c_str());
+	if(!res)
+	{
+		std::cerr << "Parsing Error:: " << res.description() << std::endl;
 		return false;
 	}
 
+
+	XMLNode rootNode(doc.root().first_child());
+	auto colorNode = rootNode.child("Color");
+	pMat->color = colorNode.value(pMat->color);
+	auto textureNode = rootNode.child("Texture");
+	if(textureNode)
+	{
+		auto texturePath = textureNode.value<std::wstring>();
+		if(!texturePath.empty())
+		{
+			pMat->pTexture = std::make_shared<Texture>(_gfx, texturePath.c_str());
+		}
+	}
 	
-	//TODO(load) load vertex(pixel) Shader\Texture
+	auto vertexShaderNode = rootNode.child("VertexShader");
+	if(vertexShaderNode)
+	{
+		pMat->pVertexShader = getVertexShader(vertexShaderNode.value<std::string>());
+	}
+
+	auto pixelShaderNode = rootNode.child("PixelShader");
+	if(pixelShaderNode)
+	{
+		pMat->pPixelShader = getPixelShader(pixelShaderNode.value<std::string>());
+	}
 }
 
 bool ResourceManager::saveMeshInternal(const MeshPtr pMesh, const std::string& filename)

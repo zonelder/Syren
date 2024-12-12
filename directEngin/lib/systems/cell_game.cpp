@@ -6,16 +6,10 @@ void CellGameSystem::onInit(SceneManager& scene)
 {
 
 	auto& gfx = scene.getGraphic();
-	MaterialPtr select = scene.makeMaterial();
-	select->texture.set(gfx, nullptr);
-	select->color = { 1.0f,.0f,.0f,1.0f };
+	auto& resMngr = scene.resManager();
 
-	MaterialPtr deselect = scene.makeMaterial();
-	deselect->texture.set(gfx, nullptr);
-	deselect->color = { 0.0f,.0f,.0f,1.0f };
-
-	p_selectMat = std::move(select);
-	p_deselectMat = std::move(deselect);
+	p_selectMat = resMngr.getMaterial(".\\resource\\example\\material\\tile_red.syrenmaterial");
+	p_deselectMat = resMngr.getMaterial(".\\resource\\example\\material\\tile_black.syrenmaterial");
 
 	for (auto [enttID,cell,render] : scene.view<GameCell, Render>())
 	{

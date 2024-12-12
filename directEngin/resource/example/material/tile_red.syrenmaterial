@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<Material>
+	<Color>1 0 0 1</Color>
+	<VertexShader>vertexShader.cso</VertexShader>
+	<PixelShader>PixelShader.cso</PixelShader>
+</Material>

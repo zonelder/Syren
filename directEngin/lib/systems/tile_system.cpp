@@ -1,6 +1,14 @@
 #include "tile_system.h"
 #include "components/tilemap.h"
 
+void TileSystem::onInit(SceneManager& scene)
+{
+	auto& resMngr = scene.resManager();
+
+	p_selectMat = resMngr.getMaterial(".\\resource\\example\\material\\tile_red.syrenmaterial");
+	p_deselectMat = resMngr.getMaterial(".\\resource\\example\\material\\tile_black.syrenmaterial");
+}
+
 #pragma optimize("", off)
 void TileSystem::onUpdate(SceneManager& scene,float time)
 {
@@ -25,14 +33,13 @@ void TileSystem::onUpdate(SceneManager& scene,float time)
 
 				scene.removeComponent<Selected>(data.entt);
 				auto& r = view.get<Render>(data.entt);
-				r.pMaterial->color = { 0.0f,0.0f,0.0f,1.0f };
-				auto oldMat = r.pMaterial;
+				r.pMaterial = p_deselectMat;
+
 				int x_random = 1 - 2*(rand() % 2);
 				if (x_random + x >= 10)
 					x_random = 0;
 				if (x_random < 0 && x == 0)
 					x_random = 0;
-
 
 				int y_random = 1 - 2*(rand() % 2);
 
@@ -40,10 +47,15 @@ void TileSystem::onUpdate(SceneManager& scene,float time)
 					y_random = 0;
 				else if (y_random < 0 && y == 0)
 					y_random = 0;
+				if (x_random == y_random && x_random == 0)
+				{
+					r.pMaterial = p_selectMat;
+					return;
+				}
 				const auto& newSelectedData = chunk.tiles[x_random+x][y_random+y];
 				scene.addComponent<Selected>(newSelectedData.entt);
 				r = view.get<Render>(newSelectedData.entt);
-				r.pMaterial->color = { 1.0f,0.0f,0.0f,1.0f };
+				r.pMaterial = p_selectMat;
 				return;
 
 			}

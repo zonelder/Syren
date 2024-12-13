@@ -1,5 +1,5 @@
-#include "mesh_pool.h"
 
+#include "resmngr/resource_manager.h"
 #include "resmngr/xml_node.h"
 #include "components/mesh.h"
 #include "graphics/Drawable/BindComponent/vertex_shader.h"
@@ -150,7 +150,8 @@ VertexShaderPtr ResourceManager::getVertexShader(const std::string& resourceID)
 
 	if (fileSystem::fileExist(path) && fileSystem::getExtension(path) == "cso")
 	{
-		vertexShaders_[path] = std::make_shared<VertexShader>(_gfx, path);
+		auto relPath = fileSystem::relativePath(path);
+		vertexShaders_[path] = std::make_shared<VertexShader>(_gfx, relPath);
 		return vertexShaders_[path];
 	}
 
@@ -168,7 +169,8 @@ PixelShaderPtr ResourceManager::getPixelShader(const std::string& resourceID)
 
 	if (fileSystem::fileExist(path) && fileSystem::getExtension(path) == "cso")
 	{
-		pixelShaders_[path] = std::make_shared<PixelShader>(_gfx, path);
+		auto relPath = fileSystem::relativePath(path);
+		pixelShaders_[path] = std::make_shared<PixelShader>(_gfx, relPath);
 		return pixelShaders_[path];
 	}
 

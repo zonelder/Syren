@@ -6,6 +6,7 @@
 #include "Time/Timer.h"
 #include "Scene/scene_manager.h"
 #include "Scene/system_manager.h"
+#include "resmngr/resource_manager.h"
 
 class App
 {
@@ -23,6 +24,10 @@ private:
 	Window _wnd;
 	SceneManager _scene;
 	SystemManager _systemManager{};
+	ResourceManager _resManager;
+
+	/// @brief default main SceneContext to app
+	SceneContext _sceneContext;
 	Timer _time;//TODO change it to Time class after all
 
 };

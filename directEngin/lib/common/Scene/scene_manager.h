@@ -7,7 +7,7 @@
 
 #include "Camera/camera.h"
 
-#include "mesh_pool.h"
+#include "resmngr/resource_manager.h"
 #include "component_pool.h"
 #include "component_manager.h"
 
@@ -17,6 +17,41 @@
 #include "entity_manager.h"
 #include "filters.h"
 
+
+
+/// @brief Some usefull context of app.its support overriding of context but  its always should be at least one instance of class.
+/// in commpon case class App provide such an instance so be carefull when you overriding mainContext;
+class SceneContext
+{
+public:
+	/// @brief create new instance of scene context.its forbidden to pass nullptr to this constructor.
+	///cause contest SHALL BE SERTAN AND WELL DEFINED.
+	SceneContext(ResourceManager* pRes, Graphics* pGfx);
+	~SceneContext();
+
+
+	/// @brief get main resource manager of application
+	/// @return 
+	static ResourceManager* pResources() noexcept { return s_pMainContext->_pResourceManager; }
+
+	/// @brief get main graphic handler of application
+	/// @return 
+	static Graphics* pGfx() noexcept { return s_pMainContext->_pGraphics; }
+
+	void setMainContext(SceneContext* context) noexcept 
+	{
+		assert(context != nullptr);
+		s_pMainContext = context;
+	}
+
+private:
+	ResourceManager* _pResourceManager;
+	Graphics* _pGraphics;
+
+	static std::vector<SceneContext*> s_contexts;
+	static SceneContext* s_pMainContext;
+
+};
 
 
 class SceneManager
@@ -157,31 +192,7 @@ public:
 		return _entityManager.get(entt).hasComponent(Family::type_id<T>());
 	}
 
-	/// @brief create new material and return ptr to it
-	/// @param vertexShader - path to compiled vertex shader
-	/// @param pixelShader  - path to compiled pixel shader
-	/// @return - material with a given shaders
-	MaterialPtr makeMaterial(const char* vertexShader = "VertexShader.cso", const char* pixelShader = "PixelShader.cso");
-
-
-	MeshPtr makeBoxMesh();
-
-	MeshPtr makeCylinderMesh(unsigned int n = 8);
-
 	MeshPtr make2SidedPlaneMesh();
-
-	bool saveMesh(MeshPtr pMesh, const std::string& resourceID)
-	{
-		if (!pMesh)
-			return false;
-		_ResourceManager.saveMesh(pMesh, resourceID);
-		return true;
-	}
-
-	MeshPtr loadMesh(const std::string& resourceID)
-	{
-		return _ResourceManager.getMesh(resourceID);
-	}
 
 	void onStartFrame();
 
@@ -201,13 +212,8 @@ public:
 		return _ComponentManager.pools();
 	}
 
-	auto& resManager() noexcept
-	{
-		return _ResourceManager;
-	}
 private:
 	Graphics _gfx;
-	ResourceManager _ResourceManager;
 	ComponentManager _ComponentManager;
 	EntityManager _entityManager;
 	Camera _mainCamera;

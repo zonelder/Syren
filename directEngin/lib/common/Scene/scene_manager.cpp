@@ -1,7 +1,9 @@
 #include "scene_manager.h"
 
 
-SceneManager::SceneManager(const Window& wnd):_gfx(wnd.GetHWND()),_input(wnd.inputHandler),_ResourceManager(_gfx)
+SceneManager::SceneManager(const Window& wnd):
+	_gfx(wnd.GetHWND()),
+	_input(wnd.inputHandler)
 {
 
 }
@@ -92,93 +94,6 @@ const Input& SceneManager::getInput() const noexcept
 	return _input;
 }
 
-
-MaterialPtr SceneManager::makeMaterial(const char* vertexShader, const char* pixelShader)
-{
-	auto mat = std::make_shared<Material>(_gfx);
-
-	mat->pVertexShader = _ResourceManager.getVertexShader(vertexShader);
-	mat->pPixelShader = _ResourceManager.getPixelShader(pixelShader);
-
-	return mat;
-}
-/*
-std::shared_ptr<Mesh>  SceneManager::makeBoxMesh()
-{
-	auto mesh = makeMesh({
-	{ -1.0f,-1.0f,-1.0f,},
-	{ 1.0f,-1.0f,-1.0f, },
-	{ -1.0f,1.0f,-1.0f, },
-	{ 1.0f,1.0f,-1.0f,  },
-	{ -1.0f,-1.0f,1.0f, },
-	{ 1.0f,-1.0f,1.0f,  },
-	{ -1.0f,1.0f,1.0f,  },
-	{ 1.0f,1.0f,1.0f,   },
-		},
-	{
-	0,2,1, 2,3,1,
-	1,3,5, 3,7,5,
-	2,6,3, 3,6,7,
-	4,5,7, 4,7,6,
-	0,4,2, 2,4,6,
-	0,1,4, 1,5,4
-	},
-	{
-		{
-			{1.0f,0.0f,1.0f},
-			{1.0f,0.0f,0.0f},
-			{0.0f,1.0f,0.0f},
-			{0.0f,0.0f,1.0f},
-			{1.0f,1.0f,0.0f},
-			{0.0f,1.0f,1.0f},
-		}
-	}
-	);
-	return mesh;
-}
-
-std::shared_ptr<Mesh>  SceneManager::makeCylinderMesh(unsigned int n)
-{
-	std::vector<Vertex> vertices;
-	vertices.reserve(n + 2);
-	std::vector<unsigned short> indices;
-	indices.reserve(6 * n);
-
-	float two_pi = 6.28318530718f;
-	float angl;
-	for (unsigned int k = 0; k < n; ++k)
-	{
-		angl = (two_pi * k) / n;
-		vertices.push_back({ cos(angl),0.0f,sin(angl) });
-
-		indices.push_back(k);
-		indices.push_back(n);
-		indices.push_back((k + 1) % n);
-
-		indices.push_back(k);
-		indices.push_back((k + 1) % n);
-		indices.push_back(n + 1);
-
-
-	}
-	vertices.push_back({ 0.0f,1.0f,0.0f });
-	vertices.push_back({ 0.0f,0.0f,0.0f });
-
-	Mesh::ConstantBuffer2 colors = {
-		{
-			{1.0f,0.0f,1.0f},
-			{1.0f,0.0f,0.0f},
-			{0.0f,1.0f,0.0f},
-			{0.0f,0.0f,1.0f},
-			{1.0f,1.0f,0.0f},
-			{0.0f,1.0f,1.0f},
-		}
-	};
-
-	return makeMesh(vertices, indices, colors);
-}
-*/
-
 MeshPtr SceneManager::make2SidedPlaneMesh()
 {
 	MeshPtr mesh = std::make_shared<Mesh>();
@@ -203,3 +118,27 @@ MeshPtr SceneManager::make2SidedPlaneMesh()
 	meshHelpers::updateBB(mesh.get());
 	return mesh;
 }
+
+
+SceneContext* SceneContext::s_pMainContext = nullptr;
+std::vector<SceneContext*> SceneContext::s_contexts;
+
+SceneContext::SceneContext(ResourceManager* pRes, Graphics* pGfx) :
+	_pResourceManager(pRes),
+	_pGraphics(pGfx)
+{
+	assert(pRes && pGfx);
+	if (s_contexts.empty())
+		s_pMainContext = this;
+	s_contexts.push_back(this);
+}
+
+SceneContext::~SceneContext()
+{
+	auto it = std::find(s_contexts.begin(), s_contexts.end(), this);
+	if(it != s_contexts.end())
+		s_contexts.erase(it);
+	if(this == s_pMainContext && !s_contexts.empty())
+		s_pMainContext = s_contexts.back();
+}
+

@@ -3,7 +3,7 @@
 #include "../graphics/Drawable/BindComponent/Vertex.h"
 
 
-class Vertex;
+struct Vertex;
 using Vertexes = std::vector<Vertex>;
 using Indixies = std::vector<unsigned short>;
 

@@ -7,7 +7,12 @@
 
 
 
-App::App() :_wnd(800, 600, "engin win"),_scene(_wnd){}
+App::App() :
+	_wnd(800, 600, "engin win"),
+	_scene(_wnd),
+	_resManager(_scene.getGraphic()),
+	_sceneContext(&_resManager, &_scene.getGraphic())
+{}
 
 
 int App::Init(){

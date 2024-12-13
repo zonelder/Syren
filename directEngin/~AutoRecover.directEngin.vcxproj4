@@ -166,6 +166,7 @@
     <ClCompile Include="lib\common\Scene\entity.cpp" />
     <ClCompile Include="lib\common\Scene\entity_manager.cpp" />
     <ClCompile Include="lib\common\Scene\filters.cpp" />
+    <ClCompile Include="lib\common\Scene\resource_manager.cpp" />
     <ClCompile Include="lib\common\Scene\scene_loader.cpp" />
     <ClCompile Include="lib\common\transform_utils.cpp" />
     <ClCompile Include="lib\common\windows_message_map.cpp" />
@@ -185,7 +186,6 @@
     <ClCompile Include="lib\direct\DxgiInfoManager.cpp" />
     <ClCompile Include="lib\direct\dxerr.cpp" />
     <ClCompile Include="lib\graphics\graphics.cpp" />
-    <ClCompile Include="lib\resmngr\resource_manager.cpp" />
     <ClCompile Include="lib\resmngr\xml_node.cpp" />
     <ClCompile Include="lib\systems\camera_controller.cpp" />
     <ClCompile Include="lib\systems\cell_game.cpp" />
@@ -218,6 +218,7 @@
     <ClInclude Include="lib\common\Scene\entity.h" />
     <ClInclude Include="lib\common\Scene\entity_manager.h" />
     <ClInclude Include="lib\common\Scene\filters.h" />
+    <ClInclude Include="lib\common\Scene\resource_manager.h" />
     <ClInclude Include="lib\common\Scene\scene_base.h" />
     <ClInclude Include="lib\common\Scene\scene_loader.hpp" />
     <ClInclude Include="lib\common\transform_utils.h" />
@@ -254,7 +255,6 @@
     <ClInclude Include="lib\direct\dxerr.h" />
     <ClInclude Include="lib\graphics\graphics.h" />
     <ClInclude Include="lib\common\app.h" />
-    <ClInclude Include="lib\resmngr\resource_manager.h" />
     <ClInclude Include="lib\resmngr\xml_node.h" />
     <ClInclude Include="lib\systems\camera_controller.h" />
     <ClInclude Include="lib\exeption\pointed_exception.h" />

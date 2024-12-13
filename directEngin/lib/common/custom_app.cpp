@@ -51,9 +51,8 @@ void App::OnInit()
 
 	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
 
-	auto ploadedMesh = _scene.loadMesh(".\\plane.syrenmesh");
-	auto pLoadedMaterial = _scene.resManager().getMaterial(".\\resource\\material\\default.syrenmaterial");
-
+	auto ploadedMesh = SceneContext::pResources()->getMesh(".\\plane.syrenmesh");
+	auto pLoadedMaterial =SceneContext::pResources()->getMaterial(".\\resource\\material\\default.syrenmaterial");
 
 	/*
 	const int cellInLine = 3;
@@ -75,7 +74,7 @@ void App::OnInit()
 	const auto& chunkHolder = _scene.createEntity();
 	auto& map = _scene.addComponent<TileMap>(chunkHolder);
 
-	auto pDefaultTile = _scene.resManager().getMaterial(".\\resource\\example\\material\\tile_black.syrenmaterial");
+	auto pDefaultTile = SceneContext::pResources()->getMaterial(".\\resource\\example\\material\\tile_black.syrenmaterial");
 
 	for (size_t x = 0; x < TileMap::N; ++x)
 	{

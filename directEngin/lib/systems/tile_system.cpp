@@ -3,10 +3,10 @@
 
 void TileSystem::onInit(SceneManager& scene)
 {
-	auto& resMngr = scene.resManager();
+	auto pRes = SceneContext::pResources();
 
-	p_selectMat = resMngr.getMaterial(".\\resource\\example\\material\\tile_red.syrenmaterial");
-	p_deselectMat = resMngr.getMaterial(".\\resource\\example\\material\\tile_black.syrenmaterial");
+	p_selectMat = pRes->getMaterial(".\\resource\\example\\material\\tile_red.syrenmaterial");
+	p_deselectMat = pRes->getMaterial(".\\resource\\example\\material\\tile_black.syrenmaterial");
 }
 
 #pragma optimize("", off)

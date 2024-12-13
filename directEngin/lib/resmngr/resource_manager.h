@@ -15,29 +15,6 @@ class PixelShader;
 using MeshPtr = std::shared_ptr<Mesh>;
 using VertexShaderPtr = std::shared_ptr<VertexShader>;
 using PixelShaderPtr = std::shared_ptr<PixelShader>;
-/*
-class MeshPool
-{
-public:
-
-
-	/// @brief create new mesh and return ptr to it
-	/// @return 
-	Mesh* addMesh(
-		Graphics& gfx,
-		const std::vector<Vertex>& vertices,
-		const std::vector<unsigned short>& indices,
-		const MeshInternal::ConstantBuffer2& colors
-	);
-
-	MeshInternal* getMesh(Mesh* mesh) const noexcept;
-
-private:
-
-	meshPtrVector meshes_;
-	std::vector<Mesh> wrappers_;
-};
-*/
 /// @brief class that control loading of Resources. it handles construct\destruct login by itsself.
 /// deleting anything that has been returned from ResourceManager emits UB 
 class ResourceManager

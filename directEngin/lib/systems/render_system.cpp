@@ -6,8 +6,8 @@
 
 RenderSystem::RenderSystem(SceneManager& scene): _scene(scene)
 {
-	auto& gfx = scene.getGraphic();
-	INFOMAN(gfx);
+	auto gfx = SceneContext::pGfx();
+	INFOMAN((*gfx));
 	D3D11_BUFFER_DESC constantBufferDesc = {};
 
 	constantBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -15,13 +15,13 @@ RenderSystem::RenderSystem(SceneManager& scene): _scene(scene)
 	constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	constantBufferDesc.CPUAccessFlags = 0;
 	constantBufferDesc.MiscFlags = 0;
-	GFX_THROW_INFO(gfx.getDevice()->CreateBuffer(&constantBufferDesc, nullptr, &p_colorConstantBuffer));
+	GFX_THROW_INFO(gfx->getDevice()->CreateBuffer(&constantBufferDesc, nullptr, &p_colorConstantBuffer));
 	
 }
 
 void RenderSystem::renderOne(Render& render,Transform& transform,const Transform& camTr)
 {
-	Graphics& gfx = _scene.getGraphic();
+	Graphics& gfx = *SceneContext::pGfx();
 	auto* context = gfx.getContext();
 	MeshInternal mesh(gfx,render.pMesh.get());//maybe we can create an instance once and just ypdate the buffers
 	INFOMAN(gfx);
@@ -77,7 +77,6 @@ void RenderSystem::DeepRender(RenderView& view,Transform& cam,EntityID id )
 #pragma optimize("", off)
 void RenderSystem::onFrame(SceneManager& scene)
 {
-	Graphics& gfx = scene.getGraphic();
 
 	auto& camTr = scene.getCamera().transform;
 	RenderView& view = scene.view<WithComponents>();

@@ -29,7 +29,7 @@ void App::OnInit()
 	SceneLoader saver(_scene);
 
 	//std::cout << field.identifier() << "  " << field.value<DirectX::XMFLOAT3>() << std::endl;
-	auto& gfx = _scene.getGraphic();
+	auto gfx = SceneContext::pGfx();
 
 	srand(time(0));
 	/// init systems
@@ -43,7 +43,7 @@ void App::OnInit()
 	_systemManager.add<CellGameSystem>();
 	_systemManager.add<TimedRotationSystem>();
 	_systemManager.add<CameraController>();
-	_systemManager.add<UITextRender>(gfx, L"resource/myfile.spritefont");
+	_systemManager.add<UITextRender>(*gfx, L"resource/myfile.spritefont");
 	_systemManager.add<TileSystem>();
 
 
@@ -91,7 +91,7 @@ void App::OnInit()
 
 		}
 	}
-	saver.save("D:\\my_scene.xml",_scene);
+	saver.save("E:\\my_scene.xml",_scene);
 	//saver.load("D:\\my_scene.xml");
 	_scene.addComponent<Selected>(map.tiles[0][0].entt);
 

@@ -38,7 +38,7 @@ public:
 	/// @return 
 	static Graphics* pGfx() noexcept { return s_pMainContext->_pGraphics; }
 
-	void setMainContext(SceneContext* context) noexcept 
+	static void setMainContext(SceneContext* context) noexcept 
 	{
 		assert(context != nullptr);
 		s_pMainContext = context;
@@ -61,8 +61,6 @@ public:
 
 
 	Camera& getCamera() noexcept;
-
-	Graphics& getGraphic() noexcept;
 
 	const Entity& createEntity() noexcept;
 
@@ -120,14 +118,14 @@ public:
 	{
 
 	}
-	// реализация метода getComponent
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ getComponent
 	template<typename T>
 	T& getComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
 		return _ComponentManager.getComponent<T>(entt_id);
 	}
-	// реализация метода getComponent
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ getComponent
 	template<typename T>
 	T& getComponent(EntityID entt)
 	{
@@ -153,7 +151,7 @@ public:
 	{
 		_entityManager.registerComponent(entt, Family::type_id<Transform>());
 		auto& tr =  _ComponentManager.addComponent<Transform>(entt);
-		tr.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(_gfx, tr.orientationMatrix);
+		tr.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(*SceneContext::pGfx(), tr.orientationMatrix);
 		return tr;
 	}
 
@@ -162,7 +160,7 @@ public:
 	{
 		_entityManager.registerComponent(entt, Family::type_id<Render>());
 		auto& r = _ComponentManager.addComponent<Render>(entt);
-		r.topology= Topology(_gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		r.topology= Topology(*SceneContext::pGfx(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		return r;
 	}
 
@@ -213,7 +211,6 @@ public:
 	}
 
 private:
-	Graphics _gfx;
 	ComponentManager _ComponentManager;
 	EntityManager _entityManager;
 	Camera _mainCamera;

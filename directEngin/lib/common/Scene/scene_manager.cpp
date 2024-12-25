@@ -1,11 +1,8 @@
 #include "scene_manager.h"
 
 
-SceneManager::SceneManager(const Window& wnd):
-	_gfx(wnd.GetHWND()),
-	_input(wnd.inputHandler)
+SceneManager::SceneManager(const Window& wnd):_input(wnd.inputHandler)
 {
-
 }
 
 
@@ -44,13 +41,10 @@ bool SceneManager::destroyEntity(EntityID entt_id) noexcept
 void SceneManager::onStartFrame()
 {
 	_mainCamera.OnFrame();
-	_gfx.ClearBuffer(_mainCamera.background);
 }
 
 void SceneManager::onEndFrame()
-{
-	_gfx.endFrame();
-}
+{}
 
 const Entity& SceneManager::getEntity(EntityID id) const noexcept
 {
@@ -61,11 +55,6 @@ const Entity& SceneManager::getEntity(EntityID id) const noexcept
 Camera& SceneManager::getCamera() noexcept
 {
 	return _mainCamera;
-}
-
-Graphics& SceneManager::getGraphic() noexcept
-{
-	return _gfx;
 }
 
 void SceneManager::updateInput(const Window& wnd) noexcept

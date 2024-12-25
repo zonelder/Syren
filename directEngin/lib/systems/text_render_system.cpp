@@ -39,7 +39,7 @@ TextRenderSystem::TextRenderSystem(Graphics& gfx)
 
 void TextRenderSystem::onFrame(SceneManager& scene)
 {
-	Graphics& gfx = scene.getGraphic();
+	Graphics& gfx = *SceneContext::pGfx();
 	auto& _texts = scene.getPool<Text>();
 	auto& _transforms = scene.getPool<Transform>();
 

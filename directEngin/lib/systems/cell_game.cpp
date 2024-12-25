@@ -4,8 +4,6 @@
 
 void CellGameSystem::onInit(SceneManager& scene)
 {
-
-	auto& gfx = scene.getGraphic();
 	auto pRes = SceneContext::pResources();
 
 	p_selectMat = pRes->getMaterial(".\\resource\\example\\material\\tile_red.syrenmaterial");

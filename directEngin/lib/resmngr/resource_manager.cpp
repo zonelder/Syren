@@ -102,6 +102,18 @@ namespace fileSystem
 		return absolutePath.wstring();
 	}
 
+	std::string simplifyPath(const std::string& path)
+	{
+		auto path1 = fileSystem::resolvePath(path);
+		return fileSystem::relativePath(path1);
+	}
+
+	std::wstring simplifyPath(const std::wstring& path)
+	{
+		auto path1 = fileSystem::resolvePath(path);
+		return fileSystem::relativePath(path1);
+	}
+
 
 }
 
@@ -116,7 +128,7 @@ ResourceManager::ResourceManager(Graphics& gfx) : _gfx(gfx)
 /// @return 
 MeshPtr ResourceManager::getMesh(const std::string& resourceID)
 {
-	auto path = fileSystem::resolvePath(resourceID);
+	auto path = fileSystem::simplifyPath(resourceID);
 	auto it = meshes_.find(path);
 	if (it != meshes_.end())
 	{
@@ -141,7 +153,7 @@ MeshPtr ResourceManager::getMesh(const std::string& resourceID)
 
 VertexShaderPtr ResourceManager::getVertexShader(const std::string& resourceID)
 {
-	auto path = fileSystem::resolvePath(resourceID);
+	auto path = fileSystem::simplifyPath(resourceID);
 	auto it = vertexShaders_.find(path);
 	if (it != vertexShaders_.end())
 	{
@@ -160,7 +172,7 @@ VertexShaderPtr ResourceManager::getVertexShader(const std::string& resourceID)
 
 PixelShaderPtr ResourceManager::getPixelShader(const std::string& resourceID)
 {
-	auto path = fileSystem::resolvePath(resourceID);
+	auto path = fileSystem::simplifyPath(resourceID);
 	auto it = pixelShaders_.find(path);
 	if (it != pixelShaders_.end())
 	{
@@ -179,7 +191,7 @@ PixelShaderPtr ResourceManager::getPixelShader(const std::string& resourceID)
 
 MaterialPtr ResourceManager::getMaterial(const std::string& resourceID)
 {
-	auto path = fileSystem::resolvePath(resourceID);
+	auto path = fileSystem::simplifyPath(resourceID);
 	auto it = materials_.find(path);
 	if (it != materials_.end())
 		return it->second;
@@ -347,6 +359,7 @@ bool ResourceManager::loadMaterialInternal(MaterialPtr pMat, const std::string& 
 
 	XMLNode rootNode(doc.root().first_child());
 	auto colorNode = rootNode.child("Color");
+	pMat->resourceID = file;
 	pMat->color = colorNode.value(pMat->color);
 	auto textureNode = rootNode.child("Texture");
 	if(textureNode)

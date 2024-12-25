@@ -21,13 +21,13 @@ private:
 	/// @brief Update static Mouse data  
 	void SetInputData();
 private:
-	Window _wnd;
-	SceneManager _scene;
-	SystemManager _systemManager{};
-	ResourceManager _resManager;
+	Window			_wnd;
+	Graphics		_gfx;
+	ResourceManager _rm;
+	SceneContext	_context;
 
-	/// @brief default main SceneContext to app
-	SceneContext _sceneContext;
+	SceneManager	_scene;
+	SystemManager	_systemManager{};
 	Timer _time;//TODO change it to Time class after all
 
 };

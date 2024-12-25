@@ -6,10 +6,11 @@
 #include "../graphics/Drawable/BindComponent/bindable_components.h"
 #include <memory>
 
+SERIALIZE
 struct Render
 {
-	MeshPtr pMesh;
-	MaterialPtr pMaterial;
+	SERIALIZE_FIELD MeshPtr pMesh;
+	SERIALIZE_FIELD MaterialPtr pMaterial;
 	Topology topology;
 	bool is_rendered;
 

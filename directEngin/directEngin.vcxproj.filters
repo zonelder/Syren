@@ -77,9 +77,6 @@
     <ClCompile Include="lib\components\mesh_iternal.cpp">
       <Filter>scene</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\mesh_pool.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="lib\common\mouse_handler.cpp">
       <Filter>app</Filter>
     </ClCompile>
@@ -238,9 +235,6 @@
       <Filter>component</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\mesh_iternal.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\mesh_pool.h">
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\mouse_handler.h">

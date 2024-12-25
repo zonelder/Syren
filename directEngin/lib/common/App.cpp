@@ -9,14 +9,16 @@
 
 App::App() :
 	_wnd(800, 600, "engin win"),
+	_gfx(_wnd.GetHWND()),
+	_rm(_gfx),
 	_scene(_wnd),
-	_resManager(_scene.getGraphic()),
-	_sceneContext(&_resManager, &_scene.getGraphic())
+	_context(&_rm, &_gfx)
 {}
 
 
 int App::Init(){
 
+	//SceneContext::setMainContext(&_context);
 	OnInit();
 	_systemManager.init(_scene);
 	while (true) {
@@ -39,9 +41,10 @@ void App::Update()
 
 }
 
-void App::Frame() {
+void App::Frame() 
+{
 
-
+	_gfx.ClearBuffer(_scene.getCamera().background);
 	_scene.onStartFrame();
 
 
@@ -49,12 +52,11 @@ void App::Frame() {
 
 
 	_scene.onEndFrame();
-
+	_gfx.endFrame();
 }
 
 
 void App::SetInputData()
 {
-
 
 }

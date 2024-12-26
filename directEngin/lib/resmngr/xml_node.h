@@ -7,6 +7,7 @@
 #include <sstream>
 #include <format>
 #include <string>
+#include <vector>
 
 #define VALUE_METHOD_DECLARATION(type) type value(type def = type()) const;
 #define REF_VALUE_METHOD_DECLARATION(type) type value(const type& def = type()) const;
@@ -35,6 +36,8 @@ public:
 	}
 
 	[[nodiscard]] ChildRange childs() const;
+
+	void childs(const std::string& identifier, std::vector<XMLNode>& childs, int ensureSize = -1);
 
 	[[nodiscard]] XMLNode child(const std::string& identifier) const
 	{

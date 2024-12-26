@@ -26,12 +26,13 @@ void App::OnInit()
 {
 	////
 
-	SceneLoader saver(_scene);
 
-	//std::cout << field.identifier() << "  " << field.value<DirectX::XMFLOAT3>() << std::endl;
-	auto gfx = SceneContext::pGfx();
 
 	srand(time(0));
+	//std::cout << field.identifier() << "  " << field.value<DirectX::XMFLOAT3>() << std::endl;
+	auto gfx = SceneContext::pGfx();
+	SceneLoader saver(_scene);
+
 	/// init systems
 	_systemManager.add<OrientationSystem>();
 	//_systemManager.add<ParentSystem>();
@@ -50,11 +51,11 @@ void App::OnInit()
 	_scene.getCamera().aspectRatio = float(_wnd.GetWidth()) / _wnd.GetHeight();
 
 	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
-
 	auto ploadedMesh = SceneContext::pResources()->getMesh(".\\plane.syrenmesh");
 	auto pLoadedMaterial =SceneContext::pResources()->getMaterial(".\\resource\\material\\default.syrenmaterial");
 
 	/*
+
 	const int cellInLine = 3;
 	for (int i = 0; i < cellInLine *2; i+=2)
 	{
@@ -71,17 +72,19 @@ void App::OnInit()
 		}
 	}
 */
-	const auto& chunkHolder = _scene.createEntity();
-	auto& map = _scene.addComponent<TileMap>(chunkHolder);
+	//*
+	//const auto& chunkHolder = _scene.createEntity();
+	//auto& map = _scene.addComponent<TileMap>(chunkHolder);
 
-	auto pDefaultTile = SceneContext::pResources()->getMaterial(".\\resource\\example\\material\\tile_black.syrenmaterial");
-
+	auto pDefaultTile = SceneContext::pResources()->getMaterial(".\\resource\\example\\tile_test\\material\\tile_black.syrenmaterial");
+	saver.load("resource\\example\\tile_test\\tile_test.xml");
+	/*
 	for (size_t x = 0; x < TileMap::N; ++x)
 	{
 		for (size_t y = 0; y < TileMap::N; ++y)
 		{
 			const auto& tileEntt = _scene.createEntity();
-			map.tiles[x][y].entt = tileEntt.getID();
+			map(x,y).entt = tileEntt.getID();
 			_scene.addComponent<Tile>(tileEntt);
 			Transform& t = _scene.addComponent<Transform>(tileEntt);
 			Render& r = _scene.addComponent<Render>(tileEntt);
@@ -91,11 +94,14 @@ void App::OnInit()
 
 		}
 	}
-	saver.save("E:\\my_scene.xml",_scene);
-	//saver.load("D:\\my_scene.xml");
-	_scene.addComponent<Selected>(map.tiles[0][0].entt);
 
+	//
 
+	//for(auto [ett,tilemap] : _scene.view<TileMap>())
+	//	_scene.addComponent<Selected>(tilemap(0,0).entt);
+	_scene.addComponent<Selected>(map(0, 0).entt);
+	saver.save("resource\\example\\tile_test\\tile_test.xml",_scene);
+		//*/
 	//*/
 	/*
 	auto material = _scene.makeMaterial();

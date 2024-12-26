@@ -209,6 +209,25 @@ void XMLNode::setValue(const DirectX::XMVECTOR& def)
 	return ChildRange(pBaseNode_);
 }
 
+void XMLNode::childs(const std::string& identifier, std::vector<XMLNode>& childs, int ensureSize)
+{
+	childs.clear();
+
+	int currCount = 0;
+
+	for (auto child : pBaseNode_.children(identifier.c_str()))
+	{
+		++currCount;
+		childs.emplace_back(child);
+	}
+
+	for (; currCount <= ensureSize; ++currCount)
+	{
+		childs.emplace_back(pBaseNode_.append_child(identifier.c_str()));
+	}
+
+}
+
 
 
 

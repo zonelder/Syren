@@ -100,13 +100,18 @@ struct Serializer<{type.name}> {{
         if not field_type.is_array() :
             return f"        Serializer<{field_type.type}>::serialize(node.saveGetChild(\"{field_type.name}\"), value.{field_type.name});\n"
         res = f"""        {{
-            auto arrayNode = node.saveGetChild(\"{field_type.name}\");
+            auto arrayNode = node.saveGetChild(\"array_of_{field_type.name}\");
             int i = 0;
-            for(auto it = std::begin(value.{field_type.name});it != std::end(value.{field_type.name});++it)
+
+            auto size = std::distance(std::begin(value.{field_type.name}),std::end(value.{field_type.name}));
+            std::vector<XMLNode> childs;
+            arrayNode.childs(\"{field_type.name}\",childs,size);
+
+            for(ptrdiff_t i = 0;i <size;++i )
             {{
-                Serializer<{field_type.type}>::serialize(arrayNode.saveGetChild(std::to_string(i)),*it);
-                ++i;
+                Serializer<{field_type.type}>::serialize(childs[i],value.{field_type.name}[i]);
             }}
+
         }}\n"""
 
         return res
@@ -122,14 +127,15 @@ struct Serializer<{type.name}> {{
 
             #TODO we may add Defaut property implementation here
         res = f"""
-        if ( auto fieldNode = node.child(\"{field_type.name}\"))
+        if ( auto fieldNode = node.child(\"array_of_{field_type.name}\"))
         {{
-            int i =0;
-            for(auto it = std::begin(value.{field_type.name});it != std::end(value.{field_type.name});++it)
+            std::vector<XMLNode> childs;
+            fieldNode.childs(\"{field_type.name}\",childs);
+            for(ptrdiff_t i = 0;i <childs.size();++i )
             {{
-                if(auto indexNode = fieldNode.child(std::to_string(i++)))
-                    *it = indexNode.value<{field_type.type}>();
+                value.{field_type.name}[i] = Serializer<{field_type.type}>::deserialize(childs[i]);
             }}
+
         }}\n"""
         return res
 

@@ -6,8 +6,8 @@ void CellGameSystem::onInit(SceneManager& scene)
 {
 	auto pRes = SceneContext::pResources();
 
-	p_selectMat = pRes->getMaterial(".\\resource\\example\\material\\tile_red.syrenmaterial");
-	p_deselectMat = pRes->getMaterial(".\\resource\\example\\material\\tile_black.syrenmaterial");
+	p_selectMat = pRes->getMaterial("resource\\example\\tile_test\\material\\tile_red.syrenmaterial");
+	p_deselectMat = pRes->getMaterial("resource\\example\\tile_test\\material\\tile_black.syrenmaterial");
 
 	for (auto [enttID,cell,render] : scene.view<GameCell, Render>())
 	{

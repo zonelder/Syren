@@ -10,7 +10,7 @@ class RenderSystem:public BaseSystem
 public:
 	using WithComponents = filters::With<Parent, Render, Transform>;
 	using RenderView = filters::ComponentView <WithComponents, filters::Without<>>;
-	RenderSystem(SceneManager& scene);
+	RenderSystem();
 	void onFrame(SceneManager&) override;
 	void onUpdate(SceneManager&, float dt) override;
 
@@ -19,6 +19,5 @@ private:
 	void renderOne(Render& render, Transform& transform, const Transform& camTr);
 	//void renderOne(Render& render, Graphics& gfx, Transform& transform,const Transform& camTr);
 	Microsoft::WRL::ComPtr<ID3D11Buffer> p_colorConstantBuffer;
-	SceneManager& _scene;
 };
 

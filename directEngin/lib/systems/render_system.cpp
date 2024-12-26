@@ -4,7 +4,7 @@
 
 
 
-RenderSystem::RenderSystem(SceneManager& scene): _scene(scene)
+RenderSystem::RenderSystem()
 {
 	auto gfx = SceneContext::pGfx();
 	INFOMAN((*gfx));
@@ -91,7 +91,6 @@ void RenderSystem::onFrame(SceneManager& scene)
 	for (auto [antt, r, tr] : commponView)
 	{
 		auto color = r.pMaterial->color;
-		auto x = std::abs(color.x -1.0f);
 		renderOne(r, tr, camTr);
 	}
 
@@ -101,10 +100,8 @@ void RenderSystem::onUpdate(SceneManager& scene, float t)
 {
 
 	auto& rs = scene.getPool<Render>();
-	//auto& view = scene.view<Render>();
 	for (auto& r : rs)
 	{
-
 		r.is_rendered = false;
 	}
 

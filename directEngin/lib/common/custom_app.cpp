@@ -26,17 +26,14 @@
 
 void App::OnInit()
 {
-	////
-
 	srand(time(0));
-	//std::cout << field.identifier() << "  " << field.value<DirectX::XMFLOAT3>() << std::endl;
 	auto gfx = SceneContext::pGfx();
 	SceneLoader saver(_scene);
 
 	/// init systems
+	//TODO add system serialization
 	_systemManager.add<OrientationSystem>();
 	//_systemManager.add<ParentSystem>();
-
 
 	_systemManager.add<RenderSystem>();
 

@@ -14,7 +14,6 @@ void TileSystem::onUpdate(SceneManager& scene,float time)
 {
 
 	static float last_time = 0.0f;
-	//last_time += time/100;
 	if (time - last_time < 1.0f)
 	{
 		return;
@@ -32,8 +31,8 @@ void TileSystem::onUpdate(SceneManager& scene,float time)
 					continue;
 
 				scene.removeComponent<Selected>(data.entt);
-				auto& r = view.get<Render>(data.entt);
-				r.pMaterial = p_deselectMat;
+				auto& r1 = view.get<Render>(data.entt);
+				r1.pMaterial = p_deselectMat;
 
 				int x_random = 1 - 2*(rand() % 2);
 				if (x_random + x >= 10)
@@ -47,15 +46,11 @@ void TileSystem::onUpdate(SceneManager& scene,float time)
 					y_random = 0;
 				else if (y_random < 0 && y == 0)
 					y_random = 0;
-				if (x_random == y_random && x_random == 0)
-				{
-					r.pMaterial = p_selectMat;
-					return;
-				}
+
 				const auto& newSelectedData = chunk(x_random+x,y_random+y);
 				scene.addComponent<Selected>(newSelectedData.entt);
-				r = view.get<Render>(newSelectedData.entt);
-				r.pMaterial = p_selectMat;
+				auto& r2 = view.get<Render>(newSelectedData.entt);
+				r2.pMaterial = p_selectMat;
 				return;
 
 			}

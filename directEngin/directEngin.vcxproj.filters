@@ -21,10 +21,10 @@
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\camera_controller.cpp">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\cell_game.cpp">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="lib\common\Scene\component_manager.cpp">
       <Filter>scene</Filter>
@@ -72,7 +72,7 @@
       <Filter>visual</Filter>
     </ClCompile>
     <ClCompile Include="lib\components\mesh.cpp">
-      <Filter>component</Filter>
+      <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="lib\components\mesh_iternal.cpp">
       <Filter>scene</Filter>
@@ -81,10 +81,10 @@
       <Filter>app</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\orientation_system.cpp">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\parent_system.cpp">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="lib\graphics\Drawable\BindComponent\pixel_shader.cpp">
       <Filter>visual</Filter>
@@ -93,7 +93,7 @@
       <Filter>app</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\render_system.cpp">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="lib\common\Scene\scene_manager.cpp">
       <Filter>scene</Filter>
@@ -102,10 +102,10 @@
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\text_render_system.cpp">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\timed_rotationt_system.cpp">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex.cpp">
       <Filter>visual</Filter>
@@ -120,7 +120,7 @@
       <Filter>app</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\ui_text_render.cpp">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="lib\graphics\Drawable\BindComponent\topology.cpp">
       <Filter>visual</Filter>
@@ -128,7 +128,6 @@
     <ClCompile Include="lib\graphics\Drawable\BindComponent\texture.cpp">
       <Filter>visual</Filter>
     </ClCompile>
-    <ClCompile Include="lib\systems\tile_system.cpp" />
     <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp">
       <Filter>third_party\pugixml</Filter>
     </ClCompile>
@@ -146,6 +145,13 @@
     </ClCompile>
     <ClCompile Include="lib\cstdmf\string_converter.cpp">
       <Filter>cstdmf</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\resmngr\resource_manager.cpp" />
+    <ClCompile Include="lib\systems\tile_system.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\systems\fps_counter_system.cpp">
+      <Filter>systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,10 +172,10 @@
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\camera_controller.h">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\cell_game.h">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\Scene\Camera\clipping_plane.h">
       <Filter>scene</Filter>
@@ -199,7 +205,7 @@
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\game_cell.h">
-      <Filter>component</Filter>
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="lib\graphics\graphics.h">
       <Filter>app</Filter>
@@ -232,7 +238,7 @@
       <Filter>visual</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\mesh.h">
-      <Filter>component</Filter>
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\mesh_iternal.h">
       <Filter>scene</Filter>
@@ -241,22 +247,22 @@
       <Filter>app</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\orientation_system.h">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\parent_system.h">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="lib\exeption\pointed_exception.h">
       <Filter>app</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\parent.h">
-      <Filter>component</Filter>
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\render.h">
-      <Filter>component</Filter>
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\render_system.h">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\Scene\scene_base.h">
       <Filter>scene</Filter>
@@ -271,13 +277,13 @@
       <Filter>visual</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\text.h">
-      <Filter>component</Filter>
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\text_render_system.h">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\timed_rotationt_system.h">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex.h">
       <Filter>visual</Filter>
@@ -295,19 +301,19 @@
       <Filter>app</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\ui_text_render.h">
-      <Filter>system</Filter>
+      <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\timed_rotation.h">
-      <Filter>component</Filter>
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\text_ui.h">
-      <Filter>component</Filter>
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="lib\graphics\Drawable\BindComponent\topology.h">
       <Filter>visual</Filter>
     </ClInclude>
     <ClInclude Include="lib\components\transform.h">
-      <Filter>component</Filter>
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="lib\graphics\Drawable\BindComponent\pixel_shader.h">
       <Filter>visual</Filter>
@@ -315,9 +321,6 @@
     <ClInclude Include="resource.h">
       <Filter>resource</Filter>
     </ClInclude>
-    <ClInclude Include="lib\components\tilemap.h" />
-    <ClInclude Include="lib\systems\tile_system.h" />
-    <ClInclude Include="tilemap.h" />
     <ClInclude Include="xml_parser.hpp" />
     <ClInclude Include="..\third_party\pugixml\src\pugiconfig.hpp">
       <Filter>third_party\pugixml</Filter>
@@ -339,6 +342,19 @@
     </ClInclude>
     <ClInclude Include="lib\cstdmf\string_converter.h">
       <Filter>cstdmf</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\resmngr\resource_manager.h" />
+    <ClInclude Include="lib\components\fps_counter.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\components\tilemap.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\systems\tile_system.h">
+      <Filter>systems</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\systems\fps_counter_system.h">
+      <Filter>systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -368,17 +384,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="component">
-      <UniqueIdentifier>{d228440a-89cf-4147-b994-b4e9c155776b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="app">
       <UniqueIdentifier>{3c027019-46e0-4789-8673-db77c40fda02}</UniqueIdentifier>
     </Filter>
     <Filter Include="scene">
       <UniqueIdentifier>{2e02508a-1a59-4d96-adfb-011af2f493e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="system">
-      <UniqueIdentifier>{8d507a13-3c87-404b-981f-d0cb11508931}</UniqueIdentifier>
     </Filter>
     <Filter Include="visual">
       <UniqueIdentifier>{f2a75eb0-21f7-484a-a95e-e99de1d2b30f}</UniqueIdentifier>
@@ -415,6 +425,12 @@
     </Filter>
     <Filter Include="cstdmf">
       <UniqueIdentifier>{03e1fef6-3afc-4a93-ae6d-d157586fd1b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components">
+      <UniqueIdentifier>{d228440a-89cf-4147-b994-b4e9c155776b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="systems">
+      <UniqueIdentifier>{8d507a13-3c87-404b-981f-d0cb11508931}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

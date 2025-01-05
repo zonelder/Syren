@@ -55,6 +55,50 @@ public:
 	};
 
 
+	class const_iterator
+	{
+	public:
+		const_iterator(Entity* ptr) noexcept : _ptr(ptr) {};
+
+		bool operator==(const iterator& other) const noexcept
+		{
+			return _ptr == other._ptr;
+		}
+
+		bool operator==(const sentinel& other) const noexcept
+		{
+			return *_ptr == tombstone;
+		}
+
+		const_iterator& operator++() noexcept
+		{
+			++_ptr;
+			return *this;
+		}
+
+		const_iterator operator++(int) noexcept
+		{
+			auto copy = *this;
+			++(*this);
+			return copy;
+		}
+
+		const Entity& operator*() const noexcept
+		{
+			return *_ptr;
+		}
+
+		const Entity& operator->() const noexcept
+		{
+			return *_ptr;
+		}
+
+
+	private:
+		Entity* _ptr;
+	};
+
+
 
 
 	/*
@@ -114,10 +158,11 @@ public:
 		return iterator(_densedBegin);
 	}
 
-	auto end() noexcept
-	{
-		return sentinel{};
-	}
+	auto end() noexcept { return sentinel{};}
+
+	auto begin() const noexcept { return const_iterator(_densedBegin); }
+
+	auto end() const noexcept { return sentinel{}; };
 
 	bool contains(key_type key) const
 	{

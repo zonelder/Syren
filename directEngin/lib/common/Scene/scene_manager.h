@@ -1,54 +1,66 @@
 #pragma once
-#include "Camera/camera.h"
-#include "../window.h"
 #include <unordered_map>
+#include <functional>
+
+#include "common/window.h"
+#include "common/input.h"
+
+#include "Camera/camera.h"
+
+#include "resmngr/resource_manager.h"
 #include "component_pool.h"
 #include "component_manager.h"
+
 #include "components/render.h"
 #include "components/transform.h"
-#include "../input.h"
+
 #include "entity_manager.h"
-#include "mesh_pool.h"
-#include <ranges>
+#include "filters.h"
 
-#include "../filters.h"
 
-namespace to_future
+
+/// @brief Some usefull context of app.its support overriding of context but  its always should be at least one instance of class.
+/// in commpon case class App provide such an instance so be carefull when you overriding mainContext;
+class SceneContext
 {
-	namespace constexpr_filters
+public:
+	/// @brief create new instance of scene context.its forbidden to pass nullptr to this constructor.
+	///cause contest SHALL BE SERTAN AND WELL DEFINED.
+	SceneContext(ResourceManager* pRes, Graphics* pGfx);
+	~SceneContext();
+
+
+	/// @brief get main resource manager of application
+	/// @return 
+	static ResourceManager* pResources() noexcept { return s_pMainContext->_pResourceManager; }
+
+	/// @brief get main graphic handler of application
+	/// @return 
+	static Graphics* pGfx() noexcept { return s_pMainContext->_pGraphics; }
+
+	static void setMainContext(SceneContext* context) noexcept 
 	{
-		template<class ...Args>
-		std::array<ComponentID, sizeof...(Args)> ids = { Family::type_id<Args>()... };
-
-		template<class ...Args>
-		inline consteval auto with() noexcept
-		{
-			return std::views::filter([](const Entity& entt)->bool {
-				return entt.hasComponents(ids<Args...>);
-				});
-		}
-
-		template<class ...Args>
-		inline constexpr auto without() noexcept
-		{
-			return std::views::filter([](const Entity& entt)->bool {
-				return entt.hasNotComponents(ids<Args...>);
-				});
-		}
+		assert(context != nullptr);
+		s_pMainContext = context;
 	}
 
-}
+private:
+	ResourceManager* _pResourceManager;
+	Graphics* _pGraphics;
+
+	static std::vector<SceneContext*> s_contexts;
+	static SceneContext* s_pMainContext;
+
+};
 
 
-class SceneManager : private MeshPool
+class SceneManager
 {
 public:
 	SceneManager(const Window& wnd);
 
 
 	Camera& getCamera() noexcept;
-
-	Graphics& getGraphic() noexcept;
 
 	const Entity& createEntity() noexcept;
 
@@ -95,15 +107,25 @@ public:
 	{
 		return *(_ComponentManager.getPool<T>());
 	}
+	template<typename T>
+	const ComponentPool<T>& getPool() const
+	{
+		return *(_ComponentManager.getPool<T>());
+	}
 
-	// реализация метода getComponent
+	template<typename T>
+	ComponentPool<T>& getPoolByGuid(std::string& guid)
+	{
+
+	}
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ getComponent
 	template<typename T>
 	T& getComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
 		return _ComponentManager.getComponent<T>(entt_id);
 	}
-	// реализация метода getComponent
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ getComponent
 	template<typename T>
 	T& getComponent(EntityID entt)
 	{
@@ -125,20 +147,20 @@ public:
 	}
 
 	template<>
-	Transform& addComponent(const Entity& entt)
+	Transform& addComponent(EntityID entt)
 	{
-		auto entt_id = entt.getID();
-		auto& tr = addComponent<Transform>(entt_id);
-		tr.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(_gfx, tr.orientationMatrix);
+		_entityManager.registerComponent(entt, Family::type_id<Transform>());
+		auto& tr =  _ComponentManager.addComponent<Transform>(entt);
+		tr.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(*SceneContext::pGfx(), tr.orientationMatrix);
 		return tr;
 	}
 
 	template<>
-	Render& addComponent(const Entity& entt)
+	Render& addComponent(EntityID entt)
 	{
-		auto entt_id = entt.getID();
-		auto& r = addComponent<Render>(entt_id);
-		r.topology= Topology(_gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		_entityManager.registerComponent(entt, Family::type_id<Render>());
+		auto& r = _ComponentManager.addComponent<Render>(entt);
+		r.topology= Topology(*SceneContext::pGfx(), D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		return r;
 	}
 
@@ -168,29 +190,7 @@ public:
 		return _entityManager.get(entt).hasComponent(Family::type_id<T>());
 	}
 
-	/// @brief create new material and return ptr to it
-	/// @param vertexShader - path to compiled vertex shader
-	/// @param pixelShader  - path to compiled pixel shader
-	/// @return - material with a given shaders
-	std::shared_ptr<Material> makeMaterial(const wchar_t* vertexShader = L"VertexShader.cso", const wchar_t* pixelShader = L"PixelShader.cso");
-
-	/// @brief create new mesh and return ptr to it
-	/// @return 
-	Mesh* makeMesh(
-		const std::vector<Vertex>& vertices,
-		const std::vector<unsigned short> &indices,
-		const MeshIternal::ConstantBuffer2& colors
-	);
-
-
-	MeshIternal* getMeshData(Mesh* meshComponent) const noexcept;
-
-
-	Mesh* makeBoxMesh();
-
-	Mesh* makeCylinderMesh(unsigned int n = 8);
-
-	Mesh* make2SidedPlaneMesh();
+	MeshPtr make2SidedPlaneMesh();
 
 	void onStartFrame();
 
@@ -204,8 +204,13 @@ public:
 	void onEndFrame();
 
 	const Entity& getEntity(EntityID id) const noexcept;
+
+	const auto& pools() const noexcept
+	{
+		return _ComponentManager.pools();
+	}
+
 private:
-	Graphics _gfx;
 	ComponentManager _ComponentManager;
 	EntityManager _entityManager;
 	Camera _mainCamera;

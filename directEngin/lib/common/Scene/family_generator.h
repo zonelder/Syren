@@ -69,7 +69,7 @@ public:
     static constexpr ComponentID type_id = counter<>;
     */
 	template<typename T>
-    static const ComponentID type_id() noexcept
+    static ComponentID type_id() noexcept
     {
         static const ComponentID id = identifier();
         return id;

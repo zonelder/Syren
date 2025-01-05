@@ -4,22 +4,14 @@
 
 void CellGameSystem::onInit(SceneManager& scene)
 {
+	auto pRes = SceneContext::pResources();
 
-	auto& gfx = scene.getGraphic();
-	MaterialPtr select = scene.makeMaterial();
-	select->texture.set(gfx, nullptr);
-	select->color = { 1.0f,.0f,.0f,1.0f };
-
-	MaterialPtr deselect = scene.makeMaterial();
-	deselect->texture.set(gfx, nullptr);
-	deselect->color = { 0.0f,.0f,.0f,1.0f };
-
-	p_selectMat = std::move(select);
-	p_deselectMat = std::move(deselect);
+	p_selectMat = pRes->getMaterial("resource\\example\\tile_test\\material\\tile_red.syrenmaterial");
+	p_deselectMat = pRes->getMaterial("resource\\example\\tile_test\\material\\tile_black.syrenmaterial");
 
 	for (auto [enttID,cell,render] : scene.view<GameCell, Render>())
 	{
-		render.p_material = p_deselectMat;
+		render.pMaterial = p_deselectMat;
 	}
 
 }
@@ -45,7 +37,7 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 	{
 		scene.addComponent<Chained>(hit.entt);
 		auto& render = scene.getComponent<Render>(hit.entt);
-		render.p_material = p_selectMat;
+		render.pMaterial = p_selectMat;
 	}
 	auto& viewComp = scene.view<Chained, GameCell, Render>();
 	for (auto [enttID,ch,cell,render] : viewComp)
@@ -54,7 +46,7 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 		if (hit.entt != enttID)
 		{
 			//scene.removeComponent<Chained>(enttID);
-			render.p_material = p_deselectMat;
+			render.pMaterial = p_deselectMat;
 		}
 	}
 }

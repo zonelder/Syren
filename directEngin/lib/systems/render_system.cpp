@@ -4,10 +4,10 @@
 
 
 
-RenderSystem::RenderSystem(SceneManager& scene): _scene(scene)
+RenderSystem::RenderSystem()
 {
-	auto& gfx = scene.getGraphic();
-	INFOMAN(gfx);
+	auto gfx = SceneContext::pGfx();
+	INFOMAN((*gfx));
 	D3D11_BUFFER_DESC constantBufferDesc = {};
 
 	constantBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -15,15 +15,15 @@ RenderSystem::RenderSystem(SceneManager& scene): _scene(scene)
 	constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	constantBufferDesc.CPUAccessFlags = 0;
 	constantBufferDesc.MiscFlags = 0;
-	GFX_THROW_INFO(gfx.getDevice()->CreateBuffer(&constantBufferDesc, nullptr, &p_colorConstantBuffer));
+	GFX_THROW_INFO(gfx->getDevice()->CreateBuffer(&constantBufferDesc, nullptr, &p_colorConstantBuffer));
 	
 }
 
 void RenderSystem::renderOne(Render& render,Transform& transform,const Transform& camTr)
 {
-	Graphics& gfx = _scene.getGraphic();
+	Graphics& gfx = *SceneContext::pGfx();
 	auto* context = gfx.getContext();
-	MeshIternal* mesh = _scene.getMeshData(render.p_mesh);
+	MeshInternal mesh(gfx,render.pMesh.get());//maybe we can create an instance once and just ypdate the buffers
 	INFOMAN(gfx);
 
 	///update transform buffer
@@ -40,17 +40,17 @@ void RenderSystem::renderOne(Render& render,Transform& transform,const Transform
 
 	// use binds
 	transform.vertexConstantBuffer.bind(gfx);
-	mesh->bind(gfx);
+	mesh.bind(gfx);
 
 	// general material color
-	context->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.p_material->color), sizeof(DirectX::XMFLOAT4), 0);
+	context->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.pMaterial->color), sizeof(DirectX::XMFLOAT4), 0);
 	context->PSSetConstantBuffers(1u, 1u, p_colorConstantBuffer.GetAddressOf());
 
-	render.p_material->bind(gfx);
+	render.pMaterial->bind(gfx);
 	render.topology.bind(gfx);
 	//draw
 
-	gfx.DrawIndexed(render.p_mesh->IndexCount,render.p_mesh->startIndex);
+	gfx.DrawIndexed(render.pMesh->indices.size()/*TODO change to index count data in mesh*/, render.pMesh->startIndex);
 }
 
 void RenderSystem::DeepRender(RenderView& view,Transform& cam,EntityID id )
@@ -77,7 +77,6 @@ void RenderSystem::DeepRender(RenderView& view,Transform& cam,EntityID id )
 #pragma optimize("", off)
 void RenderSystem::onFrame(SceneManager& scene)
 {
-	Graphics& gfx = scene.getGraphic();
 
 	auto& camTr = scene.getCamera().transform;
 	RenderView& view = scene.view<WithComponents>();
@@ -91,8 +90,7 @@ void RenderSystem::onFrame(SceneManager& scene)
 	auto& commponView = scene.view<filters::With<Render, Transform>, filters::Without<Parent>>();
 	for (auto [antt, r, tr] : commponView)
 	{
-		auto color = r.p_material->color;
-		auto x = std::abs(color.x -1.0f);
+		auto color = r.pMaterial->color;
 		renderOne(r, tr, camTr);
 	}
 
@@ -102,10 +100,8 @@ void RenderSystem::onUpdate(SceneManager& scene, float t)
 {
 
 	auto& rs = scene.getPool<Render>();
-	//auto& view = scene.view<Render>();
 	for (auto& r : rs)
 	{
-
 		r.is_rendered = false;
 	}
 

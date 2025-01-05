@@ -71,6 +71,10 @@ public:
 	{
 		return _set.end();
 	}
+
+	auto ebegin() const noexcept { return _set.begin(); };
+
+	auto eend() const noexcept { return _set.end(); };
 	/*
 	* 	auto begin() noexcept
 	{
@@ -120,14 +124,25 @@ public:
 
 	}
 
-	auto begin()
+	auto begin() noexcept
 	{
 		return _begin;//_data.begin();
 	}
-	auto end()
+	auto end() noexcept
 	{
 		return _end;//_data.end();
 	}
+
+	auto begin() const noexcept
+	{
+		return _begin;//_data.begin();
+	}
+
+	auto end() const noexcept
+	{
+		return _end;//_data.end();
+	}
+
 
 	auto size() const noexcept
 	{

@@ -1,10 +1,48 @@
 #pragma once
+#include <string>
+#include <vector>
+#include <memory>
+
+#include <DirectXMath.h>
+
+struct Color
+{
+	float r{ 0.0f };
+	float g{ 0.0f };
+	float b{ 0.0f };
+	float a{ 1.0f };
+};
+
+struct BoundingBox
+{
+	using Position = DirectX::XMFLOAT3;
+	Position minBound;
+	Position maxBound;
+};
+
+struct Vertex;
 
 struct Mesh
 {
+	//in case i will implement more catch friendly container
+	template<class T>
+	using ElementContainer = std::vector<T>;
 public:
-	Mesh(size_t id, size_t MeshSize);
-	size_t id;
+	Mesh() = default;
+	Mesh(ElementContainer<Vertex>&& verts, ElementContainer<unsigned short>&& inds, ElementContainer<Color>&& colors);
+	std::string resourceID;
 	size_t IndexCount;
 	size_t startIndex;
+
+	ElementContainer<Vertex> vertexes;
+	ElementContainer<unsigned short> indices;
+	ElementContainer< Color > colors;
+	BoundingBox boundingBox;
 };
+
+using MeshPtr = std::shared_ptr<Mesh>;
+
+namespace meshHelpers
+{
+	void updateBB(Mesh* pMesh);
+}

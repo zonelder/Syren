@@ -1318,7 +1318,7 @@
 			<Entity_1>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1328,7 +1328,7 @@
 			<Entity_2>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1338,7 +1338,7 @@
 			<Entity_3>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1348,7 +1348,7 @@
 			<Entity_4>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1358,7 +1358,7 @@
 			<Entity_5>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1368,7 +1368,7 @@
 			<Entity_6>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1378,7 +1378,7 @@
 			<Entity_7>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1388,7 +1388,7 @@
 			<Entity_8>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1398,7 +1398,7 @@
 			<Entity_9>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1408,7 +1408,7 @@
 			<Entity_10>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1418,7 +1418,7 @@
 			<Entity_11>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1428,7 +1428,7 @@
 			<Entity_12>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1438,7 +1438,7 @@
 			<Entity_13>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1448,7 +1448,7 @@
 			<Entity_14>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1458,7 +1458,7 @@
 			<Entity_15>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1468,7 +1468,7 @@
 			<Entity_16>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1478,7 +1478,7 @@
 			<Entity_17>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1488,7 +1488,7 @@
 			<Entity_18>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1498,7 +1498,7 @@
 			<Entity_19>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1508,7 +1508,7 @@
 			<Entity_20>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1518,7 +1518,7 @@
 			<Entity_21>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1528,7 +1528,7 @@
 			<Entity_22>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1538,7 +1538,7 @@
 			<Entity_23>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1548,7 +1548,7 @@
 			<Entity_24>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1558,7 +1558,7 @@
 			<Entity_25>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1568,7 +1568,7 @@
 			<Entity_26>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1578,7 +1578,7 @@
 			<Entity_27>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1588,7 +1588,7 @@
 			<Entity_28>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1598,7 +1598,7 @@
 			<Entity_29>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1608,7 +1608,7 @@
 			<Entity_30>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1618,7 +1618,7 @@
 			<Entity_31>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1628,7 +1628,7 @@
 			<Entity_32>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1638,7 +1638,7 @@
 			<Entity_33>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1648,7 +1648,7 @@
 			<Entity_34>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1658,7 +1658,7 @@
 			<Entity_35>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1668,7 +1668,7 @@
 			<Entity_36>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1678,7 +1678,7 @@
 			<Entity_37>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1688,7 +1688,7 @@
 			<Entity_38>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1698,7 +1698,7 @@
 			<Entity_39>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1708,7 +1708,7 @@
 			<Entity_40>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1718,7 +1718,7 @@
 			<Entity_41>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1728,7 +1728,7 @@
 			<Entity_42>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1738,7 +1738,7 @@
 			<Entity_43>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1748,7 +1748,7 @@
 			<Entity_44>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1758,7 +1758,7 @@
 			<Entity_45>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1768,7 +1768,7 @@
 			<Entity_46>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1778,7 +1778,7 @@
 			<Entity_47>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1788,7 +1788,7 @@
 			<Entity_48>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1798,7 +1798,7 @@
 			<Entity_49>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1808,7 +1808,7 @@
 			<Entity_50>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1818,7 +1818,7 @@
 			<Entity_51>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1828,7 +1828,7 @@
 			<Entity_52>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1838,7 +1838,7 @@
 			<Entity_53>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1848,7 +1848,7 @@
 			<Entity_54>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1858,7 +1858,7 @@
 			<Entity_55>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1868,7 +1868,7 @@
 			<Entity_56>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1878,7 +1878,7 @@
 			<Entity_57>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1888,7 +1888,7 @@
 			<Entity_58>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1898,7 +1898,7 @@
 			<Entity_59>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1908,7 +1908,7 @@
 			<Entity_60>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1918,7 +1918,7 @@
 			<Entity_61>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1928,7 +1928,7 @@
 			<Entity_62>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1938,7 +1938,7 @@
 			<Entity_63>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1948,7 +1948,7 @@
 			<Entity_64>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1958,7 +1958,7 @@
 			<Entity_65>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1968,7 +1968,7 @@
 			<Entity_66>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1978,7 +1978,7 @@
 			<Entity_67>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1988,7 +1988,7 @@
 			<Entity_68>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -1998,7 +1998,7 @@
 			<Entity_69>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2008,7 +2008,7 @@
 			<Entity_70>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2018,7 +2018,7 @@
 			<Entity_71>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2028,7 +2028,7 @@
 			<Entity_72>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2038,7 +2038,7 @@
 			<Entity_73>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2048,7 +2048,7 @@
 			<Entity_74>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2058,7 +2058,7 @@
 			<Entity_75>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2068,7 +2068,7 @@
 			<Entity_76>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2078,7 +2078,7 @@
 			<Entity_77>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2088,7 +2088,7 @@
 			<Entity_78>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2098,7 +2098,7 @@
 			<Entity_79>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2108,7 +2108,7 @@
 			<Entity_80>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2118,7 +2118,7 @@
 			<Entity_81>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2128,7 +2128,7 @@
 			<Entity_82>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2138,7 +2138,7 @@
 			<Entity_83>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2148,7 +2148,7 @@
 			<Entity_84>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2158,7 +2158,7 @@
 			<Entity_85>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2168,7 +2168,7 @@
 			<Entity_86>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2178,7 +2178,7 @@
 			<Entity_87>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2188,7 +2188,7 @@
 			<Entity_88>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2198,7 +2198,7 @@
 			<Entity_89>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2208,7 +2208,7 @@
 			<Entity_90>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2218,7 +2218,7 @@
 			<Entity_91>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2228,7 +2228,7 @@
 			<Entity_92>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2238,7 +2238,7 @@
 			<Entity_93>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2248,7 +2248,7 @@
 			<Entity_94>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2258,7 +2258,7 @@
 			<Entity_95>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2268,7 +2268,7 @@
 			<Entity_96>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2278,7 +2278,7 @@
 			<Entity_97>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2288,7 +2288,7 @@
 			<Entity_98>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2298,7 +2298,7 @@
 			<Entity_99>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>
@@ -2308,7 +2308,7 @@
 			<Entity_100>
 				<data>
 					<pMesh>
-						<resourceID>plane.syrenmesh</resourceID>
+						<resourceID>resource\mesh\plane.syrenmesh</resourceID>
 					</pMesh>
 					<pMaterial>
 						<resourceID>resource\example\tile_test\material\tile_black.syrenmaterial</resourceID>

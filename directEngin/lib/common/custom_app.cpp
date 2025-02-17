@@ -26,7 +26,7 @@
 
 void App::OnInit()
 {
-	srand(time(0));
+	srand((unsigned int)time(0));
 	auto gfx = SceneContext::pGfx();
 	SceneLoader saver(_scene);
 

@@ -1,33 +1,44 @@
-#pragma once
-#include "../../transform_utils.h"
-#include "clipping_plane.h"
+#ifndef __CAMERA_H__
+#define __CAMERA_H__
+
+#include "common/transform_utils.h"
 
 class Camera
 {
 public:
-	Camera() = default;
+
+	Camera();
 	Camera(const Camera&) = delete;
 	Camera& operator=(const Camera&) = delete;
 
 	void OnFrame();
 	void OnUpdate();
+
+	const DirectX::XMMATRIX& view() const noexcept { return _view; }
+
+	const DirectX::XMMATRIX& projection() const noexcept { return _projection; }
+
 	Transform transform;
-	DirectX::XMMATRIX projection;
 
 	/// @brief The Camera’s view angle, measured in radians
-	float fov = 1.0f;
-
+	float fov;
 
 	/// @brief Proportions of the representation space X:Y.
-	float aspectRatio = 1.0f;
+	float aspectRatio;
 
-	/// @brief 	Distances from the camera to start and stop rendering.
-	/// @param far -  The furthest point relative to the camera that drawing will occur.
-	/// @param near - The closest point relative to the camera that drawing will occur.
-	ClippingPlanes clippingPlanes;
+	/// @brief near - The closest distance relative to the camera that drawing will occur.
+	float nearPlane;
+
+	/// @brief farPlane -  The furthest distance relative to the camera that drawing will occur.
+	float farPlane;
 
 	/// @brief The color applied to the remaining screen after all elements in view have been drawn and there is no skybox
 	float background[4] = {1.0f,1.0f, 1.0f, 1.0f};
 
+private:
+	DirectX::XMMATRIX _view;
+	DirectX::XMMATRIX _projection;
+
 };
 
+#endif // !__CAMERA_H_

@@ -101,13 +101,11 @@ struct Serializer<{type.name}> {{
             return f"        Serializer<{field_type.type}>::serialize(node.saveGetChild(\"{field_type.name}\"), value.{field_type.name});\n"
         res = f"""        {{
             auto arrayNode = node.saveGetChild(\"array_of_{field_type.name}\");
-            int i = 0;
-
             auto size = std::distance(std::begin(value.{field_type.name}),std::end(value.{field_type.name}));
             std::vector<XMLNode> childs;
-            arrayNode.childs(\"{field_type.name}\",childs,size);
+            arrayNode.childs(\"{field_type.name}\",childs,(int)size);
 
-            for(ptrdiff_t i = 0;i <size;++i )
+            for(ptrdiff_t i = 0 ;i < size ;++i )
             {{
                 Serializer<{field_type.type}>::serialize(childs[i],value.{field_type.name}[i]);
             }}
@@ -131,7 +129,7 @@ struct Serializer<{type.name}> {{
         {{
             std::vector<XMLNode> childs;
             fieldNode.childs(\"{field_type.name}\",childs);
-            for(ptrdiff_t i = 0;i <childs.size();++i )
+            for( std::vector<XMLNode>::size_type i = 0 ; i < childs.size() ; ++i )
             {{
                 value.{field_type.name}[i] = Serializer<{field_type.type}>::deserialize(childs[i]);
             }}

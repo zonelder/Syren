@@ -162,7 +162,7 @@ void Graphics::ClearBuffer(const float color[4]) noexcept
 }
 void Graphics::DrawIndexed(size_t indexCount,size_t startIndex)
 {
-	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)indexCount, startIndex, 0u));
+	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)indexCount, (UINT)startIndex, 0u));
 }
 
 Graphics::HrException::HrException(int line, const char* file, HRESULT hr,std::vector<std::string> infoMsgs) noexcept:

@@ -19,7 +19,7 @@ void CellGameSystem::onInit(SceneManager& scene)
 void CellGameSystem::onUpdate(SceneManager& scene, float time)
 {
 	const auto& camera = scene.getCamera();
-	const auto& proj = camera.projection;
+	const auto& proj = camera.projection();
 	float px = 2.0f*scene.getInput().normedX -1.0f;
 	px /= DirectX::XMVectorGetX(proj.r[0]);
 	auto py = -2.0f*scene.getInput().normedY + 1.0f;

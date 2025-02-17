@@ -16,30 +16,32 @@ RenderSystem::RenderSystem()
 	constantBufferDesc.CPUAccessFlags = 0;
 	constantBufferDesc.MiscFlags = 0;
 	GFX_THROW_INFO(gfx->getDevice()->CreateBuffer(&constantBufferDesc, nullptr, &p_colorConstantBuffer));
+	_vertexConstantBuffer =	 VertexConstantBuffer<DirectX::XMMATRIX>(*gfx,_wvp);
 	
 }
 
-void RenderSystem::renderOne(Render& render,Transform& transform,const Transform& camTr)
+void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX::XMMATRIX& viewProjection)
 {
 	Graphics& gfx = *SceneContext::pGfx();
 	auto* context = gfx.getContext();
-	MeshInternal mesh(gfx,render.pMesh.get());//maybe we can create an instance once and just ypdate the buffers
+	MeshInternal mesh(gfx,render.pMesh.get());//maybe we can create an instance once and just update the buffers
 	INFOMAN(gfx);
 
+	_wvp = transform.orientationMatrix * viewProjection;
+	_wvp = DirectX::XMMatrixTranspose(_wvp);
 	///update transform buffer
 	D3D11_MAPPED_SUBRESOURCE msr;
-	auto pConstantBuffer = transform.vertexConstantBuffer.p_pConstantBuffer;
-	auto FinalView = DirectX::XMMatrixTranspose(transform.orientationMatrix * camTr.orientationMatrix);
+	auto pConstantBuffer = _vertexConstantBuffer.p_pConstantBuffer;
 	GFX_THROW_INFO(context->Map(
 		pConstantBuffer.Get(), 0u,
 		D3D11_MAP_WRITE_DISCARD, 0u,
 		&msr
 	));
-	memcpy(msr.pData, &FinalView, sizeof(FinalView));
+	memcpy(msr.pData, &_wvp, sizeof(_wvp));
 	context->Unmap(pConstantBuffer.Get(), 0u);
 
 	// use binds
-	transform.vertexConstantBuffer.bind(gfx);
+	_vertexConstantBuffer.bind(gfx);
 	mesh.bind(gfx);
 
 	// general material color
@@ -53,45 +55,41 @@ void RenderSystem::renderOne(Render& render,Transform& transform,const Transform
 	gfx.DrawIndexed(render.pMesh->indices.size()/*TODO change to index count data in mesh*/, render.pMesh->startIndex);
 }
 
-void RenderSystem::DeepRender(RenderView& view,Transform& cam,EntityID id )
+void RenderSystem::DeepRender(RenderView& view, const DirectX::XMMATRIX& viewProjection,EntityID id )
 {
 
 	auto& r = view.get<Render>(id);
 	if (r.is_rendered)
 		return;
 
-
 	//before render object we should render its parent
 	if (view.has<Parent>(id))
 	{
 		auto p_id = view.get<Parent>(id).parent;
-		DeepRender(view, cam,p_id);
+		DeepRender(view, viewProjection,p_id);
 	}
 
-	renderOne(r, view.get<Transform>(id), cam);
-
-	
-	r.is_rendered = true;
+	renderOne(r, view.get<Transform>(id), viewProjection);
+	r.is_rendered = true;//TODO remove
 }
 
-#pragma optimize("", off)
 void RenderSystem::onFrame(SceneManager& scene)
 {
 
-	auto& camTr = scene.getCamera().transform;
+	auto& cam = scene.getCamera();
 	RenderView& view = scene.view<WithComponents>();
+	auto viewProjection = cam.view() * cam.projection();
 	for (auto [entt,p,r,tr] : view)
 	{
 
-		DeepRender(view, camTr,entt);
-		
+		DeepRender(view, viewProjection, entt);
 	}
 
 	auto& commponView = scene.view<filters::With<Render, Transform>, filters::Without<Parent>>();
 	for (auto [antt, r, tr] : commponView)
 	{
 		auto color = r.pMaterial->color;
-		renderOne(r, tr, camTr);
+		renderOne(r, tr, viewProjection);
 	}
 
 }
@@ -102,7 +100,7 @@ void RenderSystem::onUpdate(SceneManager& scene, float t)
 	auto& rs = scene.getPool<Render>();
 	for (auto& r : rs)
 	{
-		r.is_rendered = false;
+		r.is_rendered = false;//TODO remove
 	}
 
 }

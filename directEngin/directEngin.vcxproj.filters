@@ -177,9 +177,6 @@
     <ClInclude Include="lib\systems\cell_game.h">
       <Filter>systems</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\Camera\clipping_plane.h">
-      <Filter>scene</Filter>
-    </ClInclude>
     <ClInclude Include="lib\common\Scene\component_manager.h">
       <Filter>scene</Filter>
     </ClInclude>

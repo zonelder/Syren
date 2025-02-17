@@ -147,15 +147,6 @@ public:
 	}
 
 	template<>
-	Transform& addComponent(EntityID entt)
-	{
-		_entityManager.registerComponent(entt, Family::type_id<Transform>());
-		auto& tr =  _ComponentManager.addComponent<Transform>(entt);
-		tr.vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(*SceneContext::pGfx(), tr.orientationMatrix);
-		return tr;
-	}
-
-	template<>
 	Render& addComponent(EntityID entt)
 	{
 		_entityManager.registerComponent(entt, Family::type_id<Render>());

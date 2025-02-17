@@ -265,6 +265,8 @@ bool ResourceManager::saveMaterial(const MaterialPtr pMaterial, const std::strin
 	doc.save(file, "\t", pugi::format_default);
 	file.close();
 	//todo save as xml 
+
+	return true;
 }
 
 bool ResourceManager::loadMeshInternal(MeshPtr pMesh,const std::string& file)
@@ -382,6 +384,8 @@ bool ResourceManager::loadMaterialInternal(MaterialPtr pMat, const std::string& 
 	{
 		pMat->pPixelShader = getPixelShader(pixelShaderNode.value<std::string>());
 	}
+
+	return true;
 }
 
 bool ResourceManager::saveMeshInternal(const MeshPtr pMesh, const std::string& filename)

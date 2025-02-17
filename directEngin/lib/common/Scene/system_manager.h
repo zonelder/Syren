@@ -4,7 +4,7 @@
 #include "base_system.h"
 #include <memory>
 #include <algorithm>
-#include <map>
+#include <unordered_map>
 
 template<typename T,typename U>
 concept DeriveFrom = std::is_base_of<U, T>::value;
@@ -29,7 +29,7 @@ public:
 	template<typename T, class... Args>
 	void add(unsigned int priority,Args&&... args) requires DeriveFrom<T, BaseSystem>
 	{
-		if (_systems.contains(priority))
+		if (_systems.find(priority) != _systems.end())
 		{
 			//TODO add warn: attempt to add system with priority that already exist. you should set unique priority to system
 			return;
@@ -38,7 +38,7 @@ public:
 		{
 			_maxPriority = priority;
 		}
-		_systems.try_emplace(priority,new T(std::forward<Args>(args)...));
+		_systems.try_emplace(priority,std::make_unique<T>(std::forward<Args>(args)...));
 	}
 	
 
@@ -65,6 +65,6 @@ public:
 private:
 	//std::vector<int> _priorities;
 	unsigned int _maxPriority = 0;
-	std::map<unsigned int ,std::unique_ptr<BaseSystem>>  _systems;
+	std::unordered_map<unsigned int ,std::unique_ptr<BaseSystem>>  _systems;
 };
 

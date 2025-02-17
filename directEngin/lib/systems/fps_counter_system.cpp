@@ -9,11 +9,12 @@ void FPSCounterSystem::onUpdate(SceneManager& scene, float time)
 	for (auto [entt, fpsCounter] : view)
 	{
 		fpsCounter.currentFrameCount++;
-		if (time - fpsCounter.lastUpdate >= 1.0f)
+		float delta = time - fpsCounter.lastUpdate;
+		if (delta >= 1.0f)
 		{
-			fpsCounter.fpsAverage = fpsCounter.currentFrameCount;
-			fpsCounter.fpsMax =  fpsCounter.currentFrameCount > fpsCounter.fpsMax ? fpsCounter.currentFrameCount : fpsCounter.fpsMax;
-			fpsCounter.fpsMin =  fpsCounter.currentFrameCount < fpsCounter.fpsMin ? fpsCounter.currentFrameCount : fpsCounter.fpsMin;
+			fpsCounter.fpsAverage = float(fpsCounter.currentFrameCount) / delta;
+			fpsCounter.fpsMax = (std::max)(fpsCounter.fpsAverage, fpsCounter.fpsMax);
+			fpsCounter.fpsMin = (std::min)(fpsCounter.fpsAverage, fpsCounter.fpsMin);
 			fpsCounter.lastUpdate = time;
 			fpsCounter.currentFrameCount = 0u;
 		}

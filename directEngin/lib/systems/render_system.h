@@ -15,9 +15,10 @@ public:
 	void onUpdate(SceneManager&, float dt) override;
 
 private:
-	void DeepRender(RenderView& view, Transform& cam, EntityID id);
-	void renderOne(Render& render, Transform& transform, const Transform& camTr);
-	//void renderOne(Render& render, Graphics& gfx, Transform& transform,const Transform& camTr);
+	void DeepRender(RenderView& view, const DirectX::XMMATRIX& viewProjection, EntityID id);
+	void renderOne(Render& render, Transform& transform, const DirectX::XMMATRIX& viewProjection);
 	Microsoft::WRL::ComPtr<ID3D11Buffer> p_colorConstantBuffer;
+	DirectX::XMMATRIX _wvp;
+	VertexConstantBuffer<DirectX::XMMATRIX> _vertexConstantBuffer;
 };
 

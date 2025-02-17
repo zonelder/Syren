@@ -253,7 +253,6 @@
     <ClInclude Include="lib\common\Scene\component_pool.h" />
     <ClInclude Include="lib\common\input.h" />
     <ClInclude Include="lib\common\Scene\Camera\camera.h" />
-    <ClInclude Include="lib\common\Scene\Camera\clipping_plane.h" />
     <ClInclude Include="lib\common\Scene\family_generator.h" />
     <ClInclude Include="lib\common\Scene\icomponent_pool.h" />
     <ClInclude Include="lib\graphics\Drawable\idrawable.h" />

@@ -48,7 +48,7 @@ void App::OnInit()
 	_scene.getCamera().aspectRatio = float(_wnd.GetWidth()) / _wnd.GetHeight();
 
 	_scene.getCamera().transform.position = {0.0f,0.0f,-4.0f};
-	saver.load("resource\\example\\tile_test\\tile_test.xml");
+	//saver.load("resource\\example\\tile_test\\tile_test.xml");
 
 	auto& entt = _scene.createEntity();
 	auto& text = _scene.addComponent<TextUI>(entt);
@@ -56,4 +56,15 @@ void App::OnInit()
 	auto& viewMark = _scene.addComponent<FPSView>(entt);
 
 	text.position = { 10.0f,10.0f };
+
+
+	//custom code
+
+	auto sword = _scene.createEntity();
+
+	auto& tr = _scene.addComponent<Transform>(sword);
+	auto& r = _scene.addComponent<Render>(sword);
+
+	r.pMaterial = SceneContext::pResources()->getMaterial("resource/example/tile_test/material/tile_black.syrenmaterial");
+	r.pMesh = SceneContext::pResources()->getMesh("resource/example/fbx_load/SlothSword.fbx");
 }

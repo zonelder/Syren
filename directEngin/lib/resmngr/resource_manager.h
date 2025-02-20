@@ -70,7 +70,8 @@ public:
 	bool saveMaterial(const MaterialPtr pMaterial, const std::string& resourceID);
 
 private:
-	bool loadMeshInternal(MeshPtr mesh,const std::string& file);
+	bool loadSyrenMeshInternal(MeshPtr mesh,const std::string& file);
+	bool loadFbxMeshInternal(MeshPtr mesh, const std::string& file);
 	bool loadMaterialInternal(MaterialPtr pMat, const std::string& file);
 
 

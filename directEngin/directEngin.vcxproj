@@ -82,6 +82,9 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>python "$(ProjectDir)build\codegenerators\init.py"</Command>
@@ -105,6 +108,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>python "$(ProjectDir)build\codegenerators\init.py"</Command>
@@ -130,6 +136,9 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>python "$(ProjectDir)build\codegenerators\init.py"</Command>
@@ -159,6 +168,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>python "$(ProjectDir)build\codegenerators\init.py"</Command>
@@ -330,6 +342,7 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets" Condition="Exists('..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets')" />
     <Import Project="..\packages\directxtk_uwp.2024.6.5.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2024.6.5.1\build\native\directxtk_uwp.targets')" />
+    <Import Project="..\packages\fbxsdk.2020.0.1.2\build\native\fbxsdk.targets" Condition="Exists('..\packages\fbxsdk.2020.0.1.2\build\native\fbxsdk.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -337,5 +350,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\FW1FontWrapper.1.1.2017.317\build\native\FW1FontWrapper.targets'))" />
     <Error Condition="!Exists('..\packages\directxtk_uwp.2024.6.5.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2024.6.5.1\build\native\directxtk_uwp.targets'))" />
+    <Error Condition="!Exists('..\packages\fbxsdk.2020.0.1.2\build\native\fbxsdk.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\fbxsdk.2020.0.1.2\build\native\fbxsdk.targets'))" />
   </Target>
 </Project>

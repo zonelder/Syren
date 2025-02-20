@@ -6,6 +6,50 @@
 #include "graphics/Drawable/BindComponent/pixel_shader.h"
 #include <filesystem>
 #include <fstream>
+#include <unordered_set>
+
+#include <fbxsdk.h>
+
+
+template<class T>
+class FbxRAII
+{
+public:
+	FbxRAII() : _pObj(nullptr) {};
+
+	FbxRAII(T* pObj) : _pObj(pObj) {};
+
+	~FbxRAII()
+	{
+		if (_pObj)
+		{
+			_pObj->Destroy();
+			_pObj = nullptr;
+		}
+	}
+
+
+	T& operator*() const
+	{
+		return *_pObj;
+	}
+
+	T* operator->() const
+	{
+		return _pObj;
+	}
+
+	operator T* () const noexcept { return _pObj; }
+
+	T* get() const noexcept { return _pObj; }
+
+
+
+private:
+	T* _pObj;
+};
+
+
 
 namespace fileSystem
 {
@@ -117,11 +161,73 @@ namespace fileSystem
 
 }
 
+
+namespace
+{
+	Color toColor(FbxColor color)
+	{
+		return { static_cast<float>(color.mRed),static_cast<float>(color.mGreen),static_cast<float>(color.mBlue),static_cast<float>(color.mAlpha) };
+	}
+
+	bool loadMeshFromNode(FbxNode* node, MeshPtr mesh, const std::string& file,const FbxRAII<FbxManager>& manager)
+	{
+		if (!node->GetNodeAttribute() || node->GetNodeAttribute()->GetAttributeType() != FbxNodeAttribute::eMesh)
+			return false;
+
+		FbxMesh* fbxMesh = node->GetMesh();
+		if (!fbxMesh) return false;
+
+		// enshure fbx mesh contains only trianges as polygone
+		if (!fbxMesh->IsTriangleMesh()) {
+			FbxGeometryConverter converter(manager);
+			auto attr = converter.Triangulate(fbxMesh, true);
+			if (attr && attr->GetAttributeType() == FbxNodeAttribute::eMesh)
+				fbxMesh = static_cast<FbxMesh*>(attr);
+			else
+				return false;
+		}
+
+		mesh->IndexCount = fbxMesh->GetPolygonCount()*3;
+		mesh->indices.reserve(mesh->IndexCount);
+		mesh->vertexes.reserve(fbxMesh->GetControlPointsCount());
+		mesh->colors.resize(fbxMesh->GetElementVertexColorCount());
+
+
+		for (int j = 0; j < fbxMesh->GetControlPointsCount(); j++) {
+			FbxVector4 vertex = fbxMesh->GetControlPointAt(j);
+			Vertex v;
+			v.position = DirectX::XMVectorSet(static_cast<float>(vertex[0]), static_cast<float>(vertex[1]), static_cast<float>(vertex[2]), 1.0f);
+			mesh->vertexes.emplace_back(v);
+		}
+
+		for (int j = 0; j < fbxMesh->GetPolygonCount(); j++) {
+			for (int k = 0; k < fbxMesh->GetPolygonSize(j); k++) {
+				mesh->indices.push_back(fbxMesh->GetPolygonVertex(j, k));
+			}
+		}
+
+		if (fbxMesh->GetElementVertexColorCount() > 0)
+		{
+			auto pColorElement = fbxMesh->GetElementVertexColor();
+			for (int i = 0; i < fbxMesh->GetControlPointsCount(); ++i)
+			{
+				FbxColor color = pColorElement->GetDirectArray().GetAt(i);
+				mesh->colors[i] = toColor(color);
+			}
+		}
+
+		mesh->resourceID = file;
+		meshHelpers::updateBB(mesh.get());
+		return true;
+	}
+}
+
 /// @brief //////////////////////RESOURCE MANAGER ////////////////////
 
 ResourceManager::ResourceManager(Graphics& gfx) : _gfx(gfx)
 {
 }
+
 
 /// @brief getPtr to exact resource.if resource isnot loaded then load it and return to user;
 /// @param resourceID full path to resource;
@@ -135,14 +241,21 @@ MeshPtr ResourceManager::getMesh(const std::string& resourceID)
 		return (it->second);
 	}
 
-	if (fileSystem::getExtension(path) != "syrenmesh")
+	auto ext = fileSystem::getExtension(path);
+	if (ext != "syrenmesh" && ext != "fbx")
 	{
 		//TODO(log) an error
 		return nullptr;
 	}
 	meshes_[path] = std::make_shared<Mesh>();
 
-	auto res = loadMeshInternal(meshes_[path], path);
+	
+	bool res = false;
+	if (ext == "syrenmesh")
+		res = loadSyrenMeshInternal(meshes_[path], path);
+	else if (ext == "fbx")
+		res = loadFbxMeshInternal(meshes_[path], path);
+
 	if (!res)
 	{
 		meshes_.erase(path);
@@ -269,7 +382,7 @@ bool ResourceManager::saveMaterial(const MaterialPtr pMaterial, const std::strin
 	return true;
 }
 
-bool ResourceManager::loadMeshInternal(MeshPtr pMesh,const std::string& file)
+bool ResourceManager::loadSyrenMeshInternal(MeshPtr pMesh,const std::string& file)
 {
 	if(!fileSystem::fileExist(file))
 		return false;
@@ -344,6 +457,35 @@ bool ResourceManager::loadMeshInternal(MeshPtr pMesh,const std::string& file)
 	return true;
 
 }
+
+bool ResourceManager::loadFbxMeshInternal(MeshPtr mesh, const std::string& file)
+{
+	FbxRAII<FbxManager> manager = FbxManager::Create();
+	FbxRAII<FbxScene> scene = FbxScene::Create(manager, "Scene");
+	FbxRAII<FbxImporter> importer = FbxImporter::Create(manager, "");
+
+    if (!importer->Initialize(file.c_str(), -1, manager->GetIOSettings())) 
+	{
+        std::cerr << "Error initializing FBX importer: " << importer->GetStatus().GetErrorString() << std::endl;
+        return false;
+    }
+
+    importer->Import(scene);
+
+    FbxNode* rootNode = scene->GetRootNode();
+	if (!rootNode)
+		return true;
+
+    for (int i = 0; i < rootNode->GetChildCount(); ++i)
+	{
+        if (loadMeshFromNode(rootNode->GetChild(i), mesh, file,manager)) 
+		{
+            break; // Load only the first mesh found
+        }
+    }
+    return true;
+}
+
 
 bool ResourceManager::loadMaterialInternal(MaterialPtr pMat, const std::string& file)
 {

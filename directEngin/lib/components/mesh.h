@@ -31,6 +31,7 @@ public:
 	Mesh() = default;
 	Mesh(ElementContainer<Vertex>&& verts, ElementContainer<unsigned short>&& inds, ElementContainer<Color>&& colors);
 	std::string resourceID;
+	std::string identifier;
 	size_t IndexCount;
 	size_t startIndex;
 

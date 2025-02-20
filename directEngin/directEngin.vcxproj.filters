@@ -429,6 +429,9 @@
     <Filter Include="systems">
       <UniqueIdentifier>{8d507a13-3c87-404b-981f-d0cb11508931}</UniqueIdentifier>
     </Filter>
+    <Filter Include="third_party\fbxsdk">
+      <UniqueIdentifier>{aa775b91-dba2-48be-866b-c359674ca2fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\third_party\pugixml\readme.txt">

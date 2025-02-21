@@ -165,6 +165,11 @@ void Graphics::DrawIndexed(size_t indexCount,size_t startIndex)
 	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)indexCount, (UINT)startIndex, 0u));
 }
 
+void Graphics::Draw(size_t indexCount, size_t startIndex)
+{
+	_pContext->Draw((UINT)indexCount, (UINT)startIndex);
+}
+
 Graphics::HrException::HrException(int line, const char* file, HRESULT hr,std::vector<std::string> infoMsgs) noexcept:
 	Exeption(line,file),
 	_hr(hr)

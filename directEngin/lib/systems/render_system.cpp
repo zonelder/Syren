@@ -24,8 +24,8 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX:
 {
 	Graphics& gfx = *SceneContext::pGfx();
 	auto* context = gfx.getContext();
-	MeshInternal mesh(gfx,render.pMesh.get());//maybe we can create an instance once and just update the buffers
 	INFOMAN(gfx);
+	MeshInternal mesh(gfx,render.pMesh.get());//maybe we can create an instance once and just update the buffers
 
 	_wvp = transform.orientationMatrix * viewProjection;
 	_wvp = DirectX::XMMatrixTranspose(_wvp);

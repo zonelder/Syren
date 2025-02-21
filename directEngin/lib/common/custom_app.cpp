@@ -10,6 +10,7 @@
 #include "systems/cell_game.h"
 #include "systems/tile_system.h"
 #include "systems/fps_counter_system.h"
+#include "systems/editor_grid_render.h"
 
 #include "components/timed_rotation.h"
 #include "components/parent.h"
@@ -32,6 +33,7 @@ void App::OnInit()
 
 	/// init systems
 	//TODO add system serialization
+	_systemManager.add<EditorGridRenderer>();
 	_systemManager.add<OrientationSystem>();
 	//_systemManager.add<ParentSystem>();
 

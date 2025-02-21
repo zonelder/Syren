@@ -7,6 +7,12 @@
     <FxCompile Include="shaders\PixelShader.hlsl">
       <Filter>resource\shader</Filter>
     </FxCompile>
+    <FxCompile Include="shaders\GridPixel.hlsl">
+      <Filter>resource\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\GridVertex.hlsl">
+      <Filter>resource\shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\common\geometry.cpp" />
@@ -160,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="lib\resmngr\fbx_utils.cpp">
       <Filter>resmngr</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\systems\editor_grid_render.cpp">
+      <Filter>systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -368,6 +377,9 @@
     </ClInclude>
     <ClInclude Include="lib\resmngr\fbx_utils.h">
       <Filter>resmngr</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\systems\editor_grid_render.h">
+      <Filter>systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

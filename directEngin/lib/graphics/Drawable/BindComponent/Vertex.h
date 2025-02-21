@@ -7,3 +7,10 @@ struct Vertex
 	DirectX::XMFLOAT2 uv;
 };
 
+
+struct VertexXYZD
+{
+	DirectX::XMVECTOR position;
+	DirectX::XMVECTOR color;
+};
+

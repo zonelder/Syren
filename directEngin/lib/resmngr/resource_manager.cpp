@@ -10,44 +10,7 @@
 
 #include <fbxsdk.h>
 
-
-template<class T>
-class FbxRAII
-{
-public:
-	FbxRAII() : _pObj(nullptr) {};
-
-	FbxRAII(T* pObj) : _pObj(pObj) {};
-
-	~FbxRAII()
-	{
-		if (_pObj)
-		{
-			_pObj->Destroy();
-			_pObj = nullptr;
-		}
-	}
-
-
-	T& operator*() const
-	{
-		return *_pObj;
-	}
-
-	T* operator->() const
-	{
-		return _pObj;
-	}
-
-	operator T* () const noexcept { return _pObj; }
-
-	T* get() const noexcept { return _pObj; }
-
-
-
-private:
-	T* _pObj;
-};
+#include "fbx_utils.h"
 
 
 
@@ -164,62 +127,7 @@ namespace fileSystem
 
 namespace
 {
-	Color toColor(FbxColor color)
-	{
-		return { static_cast<float>(color.mRed),static_cast<float>(color.mGreen),static_cast<float>(color.mBlue),static_cast<float>(color.mAlpha) };
-	}
 
-	bool loadMeshFromNode(FbxNode* node, MeshPtr mesh, const std::string& file,const FbxRAII<FbxManager>& manager)
-	{
-		if (!node->GetNodeAttribute() || node->GetNodeAttribute()->GetAttributeType() != FbxNodeAttribute::eMesh)
-			return false;
-
-		FbxMesh* fbxMesh = node->GetMesh();
-		if (!fbxMesh) return false;
-
-		// enshure fbx mesh contains only trianges as polygone
-		if (!fbxMesh->IsTriangleMesh()) {
-			FbxGeometryConverter converter(manager);
-			auto attr = converter.Triangulate(fbxMesh, true);
-			if (attr && attr->GetAttributeType() == FbxNodeAttribute::eMesh)
-				fbxMesh = static_cast<FbxMesh*>(attr);
-			else
-				return false;
-		}
-
-		mesh->IndexCount = fbxMesh->GetPolygonCount()*3;
-		mesh->indices.reserve(mesh->IndexCount);
-		mesh->vertexes.reserve(fbxMesh->GetControlPointsCount());
-		mesh->colors.resize(fbxMesh->GetElementVertexColorCount());
-
-
-		for (int j = 0; j < fbxMesh->GetControlPointsCount(); j++) {
-			FbxVector4 vertex = fbxMesh->GetControlPointAt(j);
-			Vertex v;
-			v.position = DirectX::XMVectorSet(static_cast<float>(vertex[0]), static_cast<float>(vertex[1]), static_cast<float>(vertex[2]), 1.0f);
-			mesh->vertexes.emplace_back(v);
-		}
-
-		for (int j = 0; j < fbxMesh->GetPolygonCount(); j++) {
-			for (int k = 0; k < fbxMesh->GetPolygonSize(j); k++) {
-				mesh->indices.push_back(fbxMesh->GetPolygonVertex(j, k));
-			}
-		}
-
-		if (fbxMesh->GetElementVertexColorCount() > 0)
-		{
-			auto pColorElement = fbxMesh->GetElementVertexColor();
-			for (int i = 0; i < fbxMesh->GetControlPointsCount(); ++i)
-			{
-				FbxColor color = pColorElement->GetDirectArray().GetAt(i);
-				mesh->colors[i] = toColor(color);
-			}
-		}
-
-		mesh->resourceID = file;
-		meshHelpers::updateBB(mesh.get());
-		return true;
-	}
 }
 
 /// @brief //////////////////////RESOURCE MANAGER ////////////////////
@@ -254,7 +162,11 @@ MeshPtr ResourceManager::getMesh(const std::string& resourceID)
 	if (ext == "syrenmesh")
 		res = loadSyrenMeshInternal(meshes_[path], path);
 	else if (ext == "fbx")
-		res = loadFbxMeshInternal(meshes_[path], path);
+	{
+		//log an error;
+		return nullptr;
+	}
+		//res = loadFbxMeshInternal(meshes_[path], path);
 
 	if (!res)
 	{
@@ -325,6 +237,38 @@ MaterialPtr ResourceManager::getMaterial(const std::string& resourceID)
 	}
 
 ;	return materials_[path];
+}
+
+FbxPrefabPtr ResourceManager::getFbxPrefab(const std::string& resourceID)
+{
+	auto path = fileSystem::simplifyPath(resourceID);
+	auto it = fbxPrefabs_.find(path);
+	if (it != fbxPrefabs_.end())
+	{
+		return it->second;
+	}
+
+	if (fileSystem::getExtension(path) != "fbx")
+	{
+		//TODO(log) an error
+		return nullptr;
+	}
+
+	fbx_utils::FbxRAII<FbxManager> manager = FbxManager::Create();
+	fbx_utils::FbxRAII<FbxScene> scene = FbxScene::Create(manager, "Scene");
+	fbx_utils::FbxRAII<FbxImporter> importer = FbxImporter::Create(manager, "");
+
+	if (!importer->Initialize(resourceID.c_str(), -1, manager->GetIOSettings()))
+	{
+		std::cerr << "Error initializing FBX importer: " << importer->GetStatus().GetErrorString() << std::endl;
+		return nullptr;
+	}
+
+	importer->Import(scene);
+
+	fbxPrefabs_[path] = std::make_shared<FbxPrefab>(scene, manager);
+
+	return fbxPrefabs_[path];
 }
 
 bool ResourceManager::saveMesh(const MeshPtr pMesh, const std::string& resourceID)
@@ -457,7 +401,7 @@ bool ResourceManager::loadSyrenMeshInternal(MeshPtr pMesh,const std::string& fil
 	return true;
 
 }
-
+/*
 bool ResourceManager::loadFbxMeshInternal(MeshPtr mesh, const std::string& file)
 {
 	FbxRAII<FbxManager> manager = FbxManager::Create();
@@ -485,7 +429,7 @@ bool ResourceManager::loadFbxMeshInternal(MeshPtr mesh, const std::string& file)
     }
     return true;
 }
-
+*/
 
 bool ResourceManager::loadMaterialInternal(MaterialPtr pMat, const std::string& file)
 {

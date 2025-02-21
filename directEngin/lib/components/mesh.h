@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <DirectXMath.h>
+#include "graphics/Drawable/BindComponent/vertex.h"
 
 struct Color
 {
@@ -19,8 +20,6 @@ struct BoundingBox
 	Position minBound;
 	Position maxBound;
 };
-
-struct Vertex;
 
 struct Mesh
 {

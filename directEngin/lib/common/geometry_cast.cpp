@@ -9,6 +9,8 @@ Hit GeometryCast::raycast(SceneManager& scene, DirectX::XMFLOAT3 origin, DirectX
 
 	for (auto [entt,render,tr] : scene.view<Render,Transform>())
 	{
+		if (!render.pMesh)
+			continue;
 		const auto& bb = render.pMesh->boundingBox;
 
 		const auto minGlobal = getGlobalPos(tr.orientationMatrix, bb.minBound);

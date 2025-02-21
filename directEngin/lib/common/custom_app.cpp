@@ -57,14 +57,5 @@ void App::OnInit()
 
 	text.position = { 10.0f,10.0f };
 
-
-	//custom code
-
-	auto sword = _scene.createEntity();
-
-	auto& tr = _scene.addComponent<Transform>(sword);
-	auto& r = _scene.addComponent<Render>(sword);
-
-	r.pMaterial = SceneContext::pResources()->getMaterial("resource/example/tile_test/material/tile_black.syrenmaterial");
-	r.pMesh = SceneContext::pResources()->getMesh("resource/example/fbx_load/SlothSword.fbx");
+	_scene.instantiate(SceneContext::pResources()->getFbxPrefab("resource/example/fbx_load/SlothSword.fbx"));
 }

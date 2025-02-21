@@ -4,6 +4,7 @@
 #include <memory.h>
 #include "components/mesh_iternal.h"
 #include "components/material.h"
+#include "resmngr/fbx_prefab.h"
 
 
 namespace fileSystem
@@ -42,9 +43,10 @@ struct Mesh;
 class VertexShader;
 class PixelShader;
 
-using MeshPtr = std::shared_ptr<Mesh>;
-using VertexShaderPtr = std::shared_ptr<VertexShader>;
-using PixelShaderPtr = std::shared_ptr<PixelShader>;
+using MeshPtr			 = std::shared_ptr<Mesh>;
+using VertexShaderPtr	 = std::shared_ptr<VertexShader>;
+using PixelShaderPtr	 = std::shared_ptr<PixelShader>;
+using FbxPrefabPtr		 = std::shared_ptr<FbxPrefab>;
 /// @brief class that control loading of Resources. it handles construct\destruct login by itsself.
 /// deleting anything that has been returned from ResourceManager emits UB 
 class ResourceManager
@@ -65,6 +67,8 @@ public:
 	PixelShaderPtr getPixelShader(const std::string& resorceID);
 	MaterialPtr getMaterial(const std::string& resourceID);
 
+	FbxPrefabPtr getFbxPrefab(const std::string& resourceID);
+
 	//build resource on run
 	bool saveMesh(const MeshPtr pMesh,const std::string& resourceID);
 	bool saveMaterial(const MaterialPtr pMaterial, const std::string& resourceID);
@@ -84,7 +88,7 @@ private:
 	ResourceContainer_t<VertexShader>	vertexShaders_;
 	ResourceContainer_t<PixelShader>	pixelShaders_;
 	ResourceContainer_t<Material>		materials_;
-	
+	ResourceContainer_t<FbxPrefab>		fbxPrefabs_;
 
 	UnhandleResources_t<Mesh>			unhandledMeshes_;
 	UnhandleResources_t<Material>		unhandledMaterial_;

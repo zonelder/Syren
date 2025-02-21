@@ -209,6 +209,8 @@
     <ClCompile Include="lib\direct\DxgiInfoManager.cpp" />
     <ClCompile Include="lib\direct\dxerr.cpp" />
     <ClCompile Include="lib\graphics\graphics.cpp" />
+    <ClCompile Include="lib\resmngr\fbx_prefab.cpp" />
+    <ClCompile Include="lib\resmngr\fbx_utils.cpp" />
     <ClCompile Include="lib\resmngr\resource_manager.cpp" />
     <ClCompile Include="lib\resmngr\xml_node.cpp" />
     <ClCompile Include="lib\systems\camera_controller.cpp" />
@@ -279,6 +281,8 @@
     <ClInclude Include="lib\direct\dxerr.h" />
     <ClInclude Include="lib\graphics\graphics.h" />
     <ClInclude Include="lib\common\app.h" />
+    <ClInclude Include="lib\resmngr\fbx_prefab.h" />
+    <ClInclude Include="lib\resmngr\fbx_utils.h" />
     <ClInclude Include="lib\resmngr\resource_manager.h" />
     <ClInclude Include="lib\resmngr\xml_node.h" />
     <ClInclude Include="lib\systems\camera_controller.h" />

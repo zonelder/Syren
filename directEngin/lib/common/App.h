@@ -27,7 +27,7 @@ private:
 	SceneContext	_context;
 
 	SceneManager	_scene;
-	SystemManager	_systemManager{};
+	SystemManager	_systemManager;
 	Timer _time;//TODO change it to Time class after all
 
 };

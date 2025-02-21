@@ -1,4 +1,5 @@
 #include "scene_manager.h"
+#include "components/parent.h"
 
 
 SceneManager::SceneManager(const Window& wnd):_input(wnd.inputHandler)
@@ -51,6 +52,38 @@ const Entity& SceneManager::getEntity(EntityID id) const noexcept
 	return _entityManager.get(id);
 }
 
+bool SceneManager::instantiate(FbxPrefabPtr pPrefab)
+{
+	if (!pPrefab)
+		return false;
+
+	std::unordered_map<int, EntityID> indexToID;
+	int index = 0;
+	for (auto& node : pPrefab->getNodes())
+	{
+		const Entity& entt = createEntity();
+		indexToID[index] = entt.getID();
+		++index;
+		auto& transform = addComponent<Transform>(entt);
+		transform.position = node.position;
+		transform.rotation = DirectX::XMVectorSet(node.rotation.x, node.rotation.y, node.rotation.z, node.rotation.w);
+		//transform.scale = node.scale;
+
+		if (node.meshID != -1)
+		{
+			auto& render = addComponent<Render>(entt);
+			render.pMesh = pPrefab->getMesh(node.meshID);
+			render.pMaterial = SceneContext::pResources()->getMaterial("resource/example/tile_test/material/tile_black.syrenmaterial");//some default material
+		}
+
+		if (node.parent != -1)
+		{
+			auto& parent = addComponent<Parent>(entt);
+			parent.parent = indexToID[node.parent];
+		}
+	}
+	return true;
+}
 
 Camera& SceneManager::getCamera() noexcept
 {

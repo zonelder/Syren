@@ -63,8 +63,7 @@ public:
 	void frame(SceneManager& scene);
 
 private:
-	//std::vector<int> _priorities;
-	unsigned int _maxPriority = 0;
+	unsigned int _maxPriority;
 	std::unordered_map<unsigned int ,std::unique_ptr<BaseSystem>>  _systems;
 };
 

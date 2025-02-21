@@ -66,6 +66,7 @@ void RenderSystem::DeepRender(RenderView& view, const DirectX::XMMATRIX& viewPro
 	if (view.has<Parent>(id))
 	{
 		auto p_id = view.get<Parent>(id).parent;
+		assert(p_id != id);
 		DeepRender(view, viewProjection,p_id);
 	}
 
@@ -76,15 +77,17 @@ void RenderSystem::DeepRender(RenderView& view, const DirectX::XMMATRIX& viewPro
 void RenderSystem::onFrame(SceneManager& scene)
 {
 
+	static float time = 0.0f;
+	time += 0.001f;
+	float offset = sinf(time)*3.0f;
 	auto& cam = scene.getCamera();
 	RenderView& view = scene.view<WithComponents>();
 	auto viewProjection = cam.view() * cam.projection();
 	for (auto [entt,p,r,tr] : view)
 	{
-
+		view.get<Transform>(p.parent).position.x += offset;
 		DeepRender(view, viewProjection, entt);
 	}
-
 	auto& commponView = scene.view<filters::With<Render, Transform>, filters::Without<Parent>>();
 	for (auto [antt, r, tr] : commponView)
 	{

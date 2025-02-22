@@ -17,6 +17,6 @@ struct VS_OUTPUT
 
 float4 main(VS_OUTPUT input) : SV_Target{
 
-    float4 textureColor = ObjTexture.Sample(ObjSamplerState, input.TexCord);
+   float4 textureColor = ObjTexture.Sample(ObjSamplerState, input.TexCord);
     return MaterialColor*textureColor;
 }

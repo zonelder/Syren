@@ -2,7 +2,6 @@
 #include <vector>
 #include <unordered_map>
 #include <memory.h>
-#include "components/mesh_iternal.h"
 #include "components/material.h"
 #include "resmngr/fbx_prefab.h"
 
@@ -36,8 +35,6 @@ namespace fileSystem
 	std::string simplifyPath(const std::string& path);
 	std::wstring simplifyPath(const std::wstring& path);
 }
-
-using meshPtrVector = std::vector<std::shared_ptr<MeshInternal>>;
 
 struct Mesh;
 class VertexShader;

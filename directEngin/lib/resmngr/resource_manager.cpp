@@ -346,6 +346,7 @@ bool ResourceManager::loadSyrenMeshInternal(MeshPtr pMesh,const std::string& fil
 		return false;
 	}
 	pMesh->vertexes.reserve(vertexCount);
+	pMesh->uvs.reserve(vertexCount);
 	for (size_t i = 0; i < vertexCount; ++i)
 	{
 		auto& v = pMesh->vertexes.emplace_back();
@@ -354,8 +355,8 @@ bool ResourceManager::loadSyrenMeshInternal(MeshPtr pMesh,const std::string& fil
 		{
 			return false;
 		}
-
-		if (!(fileHandler >> v.uv.x >> v.uv.y))
+		auto& uv = pMesh->uvs.emplace_back();
+		if (!(fileHandler >> uv.x >> uv.y))
 		{
 			return false;
 		}
@@ -487,7 +488,12 @@ bool ResourceManager::saveMeshInternal(const MeshPtr pMesh, const std::string& f
 	{
 		auto pos = vertex.position.m128_f32;
 		file << pos[0] << " " << pos[1] << " " << pos[2] << std::endl;
-		file << vertex.uv.x << " " << vertex.uv.y << std::endl;
+	}
+
+	file << pMesh->uvs.size() << std::endl;
+	for (const auto& uv : pMesh->uvs)
+	{
+		file << uv.x << " " << uv.y << std::endl;
 	}
 
 	file << pMesh->indices.size() << std::endl;

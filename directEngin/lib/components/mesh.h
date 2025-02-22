@@ -35,9 +35,17 @@ public:
 	size_t startIndex;
 
 	ElementContainer<Vertex> vertexes;
+	ElementContainer< DirectX::XMFLOAT2> uvs;
+	ElementContainer< DirectX::XMFLOAT3> normals;
 	ElementContainer<unsigned short> indices;
 	ElementContainer< Color > colors;
 	BoundingBox boundingBox;
+
+	using Position_t = Vertex;
+	using UV_t = DirectX::XMFLOAT2;
+	using Normal_t = DirectX::XMFLOAT3;
+	using Color_t = Color;
+	using Index_t = unsigned short;
 };
 
 using MeshPtr = std::shared_ptr<Mesh>;

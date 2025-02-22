@@ -17,6 +17,11 @@ public:
 		return _resourceID;
 	}
 
+	const InputLayout& inputLayer() const noexcept
+	{
+		return _inputLayer;
+	}
+
 protected:
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> p_pVertexShader;
 	Microsoft::WRL::ComPtr<ID3DBlob> p_pBytecodeBlob;

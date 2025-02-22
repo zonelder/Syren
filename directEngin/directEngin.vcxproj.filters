@@ -80,9 +80,6 @@
     <ClCompile Include="lib\components\mesh.cpp">
       <Filter>components</Filter>
     </ClCompile>
-    <ClCompile Include="lib\components\mesh_iternal.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="lib\common\mouse_handler.cpp">
       <Filter>app</Filter>
     </ClCompile>
@@ -170,6 +167,7 @@
     <ClCompile Include="lib\systems\editor_grid_render.cpp">
       <Filter>systems</Filter>
     </ClCompile>
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\dynamic_buffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry.h" />
@@ -253,9 +251,6 @@
     </ClInclude>
     <ClInclude Include="lib\components\mesh.h">
       <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\components\mesh_iternal.h">
-      <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="lib\common\mouse_handler.h">
       <Filter>app</Filter>
@@ -381,6 +376,7 @@
     <ClInclude Include="lib\systems\editor_grid_render.h">
       <Filter>systems</Filter>
     </ClInclude>
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\dynamic_buffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\test_texture.dds">

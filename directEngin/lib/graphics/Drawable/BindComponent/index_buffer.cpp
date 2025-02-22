@@ -21,6 +21,7 @@ IndexBuffer::IndexBuffer(Graphics& gfx,const std::vector<unsigned short>& indice
 
 void IndexBuffer::bind(Graphics& gfx) noexcept
 {
+	assert(p_pIndexBuffer!= nullptr);
 	gfx.getContext()->IASetIndexBuffer(p_pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
 }
 

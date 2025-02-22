@@ -195,8 +195,8 @@
     <ClCompile Include="lib\common\windows_message_map.cpp" />
     <ClCompile Include="lib\components\material.cpp" />
     <ClCompile Include="lib\components\mesh.cpp" />
-    <ClCompile Include="lib\components\mesh_iternal.cpp" />
     <ClCompile Include="lib\cstdmf\string_converter.cpp" />
+    <ClCompile Include="lib\graphics\Drawable\BindComponent\dynamic_buffer.cpp" />
     <ClCompile Include="lib\graphics\Drawable\BindComponent\texture.cpp" />
     <ClCompile Include="lib\common\Scene\component_manager.cpp" />
     <ClCompile Include="lib\common\Scene\component_pool.cpp" />
@@ -254,7 +254,6 @@
     <ClInclude Include="lib\components\game_cell.h" />
     <ClInclude Include="lib\components\material.h" />
     <ClInclude Include="lib\components\mesh.h" />
-    <ClInclude Include="lib\components\mesh_iternal.h" />
     <ClInclude Include="lib\components\parent.h" />
     <ClInclude Include="lib\components\render.h" />
     <ClInclude Include="lib\components\text.h" />
@@ -263,6 +262,7 @@
     <ClInclude Include="lib\components\timed_rotation.h" />
     <ClInclude Include="lib\components\transform.h" />
     <ClInclude Include="lib\cstdmf\string_converter.h" />
+    <ClInclude Include="lib\graphics\Drawable\BindComponent\dynamic_buffer.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\texture.h" />
     <ClInclude Include="lib\common\Scene\component_manager.h" />
     <ClInclude Include="lib\common\Scene\component_pool.h" />

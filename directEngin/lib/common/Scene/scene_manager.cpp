@@ -119,6 +119,7 @@ const Input& SceneManager::getInput() const noexcept
 MeshPtr SceneManager::make2SidedPlaneMesh()
 {
 	MeshPtr mesh = std::make_shared<Mesh>();
+	/*//доработать
 	mesh->vertexes = 
 	{
 		{{ -1.0f,-1.0f,0.0f,},{0.0f,1.0f}},
@@ -131,6 +132,7 @@ MeshPtr SceneManager::make2SidedPlaneMesh()
 		{{ 1.0f,1.0f,0.0f,  },{1.0f,0.0f}},
 		{{  1.0f,-1.0f,0.0f, },{1.0f,1.0f}},
 	};
+	*/
 	mesh->indices =
 	{
 	0,2,1, 0,3,2,

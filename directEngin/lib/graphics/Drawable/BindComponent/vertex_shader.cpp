@@ -1,19 +1,64 @@
 #include "vertex_shader.h"
 #include "cstdmf/string_converter.h"
 
+namespace
+{
+	// Вспомогательная функция для определения формата
+DXGI_FORMAT determineFormat(BYTE mask, D3D_REGISTER_COMPONENT_TYPE type)
+{
+    if (type == D3D_REGISTER_COMPONENT_FLOAT32)
+    {
+        switch (mask)
+        {
+        case 0x1: return DXGI_FORMAT_R32_FLOAT;
+        case 0x3: return DXGI_FORMAT_R32G32_FLOAT;
+        case 0x7: return DXGI_FORMAT_R32G32B32_FLOAT;
+        case 0xF: return DXGI_FORMAT_R32G32B32A32_FLOAT;
+        }
+    }
+    // Добавьте обработку других типов данных при необходимости
+    throw std::runtime_error("Unsupported input element format");
+}
+}
+
 VertexShader::VertexShader(Graphics& gfx, const std::string& path) : 
 	_resourceID(path)
 {
 	INFOMAN(gfx);
 	auto wPath = stringHelper::to_wstring(path);
 	GFX_THROW_INFO(D3DReadFileToBlob(wPath.c_str(), &p_pBytecodeBlob));
-	GFX_THROW_INFO(gfx.getDevice()->CreateVertexShader(p_pBytecodeBlob->GetBufferPointer(), p_pBytecodeBlob->GetBufferSize(), nullptr, &p_pVertexShader));
 
-	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied = {
-	{"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},//DXGI_FORMAT_R32G32B32_FLOAT
-	{"TEXCORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	//{"COLOR",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,20,D3D11_INPUT_PER_VERTEX_DATA,0},
-	};
+    // Рефлексия шейдера
+    Microsoft::WRL::ComPtr<ID3D11ShaderReflection> pReflector;
+    GFX_THROW_INFO(D3DReflect(
+        p_pBytecodeBlob->GetBufferPointer(),
+        p_pBytecodeBlob->GetBufferSize(),
+        IID_ID3D11ShaderReflection,
+        &pReflector
+    ));
+
+	    // Получаем описание входных параметров
+    D3D11_SHADER_DESC shaderDesc;
+    pReflector->GetDesc(&shaderDesc);
+
+	std::vector<D3D11_INPUT_ELEMENT_DESC> ied;
+	for (UINT i = 0; i < shaderDesc.InputParameters; ++i)
+    {
+        D3D11_SIGNATURE_PARAMETER_DESC paramDesc;
+        pReflector->GetInputParameterDesc(i, &paramDesc);
+
+        D3D11_INPUT_ELEMENT_DESC element = {0};
+        element.SemanticName = paramDesc.SemanticName;
+        element.SemanticIndex = paramDesc.SemanticIndex;
+        element.Format = determineFormat(paramDesc.Mask, paramDesc.ComponentType);
+        element.InputSlot = i;
+        element.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+        element.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+        element.InstanceDataStepRate = 0;
+        ied.push_back(element);
+    }
+
+	GFX_THROW_INFO(gfx.getDevice()->CreateVertexShader(p_pBytecodeBlob->GetBufferPointer(), p_pBytecodeBlob->GetBufferSize(), nullptr, &p_pVertexShader));
 
 	_inputLayer = InputLayout(gfx, ied, p_pBytecodeBlob.Get());
 }

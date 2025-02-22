@@ -10,18 +10,10 @@ class EditorGridRenderer : public BaseSystem
 {
 public:
 	void onInit(SceneManager& scene) override;
-	void onFrame(SceneManager& scene) override;
+	void onUpdate(SceneManager& scene, float time) override;
 
 private:
-	DirectX::XMMATRIX _wvp;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> p_colorConstantBuffer;
-	VertexConstantBuffer<DirectX::XMMATRIX> _vertexConstantBuffer;//for transform
-	VertexBuffer _vertexBuffer;//for vert
-	std::vector<Vertex> vertices_;
-
-
-	std::shared_ptr<Material> _pMaterial{ nullptr };
-	Topology _topology;
+	EntityID  _enttID;
 };
 
 

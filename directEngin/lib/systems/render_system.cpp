@@ -105,7 +105,7 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX:
 
 	assert(render.pMesh);
 
-	_indexBuffer = IndexBuffer(gfx, render.pMesh->indices);
+	bool hasIndicies = !render.pMesh->indices.empty();
 	_wvp = transform.orientationMatrix * viewProjection;
 	_wvp = DirectX::XMMatrixTranspose(_wvp);
 	///update transform buffer
@@ -124,7 +124,6 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX:
 	const auto& layout = render.pMaterial->pVertexShader->inputLayer();
 
 	bindMesh(render.pMesh, layout);
-	_indexBuffer.bind(gfx);
 
 	// general material color
 	context->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.pMaterial->color), sizeof(DirectX::XMFLOAT4), 0);
@@ -133,7 +132,14 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX:
 	render.pMaterial->bind(gfx);
 	render.topology.bind(gfx);
 	//draw
-
+	if (!hasIndicies)
+	{
+		context->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN, 0);
+		gfx.Draw(render.pMesh->vertexes.size(), 0);
+		return;
+	}
+	_indexBuffer = IndexBuffer(gfx, render.pMesh->indices);
+	_indexBuffer.bind(gfx);
 	gfx.DrawIndexed(render.pMesh->indices.size()/*TODO change to index count data in mesh*/, render.pMesh->startIndex);
 }
 

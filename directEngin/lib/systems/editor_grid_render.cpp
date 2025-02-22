@@ -8,44 +8,38 @@ void EditorGridRenderer::onInit(SceneManager& scene)
     auto gfx = SceneContext::pGfx();
     INFOMAN((*gfx));
     _vertexConstantBuffer = VertexConstantBuffer<DirectX::XMMATRIX>(*gfx, _wvp);
+    D3D11_BUFFER_DESC constantBufferDesc = {};
+
+    constantBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+    constantBufferDesc.ByteWidth = sizeof(DirectX::XMFLOAT4);
+    constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+    constantBufferDesc.CPUAccessFlags = 0;
+    constantBufferDesc.MiscFlags = 0;
+    GFX_THROW_INFO(gfx->getDevice()->CreateBuffer(&constantBufferDesc, nullptr, &p_colorConstantBuffer));
 
 
     // Округляем положение камеры до ближайшего узла сетки
-    float gridOffsetX = 0.0f;// std::floor(camPosition.x / gridSize)* gridSize;
-    float gridOffsetZ = 0.0f;//std::floor(camPosition.z / gridSize) * gridSize;
+    float gridOffsetX = 0.0f;
+    float gridOffsetZ = 0.0f;
 
-    static DirectX::XMVECTOR color = { 0.25f, 0.25f, 0.25f, 1.0f };
     for (int i = -gridCount; i <= gridCount; ++i)
     {
         float offset = i * gridSize;
         // Вертикальные линии
-        vertices_.push_back({ { gridOffsetX + offset, 0.0f, gridOffsetZ - gridSize * gridCount }, color });
-        vertices_.push_back({ { gridOffsetX + offset, 0.0f, gridOffsetZ + gridSize * gridCount }, color });
+        vertices_.push_back({ { gridOffsetX + offset, 0.0f, gridOffsetZ - gridSize * gridCount } });
+        vertices_.push_back({ { gridOffsetX + offset, 0.0f, gridOffsetZ + gridSize * gridCount } });
 
         // Горизонтальные линии
-        vertices_.push_back({ { gridOffsetX - gridSize * gridCount, 0.0f, gridOffsetZ + offset }, color });
-        vertices_.push_back({ { gridOffsetX + gridSize * gridCount, 0.0f, gridOffsetZ + offset }, color });
+        vertices_.push_back({ { gridOffsetX - gridSize * gridCount, 0.0f, gridOffsetZ + offset } });
+        vertices_.push_back({ { gridOffsetX + gridSize * gridCount, 0.0f, gridOffsetZ + offset } });
     }
 
     _vertexBuffer = VertexBuffer(*gfx, vertices_);
-
-    //create vertex shader(almost full copy from vertexShader.cpp
-    std::wstring wPath = L"shaders/GridVertex.cso"; // stringHelper::to_wstring(path);
-    GFX_THROW_INFO(D3DReadFileToBlob(wPath.c_str(), &p_pBytecodeBlob));
-    GFX_THROW_INFO(gfx->getDevice()->CreateVertexShader(p_pBytecodeBlob->GetBufferPointer(), p_pBytecodeBlob->GetBufferSize(), nullptr, &p_pVertexShader));
-
-    const std::vector<D3D11_INPUT_ELEMENT_DESC> ied = 
-    {
-        {"Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},//DXGI_FORMAT_R32G32B32_FLOAT
-        {"Color", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    };
-
-    _inputLayer = InputLayout(*gfx, ied, p_pBytecodeBlob.Get());
-
-    Microsoft::WRL::ComPtr<ID3DBlob> pBlob;
-    wPath = L"shaders/GridPixel.cso";
-    GFX_THROW_INFO(D3DReadFileToBlob(wPath.c_str(), &pBlob));
-    GFX_THROW_INFO(gfx->getDevice()->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &p_pPixelShader));
+    _pMaterial = std::make_shared<Material>(*gfx);
+    _pMaterial->pVertexShader = SceneContext::pResources()->getVertexShader("shaders/GridVertex.cso");
+    _pMaterial->pPixelShader = SceneContext::pResources()->getPixelShader("shaders/GridPixel.cso");
+    _pMaterial->color = { 0.25f, 0.25f, 0.25f, 1.0f };
+    _topology = Topology(*gfx, D3D_PRIMITIVE_TOPOLOGY_LINELIST);
 
 }
 
@@ -63,7 +57,6 @@ void EditorGridRenderer::onFrame(SceneManager& scene)
     auto world = DirectX::XMMatrixTranslation(gridOffsetX,0, gridOffsetZ);
     _wvp = DirectX::XMMatrixTranspose(world * viewProjection);
 
-
     auto pConstantBuffer = _vertexConstantBuffer.p_pConstantBuffer;
     D3D11_MAPPED_SUBRESOURCE msr;
     GFX_THROW_INFO(context->Map(
@@ -77,14 +70,13 @@ void EditorGridRenderer::onFrame(SceneManager& scene)
     _vertexConstantBuffer.bind(gfx);
     _vertexBuffer.bind(gfx);
 
+    _pMaterial->bind(gfx);
+    _topology.bind(gfx);
 
-    gfx.getContext()->PSSetShader(p_pPixelShader.Get(), nullptr, 0u);
-    gfx.getContext()->VSSetShader(p_pVertexShader.Get(), nullptr, 0u);
-    _inputLayer.bind(gfx);
+    context->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(_pMaterial->color), sizeof(DirectX::XMFLOAT4), 0);
+    context->PSSetConstantBuffers(1u, 1u, p_colorConstantBuffer.GetAddressOf());
 
     context->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN, 0);
-    context->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
-    context->VSSetConstantBuffers(0, 1, pConstantBuffer.GetAddressOf());
 
     gfx.Draw(vertices_.size(),0);
 	

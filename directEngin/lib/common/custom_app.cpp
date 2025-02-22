@@ -35,7 +35,7 @@ void App::OnInit()
 	//TODO add system serialization
 	_systemManager.add<EditorGridRenderer>();
 	_systemManager.add<OrientationSystem>();
-	//_systemManager.add<ParentSystem>();
+	_systemManager.add<ParentSystem>();
 
 	_systemManager.add<RenderSystem>();
 

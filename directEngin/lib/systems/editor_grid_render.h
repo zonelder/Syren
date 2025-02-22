@@ -14,17 +14,14 @@ public:
 
 private:
 	DirectX::XMMATRIX _wvp;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> p_colorConstantBuffer;
 	VertexConstantBuffer<DirectX::XMMATRIX> _vertexConstantBuffer;//for transform
 	VertexBuffer _vertexBuffer;//for vert
-	std::vector<VertexXYZD> vertices_;
+	std::vector<Vertex> vertices_;
 
-	//for vertex shader// has to be unified
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> p_pVertexShader;
-	Microsoft::WRL::ComPtr<ID3DBlob> p_pBytecodeBlob;
-	InputLayout _inputLayer;
 
-	//pixel Shader
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> p_pPixelShader{ nullptr };
+	std::shared_ptr<Material> _pMaterial{ nullptr };
+	Topology _topology;
 };
 
 

@@ -201,7 +201,7 @@ public:
 		return _ComponentManager.pools();
 	}
 
-	bool instantiate(FbxPrefabPtr pPrefab);
+	std::unordered_map<int, EntityID>  instantiate(FbxPrefabPtr pPrefab);
 
 private:
 	ComponentManager _ComponentManager;

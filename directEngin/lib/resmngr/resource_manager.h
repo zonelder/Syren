@@ -6,36 +6,6 @@
 #include "resmngr/fbx_prefab.h"
 
 
-namespace fileSystem
-{
-	/// @brief get extension of file
-	/// @param file name. or full file name
-	/// @return 
-	std::string getExtension(const std::string& file);
-
-	/// @brief get local file name without extension
-	/// @param file some file name.
-	/// @return 
-	std::string getFilename(const std::string& file);
-
-	bool fileExist(const std::string& file);
-
-	/// @brief get fullpath from relative path
-	/// @param path #relative or fullpath to object;
-	/// @return 
-	std::string resolvePath(const std::string& path);
-
-	std::string relativePath(const std::string& path);
-
-	std::wstring relativePath(const std::wstring& path);
-
-	std::wstring resolvePath(const std::wstring& path);
-
-
-	std::string simplifyPath(const std::string& path);
-	std::wstring simplifyPath(const std::wstring& path);
-}
-
 struct Mesh;
 class VertexShader;
 class PixelShader;

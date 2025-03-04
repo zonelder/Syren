@@ -53,6 +53,7 @@ private:
 
     void processNode(FbxNode* fbxNode, int parentIndex, const fbx_utils::FbxRAII<FbxManager>& manager, meshCache& cache);
     short processMesh(FbxMesh* fbxNode, const fbx_utils::FbxRAII<FbxManager>& manager, meshCache& cache);
+    short processMaterials(FbxNode* pNode, const fbx_utils::FbxRAII<FbxManager>& manager);
 
     // Контейнеры ресурсов, полученных из FBX-файла.
     ResourceContainer_t<Mesh>           meshes_;

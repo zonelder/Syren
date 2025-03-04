@@ -52,10 +52,10 @@ const Entity& SceneManager::getEntity(EntityID id) const noexcept
 	return _entityManager.get(id);
 }
 
-bool SceneManager::instantiate(FbxPrefabPtr pPrefab)
+std::unordered_map<int, EntityID> SceneManager::instantiate(FbxPrefabPtr pPrefab)
 {
 	if (!pPrefab)
-		return false;
+		return {};
 
 	std::unordered_map<int, EntityID> indexToID;
 	int index = 0;
@@ -82,7 +82,7 @@ bool SceneManager::instantiate(FbxPrefabPtr pPrefab)
 			parent.parent = indexToID[node.parent];
 		}
 	}
-	return true;
+	return indexToID;
 }
 
 Camera& SceneManager::getCamera() noexcept

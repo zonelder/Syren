@@ -50,6 +50,8 @@ namespace fbx_utils
 
 	Color toColor(FbxColor color);
 
+	DirectX::XMFLOAT2 toVector2(const FbxVector2& v);
+
 	DirectX::XMFLOAT3 toVector3(const FbxVector4& v);
 	DirectX::XMFLOAT4 toVector4(const FbxVector4& v);
 	DirectX::XMFLOAT4 toVector4(const FbxQuaternion& v);
@@ -61,7 +63,7 @@ namespace fbx_utils
 
 	bool loadMeshFromNode(FbxMesh* fbxMesh, MeshPtr mesh, const std::string& file, const FbxRAII<FbxManager>& manager);
 
-
+	bool loadMeshFromNodeByPolygone(FbxMesh* fbxMesh, MeshPtr mesh, const std::string& file, const FbxRAII<FbxManager>& maanager);
 }
 
 

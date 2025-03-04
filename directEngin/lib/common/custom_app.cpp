@@ -59,5 +59,13 @@ void App::OnInit()
 
 	text.position = { 10.0f,10.0f };
 
-	_scene.instantiate(SceneContext::pResources()->getFbxPrefab("resource/example/fbx_load/SlothSword.fbx"));
+	auto ids = _scene.instantiate(SceneContext::pResources()->getFbxPrefab("resource/example/fbx_load/SlothSword.fbx"));
+	std::wstring w;
+	for (auto [_, id] : ids)
+	{
+		auto& r = _scene.getComponent<Render>(id);
+		r.pMaterial->pTexture = std::make_shared<Texture>(*(SceneContext::pGfx()), L"resource/example/fbx_load/textures/Material_BaseColor.png");
+		w = r.pMaterial->pTexture->getPath();
+		r.pMaterial->color = { 1.0f,1.0f,1.0f,1.0f };
+	}
 }

@@ -54,6 +54,7 @@ void FbxPrefab::processNode(FbxNode* fbxNode, int parentIndex, const fbx_utils::
     node.pixelShaderID = -1;
 
     node.meshID = processMesh(fbxNode->GetMesh(),manager,cache);
+    node.materialID = processMaterials(fbxNode, manager);
     // Use FbxNode methods to get local transformation data
     FbxAMatrix localTransform = fbxNode->EvaluateLocalTransform();
 
@@ -95,4 +96,37 @@ short FbxPrefab::processMesh(FbxMesh* fbxMesh, const fbx_utils::FbxRAII<FbxManag
     meshes_.push_back(mesh);
     cache[fbxMesh] = meshIndex;
     return meshIndex;
+}
+
+short FbxPrefab::processMaterials(FbxNode* pNode, const fbx_utils::FbxRAII<FbxManager>& manager)
+{
+    int materialCount = pNode->GetMaterialCount();
+    if (materialCount <= 0)
+        return -1;
+
+    for (int i = 0; i < materialCount; ++i)
+    {
+        const char* propertyNames[] = {
+            FbxSurfaceMaterial::sDiffuse,
+            FbxSurfaceMaterial::sEmissive,
+            FbxSurfaceMaterial::sNormalMap,
+            FbxSurfaceMaterial::sBump,
+            FbxSurfaceMaterial::sSpecular
+        };
+        auto material = pNode->GetMaterial(i);
+        for (const char* propName : propertyNames) {
+            FbxProperty prop = material->FindProperty(propName);
+            if (prop.IsValid()) {
+                int textureCount = prop.GetSrcObjectCount<FbxTexture>();
+                for (int j = 0; j < textureCount; j++) {
+                    FbxFileTexture* texture = FbxCast<FbxFileTexture>(prop.GetSrcObject<FbxTexture>(j));
+                    if (texture) 
+                    {
+                        std::string texturePath = texture->GetFileName();
+                        std::cout << "Found texture: " << texturePath << std::endl;
+                    }
+                }
+            }
+        }
+    }
 }

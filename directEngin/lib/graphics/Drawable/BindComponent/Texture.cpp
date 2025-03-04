@@ -1,6 +1,7 @@
 #include "Texture.h"
 #include "DDSTextureLoader.h"
-
+#include "WICTextureLoader.h"
+#include "resmngr/file_system.h"
 
 
 Texture::Texture(Graphics& gfx)
@@ -37,9 +38,18 @@ void Texture::set(Graphics& gfx, const wchar_t* path)
 	INFOMAN(gfx);
 	reset();
 	_pPath = path;
-	//if it throw unknown exeption - then its bad texture 
-	// ///@see https://github.com/Microsoft/DirectXTK/wiki/DDSTextureLoader
-	GFX_THROW_INFO(DirectX::CreateDDSTextureFromFile(gfx.getDevice(), path, nullptr, p_pTextureRV.GetAddressOf()));
+
+	auto ext = fileSystem::getExtension(path);
+	if (ext == L"dds")
+	{
+		//if it throw unknown exeption - then its bad texture 
+		// ///@see https://github.com/Microsoft/DirectXTK/wiki/DDSTextureLoader
+		GFX_THROW_INFO(DirectX::CreateDDSTextureFromFile(gfx.getDevice(), path, nullptr, p_pTextureRV.GetAddressOf()));
+	}
+	else
+	{
+		GFX_THROW_INFO(DirectX::CreateWICTextureFromFile(gfx.getDevice(), gfx.getContext(), path, nullptr, p_pTextureRV.GetAddressOf()));
+	}
 }
 
 void Texture::reset()

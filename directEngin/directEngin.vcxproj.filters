@@ -168,6 +168,9 @@
       <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="lib\graphics\Drawable\BindComponent\dynamic_buffer.cpp" />
+    <ClCompile Include="lib\resmngr\file_system.cpp">
+      <Filter>resmngr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry.h" />
@@ -377,6 +380,9 @@
       <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="lib\graphics\Drawable\BindComponent\dynamic_buffer.h" />
+    <ClInclude Include="lib\resmngr\file_system.h">
+      <Filter>resmngr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\test_texture.dds">

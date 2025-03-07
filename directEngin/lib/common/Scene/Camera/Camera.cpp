@@ -16,7 +16,7 @@ void Camera::OnFrame()
 {
 	auto pos = DirectX::XMLoadFloat3(&transform.position);
 	auto scale = DirectX::XMLoadFloat3(&transform.scale);
-	_projection = DirectX::XMMatrixPerspectiveFovLH( fov,aspectRatio,farPlane,nearPlane );
+	_projection = DirectX::XMMatrixPerspectiveFovLH( fov,aspectRatio, nearPlane,farPlane );
 	transform.orientationMatrix =
 		DirectX::XMMatrixAffineTransformation(scale, DirectX::XMVectorZero(), transform.rotation, pos);
 	_view = DirectX::XMMatrixInverse(nullptr ,transform.orientationMatrix);

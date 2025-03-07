@@ -13,6 +13,12 @@
     <FxCompile Include="shaders\GridVertex.hlsl">
       <Filter>resource\shader</Filter>
     </FxCompile>
+    <FxCompile Include="shaders\finalPassPixel.hlsl">
+      <Filter>resource\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\finalPassVertex.hlsl">
+      <Filter>resource\shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\common\geometry.cpp" />
@@ -170,6 +176,12 @@
     <ClCompile Include="lib\graphics\Drawable\BindComponent\dynamic_buffer.cpp" />
     <ClCompile Include="lib\resmngr\file_system.cpp">
       <Filter>resmngr</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\graphics\render_target.cpp">
+      <Filter>visual</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\graphics\geometric_buffer.cpp">
+      <Filter>visual</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +395,12 @@
     <ClInclude Include="lib\resmngr\file_system.h">
       <Filter>resmngr</Filter>
     </ClInclude>
+    <ClInclude Include="lib\graphics\render_target.h">
+      <Filter>visual</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\graphics\geometric_buffer.h">
+      <Filter>visual</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\test_texture.dds">
@@ -408,6 +426,12 @@
     </None>
     <None Include="build\codegenerators\init.lua">
       <Filter>build\codegenerators</Filter>
+    </None>
+    <None Include="shaders\finalPassPixel.cso">
+      <Filter>resource\shader</Filter>
+    </None>
+    <None Include="shaders\finalPassVertex.cso">
+      <Filter>resource\shader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,11 @@
 
 
 
-Graphics::Graphics(HWND hWnd){
+Graphics::Graphics(HWND hWnd)
+	:
+	_width(800u),
+	_height(600u)
+{
 	
 	DXGI_SWAP_CHAIN_DESC sd = {};
 	sd.BufferDesc.Width = 0;
@@ -67,7 +71,7 @@ Graphics::Graphics(HWND hWnd){
 
 		dsDesc.DepthEnable = TRUE;
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-		dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+		dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
 
 		GFX_THROW_INFO(_pDevice->CreateDepthStencilState(&dsDesc, &_pDSState));
 
@@ -75,8 +79,8 @@ Graphics::Graphics(HWND hWnd){
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> pDepthStencil;
 
 		D3D11_TEXTURE2D_DESC descDepth = {};
-		descDepth.Width = 800u;
-		descDepth.Height = 600u;
+		descDepth.Width = _width;
+		descDepth.Height = _height;
 		descDepth.MipLevels = 1u;
 		descDepth.ArraySize = 1u;
 		descDepth.Format = DXGI_FORMAT_D32_FLOAT;
@@ -116,11 +120,11 @@ Graphics::Graphics(HWND hWnd){
 		GFX_THROW_INFO(_pDevice->CreateDepthStencilView(pDepthStencil.Get(), &descDSV, &_pDSV));
 
 		//bind depth stensil view to OM
-		_pContext->OMSetRenderTargets(1u, _pTarget.GetAddressOf(), _pDSV.Get());
+		bindBackBuffer();
 
 		D3D11_VIEWPORT vp;
-		vp.Width = 800;
-		vp.Height = 600;
+		vp.Width = _width;
+		vp.Height = _height;
 		vp.MinDepth = 0;
 		vp.MaxDepth = 1;
 		vp.TopLeftX = 0;
@@ -271,4 +275,11 @@ ID3D11Device* Graphics::getDevice() noexcept {
 }
 DxgiInfoManager& Graphics::getInfoManager() noexcept {
 	return _infoManager;
+}
+
+void Graphics::bindBackBuffer()
+{
+	ID3D11RenderTargetView* nullRTV = nullptr;
+	_pContext->OMSetRenderTargets(1, &nullRTV, nullptr);
+	_pContext->OMSetRenderTargets(1, _pTarget.GetAddressOf(), _pDSV.Get());
 }

@@ -17,7 +17,7 @@ DXGI_FORMAT determineFormat(BYTE mask, D3D_REGISTER_COMPONENT_TYPE type)
         }
     }
     // Добавьте обработку других типов данных при необходимости
-    throw std::runtime_error("Unsupported input element format");
+    throw std::runtime_error("determineFormat::Unsupported input element format");
 }
 }
 
@@ -46,6 +46,10 @@ VertexShader::VertexShader(Graphics& gfx, const std::string& path) :
     {
         D3D11_SIGNATURE_PARAMETER_DESC paramDesc;
         pReflector->GetInputParameterDesc(i, &paramDesc);
+
+        // Пропускаем системные значения, такие как SV_VertexID
+        if (strcmp(paramDesc.SemanticName, "SV_VertexID") == 0)
+            continue;
 
         D3D11_INPUT_ELEMENT_DESC element = {0};
         element.SemanticName = paramDesc.SemanticName;

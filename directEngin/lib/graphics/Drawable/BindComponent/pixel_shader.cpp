@@ -9,6 +9,7 @@ PixelShader::PixelShader(Graphics& gfx,const std::string& path) :
 	Microsoft::WRL::ComPtr<ID3DBlob> pBlob;
 	auto wPath = stringHelper::to_wstring(path);
 	GFX_THROW_INFO(D3DReadFileToBlob(wPath.c_str(), &pBlob));
+	assert(pBlob && pBlob->GetBufferSize() > 0);
 	GFX_THROW_INFO(gfx.getDevice()->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &p_pPixelShader));
 }
 

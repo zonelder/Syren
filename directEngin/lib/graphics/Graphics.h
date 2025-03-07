@@ -50,6 +50,16 @@ public:
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics() = default;
 
+	UINT screenWidth() const noexcept
+	{
+		return _width;
+	}
+
+	UINT screenHeight() const noexcept
+	{
+		return _height;
+	}
+
 	void endFrame();
 	void ClearBuffer(float red, float green, float blue) noexcept;
 	void ClearBuffer(const float color[4]) noexcept;
@@ -58,6 +68,8 @@ public:
 	ID3D11DeviceContext* getContext() noexcept;
 	ID3D11Device* getDevice() noexcept;
 	DxgiInfoManager& getInfoManager() noexcept;
+
+	void bindBackBuffer();
 private:
 #ifndef NDEBUG
 	DxgiInfoManager _infoManager;
@@ -68,5 +80,8 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> _pTarget;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> _pDSV;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> _pDSState;
+
+	UINT _width;
+	UINT _height;
 };
 

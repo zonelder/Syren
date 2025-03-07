@@ -82,6 +82,7 @@ namespace
 
 
 RenderSystem::RenderSystem()
+	:gBuffer_(SceneContext::pGfx())
 {
 	auto gfx = SceneContext::pGfx();
 	INFOMAN((*gfx));
@@ -94,7 +95,22 @@ RenderSystem::RenderSystem()
 	constantBufferDesc.MiscFlags = 0;
 	GFX_THROW_INFO(gfx->getDevice()->CreateBuffer(&constantBufferDesc, nullptr, &p_colorConstantBuffer));
 	_vertexConstantBuffer =	 VertexConstantBuffer<DirectX::XMMATRIX>(*gfx,_wvp);
-	
+
+
+	D3D11_SAMPLER_DESC sampDesc = {};
+	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	sampDesc.MinLOD = 0;
+	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	GFX_THROW_INFO(gfx->getDevice()->CreateSamplerState(&sampDesc, &_pFinalSampler));
+
+	//probles with shaders
+	_pFinalPixelShader = SceneContext::pResources()->getPixelShader("shaders/FinalPassPixel.cso");
+	_pFinalVertexShader = SceneContext::pResources()->getVertexShader("shaders/FinalPassVertex.cso");
 }
 
 void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX::XMMATRIX& viewProjection)
@@ -108,6 +124,17 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX:
 	bool hasIndicies = !render.pMesh->indices.empty();
 	_wvp = transform.orientationMatrix * viewProjection;
 	_wvp = DirectX::XMMatrixTranspose(_wvp);
+	DirectX::XMFLOAT4X4 wvpMatrix;
+	DirectX::XMStoreFloat4x4(&wvpMatrix, _wvp);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		std::cout << wvpMatrix.m[i][0] << " "
+			<< wvpMatrix.m[i][1] << " "
+			<< wvpMatrix.m[i][2] << " "
+			<< wvpMatrix.m[i][3] << std::endl;
+	}
+	std::cout << "-------------------------\n";
 	///update transform buffer
 	D3D11_MAPPED_SUBRESOURCE msr;
 	auto pConstantBuffer = _vertexConstantBuffer.p_pConstantBuffer;
@@ -164,13 +191,14 @@ void RenderSystem::DeepRender(RenderView& view, const DirectX::XMMATRIX& viewPro
 
 void RenderSystem::onFrame(SceneManager& scene)
 {
-
 	static float time = 0.0f;
 	time += 0.01f;
 	float offset = sinf(time)*1.0f;
 	auto& cam = scene.getCamera();
 	RenderView& view = scene.view<WithComponents>();
 	auto viewProjection = cam.view() * cam.projection();
+	gBuffer_.bind(SceneContext::pGfx());
+
 	for (auto [entt,p,r,tr] : view)
 	{
 		view.get<Transform>(p.parent).position.x += offset;
@@ -183,10 +211,31 @@ void RenderSystem::onFrame(SceneManager& scene)
 		renderOne(r, tr, viewProjection);
 	}
 
+	//return to back buffer
+
+	gBuffer_.unbind(SceneContext::pGfx());
+	SceneContext::pGfx()->bindBackBuffer();
+	drawFinalPass();
+
+	float color[4] = { 1.0f,0.0f,0.0f,0.0f };
+	gBuffer_.clear(SceneContext::pGfx(), color);
 }
 
 void RenderSystem::onUpdate(SceneManager& scene, float t)
 {
+
+	if (scene.getInput().IsKeyDown('1'))
+	{
+		_finalPassData.selectedOutput = 0;
+	}
+	if (scene.getInput().IsKeyDown('2'))
+	{
+		_finalPassData.selectedOutput = 1;
+	}
+	if (scene.getInput().IsKeyDown('3'))
+	{
+		_finalPassData.selectedOutput = 2;
+	}
 
 	auto& rs = scene.getPool<Render>();
 	for (auto& r : rs)
@@ -243,4 +292,36 @@ void RenderSystem::bindMesh(MeshPtr pMesh, const InputLayout& layout)
 void RenderSystem::registerBuffer(SemanticType semantic, const ElementDesc& desc) {
 	UINT elementSize = getElementSize(semantic);
 	_buffers[semantic] = { std::make_unique<DynamicBuffer>(*SceneContext::pGfx(), elementSize),elementSize,desc.inputSlot};
+}
+
+
+
+void RenderSystem::drawFinalPass()
+{
+	auto pContext = SceneContext::pGfx()->getContext();
+	ID3D11Buffer* nullBuffer = nullptr;
+	UINT stride = 0;
+	UINT offset = 0;
+	pContext->IASetVertexBuffers(0, 1, &nullBuffer, &stride, &offset);
+
+	auto pGfx = SceneContext::pGfx();
+
+	_pFinalVertexShader->bind(*pGfx);
+	_pFinalPixelShader->bind(*pGfx);
+
+	//pContext->VSSetConstantBuffers(0, 1, &p_colorConstantBuffer);
+	pContext->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &_finalPassData, sizeof(FinalPassCBData), 0);
+	pContext->PSSetConstantBuffers(0, 1, p_colorConstantBuffer.GetAddressOf());
+
+	ID3D11ShaderResourceView* srvs[3] = { gBuffer_.getAlbedo()->GetSRV(),gBuffer_.getNormal()->GetSRV() ,gBuffer_.getDepth()->GetSRV()};
+	pContext->PSSetShaderResources(0, 3, srvs);
+	pContext->PSSetSamplers(0, 1 ,_pFinalSampler.GetAddressOf());
+
+	pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	pContext->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN, 0);
+
+	pContext->Draw(4, 0);
+
+	ID3D11ShaderResourceView* nullSRVs[3] = { nullptr, nullptr, nullptr };
+	SceneContext::pGfx()->getContext()->PSSetShaderResources(0, 3, nullSRVs);
 }

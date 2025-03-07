@@ -208,7 +208,9 @@
     <ClCompile Include="lib\graphics\Drawable\BindComponent\index_buffer.cpp" />
     <ClCompile Include="lib\direct\DxgiInfoManager.cpp" />
     <ClCompile Include="lib\direct\dxerr.cpp" />
+    <ClCompile Include="lib\graphics\geometric_buffer.cpp" />
     <ClCompile Include="lib\graphics\graphics.cpp" />
+    <ClCompile Include="lib\graphics\render_target.cpp" />
     <ClCompile Include="lib\resmngr\fbx_prefab.cpp" />
     <ClCompile Include="lib\resmngr\fbx_utils.cpp" />
     <ClCompile Include="lib\resmngr\file_system.cpp" />
@@ -278,11 +280,13 @@
     <ClInclude Include="lib\graphics\Drawable\BindComponent\bindable_components.h" />
     <ClInclude Include="lib\graphics\Drawable\BindComponent\IBindable.h" />
     <ClInclude Include="lib\common\WindowThrowMacros.h" />
+    <ClInclude Include="lib\graphics\geometric_buffer.h" />
     <ClInclude Include="lib\graphics\graphics_throw_macros.h" />
     <ClInclude Include="lib\direct\DxgiInfoManager.h" />
     <ClInclude Include="lib\direct\dxerr.h" />
     <ClInclude Include="lib\graphics\graphics.h" />
     <ClInclude Include="lib\common\app.h" />
+    <ClInclude Include="lib\graphics\render_target.h" />
     <ClInclude Include="lib\resmngr\fbx_prefab.h" />
     <ClInclude Include="lib\resmngr\fbx_utils.h" />
     <ClInclude Include="lib\resmngr\file_system.h" />
@@ -320,8 +324,30 @@
     <None Include="lib\direct\DXTrace.inl" />
     <None Include="packages.config" />
     <None Include="resource\myfile.spritefont" />
+    <None Include="shaders\finalPassPixel.cso" />
+    <None Include="shaders\finalPassVertex.cso" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="shaders\finalPassPixel.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="shaders\finalPassVertex.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="shaders\GridPixel.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

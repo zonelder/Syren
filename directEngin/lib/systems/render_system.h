@@ -5,6 +5,7 @@
 #include "../graphics/Graphics.h"
 #include "components/parent.h"
 #include "graphics/Drawable/BindComponent/dynamic_buffer.h"
+#include "graphics/geometric_buffer.h"
 
 struct BufferSlot 
 {
@@ -22,6 +23,13 @@ enum class SemanticType {
 	// ... другие типы
 };
 
+struct FinalPassCBData
+{
+	int selectedOutput; // 0: Альбедо, 1: Нормали, 2: Глубина
+	// Выравнивание до 16 байт, если требуется.
+	int pad[3];
+};
+
 class RenderSystem:public BaseSystem
 {
 public:
@@ -35,6 +43,8 @@ public:
 
 	void registerBuffer(SemanticType semantic, const ElementDesc& desc);
 
+	void drawFinalPass();
+
 private:
 	void DeepRender(RenderView& view, const DirectX::XMMATRIX& viewProjection, EntityID id);
 	void renderOne(Render& render, Transform& transform, const DirectX::XMMATRIX& viewProjection);
@@ -44,5 +54,14 @@ private:
 
 	std::unordered_map<SemanticType, BufferSlot> _buffers;
 	IndexBuffer _indexBuffer;
+
+
+	
+	VertexShaderPtr _pFinalVertexShader;
+	PixelShaderPtr _pFinalPixelShader;
+	Microsoft::WRL::ComPtr<ID3D11SamplerState > _pFinalSampler;
+	GBuffer gBuffer_;
+	FinalPassCBData _finalPassData;
+
 };
 

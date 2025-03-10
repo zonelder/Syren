@@ -70,6 +70,10 @@ public:
 	DxgiInfoManager& getInfoManager() noexcept;
 
 	void bindBackBuffer();
+	auto pDepthBuffer() const noexcept
+	{
+		return _pDSV;
+	}
 private:
 #ifndef NDEBUG
 	DxgiInfoManager _infoManager;

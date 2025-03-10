@@ -12,6 +12,4 @@ struct Render
 	SERIALIZE_FIELD MeshPtr pMesh;
 	SERIALIZE_FIELD MaterialPtr pMaterial;
 	Topology topology;
-	bool is_rendered;
-
 };

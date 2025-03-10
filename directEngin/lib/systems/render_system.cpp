@@ -108,7 +108,6 @@ RenderSystem::RenderSystem()
 
 	GFX_THROW_INFO(gfx->getDevice()->CreateSamplerState(&sampDesc, &_pFinalSampler));
 
-	//probles with shaders
 	_pFinalPixelShader = SceneContext::pResources()->getPixelShader("shaders/FinalPassPixel.cso");
 	_pFinalVertexShader = SceneContext::pResources()->getVertexShader("shaders/FinalPassVertex.cso");
 }
@@ -124,17 +123,6 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX:
 	bool hasIndicies = !render.pMesh->indices.empty();
 	_wvp = transform.orientationMatrix * viewProjection;
 	_wvp = DirectX::XMMatrixTranspose(_wvp);
-	DirectX::XMFLOAT4X4 wvpMatrix;
-	DirectX::XMStoreFloat4x4(&wvpMatrix, _wvp);
-
-	for (int i = 0; i < 4; ++i)
-	{
-		std::cout << wvpMatrix.m[i][0] << " "
-			<< wvpMatrix.m[i][1] << " "
-			<< wvpMatrix.m[i][2] << " "
-			<< wvpMatrix.m[i][3] << std::endl;
-	}
-	std::cout << "-------------------------\n";
 	///update transform buffer
 	D3D11_MAPPED_SUBRESOURCE msr;
 	auto pConstantBuffer = _vertexConstantBuffer.p_pConstantBuffer;
@@ -159,6 +147,7 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX:
 	render.pMaterial->bind(gfx);
 	render.topology.bind(gfx);
 	//draw
+
 	if (!hasIndicies)
 	{
 		context->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN, 0);
@@ -170,25 +159,6 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX:
 	gfx.DrawIndexed(render.pMesh->indices.size()/*TODO change to index count data in mesh*/, render.pMesh->startIndex);
 }
 
-void RenderSystem::DeepRender(RenderView& view, const DirectX::XMMATRIX& viewProjection,EntityID id )
-{
-
-	auto& r = view.get<Render>(id);
-	if (r.is_rendered)
-		return;
-
-	//before render object we should render its parent
-	if (view.has<Parent>(id))
-	{
-		auto p_id = view.get<Parent>(id).parent;
-		assert(p_id != id);
-		DeepRender(view, viewProjection,p_id);
-	}
-
-	renderOne(r, view.get<Transform>(id), viewProjection);
-	r.is_rendered = true;//TODO remove
-}
-
 void RenderSystem::onFrame(SceneManager& scene)
 {
 	static float time = 0.0f;
@@ -197,23 +167,14 @@ void RenderSystem::onFrame(SceneManager& scene)
 	auto& cam = scene.getCamera();
 	RenderView& view = scene.view<WithComponents>();
 	auto viewProjection = cam.view() * cam.projection();
-	gBuffer_.bind(SceneContext::pGfx());
 
-	for (auto [entt,p,r,tr] : view)
+	gBuffer_.bind(SceneContext::pGfx());
+	for (auto [entt,r,tr] : view)
 	{
-		view.get<Transform>(p.parent).position.x += offset;
-		DeepRender(view, viewProjection, entt);
-	}
-	auto& commponView = scene.view<filters::With<Render, Transform>, filters::Without<Parent>>();
-	for (auto [antt, r, tr] : commponView)
-	{
-		auto color = r.pMaterial->color;
 		renderOne(r, tr, viewProjection);
 	}
-
-	//return to back buffer
-
 	gBuffer_.unbind(SceneContext::pGfx());
+
 	SceneContext::pGfx()->bindBackBuffer();
 	drawFinalPass();
 
@@ -235,12 +196,6 @@ void RenderSystem::onUpdate(SceneManager& scene, float t)
 	if (scene.getInput().IsKeyDown('3'))
 	{
 		_finalPassData.selectedOutput = 2;
-	}
-
-	auto& rs = scene.getPool<Render>();
-	for (auto& r : rs)
-	{
-		r.is_rendered = false;//TODO remove
 	}
 
 }

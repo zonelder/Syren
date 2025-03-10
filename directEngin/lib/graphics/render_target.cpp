@@ -40,7 +40,7 @@ RenderTarget::RenderTarget(Graphics * pGfx, size_t width, size_t height, DXGI_FO
 
 void RenderTarget::bind(Graphics* pGfx)
 {
-    pGfx->getContext()->OMSetRenderTargets(1, _pRTV.GetAddressOf(), nullptr);
+    pGfx->getContext()->OMSetRenderTargets(1, _pRTV.GetAddressOf(), pGfx->pDepthBuffer().Get());
 
 }
 

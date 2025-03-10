@@ -19,7 +19,7 @@ void GBuffer::bind(Graphics* pGfx)
         _pNormal->GetRTV(),
         _pDepth->GetRTV()
     };
-    pGfx->getContext()->OMSetRenderTargets(3, rtvs, nullptr);
+    pGfx->getContext()->OMSetRenderTargets(3, rtvs, pGfx->pDepthBuffer().Get());
 }
 
 void GBuffer::unbind(Graphics* pGfx)

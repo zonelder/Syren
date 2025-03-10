@@ -4,7 +4,7 @@
 #include <memory.h>
 #include "components/material.h"
 #include "resmngr/fbx_prefab.h"
-
+#include "components/prefab_root.h"
 
 struct Mesh;
 class VertexShader;
@@ -13,7 +13,9 @@ class PixelShader;
 using MeshPtr			 = std::shared_ptr<Mesh>;
 using VertexShaderPtr	 = std::shared_ptr<VertexShader>;
 using PixelShaderPtr	 = std::shared_ptr<PixelShader>;
+using TexturePtr		 = std::shared_ptr<Texture>;
 using FbxPrefabPtr		 = std::shared_ptr<FbxPrefab>;
+using PrefabPtr			 = std::shared_ptr<Prefab>
 /// @brief class that control loading of Resources. it handles construct\destruct login by itsself.
 /// deleting anything that has been returned from ResourceManager emits UB 
 class ResourceManager
@@ -34,6 +36,10 @@ public:
 	PixelShaderPtr getPixelShader(const std::string& resorceID);
 	MaterialPtr getMaterial(const std::string& resourceID);
 
+	TexturePtr getTexture(const std::string& resourceID);
+
+	TexturePtr getDefaultTexture();
+
 	FbxPrefabPtr getFbxPrefab(const std::string& resourceID);
 
 	//build resource on run
@@ -41,21 +47,20 @@ public:
 	bool saveMaterial(const MaterialPtr pMaterial, const std::string& resourceID);
 
 private:
+
 	bool loadSyrenMeshInternal(MeshPtr mesh,const std::string& file);
-	bool loadFbxMeshInternal(MeshPtr mesh, const std::string& file);
 	bool loadMaterialInternal(MaterialPtr pMat, const std::string& file);
-
-
 	bool saveMeshInternal(const MeshPtr mesh, const std::string& file);
 
 private:
 	Graphics& _gfx;//to init buffers;
-	//TODO fonts and textures also should count as resources.
 	ResourceContainer_t<Mesh>			meshes_;
 	ResourceContainer_t<VertexShader>	vertexShaders_;
 	ResourceContainer_t<PixelShader>	pixelShaders_;
 	ResourceContainer_t<Material>		materials_;
+	ResourceContainer_t<Texture>		textures_;
 	ResourceContainer_t<FbxPrefab>		fbxPrefabs_;
+	ResourceContainer_t<Prefab>			prefab_;
 
 	UnhandleResources_t<Mesh>			unhandledMeshes_;
 	UnhandleResources_t<Material>		unhandledMaterial_;

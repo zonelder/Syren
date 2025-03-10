@@ -1,7 +1,6 @@
 #pragma once
 #include "../graphics/Drawable/BindComponent/vertex_shader.h"
 #include "../graphics/Drawable/BindComponent/pixel_shader.h"
-#include "../graphics/Drawable/BindComponent/input_layout.h"
 #include "../graphics/Drawable/BindComponent/texture.h" 
 
 #include <memory>

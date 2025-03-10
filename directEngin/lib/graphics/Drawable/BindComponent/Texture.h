@@ -1,21 +1,20 @@
-#pragma once
-#include "IBindable.h"
+#ifndef  __TEXTURE_H__
+#define __TEXTURE_H__
+
+#include "graphics/Graphics.h"
 #include <iostream>
 #include <memory>
 
-class Texture:public IBindable
+class Texture final
 {
 public:
 
 	Texture() = delete;
-	Texture(Graphics& gfx);
-	Texture(Graphics& gfx,const wchar_t* path);
-	void bind(Graphics& gfx) noexcept override;
-	void set(Graphics& gfx,const wchar_t* path);
+	Texture(Graphics& gfx,const std::string& path);
+
+	void bind(Graphics& gfx) const;
 
 	std::wstring getPath();
-private:
-	void reset();
 
 private:
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> p_pTextureRV;
@@ -25,3 +24,6 @@ private:
 
 
 using TexturePtr = std::shared_ptr<Texture>;
+
+
+#endif // ! __TEXTURE_H__

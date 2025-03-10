@@ -1,13 +1,11 @@
 #include "Material.h"
-
+#include "common/Scene/scene_manager.h"
 
 
 
 Material::Material(Graphics& gfx) :
 	pTexture(nullptr)
-{
-	//_texture = Texture(gfx, L"test_texture.png");
-}
+{}
 
 void Material::bind(Graphics& gfx)
 {
@@ -17,14 +15,10 @@ void Material::bind(Graphics& gfx)
 	if (pVertexShader)
 		pVertexShader->bind(gfx);
 
-	if(pTexture)
-		pTexture->bind(gfx);
-	else
+	if (!pTexture)//in case some smart guy forget to set texture
 	{
-		//TODO replace this
-		static TexturePtr  pEmptyTexture = std::make_shared<Texture>(gfx, nullptr);
-		pEmptyTexture->set(gfx, nullptr);
-		pEmptyTexture->bind(gfx);
+		pTexture = SceneContext::pResources()->getDefaultTexture();
 	}
+	pTexture->bind(gfx);
 
 }

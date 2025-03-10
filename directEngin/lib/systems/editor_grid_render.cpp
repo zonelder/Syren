@@ -17,11 +17,9 @@ void EditorGridRenderer::onInit(SceneManager& scene)
     for (int i = -gridCount; i <= gridCount; ++i)
     {
         float offset = i * gridSize;
-        // Вертикальные линии
         vertices.push_back({ { offset, 0.0f, -gridSize * gridCount } });
         vertices.push_back({ { offset, 0.0f,  gridSize * gridCount } });
 
-        // Горизонтальные линии
         vertices.push_back({ { -gridSize * gridCount, 0.0f, offset } });
         vertices.push_back({ {  gridSize * gridCount, 0.0f, offset } });
     }

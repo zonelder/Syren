@@ -123,6 +123,33 @@ MaterialPtr ResourceManager::getMaterial(const std::string& resourceID)
 ;	return materials_[path];
 }
 
+TexturePtr ResourceManager::getTexture(const std::string& resourceID)
+{
+	auto path = fileSystem::simplifyPath(resourceID);
+	auto it = textures_.find(resourceID);
+	if (it != textures_.end())
+		return it->second;
+
+	auto ext = fileSystem::getExtension(path);
+	if (!fileSystem::fileExist(path))
+		return getDefaultTexture();
+
+	if (ext != "dds" && ext != "png" && ext != "jpeg" && ext != "bmp")
+	{
+		return getDefaultTexture();
+	}
+	textures_[path] = std::make_shared<Texture>(_gfx,path);
+	return textures_[path];
+
+}
+
+/// @brief method return the texture that engine use as default texture.as a pair of exception-free semantic in case some texture cant be loaded we return texture that can(engine should guarantie it)
+/// @return 
+TexturePtr ResourceManager::getDefaultTexture()
+{
+	return getTexture("resource/empty.dds");//TODO - make an exl config and use path from there insead of hardcode it into codebase
+}
+
 FbxPrefabPtr ResourceManager::getFbxPrefab(const std::string& resourceID)
 {
 	auto path = fileSystem::simplifyPath(resourceID);

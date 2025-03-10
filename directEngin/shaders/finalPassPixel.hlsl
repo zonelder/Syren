@@ -33,10 +33,15 @@ float4 main(VS_OUTPUT input ) : SV_Target
     else if(selectedOutput == 2)
     {
         float depth = DepthTexture.Sample(FinalSampler, input.texCoord).x;
-        color = float4(depth, depth, depth, 1.0f);
+        float r = depth * 255.0;
+        float g = frac(r) * 255.0;
+        float b = frac(g) * 255.0;
+    
+        color = float4(floor(r) / 255.0, floor(g) / 255.0, floor(b) / 255.0, 1.0);
     }
     else
     {
+        
         color = albedoTexture.Sample(FinalSampler, input.texCoord);
     }
     return color;

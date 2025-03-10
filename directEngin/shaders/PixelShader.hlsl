@@ -10,7 +10,6 @@ struct VS_OUTPUT
 {
 	float4 pos : SV_Position;
 	float2 TexCord : TEXCORD;
-    float4 depth : NORMAL;
 };
 
 struct GBuffer
@@ -27,7 +26,7 @@ GBuffer main(VS_OUTPUT input) : SV_Target
     GBuffer output;
     float4 textureColor = ObjTexture.Sample(ObjSamplerState, input.TexCord);
     output.albedo = MaterialColor * textureColor;
-    output.depth = input.depth;
+    output.depth = float4(saturate(input.pos.z / input.pos.w), 0.0f, 0.0f, 1.0f);
     
     return output;
 }

@@ -15,7 +15,7 @@ using VertexShaderPtr	 = std::shared_ptr<VertexShader>;
 using PixelShaderPtr	 = std::shared_ptr<PixelShader>;
 using TexturePtr		 = std::shared_ptr<Texture>;
 using FbxPrefabPtr		 = std::shared_ptr<FbxPrefab>;
-using PrefabPtr			 = std::shared_ptr<Prefab>
+using PrefabPtr			 = std::shared_ptr<Prefab>;
 /// @brief class that control loading of Resources. it handles construct\destruct login by itsself.
 /// deleting anything that has been returned from ResourceManager emits UB 
 class ResourceManager

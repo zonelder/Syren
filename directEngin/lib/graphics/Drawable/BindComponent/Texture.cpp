@@ -7,6 +7,11 @@
 
 
 Texture::Texture(Graphics& gfx, const std::string& path) 
+	: 
+	Texture(gfx, stringHelper::to_wstring(path))
+{}
+
+Texture::Texture(Graphics& gfx, const std::wstring& path)
 {
 	INFOMAN(gfx);
 
@@ -22,7 +27,7 @@ Texture::Texture(Graphics& gfx, const std::string& path)
 	sampDesc.MipLODBias = 0;
 
 	GFX_THROW_INFO(gfx.getDevice()->CreateSamplerState(&sampDesc, &_pSampleState));
-	_pPath = stringHelper::to_wstring(path);
+	_pPath =path;
 	auto ext = fileSystem::getExtension(_pPath);
 	if (ext == L"dds")
 	{

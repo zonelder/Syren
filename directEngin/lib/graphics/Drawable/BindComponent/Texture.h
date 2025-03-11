@@ -11,6 +11,7 @@ public:
 
 	Texture() = delete;
 	Texture(Graphics& gfx,const std::string& path);
+	Texture(Graphics& gfx, const std::wstring& path);
 
 	void bind(Graphics& gfx) const;
 

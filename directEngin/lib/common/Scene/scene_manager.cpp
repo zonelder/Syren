@@ -73,7 +73,7 @@ std::unordered_map<int, EntityID> SceneManager::instantiate(FbxPrefabPtr pPrefab
 		{
 			auto& render = addComponent<Render>(entt);
 			render.pMesh = pPrefab->getMesh(node.meshID);
-			render.pMaterial = SceneContext::pResources()->getMaterial("resource/example/tile_test/material/tile_black.syrenmaterial");//some default material
+			render.pMaterial = context::getMaterial("resource/example/tile_test/material/tile_black.syrenmaterial");//some default material
 		}
 
 		if (node.parent != -1)
@@ -166,3 +166,39 @@ SceneContext::~SceneContext()
 		s_pMainContext = s_contexts.back();
 }
 
+
+//---------------------context shortcuts-------------------
+ResourceManager& context::rm()
+{
+	return *(SceneContext::pResources());
+}
+
+Graphics& context::gfx()
+{
+	return *(SceneContext::pGfx());
+}
+
+TexturePtr context::getTexture(const std::string& path)
+{
+	return SceneContext::pResources()->getTexture(path);
+}
+
+MeshPtr context::getMesh(const std::string& path)
+{
+	return SceneContext::pResources()->getMesh(path);
+}
+
+MaterialPtr context::getMaterial(const std::string& path)
+{
+	return SceneContext::pResources()->getMaterial(path);
+}
+
+VertexShaderPtr context::getVertexShader(const std::string& path)
+{
+	return SceneContext::pResources()->getVertexShader(path);
+}
+
+PixelShaderPtr context::getPixelShader(const std::string& path)
+{
+	return SceneContext::pResources()->getPixelShader(path);
+}

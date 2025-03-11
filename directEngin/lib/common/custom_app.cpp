@@ -18,9 +18,9 @@
 #include "components/text.h"
 #include "components/game_cell.h"
 #include "components/fps_counter.h"
+#include "components/tilemap.h"
 
 #include "geometry_cast.h"
-#include "components/tilemap.h"
 
 #include <chrono>  //���������� chrono ��� ������ �� ��������
 #include "Scene/scene_loader.hpp"
@@ -63,7 +63,7 @@ void App::OnInit()
 	for (auto [_, id] : ids)
 	{
 		auto& r = _scene.getComponent<Render>(id);
-		r.pMaterial->pTexture = SceneContext::pResources()->getTexture("resource/example/fbx_load/textures/Material_BaseColor.png");
+		r.pMaterial->pTexture = context::getTexture("resource/example/fbx_load/textures/Material_BaseColor.png");
 		r.pMaterial->color = { 1.0f,1.0f,1.0f,1.0f };
 	}
 }

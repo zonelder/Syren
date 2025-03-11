@@ -16,14 +16,15 @@ App::App() :
 {}
 
 
-int App::Init(){
+int App::Init()
+{
 
-	//SceneContext::setMainContext(&_context);
 	OnInit();
 	_systemManager.init(_scene);
 	while (true) {
 		//if processMessage has a value then it means than we wanna exit from app
-		if (const auto ecode = Window::processMessage()) {
+		if (const auto ecode = Window::processMessage()) 
+		{
 			return *ecode;
 		}
 		_scene.updateInput(_wnd);

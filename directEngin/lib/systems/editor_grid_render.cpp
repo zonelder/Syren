@@ -25,8 +25,8 @@ void EditorGridRenderer::onInit(SceneManager& scene)
     }
 
     r.pMaterial = std::make_shared<Material>(*gfx);
-    r.pMaterial->pVertexShader = SceneContext::pResources()->getVertexShader("shaders/GridVertex.cso");
-    r.pMaterial->pPixelShader = SceneContext::pResources()->getPixelShader("shaders/GridPixel.cso");
+    r.pMaterial->pVertexShader = context::getVertexShader("shaders/GridVertex.cso");
+    r.pMaterial->pPixelShader = context::getPixelShader("shaders/GridPixel.cso");
     r.pMaterial->color = { 0.25f, 0.25f, 0.25f, 1.0f };
     r.topology = Topology(*gfx, D3D_PRIMITIVE_TOPOLOGY_LINELIST);
 

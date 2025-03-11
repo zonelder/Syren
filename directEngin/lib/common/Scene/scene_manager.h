@@ -53,6 +53,20 @@ private:
 
 };
 
+/// @brief shortcut to commonly use features
+namespace context
+{
+	ResourceManager& rm();
+	Graphics& gfx();
+
+	TexturePtr		getTexture(const std::string& path);
+	MeshPtr			getMesh(const std::string & path);
+	MaterialPtr		getMaterial(const std::string& path);
+	VertexShaderPtr getVertexShader(const std::string& path);
+	PixelShaderPtr  getPixelShader(const std::string& path);
+
+}
+
 
 class SceneManager
 {

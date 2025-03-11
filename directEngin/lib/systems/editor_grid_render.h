@@ -16,6 +16,4 @@ private:
 	EntityID  _enttID;
 };
 
-
-
 #endif // ! __EDITOR_GREED_RENDERER__

@@ -108,8 +108,8 @@ RenderSystem::RenderSystem()
 
 	GFX_THROW_INFO(gfx->getDevice()->CreateSamplerState(&sampDesc, &_pFinalSampler));
 
-	_pFinalPixelShader = SceneContext::pResources()->getPixelShader("shaders/FinalPassPixel.cso");
-	_pFinalVertexShader = SceneContext::pResources()->getVertexShader("shaders/FinalPassVertex.cso");
+	_pFinalPixelShader = context::getPixelShader("shaders/FinalPassPixel.cso");
+	_pFinalVertexShader = context::getVertexShader("shaders/FinalPassVertex.cso");
 }
 
 void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX::XMMATRIX& viewProjection)

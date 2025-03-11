@@ -65,3 +65,4 @@ obj\Win32\*
 doxygen/
 pydoc/
 build/
+packages/

@@ -183,6 +183,9 @@
     <ClCompile Include="lib\graphics\geometric_buffer.cpp">
       <Filter>visual</Filter>
     </ClCompile>
+    <ClCompile Include="lib\common\scene_context.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry.h" />
@@ -400,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="lib\graphics\geometric_buffer.h">
       <Filter>visual</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\common\scene_context.h">
+      <Filter>app</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

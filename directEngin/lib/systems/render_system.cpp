@@ -185,15 +185,15 @@ void RenderSystem::onFrame(SceneManager& scene)
 void RenderSystem::onUpdate(SceneManager& scene, float t)
 {
 
-	if (scene.getInput().IsKeyDown('1'))
+	if (context::input().IsKeyDown('1'))
 	{
 		_finalPassData.selectedOutput = 0;
 	}
-	if (scene.getInput().IsKeyDown('2'))
+	if (context::input().IsKeyDown('2'))
 	{
 		_finalPassData.selectedOutput = 1;
 	}
-	if (scene.getInput().IsKeyDown('3'))
+	if ( context::input().IsKeyDown('3'))
 	{
 		_finalPassData.selectedOutput = 2;
 	}

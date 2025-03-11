@@ -4,10 +4,9 @@
 
 void CellGameSystem::onInit(SceneManager& scene)
 {
-	auto pRes = SceneContext::pResources();
 
-	p_selectMat = pRes->getMaterial("resource\\example\\tile_test\\material\\tile_red.syrenmaterial");
-	p_deselectMat = pRes->getMaterial("resource\\example\\tile_test\\material\\tile_black.syrenmaterial");
+	p_selectMat = context::getMaterial("resource\\example\\tile_test\\material\\tile_red.syrenmaterial");
+	p_deselectMat = context::getMaterial("resource\\example\\tile_test\\material\\tile_black.syrenmaterial");
 
 	for (auto [enttID,cell,render] : scene.view<GameCell, Render>())
 	{
@@ -20,9 +19,9 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 {
 	const auto& camera = scene.getCamera();
 	const auto& proj = camera.projection();
-	float px = 2.0f*scene.getInput().normedX -1.0f;
+	float px = 2.0f*context::input().normedX - 1.0f;
 	px /= DirectX::XMVectorGetX(proj.r[0]);
-	auto py = -2.0f*scene.getInput().normedY + 1.0f;
+	auto py = -2.0f* context::input().normedY + 1.0f;
 	py/= DirectX::XMVectorGetY(proj.r[1]);
 	auto pz = DirectX::XMVectorGetZ(proj.r[2]);
 	const auto& view = camera.transform.orientationMatrix;

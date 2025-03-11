@@ -17,61 +17,11 @@
 #include "entity_manager.h"
 #include "filters.h"
 
-
-
-/// @brief Some usefull context of app.its support overriding of context but  its always should be at least one instance of class.
-/// in commpon case class App provide such an instance so be carefull when you overriding mainContext;
-class SceneContext
-{
-public:
-	/// @brief create new instance of scene context.its forbidden to pass nullptr to this constructor.
-	///cause contest SHALL BE SERTAN AND WELL DEFINED.
-	SceneContext(ResourceManager* pRes, Graphics* pGfx);
-	~SceneContext();
-
-
-	/// @brief get main resource manager of application
-	/// @return 
-	static ResourceManager* pResources() noexcept { return s_pMainContext->_pResourceManager; }
-
-	/// @brief get main graphic handler of application
-	/// @return 
-	static Graphics* pGfx() noexcept { return s_pMainContext->_pGraphics; }
-
-	static void setMainContext(SceneContext* context) noexcept 
-	{
-		assert(context != nullptr);
-		s_pMainContext = context;
-	}
-
-private:
-	ResourceManager* _pResourceManager;
-	Graphics* _pGraphics;
-
-	static std::vector<SceneContext*> s_contexts;
-	static SceneContext* s_pMainContext;
-
-};
-
-/// @brief shortcut to commonly use features
-namespace context
-{
-	ResourceManager& rm();
-	Graphics& gfx();
-
-	TexturePtr		getTexture(const std::string& path);
-	MeshPtr			getMesh(const std::string & path);
-	MaterialPtr		getMaterial(const std::string& path);
-	VertexShaderPtr getVertexShader(const std::string& path);
-	PixelShaderPtr  getPixelShader(const std::string& path);
-
-}
-
+#include "common/scene_context.h"
 
 class SceneManager
 {
 public:
-	SceneManager(const Window& wnd);
 
 
 	Camera& getCamera() noexcept;
@@ -195,16 +145,7 @@ public:
 		return _entityManager.get(entt).hasComponent(Family::type_id<T>());
 	}
 
-	MeshPtr make2SidedPlaneMesh();
-
 	void onStartFrame();
-
-
-	/// @brief update input with data from window
-	/// @param wnd # window whose  as input handler
-	void updateInput(const Window& wnd) noexcept;
-
-	const Input& getInput() const noexcept;
 
 	void onEndFrame();
 
@@ -221,5 +162,4 @@ private:
 	ComponentManager _ComponentManager;
 	EntityManager _entityManager;
 	Camera _mainCamera;
-	Input _input;
 };

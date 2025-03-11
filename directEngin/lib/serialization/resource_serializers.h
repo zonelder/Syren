@@ -43,7 +43,7 @@ struct Serializer<MeshPtr>
     {
         std::string resourceID = Serializer<std::string>::deserialize(node.child("resourceID"));
         if (!resourceID.empty())
-            return SceneContext::pResources()->getMesh(resourceID);
+            return SceneContext::resources().getMesh(resourceID);
         return nullptr;
     }
 
@@ -69,7 +69,7 @@ struct Serializer<MaterialPtr>
     {
         std::string resourceID = Serializer<std::string>::deserialize(node.child("resourceID"));
         if (!resourceID.empty())
-            return SceneContext::pResources()->getMaterial(resourceID);
+            return SceneContext::resources().getMaterial(resourceID);
         return nullptr;
     }
 
@@ -95,7 +95,7 @@ struct Serializer<VertexShaderPtr>
     {
         std::string resourceID = Serializer<std::string>::deserialize(node.child("resourceID"));
         if (!resourceID.empty())
-            return SceneContext::pResources()->getVertexShader(resourceID);
+            return SceneContext::resources().getVertexShader(resourceID);
         return nullptr;
     }
 
@@ -121,7 +121,7 @@ struct Serializer<PixelShaderPtr>
     {
         std::string resourceID = Serializer<std::string>::deserialize(node.child("resourceID"));
         if (!resourceID.empty())
-            return SceneContext::pResources()->getPixelShader(resourceID);
+            return SceneContext::resources().getPixelShader(resourceID);
         return nullptr;
     }
 

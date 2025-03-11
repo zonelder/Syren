@@ -17,7 +17,7 @@ void Material::bind(Graphics& gfx)
 
 	if (!pTexture)//in case some smart guy forget to set texture
 	{
-		pTexture = SceneContext::pResources()->getDefaultTexture();
+		pTexture = SceneContext::resources().getDefaultTexture();
 	}
 	pTexture->bind(gfx);
 

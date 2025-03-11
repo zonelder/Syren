@@ -21,9 +21,9 @@
 #include "components/tilemap.h"
 
 #include "geometry_cast.h"
-
-#include <chrono>  //���������� chrono ��� ������ �� ��������
 #include "Scene/scene_loader.hpp"
+
+#include <chrono> 
 
 void App::OnInit()
 {
@@ -59,7 +59,7 @@ void App::OnInit()
 
 	text.position = { 10.0f,10.0f };
 
-	auto ids = _scene.instantiate(SceneContext::pResources()->getFbxPrefab("resource/example/fbx_load/SlothSword.fbx"));
+	auto ids = _scene.instantiate(SceneContext::resources().getFbxPrefab("resource/example/fbx_load/SlothSword.fbx"));
 	for (auto [_, id] : ids)
 	{
 		auto& r = _scene.getComponent<Render>(id);

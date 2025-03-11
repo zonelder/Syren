@@ -9,7 +9,7 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 	float speed = 0.01f;
 	float movementSpeed = 0.1f;
 	Transform& cameraTr = scene.getCamera().transform;
-	const auto& input = scene.getInput();
+	const auto& input = context::input();
 	if (!input.isRightPressed)// rotating in left mouse button pressed
 		return;
 	float cam_yaw = speed * input.deltaX;

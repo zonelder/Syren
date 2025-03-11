@@ -17,13 +17,8 @@ public:
 private:
 	void Update();
 	void Frame();
-
-	/// @brief Update static Mouse data  
-	void SetInputData();
 private:
 	Window			_wnd;
-	Graphics		_gfx;
-	ResourceManager _rm;
 	SceneContext	_context;
 
 	SceneManager	_scene;

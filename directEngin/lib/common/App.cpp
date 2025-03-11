@@ -9,10 +9,7 @@
 
 App::App() :
 	_wnd(800, 600, "engin win"),
-	_gfx(_wnd.GetHWND()),
-	_rm(_gfx),
-	_scene(_wnd),
-	_context(&_rm, &_gfx)
+	_context(_wnd)
 {}
 
 
@@ -27,7 +24,7 @@ int App::Init()
 		{
 			return *ecode;
 		}
-		_scene.updateInput(_wnd);
+		_context.updateInput(_wnd);//it will be better to have callback in Window class
 		Update();
 		Frame();// TODO better handle vector<servise> so inplementation of each servises can be separete from app class
 	}
@@ -36,28 +33,19 @@ int App::Init()
 
 void App::Update()
 {
-
-
 	_systemManager.update(_scene, _time.peek());
-
 }
 
 void App::Frame() 
 {
+	auto gfx = _context.pGfx();
 
-	_gfx.ClearBuffer(_scene.getCamera().background);
+	gfx->ClearBuffer(_scene.getCamera().background);
 	_scene.onStartFrame();
-
 
 	_systemManager.frame(_scene);
 
-
 	_scene.onEndFrame();
-	_gfx.endFrame();
-}
 
-
-void App::SetInputData()
-{
-
+	gfx->endFrame();
 }

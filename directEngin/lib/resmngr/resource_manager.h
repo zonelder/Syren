@@ -32,6 +32,8 @@ public:
 
 	//getters
 	MeshPtr getMesh(const std::string& resourceID);
+
+	MeshPtr getProceduralMesh(const std::string& resourceID);
 	VertexShaderPtr getVertexShader(const std::string& resourceID);
 	PixelShaderPtr getPixelShader(const std::string& resorceID);
 	MaterialPtr getMaterial(const std::string& resourceID);
@@ -55,6 +57,7 @@ private:
 private:
 	Graphics& _gfx;//to init buffers;
 	ResourceContainer_t<Mesh>			meshes_;
+	ResourceContainer_t<Mesh>			proceduralMesh_;
 	ResourceContainer_t<VertexShader>	vertexShaders_;
 	ResourceContainer_t<PixelShader>	pixelShaders_;
 	ResourceContainer_t<Material>		materials_;

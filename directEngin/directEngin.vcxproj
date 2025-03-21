@@ -212,6 +212,7 @@
     <ClCompile Include="lib\graphics\geometric_buffer.cpp" />
     <ClCompile Include="lib\graphics\graphics.cpp" />
     <ClCompile Include="lib\graphics\render_target.cpp" />
+    <ClCompile Include="lib\math\vector3.cpp" />
     <ClCompile Include="lib\resmngr\fbx_prefab.cpp" />
     <ClCompile Include="lib\resmngr\fbx_utils.cpp" />
     <ClCompile Include="lib\resmngr\file_system.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="lib\graphics\graphics.h" />
     <ClInclude Include="lib\common\app.h" />
     <ClInclude Include="lib\graphics\render_target.h" />
+    <ClInclude Include="lib\math\vector3.h" />
     <ClInclude Include="lib\resmngr\fbx_prefab.h" />
     <ClInclude Include="lib\resmngr\fbx_utils.h" />
     <ClInclude Include="lib\resmngr\file_system.h" />

@@ -7,10 +7,13 @@
 #ifndef PCH_H
 #define PCH_H
 
-// add headers that you want to pre-compile here
-#include "framework.h"
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
+// add headers that you want to pre-compile here
+#include "framework.h"
+
+#undef max
+#undef min
 
 #endif //PCH_H

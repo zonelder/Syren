@@ -186,7 +186,7 @@ TEST(testVector3Function, Angle) {
 	EXPECT_FLOAT_EQ(Vector3::angle(a, b), 90.0f);
 }
 
-/*
+
 TEST(testVector3Function, Max)
 {
 	Vector3 a(-3.0f, 4.0f, 5.0f);
@@ -204,7 +204,7 @@ TEST(testVector3Function, Min)
 	EXPECT_EQ(result, Vector3::min(a, b));
 	EXPECT_EQ(result, Vector3::min(b, a));
 }
-*/
+
 TEST(testVector3Function, Scale)
 {
 	Vector3 a(-3.0f, 4.0f, 5.0f);

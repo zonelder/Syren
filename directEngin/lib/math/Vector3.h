@@ -4,6 +4,10 @@
 #include <cmath>
 #include <algorithm>
 
+//focking WIPAPI issue
+#undef max
+#undef min
+
 class Vector3
 {
 	union
@@ -59,8 +63,8 @@ public:
 	static Vector3 reflect(const Vector3& incident, const Vector3& normal);
 	static Vector3 project(const Vector3& v, const Vector3& onto);
 	static float angle(const Vector3& a, const Vector3& b);
-	//static Vector3 max(const Vector3& a,const Vector3& b);
-	//static Vector3 min(const Vector3& a, const Vector3& b);
+	static Vector3 max(const Vector3& a,const Vector3& b);
+	static Vector3 min(const Vector3& a, const Vector3& b);
 	static Vector3 moveToward(const Vector3& current, const Vector3& target, float maxDistDelta);
 	static Vector3 scale(const Vector3& a, const Vector3& b);
 	
@@ -240,16 +244,16 @@ inline Vector3 Vector3::clampMagnitude(float maxLength) const noexcept
 	}
 	return *this;
 }
-/* TODO smging strange about this 2 function. should find out what
-Vector3 Vector3::max(const Vector3& a, const Vector3& b)
+ //TODO smging strange about this 2 function. should find out what
+inline Vector3 Vector3::max(const Vector3& a, const Vector3& b)
 {
 	return Vector3(DirectX::XMVectorMax(a._vec, b._vec));
 }
-Vector3 Vector3::min(const Vector3& a, const Vector3& b)
+inline Vector3 Vector3::min(const Vector3& a, const Vector3& b)
 {
 	return Vector3(DirectX::XMVectorMin(a._vec, b._vec));
 }
-*/
+
 inline Vector3 Vector3::moveToward(const Vector3& current, const Vector3& target, float maxDelta)
 {
 	Vector3 toTarget = target - current;

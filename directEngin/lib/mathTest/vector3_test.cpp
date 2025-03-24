@@ -219,8 +219,15 @@ TEST(testVector3Function, MoveTowards)
 {
 	Vector3 current(1, 2, 3);
 	Vector3 target(4, 5, 6);
-	Vector3 result = Vector3::moveToward(current, target, 3.0f);
+	Vector3 result = Vector3::moveTowards(current, target, 3.0f);
 
 	float distance = Vector3::distance(current, target); // ~5.196f
 	EXPECT_FLOAT_EQ(result.magnitude(), (current + (target - current).normalized() * 3.0f).magnitude());
+}
+
+TEST(testVector3Constant, allConstantLink)
+{
+	Vector3 r = Vector3::one + Vector3::up + Vector3::down + Vector3::forward + Vector3::back + Vector3::right + Vector3::left + Vector3::zero;
+
+	EXPECT_EQ(r, Vector3::one);
 }

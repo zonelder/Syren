@@ -30,7 +30,7 @@ public:
     {
         std::string name;
         Vector3 position;
-        DirectX::XMFLOAT4 rotation;
+        Quaternion rotation;
         Vector3 scale;
         int parent;
         short meshID;

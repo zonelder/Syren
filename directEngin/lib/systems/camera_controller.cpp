@@ -2,7 +2,6 @@
 #include "../common/Input.h"
 #include "components/timed_rotation.h"
 #include <cmath>
-#include "math/vector3.h"
 
 
 void CameraController::onUpdate(SceneManager& scene, float time)
@@ -15,28 +14,19 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 		return;
 	float cam_yaw = speed * input.deltaX;
 	float cam_pitch = speed * input.deltaY;
-
-	// Calculate yaw quaternion
-	DirectX::XMVECTOR yawQuat = DirectX::XMQuaternionRotationAxis(DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f), cam_yaw);
+	Quaternion yawQuat = Quaternion::angleAxis(cam_yaw, Vector3::up);
 
 	// Calculate the forward vector from the current rotation
-	DirectX::XMVECTOR forwardVector = DirectX::XMVector3Rotate(DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f), cameraTr.rotation);
+	Vector3 forwardVector = cameraTr.rotation * Vector3::forward;
+	Vector3 rightVector = Vector3::up.cross(forwardVector);
+	rightVector.normalize();
 
-	// Calculate the right vector
-	DirectX::XMVECTOR rightVector = DirectX::XMVector3Cross(DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f), forwardVector);
-	auto len = DirectX::XMVectorGetX(DirectX::XMVector3Length(rightVector));
-	if(len > 0.001f)
-		rightVector = DirectX::XMVector3Normalize(rightVector);
+	Quaternion pitchQuat = Quaternion::angleAxis(cam_pitch, rightVector);
 
-	// Calculate pitch quaternion
-	DirectX::XMVECTOR pitchQuat = DirectX::XMQuaternionRotationAxis(rightVector, cam_pitch);
-
-	// Combine the yaw and pitch quaternions
-	cameraTr.rotation = DirectX::XMQuaternionMultiply(cameraTr.rotation, pitchQuat);
-	cameraTr.rotation = DirectX::XMQuaternionMultiply(cameraTr.rotation, yawQuat);
+	cameraTr.rotation *= pitchQuat * yawQuat;
 
 	// Normalize the quaternion to prevent drift
-	cameraTr.rotation = DirectX::XMQuaternionNormalize(cameraTr.rotation);
+	//cameraTr.rotation = DirectX::XMQuaternionNormalize(cameraTr.rotation);
 
 	// check movving
 	Vector3 movement = { 0.0f, 0.0f, 0.0f };
@@ -50,10 +40,11 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 	if (movement[0] != 0.0f || movement[1] != 0.0f || movement[2] != 0.0f)
 	{
 		// Get camera's local axes
-		DirectX::XMVECTOR rotation = cameraTr.rotation;
-		Vector3 forward(DirectX::XMVector3Rotate(DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f), rotation));
-		Vector3 right(DirectX::XMVector3Rotate(DirectX::XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f), rotation));
-		Vector3 up(DirectX::XMVector3Rotate(DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f), rotation));
+		const auto& rotation = cameraTr.rotation;
+
+		Vector3 forward = rotation * Vector3::forward;;
+		Vector3 right = rotation*Vector3::right;
+		Vector3 up = rotation*Vector3::up;
 
 		// Calculate movement vector in world space
 		Vector3 moveVector = right * movement[0] + up * movement[1] + forward * movement[2];

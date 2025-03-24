@@ -65,7 +65,7 @@ public:
 	static float angle(const Vector3& a, const Vector3& b);
 	static Vector3 max(const Vector3& a,const Vector3& b);
 	static Vector3 min(const Vector3& a, const Vector3& b);
-	static Vector3 moveToward(const Vector3& current, const Vector3& target, float maxDistDelta);
+	static Vector3 moveTowards(const Vector3& current, const Vector3& target, float maxDistDelta);
 	static Vector3 scale(const Vector3& a, const Vector3& b);
 	
 
@@ -80,7 +80,22 @@ public:
 		assert(index < 3 && "Vector3 index out of bound.");
 		return (&x)[index];
 	}
+
+	static const Vector3 up;
+	static const Vector3 down;
+	static const Vector3 right;
+	static const Vector3 left;
+	static const Vector3 forward;
+	static const Vector3 back;
+	static const Vector3 one;
+	static const Vector3 zero;
+
+	static const Vector3 negativeInfinity;
+	static const Vector3 positiveInfinity;
+
 };
+
+
 
 inline bool operator==(const Vector3& lhs, const Vector3& rhs) noexcept
 {
@@ -254,7 +269,7 @@ inline Vector3 Vector3::min(const Vector3& a, const Vector3& b)
 	return Vector3(DirectX::XMVectorMin(a._vec, b._vec));
 }
 
-inline Vector3 Vector3::moveToward(const Vector3& current, const Vector3& target, float maxDelta)
+inline Vector3 Vector3::moveTowards(const Vector3& current, const Vector3& target, float maxDelta)
 {
 	Vector3 toTarget = target - current;
 	float dist = toTarget.magnitude();

@@ -3,6 +3,7 @@
 
 #include <fbxsdk.h>
 #include "components/mesh.h"
+#include "math/quaternion.h"
 
 using MeshPtr = std::shared_ptr<Mesh>;
 //class Color;
@@ -54,7 +55,7 @@ namespace fbx_utils
 
 	Vector3 toVector3(const FbxVector4& v);
 	DirectX::XMFLOAT4 toVector4(const FbxVector4& v);
-	DirectX::XMFLOAT4 toVector4(const FbxQuaternion& v);
+	Quaternion toVector4(const FbxQuaternion& v);
 
 
 

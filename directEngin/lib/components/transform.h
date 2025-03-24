@@ -2,15 +2,16 @@
 #define __TRANSFORM_H__
 #include "serialization/base.h"
 #include "math/vector3.h"
+#include "math/quaternion.h"
 
 SERIALIZE
 struct Transform
 {
 	SERIALIZE_FIELD
-	Vector3 position{ 0.0f,0.0f,0.0f };
+	Vector3 position;
 
 	SERIALIZE_FIELD
-	DirectX::XMVECTOR rotation = DirectX::XMQuaternionIdentity();
+	Quaternion rotation;
 	
 	SERIALIZE_FIELD
 	Vector3 scale{ 1.0f,1.0f,1.0f };

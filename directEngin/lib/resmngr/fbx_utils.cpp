@@ -23,7 +23,7 @@ DirectX::XMFLOAT4 fbx_utils::toVector4(const FbxVector4& v)
 	return { static_cast<float>(v[0]), static_cast<float>(v[1]), static_cast<float>(v[2]), static_cast<float>(v[3]) };
 }
 
-DirectX::XMFLOAT4 fbx_utils::toVector4(const FbxQuaternion& v)
+Quaternion fbx_utils::toVector4(const FbxQuaternion& v)
 {
 	return { static_cast<float>(v[0]), static_cast<float>(v[1]), static_cast<float>(v[2]), static_cast<float>(v[3]) };
 }

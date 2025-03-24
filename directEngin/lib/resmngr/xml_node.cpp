@@ -93,6 +93,18 @@ Vector3 XMLNode::value(const Vector3& def) const
 	return { x, y, z };
 }
 
+Quaternion XMLNode::value(const Quaternion& def) const
+{
+	std::stringstream ss(text().get());
+	float x, y, z,w;
+	ss >> x >> y >> z >> w;
+	if (ss.fail())
+	{
+		return def;
+	}
+	return { x, y, z, w };
+}
+
 DirectX::XMFLOAT2 XMLNode::value(const DirectX::XMFLOAT2& def) const
 {
 	std::stringstream ss(text().get());
@@ -185,6 +197,11 @@ void XMLNode::setValue(const std::wstring& val)
 void XMLNode::setValue(const Vector3& def)
 {
 	text().set(std::format("{} {} {}", def[0], def[1], def[2]).c_str());
+}
+
+void XMLNode::setValue(const Quaternion& val)
+{
+	text().set(std::format("{} {} {} {}", val[0], val[1], val[2], val[3]).c_str());
 }
 
 void XMLNode::setValue(const DirectX::XMFLOAT4& v)

@@ -12,6 +12,6 @@ void TimedRotationSystem::onUpdate(SceneManager& scene, float time)
 
 	for (auto [entt,rot,tr]:scene.view<TimedRotation, Transform>())
 	{
-		tr.rotation = DirectX::XMQuaternionRotationRollPitchYaw(angle*rot.xSence, angle*rot.ySence, angle*rot.zSence);
+		tr.rotation = Quaternion::euler(angle*rot.xSence, angle*rot.ySence, angle*rot.zSence);
 	}
 }

@@ -21,7 +21,6 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib\common\geometry.cpp" />
     <ClCompile Include="lib\common\geometry_cast.cpp" />
     <ClCompile Include="lib\common\transform_utils.cpp" />
     <ClCompile Include="main.cpp" />
@@ -186,12 +185,8 @@
     <ClCompile Include="lib\common\scene_context.cpp">
       <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="lib\math\vector3.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib\common\geometry.h" />
     <ClInclude Include="lib\common\geometry_cast.h" />
     <ClInclude Include="lib\common\transform_utils.h" />
     <ClInclude Include="lib\Time\timer.h" />
@@ -410,9 +405,6 @@
     <ClInclude Include="lib\common\scene_context.h">
       <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\math\vector3.h">
-      <Filter>math</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\test_texture.dds">
@@ -497,9 +489,6 @@
     </Filter>
     <Filter Include="third_party\fbxsdk">
       <UniqueIdentifier>{aa775b91-dba2-48be-866b-c359674ca2fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="math">
-      <UniqueIdentifier>{338a8be0-f105-4647-b3d9-1edb1a80c938}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

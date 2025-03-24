@@ -5,6 +5,7 @@
 #include "fbx_utils.h"
 #include <memory>
 #include <unordered_map>
+#include "math/vector3.h"
 
 // Предположим, что ResourceContainer_t определён как контейнер для умных указателей.
 template<typename T>
@@ -28,9 +29,9 @@ public:
     struct Node
     {
         std::string name;
-        DirectX::XMFLOAT3 position;
+        Vector3 position;
         DirectX::XMFLOAT4 rotation;
-        DirectX::XMFLOAT3 scale;
+        Vector3 scale;
         int parent;
         short meshID;
         short materialID;

@@ -13,7 +13,7 @@ DirectX::XMFLOAT2 fbx_utils::toVector2(const FbxVector2& v)
     return{ static_cast<float>(v[0]), static_cast<float>(v[1]) };
 }
 
-DirectX::XMFLOAT3 fbx_utils::toVector3(const FbxVector4& v)
+Vector3 fbx_utils::toVector3(const FbxVector4& v)
 {
 	return { static_cast<float>(v[0]), static_cast<float>(v[1]), static_cast<float>(v[2])};
 }

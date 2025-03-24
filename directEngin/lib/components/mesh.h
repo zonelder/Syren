@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 
-#include <DirectXMath.h>
+#include "math/vector3.h"
 #include "graphics/Drawable/BindComponent/vertex.h"
 
 struct Color
@@ -16,7 +16,7 @@ struct Color
 
 struct BoundingBox
 {
-	using Position = DirectX::XMFLOAT3;
+	using Position = Vector3;
 	Position minBound;
 	Position maxBound;
 };
@@ -36,14 +36,14 @@ public:
 
 	ElementContainer<Vertex> vertexes;
 	ElementContainer< DirectX::XMFLOAT2> uvs;
-	ElementContainer< DirectX::XMFLOAT3> normals;
+	ElementContainer< Vector3 > normals;
 	ElementContainer<unsigned short> indices;
 	ElementContainer< Color > colors;
 	BoundingBox boundingBox;
 
 	using Position_t = Vertex;
 	using UV_t = DirectX::XMFLOAT2;
-	using Normal_t = DirectX::XMFLOAT3;
+	using Normal_t = Vector3;
 	using Color_t = Color;
 	using Index_t = unsigned short;
 };

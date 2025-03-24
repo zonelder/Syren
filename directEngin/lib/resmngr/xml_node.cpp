@@ -81,7 +81,7 @@ DirectX::XMFLOAT4 XMLNode::value(const DirectX::XMFLOAT4& def) const
 }
 
 
-DirectX::XMFLOAT3 XMLNode::value(const DirectX::XMFLOAT3& def) const
+Vector3 XMLNode::value(const Vector3& def) const
 {
 	std::stringstream ss(text().get());
 	float x, y, z;
@@ -182,9 +182,9 @@ void XMLNode::setValue(const std::wstring& val)
 	text().set(str.c_str());
 }
 
-void XMLNode::setValue(const DirectX::XMFLOAT3& def)
+void XMLNode::setValue(const Vector3& def)
 {
-	text().set(std::format("{} {} {}", def.x, def.y, def.z).c_str());
+	text().set(std::format("{} {} {}", def[0], def[1], def[2]).c_str());
 }
 
 void XMLNode::setValue(const DirectX::XMFLOAT4& v)

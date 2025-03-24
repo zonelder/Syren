@@ -1,4 +1,7 @@
 #pragma once
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
 #include <unordered_map>
 #include <Windows.h>
 #include <string>

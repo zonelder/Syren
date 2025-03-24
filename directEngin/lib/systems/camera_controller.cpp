@@ -2,6 +2,7 @@
 #include "../common/Input.h"
 #include "components/timed_rotation.h"
 #include <cmath>
+#include "math/vector3.h"
 
 
 void CameraController::onUpdate(SceneManager& scene, float time)
@@ -38,34 +39,27 @@ void CameraController::onUpdate(SceneManager& scene, float time)
 	cameraTr.rotation = DirectX::XMQuaternionNormalize(cameraTr.rotation);
 
 	// check movving
-	DirectX::XMFLOAT3 movement = { 0.0f, 0.0f, 0.0f };
-	if (input.IsKeyDown('W')) movement.z = + 1.0f;
+	Vector3 movement = { 0.0f, 0.0f, 0.0f };
+	if (input.IsKeyDown('W')) movement[2] = +1.0f;
 
-	if (input.IsKeyDown('S')) movement.z = -1.0f;
+	if (input.IsKeyDown('S')) movement[2] = -1.0f;
 
-	if (input.IsKeyDown('A')) movement.x = -1.0f;
-	if (input.IsKeyDown('D')) movement.x = +1.0f;
+	if (input.IsKeyDown('A')) movement[0] = -1.0f;
+	if (input.IsKeyDown('D')) movement[0] = +1.0f;
 
-	if (movement.x != 0.0f || movement.y != 0.0f || movement.z != 0.0f)
+	if (movement[0] != 0.0f || movement[1] != 0.0f || movement[2] != 0.0f)
 	{
 		// Get camera's local axes
 		DirectX::XMVECTOR rotation = cameraTr.rotation;
-		DirectX::XMVECTOR forward = DirectX::XMVector3Rotate(DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f), rotation);
-		DirectX::XMVECTOR right = DirectX::XMVector3Rotate(DirectX::XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f), rotation);
-		DirectX::XMVECTOR up = DirectX::XMVector3Rotate(DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f), rotation);
+		Vector3 forward(DirectX::XMVector3Rotate(DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f), rotation));
+		Vector3 right(DirectX::XMVector3Rotate(DirectX::XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f), rotation));
+		Vector3 up(DirectX::XMVector3Rotate(DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f), rotation));
 
 		// Calculate movement vector in world space
-		DirectX::XMVECTOR moveVector = DirectX::XMVectorAdd(DirectX::XMVectorScale(right, movement.x), DirectX::XMVectorScale(up, movement.y));
-
-		moveVector = DirectX::XMVectorAdd(moveVector, DirectX::XMVectorScale(forward, movement.z));
-		moveVector = DirectX::XMVector3Normalize(moveVector);
-		// Apply speed and delta time
-		moveVector = DirectX::XMVectorScale(moveVector, movementSpeed * time);
-
-		// Update camera position
-		DirectX::XMVECTOR currentPos = DirectX::XMLoadFloat3(&cameraTr.position);
-		currentPos = DirectX::XMVectorAdd(currentPos, moveVector);
-		DirectX::XMStoreFloat3(&cameraTr.position, currentPos);
+		Vector3 moveVector = right * movement[0] + up * movement[1] + forward * movement[2];
+		moveVector.normalize();
+		moveVector *= movementSpeed * time;
+		cameraTr.position += moveVector;
 	}
 	
 }

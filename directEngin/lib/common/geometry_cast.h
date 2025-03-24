@@ -1,5 +1,7 @@
-#pragma once
+#ifndef __GEOMETRY_CAST_H__
+#define __GEOMETRY_CAST_H__
 #include "App.h"
+#include "math/vector3.h"
 
 struct Hit
 {
@@ -13,14 +15,15 @@ struct Hit
 class GeometryCast
 {
 public:
-	static Hit raycast(SceneManager& scene, DirectX::XMFLOAT3 origin, DirectX::XMFLOAT3 dir);
+	static Hit raycast(SceneManager& scene, const Vector3& origin, const Vector3&  dir);
 private:
 
-	static DirectX::XMFLOAT3 getGlobalPos(DirectX::XMMATRIX& world, DirectX::XMFLOAT3 pos);
+	static Vector3 getGlobalPos(DirectX::XMMATRIX& world, const Vector3& pos);
 
-	static bool isInsideBox(const DirectX::XMFLOAT3& position, const DirectX::XMFLOAT3& mibBox, const DirectX::XMFLOAT3& maxBox) noexcept;
-	static float getVectroComponent(const DirectX::XMFLOAT3& vector, int index);
+	static bool isInsideBox(const Vector3& position, const Vector3& mibBox, const Vector3& maxBox) noexcept;
 
-	static bool IsBoxHit(const DirectX::XMFLOAT3& position, const DirectX::XMFLOAT3& dir, const DirectX::XMFLOAT3& mibBox, const DirectX::XMFLOAT3& maxBox);
+	static bool IsBoxHit(const Vector3& position, const Vector3& dir, const Vector3& mibBox, const Vector3& maxBox);
 
 };
+
+#endif

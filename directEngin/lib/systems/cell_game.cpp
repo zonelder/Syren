@@ -25,7 +25,7 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 	py/= DirectX::XMVectorGetY(proj.r[1]);
 	auto pz = DirectX::XMVectorGetZ(proj.r[2]);
 	const auto& view = camera.transform.orientationMatrix;
-	DirectX::XMFLOAT3 ray = newBazis({ px,py,1.0f }, view);
+	auto ray = newBazis({ px,py,1.0f }, view);
 
 
 	
@@ -50,7 +50,7 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 	}
 }
 
-DirectX::XMFLOAT3 CellGameSystem::newBazis(const DirectX::XMFLOAT3& v, const DirectX::XMMATRIX& mat)
+Vector3  CellGameSystem::newBazis(const Vector3& v, const DirectX::XMMATRIX& mat)
 {
 	auto right = DirectX::XMVector3Normalize(mat.r[0]);
 	
@@ -65,12 +65,12 @@ DirectX::XMFLOAT3 CellGameSystem::newBazis(const DirectX::XMFLOAT3& v, const Dir
 	float fX = DirectX::XMVectorGetX(forward);
 	float fY = DirectX::XMVectorGetY(forward);
 	float fZ = DirectX::XMVectorGetZ(forward);
-	DirectX::XMFLOAT3 out;
+	Vector3 out;
 
 
-	out.x = v.x * rX + v.y * rY + v.z * rZ;
-	out.y = v.x * uX + v.y * uY + v.z * uZ;
-	out.z = v.x * fX + v.y * fY + v.z * fZ;
+	out[0] = v[0] * rX + v[1] * rY + v[2] * rZ;
+	out[1] = v[0] * uX + v[1] * uY + v[2] * uZ;
+	out[2] = v[0] * fX + v[1] * fY + v[2] * fZ;
 
 	return out;
 }

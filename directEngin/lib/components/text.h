@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include "serialization/base.h"
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
 #include <Windows.h>
 
 SERIALIZE

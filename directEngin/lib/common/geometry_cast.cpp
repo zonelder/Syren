@@ -1,9 +1,8 @@
 #include "geometry_cast.h"
 #include "components/transform.h"
 #include <limits>
-#include <math.h>
 
-Hit GeometryCast::raycast(SceneManager& scene, DirectX::XMFLOAT3 origin, DirectX::XMFLOAT3 dir)
+Hit GeometryCast::raycast(SceneManager& scene, const Vector3& origin, const Vector3& dir)
 {
 
 
@@ -25,40 +24,25 @@ Hit GeometryCast::raycast(SceneManager& scene, DirectX::XMFLOAT3 origin, DirectX
 	return Hit(-1);
 }
 
-DirectX::XMFLOAT3 GeometryCast::getGlobalPos(DirectX::XMMATRIX& world, DirectX::XMFLOAT3 pos)
+Vector3 GeometryCast::getGlobalPos(DirectX::XMMATRIX& world,const Vector3& pos)
 {
-	const auto matrix = DirectX::XMMatrixMultiply(world, DirectX::XMMatrixTranslation(pos.x, pos.y, pos.z));
+	const auto matrix = DirectX::XMMatrixMultiply(world, DirectX::XMMatrixTranslationFromVector(pos));
 	DirectX::XMVECTOR scale;
 	DirectX::XMVECTOR rotationQuat;
 	DirectX::XMVECTOR translation;
 	DirectX::XMMatrixDecompose(&scale, &rotationQuat, &translation, matrix);
-
-	// Вектор трансляции
-	DirectX::XMFLOAT3 global;
-	DirectX::XMStoreFloat3(&global, translation);
-	return global;
+	return Vector3(translation);
 }
 
-bool GeometryCast::isInsideBox(const DirectX::XMFLOAT3& position, const DirectX::XMFLOAT3& min, const DirectX::XMFLOAT3& max) noexcept
+bool GeometryCast::isInsideBox(const Vector3& position, const Vector3& min, const Vector3& max) noexcept
 {
-	return (position.x >= min.x && position.x <= max.x) &&
-		(position.y >= min.y && position.y <= max.y) &&
-		(position.z >= min.z && position.z <= max.z);
+	return (position[0] >= min[0] && position[0] <= max[0]) &&
+		(position[1] >= min[1] && position[1] <= max[1]) &&
+		(position[2] >= min[2] && position[2] <= max[2]);
 }
 
-float GeometryCast::getVectroComponent(const DirectX::XMFLOAT3& vector, int index)
-{
-	if (index == 0)
-		return vector.x;
-	if (index == 1)
-		return vector.y;
-	if (index == 2)
-		return vector.z;
 
-	return 0.0f;
-}
-
-bool GeometryCast::IsBoxHit(const DirectX::XMFLOAT3& origin, const DirectX::XMFLOAT3& dir, const DirectX::XMFLOAT3& minGlobal, const DirectX::XMFLOAT3& maxGlobal)
+bool GeometryCast::IsBoxHit(const Vector3& origin, const Vector3& dir, const Vector3& minGlobal, const Vector3& maxGlobal)
 {
 	if (isInsideBox(origin, minGlobal, maxGlobal))
 	{
@@ -72,10 +56,10 @@ bool GeometryCast::IsBoxHit(const DirectX::XMFLOAT3& origin, const DirectX::XMFL
 
 	for (int i = 0; i < 3; ++i)
 	{
-		float originC = getVectroComponent(origin, i);
-		float dirC = getVectroComponent(dir, i);
-		float minC = getVectroComponent(minGlobal, i);
-		float maxC = getVectroComponent(maxGlobal, i);
+		float originC = origin[i];
+		float dirC = dir[i];
+		float minC = minGlobal[i];
+		float maxC = maxGlobal[i];
 		if (std::abs(dirC) < std::numeric_limits<float>::epsilon())
 		{
 			if (originC < minC || originC > maxC)

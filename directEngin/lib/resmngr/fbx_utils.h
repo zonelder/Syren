@@ -52,7 +52,7 @@ namespace fbx_utils
 
 	DirectX::XMFLOAT2 toVector2(const FbxVector2& v);
 
-	DirectX::XMFLOAT3 toVector3(const FbxVector4& v);
+	Vector3 toVector3(const FbxVector4& v);
 	DirectX::XMFLOAT4 toVector4(const FbxVector4& v);
 	DirectX::XMFLOAT4 toVector4(const FbxQuaternion& v);
 

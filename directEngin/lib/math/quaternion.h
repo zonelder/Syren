@@ -6,6 +6,7 @@
 
 class Quaternion
 {
+    static const Quaternion s_qepsilon;
     union
     { 
         struct alignas(16) { float x, y, z, w; };
@@ -47,6 +48,7 @@ public:
 
     static Quaternion slerp(const Quaternion& a, const Quaternion& b, float t) noexcept;
     static Quaternion slerpUnclamped(const Quaternion& a, const Quaternion& b, float t) noexcept;
+    static bool equal(const Quaternion& q1, const Quaternion& q2) noexcept;
 
 
     void invert() noexcept;
@@ -57,18 +59,24 @@ public:
     float angle() const noexcept;
     Vector3 axis() const noexcept;
 
+    float magnitude() const noexcept;
+    float sqrMagnitude() const noexcept;
+    void normalize() noexcept;
+    Quaternion normalized() const noexcept;
+
     float dot(const Quaternion& other) const noexcept;
 
     void setFromToRotation(const Vector3& fromDirection, const Vector3& toDirection) noexcept;
     void setLookRotation(const Vector3& forward, const Vector3& upward = Vector3::up) noexcept;
     void toAngleAxis(float angle,const Vector3& axis) noexcept;
+    bool equal(const Quaternion& other) const noexcept;
+
 
     float operator[](size_t index) const noexcept
     {
         assert(index < 4 && "Quaternion index out of bound.");
         return (&x)[index];
     }
-
 
     static const Quaternion identity;
 
@@ -77,7 +85,8 @@ public:
 
 inline bool operator==(const Quaternion& lhs, const Quaternion& rhs) noexcept
 {
-    return DirectX::XMVector4Equal(lhs._vec, rhs._vec);
+    static const auto eps = DirectX::XMVectorReplicate(Vector3::s_epsilon);
+    return DirectX::XMVector4NearEqual(lhs._vec, rhs._vec, eps);
 }
 
 
@@ -199,10 +208,71 @@ inline Vector3 Quaternion::axis() const noexcept
 
 inline Vector3 Quaternion::eulerAngles()  const noexcept
 {
-    DirectX::XMVECTOR axis;
-    float angle;
+    using namespace DirectX;
 
-    DirectX::XMQuaternionToAxisAngle(&axis,&angle,_vec);//TODO дописать
+    const XMMATRIX M = XMMatrixRotationQuaternion(_vec);
+
+    const XMVECTOR R0 = M.r[0]; // [m00, m01, m02, ?]
+    const XMVECTOR R1 = M.r[1]; // [m10, m11, m12, ?]
+    const XMVECTOR R2 = M.r[2]; // [m20, m21, m22, ?]
+
+    const XMVECTOR sinPitch = XMVectorNegate(XMVectorSplatZ(R1));
+    const XMVECTOR clampedSinPitch = XMVectorClamp(
+        sinPitch,
+        XMVectorReplicate(-1.0f),
+        XMVectorReplicate(1.0f)
+    );
+
+    XMVECTOR pitch = XMVectorASin(clampedSinPitch);
+
+    const XMVECTOR absSinPitch = XMVectorAbs(sinPitch);
+    const XMVECTOR singularityMask = XMVectorGreater(
+        absSinPitch,
+        XMVectorReplicate(0.999999f)
+    );
+
+    const XMVECTOR m20 = XMVectorSplatX(R2);
+    const XMVECTOR m22 = XMVectorSplatZ(R2);
+    const XMVECTOR yaw = XMVectorATan2(m20, m22);
+
+    const XMVECTOR m01 = XMVectorSplatY(R0);
+    const XMVECTOR m11 = XMVectorSplatY(R1);
+    const XMVECTOR roll = XMVectorATan2(m01, m11);
+
+    const XMVECTOR m10 = XMVectorSplatX(R1);
+    const XMVECTOR m00 = XMVectorSplatX(R0);
+    const XMVECTOR yawLocked = XMVectorZero();
+    const XMVECTOR rollLocked = XMVectorATan2(
+        XMVectorNegate(m10),
+        m00
+    );
+
+    const XMVECTOR combinedYaw = XMVectorSelect(
+        yaw,
+        yawLocked,
+        singularityMask
+    );
+
+    const XMVECTOR combinedRoll = XMVectorSelect(
+        roll,
+        rollLocked,
+        singularityMask
+    );
+
+    XMVECTOR angles = XMVectorZero();
+    angles = XMVectorInsert(angles, pitch, 0, 1, 0, 0, 0); 
+    angles = XMVectorInsert(angles, combinedYaw, 0, 0, 1, 0, 0); 
+    angles = XMVectorInsert(angles, combinedRoll, 0, 0, 0, 1, 0); 
+
+    const XMVECTOR radToDeg = XMVectorReplicate(180.0f / XM_PI);
+    angles = XMVectorMultiply(angles, radToDeg);
+
+    const XMVECTOR v360 = XMVectorReplicate(360.0f);
+    angles = XMVectorAdd(angles, v360);
+    angles = XMVectorModAngles(angles);
+
+    return Vector3(angles);
+
 }
 
 
@@ -258,4 +328,36 @@ inline Quaternion Quaternion::rotateTowards(const Quaternion& from, const Quater
         return to;
     return Quaternion::slerp(from, to, maxDegreeDelta / angle);
 }
+
+inline float Quaternion::magnitude() const noexcept
+{
+    return DirectX::XMVectorGetX(DirectX::XMQuaternionLength(_vec));
+}
+
+inline float Quaternion::sqrMagnitude() const noexcept
+{
+    return DirectX::XMVectorGetX(DirectX::XMQuaternionLengthSq(_vec));
+}
+
+inline void Quaternion::normalize() noexcept
+{
+    _vec = DirectX::XMQuaternionNormalize(_vec);
+}
+
+inline Quaternion Quaternion::normalized() const noexcept
+{
+    return Quaternion(DirectX::XMQuaternionNormalize(_vec));
+}
+
+
+inline bool Quaternion::equal(const Quaternion& other) const noexcept
+{
+    return DirectX::XMVector4Equal(_vec, other._vec);
+}
+
+inline bool Quaternion::equal(const Quaternion& lhs, const Quaternion& rhs) noexcept
+{
+    return lhs.equal(rhs);
+}
+
 #endif

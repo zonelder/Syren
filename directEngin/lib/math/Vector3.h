@@ -10,6 +10,7 @@
 
 class Vector3
 {
+
 	union
 	{
 		struct alignas(16){ float x, y, z, _pad; };
@@ -36,6 +37,8 @@ public:
 	friend Vector3 operator/(const Vector3& v, float d);
 	friend Vector3 operator/(float d, const Vector3& v);
 	friend bool operator==(const Vector3& v1, const Vector3& v2) noexcept;
+
+	bool equal(const Vector3& other) const noexcept;
 
 	Vector3& operator+=(const Vector3& other) noexcept;
 	Vector3& operator-=(const Vector3& other) noexcept;
@@ -67,6 +70,7 @@ public:
 	static Vector3 min(const Vector3& a, const Vector3& b);
 	static Vector3 moveTowards(const Vector3& current, const Vector3& target, float maxDistDelta);
 	static Vector3 scale(const Vector3& a, const Vector3& b);
+	static bool equal(const Vector3& a, const Vector3& b) noexcept;
 	
 
 	float operator[](size_t index) const noexcept
@@ -93,13 +97,15 @@ public:
 	static const Vector3 negativeInfinity;
 	static const Vector3 positiveInfinity;
 
+	static constexpr float s_epsilon = 0.001f;
 };
 
 
 
 inline bool operator==(const Vector3& lhs, const Vector3& rhs) noexcept
 {
-	return DirectX::XMVector3Equal(lhs._vec, rhs._vec);
+	static const auto eps = DirectX::XMVectorReplicate(Vector3::s_epsilon);
+	return DirectX::XMVector3NearEqual(lhs._vec, rhs._vec, eps);
 }
 
 inline Vector3 operator+(const Vector3& v1, const Vector3& v2)
@@ -282,4 +288,14 @@ inline Vector3 Vector3::scale(const Vector3& a, const Vector3& b)
 {
 	return a.scale(b);
 }
+
+inline bool Vector3::equal(const Vector3& a) const noexcept
+{
+	return DirectX::XMVector3Equal(_vec,a._vec);
+}
+inline bool Vector3::equal(const Vector3& a, const Vector3& b) noexcept
+{
+	return a.equal(b);
+}
+
 #endif

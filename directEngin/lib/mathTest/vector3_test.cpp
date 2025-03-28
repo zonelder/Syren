@@ -20,8 +20,8 @@ TEST(testVector3Basic, CreateComponent)
 
 TEST(testVector3Basic, Equal)
 {
-	Vector3 v(1.0f, 2.0f, 3.0f);
-	Vector3 v2(1.0f, 2.0f, 3.0f);
+	Vector3 v(2.0f, 1.0f/2.0f, 1.0f/3.0f);
+	Vector3 v2(2.0f, 1.0f/2.0f, 1.0f/3.0f);
 	EXPECT_EQ(v, v2);
 	EXPECT_EQ(v2, v);
 }

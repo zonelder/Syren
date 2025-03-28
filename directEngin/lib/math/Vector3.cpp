@@ -2,6 +2,7 @@
 #include "vector3.h"
 #include <limits>
 
+
 const Vector3 Vector3::up(0.0f, 1.0f, 0.0f);
 const Vector3 Vector3::down(0.0f, -1.0f, 0.0f);
 const Vector3 Vector3::right(1.0f, 0.0f, 0.0f);

@@ -35,10 +35,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vector3.cpp">
+    <ClCompile Include="quaternion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="quaternion.cpp">
+    <ClCompile Include="vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

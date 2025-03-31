@@ -3,6 +3,7 @@
 #include <DirectXMath.h>
 #include <cmath>
 #include "vector3.h"
+#include <numbers>
 
 class Quaternion
 {
@@ -36,6 +37,7 @@ public:
     Quaternion& operator*=(const Quaternion& other) noexcept;
 
     static Quaternion euler(float x, float y, float z) noexcept;
+    static Quaternion euler(const Vector3& angles) noexcept;
     static Quaternion angleAxis(float angle, const Vector3& axis) noexcept;
     static Quaternion lookRotation(const Vector3& forward, const Vector3& upward = Vector3::up) noexcept;
     static Quaternion fromToRotation(const Vector3& fromDirection, const Vector3& toDirection) noexcept;
@@ -112,6 +114,17 @@ inline Quaternion Quaternion::euler(float x, float y, float z)noexcept
         DirectX::XMConvertToRadians(x),
         DirectX::XMConvertToRadians(y),
         DirectX::XMConvertToRadians(z),
+        0.0f
+    );
+    return Quaternion(DirectX::XMQuaternionRotationRollPitchYawFromVector(angles));
+}
+
+inline Quaternion Quaternion::Quaternion::euler(const Vector3& a) noexcept
+{
+    DirectX::XMVECTOR angles = DirectX::XMVectorSet(
+        DirectX::XMConvertToRadians(a[0]),
+        DirectX::XMConvertToRadians(a[1]),
+        DirectX::XMConvertToRadians(a[2]),
         0.0f
     );
     return Quaternion(DirectX::XMQuaternionRotationRollPitchYawFromVector(angles));
@@ -206,73 +219,35 @@ inline Vector3 Quaternion::axis() const noexcept
     return Vector3(x * s, y * s, z * s);
 }
 
-inline Vector3 Quaternion::eulerAngles()  const noexcept
+inline Vector3 Quaternion::eulerAngles() const noexcept 
 {
     using namespace DirectX;
+    XMMATRIX rotMatrix = XMMatrixRotationQuaternion(_vec);
+    XMFLOAT3X3 mat;
+    XMStoreFloat3x3(&mat, rotMatrix);
 
-    const XMMATRIX M = XMMatrixRotationQuaternion(_vec);
+    // »звлекаем элементы матрицы дл€ вычислени€ углов
+    float m20 = mat._31; // Ёлемент (2,0)
 
-    const XMVECTOR R0 = M.r[0]; // [m00, m01, m02, ?]
-    const XMVECTOR R1 = M.r[1]; // [m10, m11, m12, ?]
-    const XMVECTOR R2 = M.r[2]; // [m20, m21, m22, ?]
+    float pitchY = asin(m20);
+    float rollX = 0.0f, yawZ = 0.0f;
 
-    const XMVECTOR sinPitch = XMVectorNegate(XMVectorSplatZ(R1));
-    const XMVECTOR clampedSinPitch = XMVectorClamp(
-        sinPitch,
-        XMVectorReplicate(-1.0f),
-        XMVectorReplicate(1.0f)
-    );
+    if (fabs(m20) < 0.9999999f) { // ѕроверка на сингул€рность (gimbal lock)
+        rollX = atan2(-mat._32, mat._33); // -m[2][1], m[2][2]
+        yawZ = atan2(-mat._21, mat._11); // -m[1][0], m[0][0]
+    }
+    else {
+        // —ингул€рный случай: pitchY = ±90 градусов
+        yawZ = 0.0f;
+        rollX = atan2(mat._12, mat._22); // m[0][1], m[1][1]
+    }
 
-    XMVECTOR pitch = XMVectorASin(clampedSinPitch);
+    //  онвертируем радианы в градусы
+    rollX = XMConvertToDegrees(rollX);
+    pitchY = XMConvertToDegrees(pitchY);
+    yawZ = XMConvertToDegrees(yawZ);
 
-    const XMVECTOR absSinPitch = XMVectorAbs(sinPitch);
-    const XMVECTOR singularityMask = XMVectorGreater(
-        absSinPitch,
-        XMVectorReplicate(0.999999f)
-    );
-
-    const XMVECTOR m20 = XMVectorSplatX(R2);
-    const XMVECTOR m22 = XMVectorSplatZ(R2);
-    const XMVECTOR yaw = XMVectorATan2(m20, m22);
-
-    const XMVECTOR m01 = XMVectorSplatY(R0);
-    const XMVECTOR m11 = XMVectorSplatY(R1);
-    const XMVECTOR roll = XMVectorATan2(m01, m11);
-
-    const XMVECTOR m10 = XMVectorSplatX(R1);
-    const XMVECTOR m00 = XMVectorSplatX(R0);
-    const XMVECTOR yawLocked = XMVectorZero();
-    const XMVECTOR rollLocked = XMVectorATan2(
-        XMVectorNegate(m10),
-        m00
-    );
-
-    const XMVECTOR combinedYaw = XMVectorSelect(
-        yaw,
-        yawLocked,
-        singularityMask
-    );
-
-    const XMVECTOR combinedRoll = XMVectorSelect(
-        roll,
-        rollLocked,
-        singularityMask
-    );
-
-    XMVECTOR angles = XMVectorZero();
-    angles = XMVectorInsert(angles, pitch, 0, 1, 0, 0, 0); 
-    angles = XMVectorInsert(angles, combinedYaw, 0, 0, 1, 0, 0); 
-    angles = XMVectorInsert(angles, combinedRoll, 0, 0, 0, 1, 0); 
-
-    const XMVECTOR radToDeg = XMVectorReplicate(180.0f / XM_PI);
-    angles = XMVectorMultiply(angles, radToDeg);
-
-    const XMVECTOR v360 = XMVectorReplicate(360.0f);
-    angles = XMVectorAdd(angles, v360);
-    angles = XMVectorModAngles(angles);
-
-    return Vector3(angles);
-
+    return Vector3(rollX, pitchY, yawZ);
 }
 
 

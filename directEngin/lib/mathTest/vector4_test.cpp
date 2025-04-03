@@ -109,17 +109,6 @@ namespace TVector4
         EXPECT_FALSE(Vector4::equal(a, b));
     }
 
-    // Тест конвертации в Vector3
-    TEST(Vector4Test, ToVector3Conversion)
-    {
-        Vector4 v4(2.0f, 3.0f, 4.0f, 5.0f);
-        Vector3 v3 = static_cast<Vector3>(v4);
-
-        EXPECT_FLOAT_EQ(v3[0], 2.0f);
-        EXPECT_FLOAT_EQ(v3[1], 3.0f);
-        EXPECT_FLOAT_EQ(v3[2], 4.0f);
-    }
-
     // Тесты граничных случаев
     TEST(Vector4Test, EdgeCases)
     {
@@ -228,19 +217,6 @@ namespace TVector4
         EXPECT_EQ(minRes, Vector4(1.0f, 2.0f, 3.0f, 5.0f));
     }
 
-    // Расширенные тесты homogeneous конвертации
-    TEST(Vector4Test, AdvancedVector3Conversion)
-    {
-        // Случай w = 0
-        Vector4 v1(2.0f, 3.0f, 4.0f, 0.0f);
-        Vector3 res1 = static_cast<Vector3>(v1);
-        EXPECT_EQ(res1, Vector3(2.0f, 3.0f, 4.0f));
-
-        // Случай w = 2
-        Vector4 v2(6.0f, 8.0f, 10.0f, 2.0f);
-        Vector3 res2 = static_cast<Vector3>(v2);
-        EXPECT_EQ(res2, Vector3(6.0f, 8.0f, 10.0f));
-    }
 
     // Тесты статических констант
     TEST(Vector4Test, StaticConstants)

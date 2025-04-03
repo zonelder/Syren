@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="color.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="matrix4x4.h" />
     <ClInclude Include="pch.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="vector4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="color.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="matrix4x4.cpp" />
     <ClCompile Include="pch.cpp">

@@ -4,6 +4,7 @@
 #include <cmath>
 #include <algorithm>
 
+
 //focking WIPAPI issue
 #undef max
 #undef min

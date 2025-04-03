@@ -4,8 +4,6 @@
 #include <cmath>
 #include <algorithm>
 
-#include "vector3.h"
-
 #undef max
 #undef min
 
@@ -46,8 +44,6 @@ public:
     Vector4& operator*=(float scalar) noexcept;
     Vector4& operator/=(float scalar) noexcept;
     Vector4 operator-() const noexcept;
-
-    operator Vector3() const noexcept;
 
     float dot(const Vector4& v) const noexcept;
     Vector4 normalized() const& noexcept;
@@ -156,12 +152,6 @@ inline Vector4& Vector4::operator/=(float scalar) noexcept
 inline Vector4 Vector4::operator-() const noexcept
 {
     return Vector4(DirectX::XMVectorNegate(_vec));
-}
-
-
-inline  Vector4::operator Vector3() const noexcept
-{
-    return Vector3(_vec);
 }
 
 inline float Vector4::dot(const Vector4& v1, const Vector4& v2) noexcept

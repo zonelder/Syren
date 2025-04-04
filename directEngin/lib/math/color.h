@@ -87,6 +87,13 @@ inline Color operator*(const float scalar, const Color& color ) noexcept
 	return Color(DirectX::XMVectorScale(color._vec, scalar));
 }
 
+inline Color Color::operator/(const float scalar) const noexcept
+{
+	assert(scalar != 0.0f && "Vector4 division by zero");
+	return Color(DirectX::XMVectorScale(_vec, 1.0f / scalar));
+
+}
+
 inline Color Color::operator+(const Color& other) const noexcept
 {
 	return Color(DirectX::XMVectorAdd(_vec,other._vec));
@@ -100,6 +107,11 @@ inline Color Color::operator-(const Color& other) const noexcept
 inline Color Color::operator*(const Color& other) const noexcept
 {
 	return Color(DirectX::XMVectorMultiply(_vec,other._vec));
+}
+
+inline Color Color::operator/(const Color& other) const noexcept
+{
+	return Color(DirectX::XMVectorDivide(_vec,other._vec));
 }
 
 inline Color& Color::operator+=(const Color& other) noexcept
@@ -128,6 +140,18 @@ inline Color& Color::operator*=(const Color& other) noexcept
 	return *this;
 }
 
+inline Color& Color::operator/=(const Color& other) noexcept
+{
+	_vec = DirectX::XMVectorDivide(_vec,other._vec);
+	return *this;
+}
+
+inline Color& Color::operator/=(const float scalar) noexcept
+{
+	assert(scalar != 0.0f && "Vector4 division by zero");
+	_vec = DirectX::XMVectorScale(_vec, 1.0f / scalar);
+}
+
 Color Color::lerp(const Color& a,const Color& b, float t) noexcept 
 {
 	return Color(DirectX::XMVectorLerp(a._vec, b._vec, std::clamp(t, 0.0f, 1.0f)));
@@ -150,8 +174,7 @@ inline Color Color::HSVToRGB(float H, float S, float V, bool hdr) noexcept
 
 inline void Color::RGBToHSV(const Color& rgbColor, float& H, float& S, float& V) noexcept
 {
-	DirectX::XMVECTOR hsv;
-	DirectX::XMColorRGBToHSV(rgbColor._vec, &hsv);
+	DirectX::XMVECTOR hsv = DirectX::XMColorRGBToHSV(rgbColor._vec);
 	H = DirectX::XMVectorGetX(hsv);
 	S = DirectX::XMVectorGetY(hsv);
 	V = DirectX::XMVectorGetZ(hsv);
@@ -170,7 +193,28 @@ Color Color::linear() const noexcept
 	return Color(DirectX::XMVectorPow(_vec, pow));
 }
 
-float Color::grayscale() const noexcept 
+inline float Color::maxComponent() const noexcept
+{
+	float x, y, z, w;
+	x = DirectX::XMVectorGetX(_vec);
+	y = DirectX::XMVectorGetY(_vec);
+	z = DirectX::XMVectorGetZ(_vec);
+	w = DirectX::XMVectorGetW(_vec);
+
+	return std::max(std::max(x, y),std::max( z, w));
+}
+inline float Color::minComponent() const noexcept
+{
+	float x, y, z, w;
+	x = DirectX::XMVectorGetX(_vec);
+	y = DirectX::XMVectorGetY(_vec);
+	z = DirectX::XMVectorGetZ(_vec);
+	w = DirectX::XMVectorGetW(_vec);
+
+	return std::min(std::min(x, y), std::min(z, w));
+}
+
+float Color::grayscale() const noexcept
 {
 	return 0.299f * r + 0.587f * g + 0.114f * b;
 }

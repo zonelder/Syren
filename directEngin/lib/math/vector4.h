@@ -3,6 +3,7 @@
 #include <DirectXMath.h>
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
 #undef max
 #undef min
@@ -269,5 +270,12 @@ inline bool Vector4::equal(const Vector4& a, const Vector4& b) noexcept
 {
     return a.equal(b);
 }
+
+inline std::ostream& operator<<(std::ostream& os, const Vector4& v)
+{
+    os << "(" << v[0] << ", " << v[1] << ", " << v[2] << ", " << v[3] << ")";
+    return os;
+}
+
 #endif
 

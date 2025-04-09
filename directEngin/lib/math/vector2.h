@@ -5,6 +5,7 @@
 #include <cmath>
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 
 #undef max
 #undef min
@@ -275,6 +276,12 @@ inline Vector2 Vector2::scale(const Vector2& a, const Vector2& b)
 inline bool Vector2::equal(const Vector2& a, const Vector2& b) noexcept
 {
     return DirectX::XMVector2Equal(a._vec, b._vec);
+}
+
+inline std::ostream& operator<<(std::ostream& os, const Vector2& v)
+{
+    os << "(" << v[0] << ", " << v[1] << ", " << ")";
+    return os;
 }
 
 

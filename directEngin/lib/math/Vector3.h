@@ -3,6 +3,7 @@
 #include <DirectXMath.h>
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
 
 //focking WIPAPI issue
@@ -297,6 +298,14 @@ inline bool Vector3::equal(const Vector3& a) const noexcept
 inline bool Vector3::equal(const Vector3& a, const Vector3& b) noexcept
 {
 	return a.equal(b);
+}
+
+
+
+inline std::ostream& operator<<(std::ostream& os, const Vector3& v)
+{
+	os << "(" << v[0] << ", " << v[1] << ", " << v[2] << ")"; 
+	return os;
 }
 
 #endif

@@ -15,8 +15,8 @@ class Color
 	static constexpr float s_epsilon = 0.001f;
 public:
 	Color() noexcept : _vec(DirectX::XMVectorZero()) {};
-	Color(float x,float y,float z,float a = 1.0f) noexcept : _vec(DirectX::XMVectorClamp(DirectX::XMVectorSet(x,y,z,a),Color::black,Color::white)){}
-	explicit Color(DirectX::XMVECTOR vec) noexcept : _vec(DirectX::XMVectorClamp(vec, Color::black, Color::white)) {};
+	Color(float x,float y,float z,float a = 1.0f) noexcept : _vec(DirectX::XMVectorSet(x,y,z,a)){}
+	explicit Color(DirectX::XMVECTOR vec) noexcept : _vec(vec) {};
 
 	operator DirectX::XMVECTOR() const noexcept { return _vec; };
 	
@@ -52,6 +52,19 @@ public:
 	static Color lerpUnclamped(const Color& a, const Color& b, float t) noexcept;
 	static Color HSVToRGB(float H, float S, float V, bool hdr = true) noexcept;
 	static void RGBToHSV(const Color& rgbColor, float& H, float& S, float& V) noexcept;
+
+	float operator[](size_t index) const noexcept
+	{
+		assert(index < 4 && "Color index out of bound.");
+		return (&r)[index];
+	}
+
+	float& operator[](size_t index) noexcept
+	{
+		assert(index < 4 && "Color index out of bound.");
+		return (&r)[index];
+	}
+
 
 	static const Color black;
 	static const Color white;
@@ -152,12 +165,12 @@ inline Color& Color::operator/=(const float scalar) noexcept
 	_vec = DirectX::XMVectorScale(_vec, 1.0f / scalar);
 }
 
-Color Color::lerp(const Color& a,const Color& b, float t) noexcept 
+inline Color Color::lerp(const Color& a,const Color& b, float t) noexcept 
 {
 	return Color(DirectX::XMVectorLerp(a._vec, b._vec, std::clamp(t, 0.0f, 1.0f)));
 }
 
-Color Color::lerpUnclamped(const Color& a,const Color& b, float t) noexcept 
+inline Color Color::lerpUnclamped(const Color& a,const Color& b, float t) noexcept 
 {
 	return Color(DirectX::XMVectorLerp(a._vec, b._vec,t));
 }
@@ -181,13 +194,13 @@ inline void Color::RGBToHSV(const Color& rgbColor, float& H, float& S, float& V)
 }
 
 
-Color Color::gamma() const noexcept 
+inline Color Color::gamma() const noexcept 
 {
 	static const auto pow = DirectX::XMVectorReplicate(1.0f / 2.2f);
 	return Color(DirectX::XMVectorPow(_vec, pow));
 }
 
-Color Color::linear() const noexcept 
+inline Color Color::linear() const noexcept 
 {
 	static const auto pow = DirectX::XMVectorReplicate(2.2f);
 	return Color(DirectX::XMVectorPow(_vec, pow));
@@ -214,7 +227,7 @@ inline float Color::minComponent() const noexcept
 	return std::min(std::min(x, y), std::min(z, w));
 }
 
-float Color::grayscale() const noexcept
+inline float Color::grayscale() const noexcept
 {
 	return 0.299f * r + 0.587f * g + 0.114f * b;
 }

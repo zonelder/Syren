@@ -9,7 +9,8 @@ using namespace DirectX;
 namespace TColor
 {
 
-TEST(Color, DefaultConstructor) {
+TEST(Color, DefaultConstructor) 
+{
     Color c;
     XMVECTOR v = c;
     EXPECT_FLOAT_EQ(XMVectorGetX(v), 0.0f);
@@ -18,7 +19,8 @@ TEST(Color, DefaultConstructor) {
     EXPECT_FLOAT_EQ(XMVectorGetW(v), 0.0f);
 }
 
-TEST(Color, ComponentConstructor) {
+TEST(Color, ComponentConstructor) 
+{
     Color c(0.5f, 0.6f, 0.7f, 0.8f);
     EXPECT_FLOAT_EQ(c[0], 0.5f);
     EXPECT_FLOAT_EQ(c[1], 0.6f);
@@ -26,7 +28,8 @@ TEST(Color, ComponentConstructor) {
     EXPECT_FLOAT_EQ(c[3], 0.8f);
 }
 
-TEST(Color, StaticConstants) {
+TEST(Color, StaticConstants) 
+{
     EXPECT_EQ(Color::black, Color(0, 0, 0, 1));
     EXPECT_EQ(Color::white, Color(1, 1, 1, 1));
     EXPECT_EQ(Color::red, Color(1, 0, 0, 1));
@@ -38,7 +41,8 @@ TEST(Color, StaticConstants) {
     EXPECT_EQ(Color::gray, Color(0.5f, 0.5f, 0.5f, 1));
 }
 
-TEST(Color, ComparisonOperators) {
+TEST(Color, ComparisonOperators)
+{
     Color c1(0.1f, 0.2f, 0.3f);
     Color c2(0.1001f, 0.2001f, 0.3001f);
     Color c3(0.11f, 0.2f, 0.3f);
@@ -48,7 +52,8 @@ TEST(Color, ComparisonOperators) {
     EXPECT_TRUE(c1 != c3);
 }
 
-TEST(Color, ArithmeticOperations) {
+TEST(Color, ArithmeticOperations)
+{
     Color c1(0.2f, 0.4f, 0.6f);
     Color c2(0.1f, 0.3f, 0.5f);
 
@@ -71,7 +76,8 @@ TEST(Color, ArithmeticOperations) {
     EXPECT_FLOAT_EQ(prod[2], 0.30f);
 }
 
-TEST(Color, ScalarOperations) {
+TEST(Color, ScalarOperations) 
+{
     Color c(0.4f, 0.6f, 0.8f);
 
     // Scalar multiplication
@@ -87,7 +93,8 @@ TEST(Color, ScalarOperations) {
     EXPECT_FLOAT_EQ(divided[2], 0.4f);
 }
 
-TEST(Color, Lerp) {
+TEST(Color, Lerp)
+{
     Color black = Color::black;
     Color white = Color::white;
 
@@ -95,9 +102,9 @@ TEST(Color, Lerp) {
     EXPECT_EQ(result, Color::gray);
 
     Color unclamped = Color::lerpUnclamped(black, white, 1.5f);
-    EXPECT_GT(unclamped[0], 1.0f);
-    EXPECT_GT(unclamped[1], 1.0f);
-    EXPECT_GT(unclamped[2], 1.0f);
+    EXPECT_FLOAT_EQ(unclamped[0], 1.5f);
+    EXPECT_FLOAT_EQ(unclamped[1], 1.5f);
+    EXPECT_FLOAT_EQ(unclamped[2], 1.5f);
 }
 
 TEST(Color, HSVConversion) {

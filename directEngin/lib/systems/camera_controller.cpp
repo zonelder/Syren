@@ -6,7 +6,7 @@
 
 void CameraController::onUpdate(SceneManager& scene, float time)
 {
-	float speed = 0.01f;
+	float speed = 1.0f;
 	float movementSpeed = 0.1f;
 	Transform& cameraTr = scene.getCamera().transform;
 	const auto& input = context::input();

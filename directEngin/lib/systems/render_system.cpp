@@ -121,7 +121,7 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX:
 	assert(render.pMesh);
 
 	bool hasIndicies = !render.pMesh->indices.empty();
-	_wvp = transform.orientationMatrix * viewProjection;
+	_wvp = DirectX::XMMATRIX(transform.orientationMatrix) * viewProjection;
 	_wvp = DirectX::XMMatrixTranspose(_wvp);
 	///update transform buffer
 	D3D11_MAPPED_SUBRESOURCE msr;

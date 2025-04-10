@@ -6,7 +6,7 @@ void ParentSystem::setlGlobalMatrix(ComponentPool<Transform>& trPool, ComponentP
 
 	Transform& main_tr = trPool.getComponent(id);
 	Parent& main_p = parentPool.getComponent(id);
-	DirectX::XMMATRIX globalMatrix =DirectX::XMMatrixIdentity() ;//main_tr.orientationMatrix;
+	Matrix4x4 globalMatrix;
 
 	while (parentPool.hasComponent(id))
 	{

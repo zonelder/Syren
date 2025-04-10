@@ -8,7 +8,7 @@ void OrientationSystem::onFrame(SceneManager& scene)
 {
 	 for (auto [entt,tr]:scene.view<Transform>())
 	 {
-	     tr.orientationMatrix = toOrientationMatrix(tr);
+	     tr.orientationMatrix.setTRS(tr.position,tr.rotation,tr.scale);
 
 	 }
 }

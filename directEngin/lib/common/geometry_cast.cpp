@@ -12,8 +12,8 @@ Hit GeometryCast::raycast(SceneManager& scene, const Vector3& origin, const Vect
 			continue;
 		const auto& bb = render.pMesh->boundingBox;
 
-		const auto minGlobal = getGlobalPos(tr.orientationMatrix, bb.minBound);
-		const auto maxGlobal = getGlobalPos(tr.orientationMatrix, bb.maxBound);
+		const auto minGlobal = tr.orientationMatrix.multiplyPoint(bb.minBound);
+		const auto maxGlobal = tr.orientationMatrix.multiplyPoint(bb.maxBound);
 
 		if (IsBoxHit(origin, dir, minGlobal, maxGlobal))
 		{
@@ -24,15 +24,6 @@ Hit GeometryCast::raycast(SceneManager& scene, const Vector3& origin, const Vect
 	return Hit(-1);
 }
 
-Vector3 GeometryCast::getGlobalPos(DirectX::XMMATRIX& world,const Vector3& pos)
-{
-	const auto matrix = DirectX::XMMatrixMultiply(world, DirectX::XMMatrixTranslationFromVector(pos));
-	DirectX::XMVECTOR scale;
-	DirectX::XMVECTOR rotationQuat;
-	DirectX::XMVECTOR translation;
-	DirectX::XMMatrixDecompose(&scale, &rotationQuat, &translation, matrix);
-	return Vector3(translation);
-}
 
 bool GeometryCast::isInsideBox(const Vector3& position, const Vector3& min, const Vector3& max) noexcept
 {

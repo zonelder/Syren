@@ -2,22 +2,6 @@
 #include "fbx_utils.h"
 #include <iostream>
 
-struct alignas(16) Transform
-{
-    DirectX::XMMATRIX localMatrix;
-
-    Transform() : localMatrix(DirectX::XMMatrixIdentity()) {}
-
-    explicit Transform(const FbxAMatrix& fbxMatrix)
-    {
-        float m[4][4];
-        for (int i = 0; i < 4; ++i)
-            for (int j = 0; j < 4; ++j)
-                m[i][j] = static_cast<float>(fbxMatrix.Get(i, j));
-
-        localMatrix = DirectX::XMLoadFloat4x4(reinterpret_cast<DirectX::XMFLOAT4X4*>(m));
-    }
-};
 
 
 FbxPrefab::FbxPrefab(const fbx_utils::FbxRAII<FbxScene>& scene,const fbx_utils::FbxRAII<FbxManager>& manager)

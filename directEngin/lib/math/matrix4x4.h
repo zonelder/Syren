@@ -198,7 +198,7 @@ inline Matrix4x4 Matrix4x4::perspective(float fov, float aspect, float zNear, fl
 	float fovRadians = DirectX::XMConvertToRadians(fov);
 
 	// Создаем матрицу для right-handed системы координат
-	return Matrix4x4(DirectX::XMMatrixPerspectiveFovRH(
+	return Matrix4x4(DirectX::XMMatrixPerspectiveFovLH(
 		fovRadians,
 		aspect,
 		zNear,
@@ -208,7 +208,7 @@ inline Matrix4x4 Matrix4x4::perspective(float fov, float aspect, float zNear, fl
 
 inline Matrix4x4 Matrix4x4::frustum(float left, float right, float bottom, float top, float zNear, float zFar) noexcept
 {
-	return Matrix4x4(DirectX::XMMatrixPerspectiveOffCenterRH(left, right, bottom, top, zNear, zFar));
+	return Matrix4x4(DirectX::XMMatrixPerspectiveOffCenterLH(left, right, bottom, top, zNear, zFar));
 }
 
 inline bool Matrix4x4::inverse3DAffine(const Matrix4x4& input, Matrix4x4& output) noexcept
@@ -235,12 +235,12 @@ inline bool Matrix4x4::inverse3DAffine(const Matrix4x4& input, Matrix4x4& output
 
 inline Matrix4x4 Matrix4x4::ortho(float left, float right, float bottom, float top, float zNear, float zFar) noexcept
 {
-	return Matrix4x4(DirectX::XMMatrixOrthographicOffCenterRH(left, right, bottom, top, zNear, zFar));
+	return Matrix4x4(DirectX::XMMatrixOrthographicOffCenterLH(left, right, bottom, top, zNear, zFar));
 }
 
 inline Matrix4x4 Matrix4x4::lookAt(const Vector3& from, const Vector3& to, const Vector3& up = Vector3::up) noexcept
 {
-	return Matrix4x4(DirectX::XMMatrixLookAtRH(from, to, up));
+	return Matrix4x4(DirectX::XMMatrixLookAtLH(from, to, up));
 }
 
 inline Quaternion Matrix4x4::rotation() const noexcept

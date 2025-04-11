@@ -226,18 +226,17 @@ inline Vector3 Quaternion::eulerAngles() const noexcept
     XMFLOAT3X3 mat;
     XMStoreFloat3x3(&mat, rotMatrix);
 
-    // »звлекаем элементы матрицы дл€ вычислени€ углов
-    float m20 = mat._31; // Ёлемент (2,0)
+    float m20 = mat._31;
 
     float pitchY = asin(m20);
     float rollX = 0.0f, yawZ = 0.0f;
 
-    if (fabs(m20) < 0.9999999f) { // ѕроверка на сингул€рность (gimbal lock)
+    if (fabs(m20) < 0.9999999f) { // gimbal lock check
         rollX = atan2(-mat._32, mat._33); // -m[2][1], m[2][2]
         yawZ = atan2(-mat._21, mat._11); // -m[1][0], m[0][0]
     }
-    else {
-        // —ингул€рный случай: pitchY = ±90 градусов
+    else 
+    {
         yawZ = 0.0f;
         rollX = atan2(mat._12, mat._22); // m[0][1], m[1][1]
     }

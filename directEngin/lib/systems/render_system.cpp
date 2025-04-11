@@ -156,7 +156,7 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const Matrix4x
 	}
 	_indexBuffer = IndexBuffer(gfx, render.pMesh->indices);
 	_indexBuffer.bind(gfx);
-	gfx.DrawIndexed(render.pMesh->indices.size()/*TODO change to index count data in mesh*/, render.pMesh->startIndex);
+	gfx.drawIndexed(render.pMesh->indices.size()/*TODO change to index count data in mesh*/, render.pMesh->startIndex);
 }
 
 void RenderSystem::onFrame(SceneManager& scene)

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __GRAPHICS_H__
+#define __GRAPHICS_H__
 #include <d3d11.h>
 #include <vector>
 #include <wrl.h>
@@ -66,7 +67,7 @@ public:
 	void clearBuffer(float red, float green, float blue) noexcept;
 	void clearBuffer(const float color[4]) noexcept;
 	void clearBuffer(const Color& color) noexcept;
-	void DrawIndexed(size_t indexCount, size_t startIndex =  0u);
+	void drawIndexed(size_t indexCount, size_t startIndex =  0u);
 	void draw(size_t indexCount, size_t startIndex = 0u);
 	ID3D11DeviceContext* getContext() noexcept;
 	ID3D11Device* getDevice() noexcept;
@@ -92,3 +93,4 @@ private:
 	UINT _height;
 };
 
+#endif

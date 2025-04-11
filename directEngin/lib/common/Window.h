@@ -1,14 +1,19 @@
-#pragma once
+#ifndef __WINDOW_H__
+#define __WINDOW_H__
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
-#include <windows.h>
 #include "..\exeption\pointed_exception.h"
 #include "..\graphics\graphics.h"
-#include <memory>
 #include "input_handler.h"
 #include "mouse_handler.h"
+
+#include <windows.h>
+#include <memory>
 #include <optional>
+
+#undef max
+#undef min
 
 
 class Window
@@ -83,3 +88,4 @@ private:
 
 
 
+#endif

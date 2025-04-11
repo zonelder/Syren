@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
-#include "directxmath.h"
-
+#include "math/vector2.h"
 
 /// @brief Component that represent data for rendering text line on UI Layer
 struct TextUI
@@ -11,6 +10,6 @@ struct TextUI
 	std::wstring content;
 
 	/// @brief posotion of up-left corner of text
-	DirectX::XMFLOAT2 position;
+	Vector2 position;
 
 };

@@ -34,7 +34,7 @@ public:
 	size_t startIndex;
 
 	ElementContainer<Vertex> vertexes;
-	ElementContainer< DirectX::XMFLOAT2> uvs;
+	ElementContainer<UV_t> uvs;
 	ElementContainer< Vector3 > normals;
 	ElementContainer<Index_t> indices;
 	ElementContainer< Color_t > colors;

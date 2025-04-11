@@ -1,17 +1,16 @@
 #include "graphics.h"
+#include "../direct/dxerr.h"
+#include "graphics_throw_macros.h"
+#include "Drawable/BindComponent/bindable_components.h"
+
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
 #include <vector>
 #include <sstream>
 
-#include "../direct/dxerr.h"
-#include "graphics_throw_macros.h"
-#include "Drawable/BindComponent/bindable_components.h"
-
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
-
 
 
 Graphics::Graphics(HWND hWnd)
@@ -159,7 +158,8 @@ void Graphics::endFrame()
 	}
 }
 
-void Graphics::clearBuffer(float red, float green, float blue) noexcept{
+void Graphics::clearBuffer(float red, float green, float blue) noexcept
+{
 	const float color[] = { red,green,blue,1.0f };
 	clearBuffer(color);
 }
@@ -178,7 +178,7 @@ void Graphics::clearBuffer(const Color& color) noexcept
 	DirectX::XMStoreFloat4(&data,color);
 	clearBuffer(reinterpret_cast<const float*>(& data));
 }
-void Graphics::DrawIndexed(size_t indexCount,size_t startIndex)
+void Graphics::drawIndexed(size_t indexCount,size_t startIndex)
 {
 	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)indexCount, (UINT)startIndex, 0u));
 }
@@ -192,7 +192,8 @@ Graphics::HrException::HrException(int line, const char* file, HRESULT hr,std::v
 	Exeption(line,file),
 	_hr(hr)
 {
-	for (const auto& m : infoMsgs) {
+	for (const auto& m : infoMsgs) 
+	{
 		_info += m;
 		_info.push_back('\n');
 	}
@@ -206,7 +207,8 @@ std::string Graphics::HrException::getErrorInfo() const noexcept
 }
 
 
-const char* Graphics::HrException::what() const noexcept {
+const char* Graphics::HrException::what() const noexcept 
+{
 
 	std::ostringstream oss;
 	oss << getType() << std::endl
@@ -222,37 +224,44 @@ const char* Graphics::HrException::what() const noexcept {
 
 	return p_buffer.c_str();
 }
-const char* Graphics::HrException::getType() const noexcept {
+const char* Graphics::HrException::getType() const noexcept 
+{
 
 	return "Graphic Exception";
 }
 
-HRESULT  Graphics::HrException::getErrorCode() const noexcept {
+HRESULT  Graphics::HrException::getErrorCode() const noexcept 
+{
 
 	return _hr;
 }
 
-std::string  Graphics::HrException::getErrorString() const noexcept{
+std::string  Graphics::HrException::getErrorString() const noexcept
+{
 
 	return DXGetErrorString(_hr);
 }
 
-std::string  Graphics::HrException::getErrorDescription() const noexcept {
+std::string  Graphics::HrException::getErrorDescription() const noexcept 
+{
 
 	char buf[512];
 	DXGetErrorDescription(_hr, buf, sizeof(buf));
 	return buf;
 }
 
-const char* Graphics::DeviceRemoveException::getType() const noexcept {
+const char* Graphics::DeviceRemoveException::getType() const noexcept 
+{
 
 	return "Graphic Exception[ Device Removed ](DXGI_ERROR_DEVICE_REMOVED)";
 }
 
 Graphics::InfoException::InfoException(int line, const char* file, std::vector<std::string> infoMsgs)
 	:
-	Exeption(line, file) {
-	for (const auto& m : infoMsgs) {
+	Exeption(line, file) 
+{
+	for (const auto& m : infoMsgs) 
+	{
 		_info += m;
 		_info.push_back('\n');
 	}
@@ -261,7 +270,8 @@ Graphics::InfoException::InfoException(int line, const char* file, std::vector<s
 	}
 }
 
-const char* Graphics::InfoException::what() const noexcept {
+const char* Graphics::InfoException::what() const noexcept 
+{
 	std::ostringstream oss;
 	oss << getType() << std::endl
 		<< "\n[Error Info]\n" << getErrorInfo() << std::endl;
@@ -271,23 +281,28 @@ const char* Graphics::InfoException::what() const noexcept {
 	
 }
 
-const char* Graphics::InfoException::getType() const noexcept {
+const char* Graphics::InfoException::getType() const noexcept 
+{
 	return "Info Exception";
 }
 
 
-std::string Graphics::InfoException::getErrorInfo() const noexcept {
+std::string Graphics::InfoException::getErrorInfo() const noexcept 
+{
 	return _info;
 }
 
-ID3D11DeviceContext* Graphics::getContext() noexcept{
+ID3D11DeviceContext* Graphics::getContext() noexcept
+{
 	return _pContext.Get();
 }
 
-ID3D11Device* Graphics::getDevice() noexcept {
+ID3D11Device* Graphics::getDevice() noexcept 
+{
 	return _pDevice.Get();
 }
-DxgiInfoManager& Graphics::getInfoManager() noexcept {
+DxgiInfoManager& Graphics::getInfoManager() noexcept 
+{
 	return _infoManager;
 }
 

@@ -25,11 +25,13 @@ Window::WindowClass::~WindowClass() {
 	UnregisterClass(_wndCLassName, getInstance());
 }
 
-const char* Window::WindowClass::getName() noexcept {
+const char* Window::WindowClass::getName() noexcept
+{
 	return _wndCLassName;
 }
 
-HINSTANCE Window::WindowClass::getInstance() noexcept {
+HINSTANCE Window::WindowClass::getInstance() noexcept 
+{
 	return _wndClass._hInst;
 }
 
@@ -60,19 +62,23 @@ Window::Window(int width, int height, const char* name)
 	//_pGraphic = std::make_unique<Graphics>(_hWnd);
 }
 
-Window::~Window() {
+Window::~Window() 
+{
 
 	DestroyWindow(_hWnd);
 }
 
-void Window::SetTitle(const std::string& title)  {
+void Window::SetTitle(const std::string& title)  
+{
 
-	if (SetWindowText(_hWnd, title.c_str()) == 0) {
+	if (SetWindowText(_hWnd, title.c_str()) == 0) 
+	{
 		throw WND_LAST_EXCEPT();
 	}
 }
 
-LRESULT WINAPI Window::handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+LRESULT WINAPI Window::handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) 
+{
 
 	if (msg == WM_NCCREATE) {
 		const CREATESTRUCTW* const pCreate = reinterpret_cast<CREATESTRUCTW*>(lParam);
@@ -86,14 +92,16 @@ LRESULT WINAPI Window::handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-LRESULT WINAPI Window::handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+LRESULT WINAPI Window::handleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) 
+{
 
 	Window* const pWnd = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
 	return pWnd->handleMsg(hWnd, msg, wParam, lParam);
 }
 
-LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
+LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept 
+{
 	switch (msg)
 	{
 	case WM_CLOSE:	
@@ -190,7 +198,8 @@ Window::HrException::HrException(int line, const char* file, HRESULT hr) noexcep
 	Exception(line, file), _hr(hr)
 {}
 
-const char* Window::HrException::what() const noexcept {
+const char* Window::HrException::what() const noexcept 
+{
 	std::ostringstream oss;
 	oss << getType() << std::endl
 		<< "[ERROR CODE]" << getErrorCode() << std::endl
@@ -200,12 +209,14 @@ const char* Window::HrException::what() const noexcept {
 	return p_buffer.c_str();
 }
 
-const char* Window::HrException::getType() const noexcept {
+const char* Window::HrException::getType() const noexcept 
+{
 
 	return "Windows Exception";
 }
 
-std::string Window::HrException::translateErrorCode(HRESULT hr) noexcept{
+std::string Window::HrException::translateErrorCode(HRESULT hr) noexcept
+{
 
 	char* pMsgBuf = nullptr;
 	DWORD nMsgLen = FormatMessage(
@@ -222,24 +233,29 @@ std::string Window::HrException::translateErrorCode(HRESULT hr) noexcept{
 	return errorStr;
 }
 
-HRESULT  Window::HrException::getErrorCode() const noexcept {
+HRESULT  Window::HrException::getErrorCode() const noexcept 
+{
 
 	return _hr;
 }
 
-std::string  Window::HrException::getErrorDscription() const noexcept {
+std::string  Window::HrException::getErrorDscription() const noexcept
+{
 
 	return translateErrorCode(_hr);
 }
 
-const char*  Window::NoGfxException::getType() const noexcept {
+const char*  Window::NoGfxException::getType() const noexcept 
+{
 
 	return "Window exception [No Graphics]";
 }
 
-std::optional<int> Window::processMessage() {
+std::optional<int> Window::processMessage() 
+{
 	MSG msg;
-	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) 
+	{
 
 		if (msg.message == WM_QUIT) {
 			return msg.wParam;

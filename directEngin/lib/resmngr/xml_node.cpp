@@ -105,7 +105,7 @@ Quaternion XMLNode::value(const Quaternion& def) const
 	return { x, y, z, w };
 }
 
-DirectX::XMFLOAT2 XMLNode::value(const DirectX::XMFLOAT2& def) const
+Vector2 XMLNode::value(const Vector2& def) const
 {
 	std::stringstream ss(text().get());
 	float x, y;
@@ -244,8 +244,6 @@ void XMLNode::childs(const std::string& identifier, std::vector<XMLNode>& childs
 	}
 
 }
-
-
 
 
 ///keep this at the end of file.

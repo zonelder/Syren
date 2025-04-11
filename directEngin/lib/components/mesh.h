@@ -4,15 +4,8 @@
 #include <memory>
 
 #include "math/vector3.h"
+#include "math/color.h"
 #include "graphics/Drawable/BindComponent/vertex.h"
-
-struct Color
-{
-	float r{ 0.0f };
-	float g{ 0.0f };
-	float b{ 0.0f };
-	float a{ 1.0f };
-};
 
 struct BoundingBox
 {
@@ -27,8 +20,14 @@ struct Mesh
 	template<class T>
 	using ElementContainer = std::vector<T>;
 public:
+	using Position_t = Vertex;
+	using UV_t = DirectX::XMFLOAT2;
+	using Normal_t = Vector3;
+	using Color_t = Color;
+	using Index_t = unsigned short;
+
 	Mesh() = default;
-	Mesh(ElementContainer<Vertex>&& verts, ElementContainer<unsigned short>&& inds, ElementContainer<Color>&& colors);
+	Mesh(ElementContainer<Vertex>&& verts, ElementContainer<Index_t>&& inds, ElementContainer<Color_t>&& colors);
 	std::string resourceID;
 	std::string identifier;
 	size_t IndexCount;
@@ -37,15 +36,10 @@ public:
 	ElementContainer<Vertex> vertexes;
 	ElementContainer< DirectX::XMFLOAT2> uvs;
 	ElementContainer< Vector3 > normals;
-	ElementContainer<unsigned short> indices;
-	ElementContainer< Color > colors;
+	ElementContainer<Index_t> indices;
+	ElementContainer< Color_t > colors;
 	BoundingBox boundingBox;
 
-	using Position_t = Vertex;
-	using UV_t = DirectX::XMFLOAT2;
-	using Normal_t = Vector3;
-	using Color_t = Color;
-	using Index_t = unsigned short;
 };
 
 using MeshPtr = std::shared_ptr<Mesh>;

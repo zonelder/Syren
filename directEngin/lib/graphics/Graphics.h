@@ -9,6 +9,7 @@
 
 #include "../exeption/pointed_exception.h"
 #include "../direct/DxgiInfoManager.h"
+#include "math/color.h"
 
 class Graphics
 {
@@ -62,10 +63,11 @@ public:
 	}
 
 	void endFrame();
-	void ClearBuffer(float red, float green, float blue) noexcept;
-	void ClearBuffer(const float color[4]) noexcept;
+	void clearBuffer(float red, float green, float blue) noexcept;
+	void clearBuffer(const float color[4]) noexcept;
+	void clearBuffer(const Color& color) noexcept;
 	void DrawIndexed(size_t indexCount, size_t startIndex =  0u);
-	void Draw(size_t indexCount, size_t startIndex = 0u);
+	void draw(size_t indexCount, size_t startIndex = 0u);
 	ID3D11DeviceContext* getContext() noexcept;
 	ID3D11Device* getDevice() noexcept;
 	DxgiInfoManager& getInfoManager() noexcept;

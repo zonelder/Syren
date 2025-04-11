@@ -45,7 +45,8 @@ Graphics::Graphics(HWND hWnd)
 	//for GFX_THROW_FAILED macro
 	HRESULT hr;
 	//create device and front\back buffer
-	try {
+	try 
+	{
 
 		GFX_THROW_INFO( D3D11CreateDeviceAndSwapChain(
 			nullptr,
@@ -134,31 +135,36 @@ Graphics::Graphics(HWND hWnd)
 		_pContext->RSSetViewports(1u, &vp);
 
 	}
-	catch (const PointedException& e) {
+	catch (const PointedException& e) 
+	{
 		MessageBox(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
 	}
 }
 
 
-void Graphics::endFrame(){
+void Graphics::endFrame()
+{
 
 	HRESULT hr;
-	if (FAILED(hr = _pSwap->Present(1u, 0u))) {
-		if (hr == DXGI_ERROR_DEVICE_REMOVED) {
+	if (FAILED(hr = _pSwap->Present(1u, 0u))) 
+	{
+		if (hr == DXGI_ERROR_DEVICE_REMOVED) 
+		{
 			throw GFX_DEVICE_REMOVED_EXCEPT(_pDevice->GetDeviceRemovedReason());
 		}
-		else {
+		else 
+		{
 			GFX_EXCEPT(hr);
 		}
 	}
 }
 
-void Graphics::ClearBuffer(float red, float green, float blue) noexcept{
+void Graphics::clearBuffer(float red, float green, float blue) noexcept{
 	const float color[] = { red,green,blue,1.0f };
-	ClearBuffer(color);
+	clearBuffer(color);
 }
 
-void Graphics::ClearBuffer(const float color[4]) noexcept
+void Graphics::clearBuffer(const float color[4]) noexcept
 {
 	_pContext->ClearRenderTargetView(_pTarget.Get(), color);
 	_pContext->ClearDepthStencilView(_pDSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0u);
@@ -166,12 +172,18 @@ void Graphics::ClearBuffer(const float color[4]) noexcept
 	_pContext->OMSetDepthStencilState(_pDSState.Get(), 0);
 
 }
+void Graphics::clearBuffer(const Color& color) noexcept
+{
+	DirectX::XMFLOAT4 data;
+	DirectX::XMStoreFloat4(&data,color);
+	clearBuffer(reinterpret_cast<const float*>(& data));
+}
 void Graphics::DrawIndexed(size_t indexCount,size_t startIndex)
 {
 	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)indexCount, (UINT)startIndex, 0u));
 }
 
-void Graphics::Draw(size_t indexCount, size_t startIndex)
+void Graphics::draw(size_t indexCount, size_t startIndex)
 {
 	_pContext->Draw((UINT)indexCount, (UINT)startIndex);
 }

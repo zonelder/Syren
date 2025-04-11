@@ -39,7 +39,7 @@ void App::Frame()
 {
 	auto gfx = _context.pGfx();
 
-	gfx->ClearBuffer(_scene.getCamera().background);
+	gfx->clearBuffer(_scene.getCamera().background);
 	_scene.onStartFrame();
 
 	_systemManager.frame(_scene);

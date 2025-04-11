@@ -141,7 +141,7 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const Matrix4x
 	bindMesh(render.pMesh, layout);
 
 	// general material color
-	context->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.pMaterial->color), sizeof(DirectX::XMFLOAT4), 0);
+	context->UpdateSubresource(p_colorConstantBuffer.Get(), 0, nullptr, &(render.pMaterial->color), sizeof(Color), 0);
 	context->PSSetConstantBuffers(1u, 1u, p_colorConstantBuffer.GetAddressOf());
 
 	render.pMaterial->bind(gfx);
@@ -151,7 +151,7 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const Matrix4x
 	if (!hasIndicies)
 	{
 		context->IASetIndexBuffer(nullptr, DXGI_FORMAT_UNKNOWN, 0);
-		gfx.Draw(render.pMesh->vertexes.size(), 0);
+		gfx.draw(render.pMesh->vertexes.size(), 0);
 		return;
 	}
 	_indexBuffer = IndexBuffer(gfx, render.pMesh->indices);
@@ -178,7 +178,7 @@ void RenderSystem::onFrame(SceneManager& scene)
 	SceneContext::pGfx()->bindBackBuffer();
 	drawFinalPass();
 
-	float color[4] = { 1.0f,0.0f,0.0f,0.0f };
+	float color[4] = { 0.0f,0.0f,0.0f,0.0f };
 	gBuffer_.clear(SceneContext::pGfx(), color);
 }
 

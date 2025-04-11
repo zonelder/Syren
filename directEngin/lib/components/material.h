@@ -1,9 +1,11 @@
 #pragma once
+
+#include <memory>
+
+#include "math/color.h"
 #include "../graphics/Drawable/BindComponent/vertex_shader.h"
 #include "../graphics/Drawable/BindComponent/pixel_shader.h"
 #include "../graphics/Drawable/BindComponent/texture.h" 
-
-#include <memory>
 
 struct Material
 {
@@ -14,7 +16,7 @@ public:
 	void bind(Graphics& gfx);
 
 	TexturePtr pTexture{ nullptr };
-	DirectX::XMFLOAT4 color = { 1.0f,0.0f,0.0f,1.0f };
+	Color color = Color::red;
 	VertexShaderPtr pVertexShader{ nullptr };
 	PixelShaderPtr pPixelShader{ nullptr };
 	std::string resourceID;

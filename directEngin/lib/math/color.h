@@ -5,6 +5,10 @@
 #include <cmath>
 #include <algorithm>
 
+
+#undef max
+#undef min
+
 class Color
 {
 	union

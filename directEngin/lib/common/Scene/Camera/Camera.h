@@ -1,6 +1,7 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
 #include "components/transform.h"
+#include "math/color.h"
 
 class Camera
 {
@@ -32,7 +33,7 @@ public:
 	float farPlane;
 
 	/// @brief The color applied to the remaining screen after all elements in view have been drawn and there is no skybox
-	float background[4] = {1.0f,1.0f, 1.0f, 1.0f};
+	Color background = Color::white;
 
 private:
 	Matrix4x4 _view;

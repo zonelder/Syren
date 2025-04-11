@@ -13,7 +13,7 @@ class Matrix4x4
 
 public:
 	Matrix4x4() noexcept : _matrix(DirectX::XMMatrixIdentity()) {}
-	explicit Matrix4x4(const DirectX::XMMATRIX& matrix) noexcept : _matrix(matrix) {}
+	explicit Matrix4x4(DirectX::XMMATRIX matrix) noexcept : _matrix(matrix) {}
 
 	Quaternion rotation() const noexcept;
 	Vector3 scale() const noexcept;
@@ -25,6 +25,10 @@ public:
 	void setRow(int index, const Vector4& row) noexcept;
 	void setRow(int index, const Vector3& row) noexcept;
 	void setColumn(int index, const Vector4& column) noexcept;
+
+	Vector3 forward() const noexcept;
+	Vector3 up() const noexcept;
+	Vector3 right() const noexcept;
 
 	bool isValidTRS() const noexcept;
 	bool isIdentity() const noexcept;
@@ -219,11 +223,9 @@ inline bool Matrix4x4::inverse3DAffine(const Matrix4x4& input, Matrix4x4& output
 	if (!XMMatrixDecompose(&scale, &rotationQuat, &translation, input._matrix))
 		return false;
 
-	// Проверка на нулевой масштаб
 	if (XMVector4NearEqual(scale, XMVectorZero(), XMVectorReplicate(1e-6f)))
 		return false;
 
-	// Обратные преобразования в ПРАВИЛЬНОМ порядке: (T * R * S)^-1 = S^-1 * R^-1 * T^-1
 	XMMATRIX invTranslate = XMMatrixTranslationFromVector(-translation);
 	XMVECTOR invRotation = XMQuaternionInverse(rotationQuat);
 	XMMATRIX invScale = XMMatrixScalingFromVector(XMVectorReciprocal(scale));

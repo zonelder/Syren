@@ -13,9 +13,9 @@ public:
 	void OnFrame();
 	void OnUpdate();
 
-	const DirectX::XMMATRIX& view() const noexcept { return _view; }
+	const Matrix4x4& view() const noexcept { return _view; }
 
-	const DirectX::XMMATRIX& projection() const noexcept { return _projection; }
+	const Matrix4x4& projection() const noexcept { return _projection; }
 
 	Transform transform;
 
@@ -35,8 +35,8 @@ public:
 	float background[4] = {1.0f,1.0f, 1.0f, 1.0f};
 
 private:
-	DirectX::XMMATRIX _view;
-	DirectX::XMMATRIX _projection;
+	Matrix4x4 _view;
+	Matrix4x4 _projection;
 
 };
 

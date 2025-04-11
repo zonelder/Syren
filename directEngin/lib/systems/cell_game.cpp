@@ -17,6 +17,7 @@ void CellGameSystem::onInit(SceneManager& scene)
 
 void CellGameSystem::onUpdate(SceneManager& scene, float time)
 {
+	/*
 	const auto& camera = scene.getCamera();
 	const auto& proj = camera.projection();
 	float px = 2.0f*context::input().normedX - 1.0f;
@@ -48,6 +49,7 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 			render.pMaterial = p_deselectMat;
 		}
 	}
+	*/
 }
 
 Vector3  CellGameSystem::newBazis(const Vector3& v, const DirectX::XMMATRIX& mat)

@@ -22,7 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\common\geometry_cast.cpp" />
-    <ClCompile Include="lib\common\transform_utils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lib\Time\timer.cpp" />
     <ClCompile Include="lib\common\app.cpp">
@@ -188,7 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry_cast.h" />
-    <ClInclude Include="lib\common\transform_utils.h" />
     <ClInclude Include="lib\Time\timer.h" />
     <ClInclude Include="lib\common\app.h">
       <Filter>app</Filter>

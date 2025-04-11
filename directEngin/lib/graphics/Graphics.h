@@ -1,13 +1,14 @@
 #pragma once
 #include <d3d11.h>
-#include "../exeption/pointed_exception.h"
 #include <vector>
-#include "../direct/DxgiInfoManager.h"
-#include <wrl.h>//interfaces inside directX alredy cointing in COM model if we try to use shared_poiter instead we catch unlocated memory
+#include <wrl.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include <memory>
 #include <random>
+
+#include "../exeption/pointed_exception.h"
+#include "../direct/DxgiInfoManager.h"
 
 class Graphics
 {

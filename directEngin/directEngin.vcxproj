@@ -187,7 +187,6 @@
     <ClCompile Include="lib\common\Scene\filters.cpp" />
     <ClCompile Include="lib\common\Scene\scene_loader.cpp" />
     <ClCompile Include="lib\common\scene_context.cpp" />
-    <ClCompile Include="lib\common\transform_utils.cpp" />
     <ClCompile Include="lib\common\windows_message_map.cpp" />
     <ClCompile Include="lib\components\material.cpp" />
     <ClCompile Include="lib\components\mesh.cpp" />
@@ -247,7 +246,6 @@
     <ClInclude Include="lib\common\Scene\scene_base.h" />
     <ClInclude Include="lib\common\Scene\scene_loader.hpp" />
     <ClInclude Include="lib\common\scene_context.h" />
-    <ClInclude Include="lib\common\transform_utils.h" />
     <ClInclude Include="lib\common\windows_message_map.h" />
     <ClInclude Include="lib\components\fps_counter.h" />
     <ClInclude Include="lib\components\game_cell.h" />

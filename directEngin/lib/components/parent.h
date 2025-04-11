@@ -1,5 +1,5 @@
 #pragma once
-#include "../common/Scene/component_manager.h"
+#include "common/Scene/scene_base.h"
 
 
 struct Parent

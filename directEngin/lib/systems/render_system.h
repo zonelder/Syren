@@ -54,8 +54,6 @@ private:
 	std::unordered_map<SemanticType, BufferSlot> _buffers;
 	IndexBuffer _indexBuffer;
 
-
-	
 	VertexShaderPtr _pFinalVertexShader;
 	PixelShaderPtr _pFinalPixelShader;
 	Microsoft::WRL::ComPtr<ID3D11SamplerState > _pFinalSampler;

@@ -15,8 +15,7 @@ Camera::Camera() :
 void Camera::OnFrame()
 {
 	_projection = DirectX::XMMatrixPerspectiveFovLH( fov,aspectRatio, nearPlane,farPlane );
-	transform.orientationMatrix = Matrix4x4(
-		DirectX::XMMatrixAffineTransformation(transform.scale, DirectX::XMVectorZero(), transform.rotation, transform.position));
+	transform.orientationMatrix.setTRS(transform.position, transform.rotation, transform.scale);
 	_view = DirectX::XMMatrixInverse(nullptr ,transform.orientationMatrix);
 
 }

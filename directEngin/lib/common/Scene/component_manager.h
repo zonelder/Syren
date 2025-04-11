@@ -1,9 +1,10 @@
 #pragma once
+#include "component_pool.h"
+#include "family_generator.h"
+
 #include <memory>
 #include <vector>
 #include <unordered_map>
-#include "component_pool.h"
-#include "family_generator.h"
 
 class ComponentManager
 {

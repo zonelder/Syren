@@ -1,9 +1,12 @@
-#pragma once
+#ifndef __RENDER_H__
+#define __RENDER_H__
+
 #include "Mesh.h"
 #include "Material.h"
+#include "graphics/Drawable/BindComponent/bindable_components.h"
+
 #include <vector>
 #include <string>
-#include "../graphics/Drawable/BindComponent/bindable_components.h"
 #include <memory>
 
 SERIALIZE
@@ -13,3 +16,5 @@ struct Render
 	SERIALIZE_FIELD MaterialPtr pMaterial;
 	Topology topology;
 };
+
+#endif

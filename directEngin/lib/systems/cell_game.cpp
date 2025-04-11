@@ -2,6 +2,8 @@
 #include "components/game_cell.h"
 #include "common/geometry_cast.h"
 
+#include "math/vector2.h"
+
 void CellGameSystem::onInit(SceneManager& scene)
 {
 
@@ -17,21 +19,16 @@ void CellGameSystem::onInit(SceneManager& scene)
 
 void CellGameSystem::onUpdate(SceneManager& scene, float time)
 {
-	/*
 	const auto& camera = scene.getCamera();
 	const auto& proj = camera.projection();
-	float px = 2.0f*context::input().normedX - 1.0f;
-	px /= DirectX::XMVectorGetX(proj.r[0]);
-	auto py = -2.0f* context::input().normedY + 1.0f;
-	py/= DirectX::XMVectorGetY(proj.r[1]);
-	auto pz = DirectX::XMVectorGetZ(proj.r[2]);
-	const auto& view = camera.transform.orientationMatrix;
-	auto ray = newBazis({ px,py,1.0f }, view);
-
-
-	
+	Vector2 clipPos(2.0f * context::input().normedX - 1.0f, -2.0f * context::input().normedY + 1.0f);
+	auto toWorld = camera.view()*camera.projection();
+	toWorld = toWorld.inverse();
+	auto rayStart = toWorld.multiplyPoint({ clipPos[0],clipPos[1],0.0f });
+	auto rayEnd = toWorld.multiplyPoint({ clipPos[0],clipPos[1],1.0f });
+//TODO check working
 	auto& cameraPos = camera.transform.position;
-	auto hit = GeometryCast::raycast(scene, cameraPos, ray);
+	auto hit = GeometryCast::raycast(scene, cameraPos, (rayEnd - rayStart).normalized());
 
 	if (hit.entt != -1 && scene.hasComponent<GameCell>(hit.entt))
 	{
@@ -49,30 +46,4 @@ void CellGameSystem::onUpdate(SceneManager& scene, float time)
 			render.pMaterial = p_deselectMat;
 		}
 	}
-	*/
-}
-
-Vector3  CellGameSystem::newBazis(const Vector3& v, const DirectX::XMMATRIX& mat)
-{
-	auto right = DirectX::XMVector3Normalize(mat.r[0]);
-	
-	float rX = DirectX::XMVectorGetX(right);
-	float rY = DirectX::XMVectorGetY(right);
-	float rZ = DirectX::XMVectorGetZ(right);
-	auto up = DirectX::XMVector3Normalize(mat.r[1]);
-	float uX = DirectX::XMVectorGetX(up);
-	float uY = DirectX::XMVectorGetY(up);
-	float uZ = DirectX::XMVectorGetZ(up);
-	auto forward = DirectX::XMVector3Normalize(mat.r[2]);
-	float fX = DirectX::XMVectorGetX(forward);
-	float fY = DirectX::XMVectorGetY(forward);
-	float fZ = DirectX::XMVectorGetZ(forward);
-	Vector3 out;
-
-
-	out[0] = v[0] * rX + v[1] * rY + v[2] * rZ;
-	out[1] = v[0] * uX + v[1] * uY + v[2] * uZ;
-	out[2] = v[0] * fX + v[1] * fY + v[2] * fZ;
-
-	return out;
 }

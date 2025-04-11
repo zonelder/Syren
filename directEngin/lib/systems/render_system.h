@@ -46,9 +46,9 @@ public:
 	void drawFinalPass();
 
 private:
-	void renderOne(Render& render, Transform& transform, const DirectX::XMMATRIX& viewProjection);
+	void renderOne(Render& render, Transform& transform, const Matrix4x4& viewProjection);
 	Microsoft::WRL::ComPtr<ID3D11Buffer> p_colorConstantBuffer;
-	DirectX::XMMATRIX _wvp;
+	Matrix4x4 _wvp;
 	VertexConstantBuffer<DirectX::XMMATRIX> _vertexConstantBuffer;
 
 	std::unordered_map<SemanticType, BufferSlot> _buffers;

@@ -112,7 +112,7 @@ RenderSystem::RenderSystem()
 	_pFinalVertexShader = context::getVertexShader("shaders/FinalPassVertex.cso");
 }
 
-void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX::XMMATRIX& viewProjection)
+void RenderSystem::renderOne(Render& render,Transform& transform, const Matrix4x4& viewProjection)
 {
 	Graphics& gfx = *SceneContext::pGfx();
 	auto* context = gfx.getContext();
@@ -121,8 +121,8 @@ void RenderSystem::renderOne(Render& render,Transform& transform, const DirectX:
 	assert(render.pMesh);
 
 	bool hasIndicies = !render.pMesh->indices.empty();
-	_wvp = DirectX::XMMATRIX(transform.orientationMatrix) * viewProjection;
-	_wvp = DirectX::XMMatrixTranspose(_wvp);
+	_wvp = transform.orientationMatrix * viewProjection;
+	_wvp = _wvp.transpose();
 	///update transform buffer
 	D3D11_MAPPED_SUBRESOURCE msr;
 	auto pConstantBuffer = _vertexConstantBuffer.p_pConstantBuffer;

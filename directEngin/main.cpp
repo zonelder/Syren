@@ -4,13 +4,10 @@
 #include <Windows.h>
 
 #include <sstream>
-#include "lib/common/app.h"
-#include "lib/exeption/pointed_exception.h"
-#include "lib//core/mouse_handler.h"
+#include "common/app.h"
+#include "exeption/pointed_exception.h"
 
 #define CONSOLE_ENABLE
-
-InputHandler inputHandler;
 
 int  CALLBACK WinMain(
 	HINSTANCE hInstance,//

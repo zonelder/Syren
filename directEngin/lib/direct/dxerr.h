@@ -12,7 +12,7 @@
 //--------------------------------------------------------------------------------------
 
 #pragma once
-#include "../common/Window.h"
+#include <Windows.h>
 #include <sal.h>
 
 #ifdef __cplusplus

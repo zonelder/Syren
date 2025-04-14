@@ -1,5 +1,5 @@
 #include "graphics.h"
-#include "../direct/dxerr.h"
+#include "direct/dxerr.h"
 #include "graphics_throw_macros.h"
 
 #include <d3dcompiler.h>

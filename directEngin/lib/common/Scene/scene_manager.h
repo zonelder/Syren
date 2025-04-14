@@ -1,6 +1,5 @@
 #pragma once
 #include <unordered_map>
-#include <functional>
 
 #include "common/window.h"
 #include "common/input.h"
@@ -12,7 +11,6 @@
 #include "component_manager.h"
 
 #include "components/render.h"
-#include "components/transform.h"
 
 #include "entity_manager.h"
 #include "filters.h"
@@ -22,7 +20,6 @@
 class SceneManager
 {
 public:
-
 
 	Camera& getCamera() noexcept;
 
@@ -58,7 +55,6 @@ public:
 		return m;
 	}
 	
-
 	/// @brief return view of all entities
 	/// @return 
 	auto view() noexcept
@@ -77,11 +73,6 @@ public:
 		return *(_ComponentManager.getPool<T>());
 	}
 
-	template<typename T>
-	ComponentPool<T>& getPoolByGuid(std::string& guid)
-	{
-
-	}
 	// ���������� ������ getComponent
 	template<typename T>
 	T& getComponent(const Entity& entt)

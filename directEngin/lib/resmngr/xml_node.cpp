@@ -1,6 +1,9 @@
 #include "xml_node.h"
 #include "cstdmf/string_converter.h"
 
+#include <sstream>
+#include <format>
+
 #define DEFAULT_SETVALUE_METHOD_DEFINITION(type) \
 void XMLNode::setValue(type v) \
 { \

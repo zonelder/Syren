@@ -20,7 +20,6 @@ private:
 	static bool isInsideBox(const Vector3& position, const Vector3& mibBox, const Vector3& maxBox) noexcept;
 
 	static bool IsBoxHit(const Vector3& position, const Vector3& dir, const Vector3& mibBox, const Vector3& maxBox);
-
 };
 
 #endif

@@ -1,5 +1,6 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
+
 #include "components/transform.h"
 #include "math/color.h"
 

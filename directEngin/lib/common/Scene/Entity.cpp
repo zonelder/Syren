@@ -1,8 +1,5 @@
 #include "Entity.h"
 
-
-
-
 Entity::Entity(EntityID id):_ID(id){}
 
 Entity::Entity():Entity(-1) {};
@@ -30,10 +27,7 @@ Entity& Entity::operator=(const Entity& entt)
 }
 
 
-Entity::ComponentIterator::ComponentIterator(const Entity* comps):_comps(&(comps->_components)),index(-1)
-{
-
-}
+Entity::ComponentIterator::ComponentIterator(const Entity* comps):_comps(&(comps->_components)),index(-1){}
 
 Entity::ComponentIterator::ComponentIterator(const Entity* comps, ComponentID start) :Entity::ComponentIterator(comps)
 {

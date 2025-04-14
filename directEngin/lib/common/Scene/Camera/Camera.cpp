@@ -1,9 +1,7 @@
 #include "Camera.h"
-#include <iostream>
 #undef near
 #undef far
 
-const double PI = acos(-1.0);
 
 Camera::Camera() :
 	farPlane(500.0f),

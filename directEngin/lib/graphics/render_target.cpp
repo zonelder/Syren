@@ -1,4 +1,6 @@
 #include "render_target.h"
+#include <stdexcept>
+
 RenderTarget::RenderTarget(Graphics * pGfx, size_t width, size_t height, DXGI_FORMAT format)
 	:
 	_width(width),

@@ -3,8 +3,6 @@
 #define NOMINMAX
 #endif
 #include <windows.h>
-#include <string>
-//#include "Window.h"
 #include <queue>
 #include <bitset>
 enum MOUSE_KEY

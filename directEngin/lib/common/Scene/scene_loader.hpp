@@ -5,10 +5,6 @@
 #include "scene_manager.h"
 
 #include <stdexcept>
-#include <iostream>
-#include <fstream>
-
-
 
 class SceneLoader
 {
@@ -18,8 +14,6 @@ public:
 	void save(const std::string& path, const SceneManager& scene);
 
 	bool load(const std::string& path);
-
-	bool loadPool(const XMLNode& node);
 
 	bool unload(const std::string& path)
 	{

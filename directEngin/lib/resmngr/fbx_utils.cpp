@@ -33,12 +33,12 @@ bool fbx_utils::isMesh(FbxNode* node)
 	return node->GetNodeAttribute() && node->GetNodeAttribute()->GetAttributeType() != FbxNodeAttribute::eMesh;
 }
 
-// Композитный ключ для сравнения уникальности вершины.
-struct VertexKey {
-    int cpIndex;     // Индекс контрольной точки (позиция)
-    int normalIndex; // Индекс нормали (-1, если отсутствует)
-    int uvIndex;     // Индекс uv (-1, если отсутствует)
-    int colorIndex;  // Индекс цвета (-1, если отсутствует)
+struct VertexKey
+{
+    int cpIndex;     
+    int normalIndex;
+    int uvIndex;    
+    int colorIndex;
 
     bool operator==(const VertexKey& other) const {
         return cpIndex == other.cpIndex &&

@@ -11,8 +11,6 @@
 #include "math/vector2.h"
 #include "math/color.h"
 
-#include <sstream>
-#include <format>
 #include <string>
 #include <vector>
 
@@ -50,7 +48,7 @@ public:
 	{
 		return pBaseNode_.child(identifier.c_str());
 	}
-	/// @brief ���������� �������� ��� � ����������� ���������������. ���� ������ ���� ��� - �� �������.
+	/// @brief
 	/// @param identifier 
 	/// @return 
 	[[nodiscard]] XMLNode saveGetChild(const std::string& identifier)

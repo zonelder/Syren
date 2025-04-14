@@ -1,10 +1,13 @@
-#pragma once
-#include <vector>
-#include <unordered_map>
-#include <memory.h>
+#ifndef __RESOURCE_MANAGER_H__
+#define __RESOURCE_MANAGER_H__
+
 #include "components/material.h"
 #include "resmngr/fbx_prefab.h"
 #include "components/prefab_root.h"
+
+#include <vector>
+#include <unordered_map>
+#include <memory>
 
 struct Mesh;
 class VertexShader;
@@ -68,3 +71,5 @@ private:
 	UnhandleResources_t<Mesh>			unhandledMeshes_;
 	UnhandleResources_t<Material>		unhandledMaterial_;
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __FILTERS_H__
+#define __FILTERS_H__
 #include <tuple>
 #include "common/Scene/component_manager.h"
 #include "common/Scene/Entity.h"
@@ -199,3 +200,4 @@ namespace filters
 	};
 }
 
+#endif

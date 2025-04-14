@@ -1,9 +1,9 @@
-#pragma once
+#ifndef __COMPONENT_MANAGER_H__
+#define __COMPONENT_MANAGER_H__
+
 #include "component_pool.h"
 #include "family_generator.h"
 
-#include <memory>
-#include <vector>
 #include <unordered_map>
 
 class ComponentManager
@@ -73,7 +73,14 @@ public:
 		return  _pools[compID]->removeComponent(id);
 	}
 
-	~ComponentManager();
+	~ComponentManager()
+	{
+		for (auto& [key, pool] : _pools)
+		{
+			delete pool;
+		}
+		_pools.clear();
+	}
 
 	const auto& pools() const noexcept
 	{
@@ -84,4 +91,6 @@ private:
 
 	std::unordered_map<ComponentID, pool_base_type*> _pools;
 };
+
+#endif
 

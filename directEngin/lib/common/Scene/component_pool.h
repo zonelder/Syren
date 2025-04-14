@@ -1,7 +1,7 @@
-#pragma once
-#include "icomponent_pool.h"
-#include <unordered_map>
+#ifndef __COMPONENT_POOL_H__
+#define __COMPONENT_POOL_H__
 
+#include "icomponent_pool.h"
 #include "common/ñontainers/sparse_array.h"
 
 template<typename T>
@@ -26,5 +26,6 @@ public:
 		this->remove(id);
 		return true;
 	}
-
 };
+
+#endif

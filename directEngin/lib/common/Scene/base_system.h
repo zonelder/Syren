@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __BASE_SYSTEM_H__
+#define __BASE_SYSTEM_H__
+
 #include "scene_manager.h"
 
 /// @brief base class for Systems
@@ -14,3 +16,4 @@ public:
 	virtual void onFrame(SceneManager& scene) {};
 };
 
+#endif

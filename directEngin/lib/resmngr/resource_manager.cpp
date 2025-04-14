@@ -5,13 +5,12 @@
 #include "components/mesh.h"
 #include "graphics/Drawable/BindComponent/vertex_shader.h"
 #include "graphics/Drawable/BindComponent/pixel_shader.h"
-#include <fstream>
-#include <unordered_set>
+#include "fbx_utils.h"
 
 #include <fbxsdk.h>
 
-#include "fbx_utils.h"
-
+#include <fstream>
+#include <unordered_set>
 
 
 /// @brief //////////////////////RESOURCE MANAGER ////////////////////

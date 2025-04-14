@@ -1,5 +1,6 @@
 #include "fbx_prefab.h"
 #include "fbx_utils.h"
+
 #include <iostream>
 
 
@@ -10,13 +11,11 @@ FbxPrefab::FbxPrefab(const fbx_utils::FbxRAII<FbxScene>& scene,const fbx_utils::
     FbxNode* rootNode = scene->GetRootNode();
     if (!rootNode)
         return;
-    // Очистка контейнеров перед загрузкой нового префаба
     meshes_.clear();
     nodes_.clear();
     
     meshCache meshCache;
 
-    // Обрабатываем всю сцену начиная с корня
     for (int i = 0; i < rootNode->GetChildCount(); ++i)
     {
         processNode(rootNode->GetChild(i), -1, manager, meshCache);
@@ -28,7 +27,6 @@ void FbxPrefab::processNode(FbxNode* fbxNode, int parentIndex, const fbx_utils::
     if (!fbxNode)
         return;
 
-    // Создаём запись для текущего узла.
     Node node;
     node.name = fbxNode->GetName();
     node.parent = (parentIndex < 0) ? -1 :parentIndex;
@@ -60,11 +58,9 @@ short FbxPrefab::processMesh(FbxMesh* fbxMesh, const fbx_utils::FbxRAII<FbxManag
     if (!fbxMesh)
         return -1;
   
-    // Проверяем, загружен ли уже этот меш
     auto it = cache.find(fbxMesh);
     if (it != cache.end())
     {
-        // Если меш уже загружен, просто используем его индекс
         return it->second;
     }
 

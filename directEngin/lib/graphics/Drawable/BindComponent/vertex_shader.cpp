@@ -1,6 +1,8 @@
 #include "vertex_shader.h"
 #include "cstdmf/string_converter.h"
 
+#include <stdexcept>
+
 namespace
 {
 	// Вспомогательная функция для определения формата

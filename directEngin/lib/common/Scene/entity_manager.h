@@ -1,9 +1,11 @@
-#pragma once
-#include <array>
-#include <vector>
+#ifndef __ENTITY_MANAGER_H__
+#define __ENTITY_MANAGER_H__
+
 #include "Entity.h"
-#include <ranges>
 #include "common/ñontainers/sparse_array.h"
+
+#include <vector>
+#include <ranges>
 
 
 class EntityManager
@@ -71,3 +73,4 @@ private:
 	EntityID _max;
 };
 
+#endif

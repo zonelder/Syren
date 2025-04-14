@@ -63,8 +63,6 @@ namespace fbx_utils
 	bool isMesh(FbxNode* node);
 
 	bool loadMeshFromNode(FbxMesh* fbxMesh, MeshPtr mesh, const std::string& file, const FbxRAII<FbxManager>& manager);
-
-	bool loadMeshFromNodeByPolygone(FbxMesh* fbxMesh, MeshPtr mesh, const std::string& file, const FbxRAII<FbxManager>& maanager);
 }
 
 

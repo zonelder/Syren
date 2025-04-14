@@ -1,11 +1,12 @@
 #ifndef __FBX_PREFAB__
 #define __FBX_PREFAB__
+#include "fbx_utils.h"
+#include "math/vector3.h"
+
 #include <vector>
 #include <string>
-#include "fbx_utils.h"
 #include <memory>
 #include <unordered_map>
-#include "math/vector3.h"
 
 // Предположим, что ResourceContainer_t определён как контейнер для умных указателей.
 template<typename T>

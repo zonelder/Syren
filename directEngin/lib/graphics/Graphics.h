@@ -5,8 +5,6 @@
 #include <wrl.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
-#include <memory>
-#include <random>
 
 #include "exeption/pointed_exception.h"
 #include "direct/DxgiInfoManager.h"

@@ -8,9 +8,8 @@
 #include <memory>
 #include <random>
 
-#include "../exeption/pointed_exception.h"
-#include "../direct/DxgiInfoManager.h"
-#include "math/color.h"
+#include "exeption/pointed_exception.h"
+#include "direct/DxgiInfoManager.h"
 
 class Graphics
 {
@@ -66,7 +65,7 @@ public:
 	void endFrame();
 	void clearBuffer(float red, float green, float blue) noexcept;
 	void clearBuffer(const float color[4]) noexcept;
-	void clearBuffer(const Color& color) noexcept;
+	void clearBuffer(DirectX::XMVECTOR color) noexcept;
 	void drawIndexed(size_t indexCount, size_t startIndex =  0u);
 	void draw(size_t indexCount, size_t startIndex = 0u);
 	ID3D11DeviceContext* getContext() noexcept;

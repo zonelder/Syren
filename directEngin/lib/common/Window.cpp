@@ -251,14 +251,14 @@ const char*  Window::NoGfxException::getType() const noexcept
 	return "Window exception [No Graphics]";
 }
 
-std::optional<int> Window::processMessage() 
+Window::ProcessResult Window::processMessage()
 {
 	MSG msg;
 	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) 
 	{
 
 		if (msg.message == WM_QUIT) {
-			return msg.wParam;
+			return { true,(int)msg.wParam };
 		}
 
 		TranslateMessage(&msg);

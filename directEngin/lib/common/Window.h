@@ -1,5 +1,6 @@
 #ifndef __WINDOW_H__
 #define __WINDOW_H__
+
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
@@ -9,8 +10,6 @@
 #include "mouse_handler.h"
 
 #include <windows.h>
-#include <memory>
-#include <optional>
 
 #undef max
 #undef min
@@ -20,6 +19,15 @@ class Window
 {
 
 public:
+
+	struct ProcessResult
+	{
+		bool hasExit{ false };
+		int exitCode{ 0 };
+
+		operator bool() const noexcept { return hasExit; };
+	};
+
 	class Exception :public PointedException {
 		using PointedException::PointedException;
 	public:
@@ -65,7 +73,7 @@ public:
 	Window& operator=(const Window&) = delete;
 
 	void SetTitle(const std::string&);
-	static std::optional<int> processMessage();
+	static ProcessResult processMessage();
 	HWND GetHWND() const noexcept;
 
 

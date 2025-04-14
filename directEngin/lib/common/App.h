@@ -1,6 +1,5 @@
-#pragma once
-#include <unordered_map>
-#include <vector>
+#ifndef __APP_H__
+#define __APP_H__
 
 #include "window.h"
 #include "Time/Timer.h"
@@ -12,11 +11,11 @@ class App
 {
 public:
 	App();
-	int Init();
-	void OnInit();
+	int init();
+	void onInit();
 private:
-	void Update();
-	void Frame();
+	void update();
+	void frame();
 private:
 	Window			_wnd;
 	SceneContext	_context;
@@ -26,4 +25,6 @@ private:
 	Timer _time;//TODO change it to Time class after all
 
 };
+
+#endif
 

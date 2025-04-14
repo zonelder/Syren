@@ -25,7 +25,7 @@
 
 #include <chrono> 
 
-void App::OnInit()
+void App::onInit()
 {
 	srand((unsigned int)time(0));
 	auto gfx = SceneContext::pGfx();

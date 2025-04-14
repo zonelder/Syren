@@ -25,7 +25,7 @@ int  CALLBACK WinMain(
 	freopen_s(&conout,"CON", "w", stdout);
 #endif
 	try {
-		return App{}.Init();
+		return App{}.init();
 	}
 	catch (const PointedException& e) {
 

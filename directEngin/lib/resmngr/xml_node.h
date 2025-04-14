@@ -11,7 +11,6 @@
 #include "math/vector2.h"
 #include "math/color.h"
 
-#include <Windows.h>
 #include <sstream>
 #include <format>
 #include <string>

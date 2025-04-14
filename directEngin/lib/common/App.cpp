@@ -11,31 +11,31 @@ App::App() :
 	_context(_wnd)
 {}
 
-
-int App::Init()
+int App::init()
 {
 
-	OnInit();
+	onInit();
 	_systemManager.init(_scene);
-	while (true) {
+	while (true) 
+	{
 		//if processMessage has a value then it means than we wanna exit from app
 		if (const auto ecode = Window::processMessage()) 
 		{
-			return *ecode;
+			return ecode.exitCode;
 		}
 		_context.updateInput(_wnd);//it will be better to have callback in Window class
-		Update();
-		Frame();// TODO better handle vector<servise> so inplementation of each servises can be separete from app class
+		update();
+		frame();// TODO better handle vector<servise> so inplementation of each servises can be separete from app class
 	}
 
 }
 
-void App::Update()
+void App::update()
 {
 	_systemManager.update(_scene, _time.peek());
 }
 
-void App::Frame() 
+void App::frame() 
 {
 	auto gfx = _context.pGfx();
 

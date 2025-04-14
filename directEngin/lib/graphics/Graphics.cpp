@@ -1,7 +1,6 @@
 #include "graphics.h"
 #include "../direct/dxerr.h"
 #include "graphics_throw_macros.h"
-#include "Drawable/BindComponent/bindable_components.h"
 
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
@@ -172,7 +171,7 @@ void Graphics::clearBuffer(const float color[4]) noexcept
 	_pContext->OMSetDepthStencilState(_pDSState.Get(), 0);
 
 }
-void Graphics::clearBuffer(const Color& color) noexcept
+void Graphics::clearBuffer(DirectX::XMVECTOR color) noexcept
 {
 	DirectX::XMFLOAT4 data;
 	DirectX::XMStoreFloat4(&data,color);

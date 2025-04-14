@@ -1,9 +1,11 @@
 #include "DxgiInfoManager.h"
-#include "../common/Window.h"
-#include "../graphics/Graphics.h"
+#include "common/Window.h"
+#include "graphics/Graphics.h"
+#include "common/WindowThrowMacros.h"
+
 #include <memory>
 #include <dxgidebug.h>
-#include "../common/WindowThrowMacros.h"
+
 #pragma comment(lib,"dxguid.lib")
 
 #define GFX_THROW_NOINFO(hrcall) if(FAILED(hr = (hrcall))) throw Graphics::HrException(__LINE__,__FILE__,hr)

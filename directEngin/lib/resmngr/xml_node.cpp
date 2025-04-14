@@ -105,6 +105,22 @@ Quaternion XMLNode::value(const Quaternion& def) const
 	return { x, y, z, w };
 }
 
+
+Color XMLNode::value(const Color& def) const
+{
+	std::stringstream ss(text().get());
+	float x, y, z, w;
+	ss >> x >> y >> z >> w;
+	if (ss.fail())
+	{
+		return def;
+	}
+	return { x, y, z, w };
+}
+
+
+
+
 Vector2 XMLNode::value(const Vector2& def) const
 {
 	std::stringstream ss(text().get());
@@ -200,6 +216,11 @@ void XMLNode::setValue(const Vector3& def)
 }
 
 void XMLNode::setValue(const Quaternion& val)
+{
+	text().set(std::format("{} {} {} {}", val[0], val[1], val[2], val[3]).c_str());
+}
+
+void XMLNode::setValue(const Color& val)
 {
 	text().set(std::format("{} {} {} {}", val[0], val[1], val[2], val[3]).c_str());
 }

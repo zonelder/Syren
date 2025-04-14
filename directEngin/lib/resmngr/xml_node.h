@@ -9,6 +9,7 @@
 #include "math/vector3.h"
 #include "math/quaternion.h"
 #include "math/vector2.h"
+#include "math/color.h"
 
 #include <Windows.h>
 #include <sstream>
@@ -89,6 +90,8 @@ public:
 	REF_VALUE_METHOD_DECLARATION(DirectX::XMMATRIX);
 	REF_VALUE_METHOD_DECLARATION(DirectX::XMFLOAT4X4);
 
+	REF_VALUE_METHOD_DECLARATION(Color);
+
 
 	REF_SETVALUE_METHOD_DECLARATION(std::string);
 	REF_SETVALUE_METHOD_DECLARATION(std::wstring);
@@ -99,6 +102,8 @@ public:
 	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMVECTOR);
 	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMMATRIX);
 	REF_SETVALUE_METHOD_DECLARATION(DirectX::XMFLOAT4X4);
+
+	REF_SETVALUE_METHOD_DECLARATION(Color);
 
 	//</reference types>
 

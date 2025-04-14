@@ -1,5 +1,6 @@
+#include "pch.h"
 #include "mouse_handler.h"
-#include "Window.h"
+#include "window.h"
 
 
 void MouseHandler::trimBuffer() noexcept {

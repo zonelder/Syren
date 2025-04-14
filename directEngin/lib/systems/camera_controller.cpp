@@ -1,5 +1,5 @@
 #include "camera_controller.h"
-#include "../common/Input.h"
+#include "core/input.h"
 #include "components/timed_rotation.h"
 #include <cmath>
 

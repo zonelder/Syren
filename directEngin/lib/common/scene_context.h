@@ -1,8 +1,8 @@
 #ifndef __SCENE_CONTEXT_H__
 #define __SCENE_CONTEXT_H__
-#include "window.h"
-#include "../resmngr/resource_manager.h"
-#include "Input.h"
+#include "core/window.h"
+#include "resmngr/resource_manager.h"
+#include "core/input.h"
 
 
 /// @brief Some usefull context of app.its support overriding of context but  its always should be at least one instance of class.

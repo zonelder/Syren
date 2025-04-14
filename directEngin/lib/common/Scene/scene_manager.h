@@ -1,8 +1,8 @@
 #pragma once
 #include <unordered_map>
 
-#include "common/window.h"
-#include "common/input.h"
+#include "core/window.h"
+#include "core/input.h"
 
 #include "Camera/camera.h"
 

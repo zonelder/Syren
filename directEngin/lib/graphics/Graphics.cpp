@@ -1,12 +1,14 @@
 #include "graphics.h"
 #include "direct/dxerr.h"
 #include "graphics_throw_macros.h"
-
+#include "cstdmf/string_converter.h"
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
 #include <vector>
 #include <sstream>
+
+
 
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
@@ -135,7 +137,7 @@ Graphics::Graphics(HWND hWnd)
 	}
 	catch (const PointedException& e) 
 	{
-		MessageBox(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
+		MessageBoxA(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
 	}
 }
 
@@ -238,14 +240,14 @@ HRESULT  Graphics::HrException::getErrorCode() const noexcept
 std::string  Graphics::HrException::getErrorString() const noexcept
 {
 
-	return DXGetErrorString(_hr);
+	return  DXGetErrorStringA(_hr);
 }
 
 std::string  Graphics::HrException::getErrorDescription() const noexcept 
 {
 
 	char buf[512];
-	DXGetErrorDescription(_hr, buf, sizeof(buf));
+	DXGetErrorDescriptionA(_hr, buf, sizeof(buf));
 	return buf;
 }
 

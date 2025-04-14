@@ -1,13 +1,9 @@
 #include "App.h"
-#include <cmath>
 #include "components/transform.h"
-#include "input.h"
-
-
-
+#include "core/input.h"
 
 App::App() :
-	_wnd(800, 600, "engin win"),
+	_wnd(800, 600, L"engin win"),
 	_context(_wnd)
 {}
 

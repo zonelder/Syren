@@ -6,7 +6,7 @@
 #include <sstream>
 #include "lib/common/app.h"
 #include "lib/exeption/pointed_exception.h"
-#include "lib//common/mouse_handler.h"
+#include "lib//core/mouse_handler.h"
 
 #define CONSOLE_ENABLE
 
@@ -29,15 +29,15 @@ int  CALLBACK WinMain(
 	}
 	catch (const PointedException& e) {
 
-		MessageBox(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
+		MessageBoxA(nullptr, e.what(), e.getType(), MB_OK | MB_ICONEXCLAMATION);
 	}
 	catch (const std::exception& e) {
 
-		MessageBox(nullptr,e.what(),"Standard Exception", MB_OK | MB_ICONEXCLAMATION);
+		MessageBoxA(nullptr,e.what(),"Standard Exception", MB_OK | MB_ICONEXCLAMATION);
 	}
 	catch (...) {
 
-		MessageBox(nullptr, "no details available", "unknown Exception",MB_OK | MB_ICONEXCLAMATION);
+		MessageBoxA(nullptr, "no details available", "unknown Exception",MB_OK | MB_ICONEXCLAMATION);
 	}
 
 

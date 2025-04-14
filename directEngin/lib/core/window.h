@@ -54,20 +54,20 @@ private:
 	class WindowClass
 	{
 	public:
-		static const char* getName() noexcept;
+		static const wchar_t* getName() noexcept;
 		static HINSTANCE getInstance() noexcept;
 	private:
 		WindowClass() noexcept;
 		~WindowClass();
 		WindowClass(const WindowClass&) = delete;
 		WindowClass& operator=(const WindowClass&) = delete;
-		static constexpr const char* _wndCLassName = "syrenEnginWindow";
+		static constexpr const wchar_t* _wndCLassName = L"syrenEnginWindow";
 		static WindowClass _wndClass;
 		HINSTANCE _hInst;
 
 	};
 public:
-	Window(int width, int height, const char* name);
+	Window(int width, int height, const wchar_t* name);
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;

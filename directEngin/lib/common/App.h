@@ -1,7 +1,7 @@
 #ifndef __APP_H__
 #define __APP_H__
 
-#include "window.h"
+#include "core/window.h"
 #include "Time/Timer.h"
 #include "Scene/scene_manager.h"
 #include "Scene/system_manager.h"

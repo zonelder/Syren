@@ -1,7 +1,7 @@
 #include "DxgiInfoManager.h"
-#include "common/Window.h"
+#include "core/window.h"
 #include "graphics/Graphics.h"
-#include "common/WindowThrowMacros.h"
+#include "core/WindowThrowMacros.h"
 
 #include <memory>
 #include <dxgidebug.h>
@@ -15,7 +15,7 @@ DxgiInfoManager::DxgiInfoManager(){
 
 	typedef HRESULT(WINAPI* DXGIGetDebugInterface)(REFIID, void**);
 
-	const auto hModDxgiDebug = LoadLibraryEx("dxgidebug.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
+	const auto hModDxgiDebug = LoadLibraryEx(L"dxgidebug.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 	if (hModDxgiDebug == nullptr) {
 		throw WND_LAST_EXCEPT();
 	}

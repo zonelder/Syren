@@ -1,5 +1,5 @@
+#include "pch.h"
 #include "Input.h"
-
 
 
 Input::Input(const InputHandler& ih)

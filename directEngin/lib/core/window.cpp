@@ -1,6 +1,10 @@
-#include "Window.h"
-#include <sstream>
+#include "pch.h"
+#include "window.h"
+
 #include "WindowThrowMacros.h"
+#include <sstream>
+
+#include "../cstdmf/string_converter.h"
 
 Window::WindowClass::WindowClass() noexcept
 	:_hInst(GetModuleHandle(nullptr)){
@@ -21,11 +25,12 @@ Window::WindowClass::WindowClass() noexcept
 }
 Window::WindowClass Window::WindowClass::_wndClass;
 
-Window::WindowClass::~WindowClass() {
+Window::WindowClass::~WindowClass()
+{
 	UnregisterClass(_wndCLassName, getInstance());
 }
 
-const char* Window::WindowClass::getName() noexcept
+const wchar_t* Window::WindowClass::getName() noexcept
 {
 	return _wndCLassName;
 }
@@ -35,7 +40,7 @@ HINSTANCE Window::WindowClass::getInstance() noexcept
 	return _wndClass._hInst;
 }
 
-Window::Window(int width, int height, const char* name) 
+Window::Window(int width, int height, const wchar_t* name) 
 	:
 	_width(width),
 	_height(height){
@@ -70,8 +75,8 @@ Window::~Window()
 
 void Window::SetTitle(const std::string& title)  
 {
-
-	if (SetWindowText(_hWnd, title.c_str()) == 0) 
+	auto t = stringHelper::to_wstring(title);
+	if (SetWindowText(_hWnd, t.c_str()) == 0) 
 	{
 		throw WND_LAST_EXCEPT();
 	}
@@ -218,17 +223,17 @@ const char* Window::HrException::getType() const noexcept
 std::string Window::HrException::translateErrorCode(HRESULT hr) noexcept
 {
 
-	char* pMsgBuf = nullptr;
+	wchar_t* pMsgBuf = nullptr;
 	DWORD nMsgLen = FormatMessage(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		reinterpret_cast<LPSTR>(&pMsgBuf), 0, nullptr);
+		reinterpret_cast<LPWSTR>(&pMsgBuf), 0, nullptr);
 
 	if (nMsgLen == 0) {
 		return "Unidentified error code";
 	}
 
-	std::string errorStr = pMsgBuf;
+	std::string errorStr = stringHelper::to_string(pMsgBuf);
 	LocalFree(pMsgBuf);
 	return errorStr;
 }

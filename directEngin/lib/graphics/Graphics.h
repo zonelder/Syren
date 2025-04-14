@@ -6,8 +6,8 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
-#include "exeption/pointed_exception.h"
-#include "direct/DxgiInfoManager.h"
+#include "../exeption/pointed_exception.h"
+#include "../direct/DxgiInfoManager.h"
 
 class Graphics
 {

@@ -11,7 +11,7 @@
 void SceneLoader::save(const std::string& path, const SceneManager& scene)
 {
 	pugi::xml_document doc;
-	pugi::xml_node root = doc.append_child("scene");  // Создаем корневой узел "Scene"
+	pugi::xml_node root = doc.append_child("scene");
 
 	Serializer<SceneManager>::serialize(root, scene);
 

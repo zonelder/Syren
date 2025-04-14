@@ -87,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry_cast.h" />
-    <ClInclude Include="lib\Time\timer.h" />
     <ClInclude Include="lib\common\app.h">
       <Filter>app</Filter>
     </ClInclude>
@@ -142,7 +141,6 @@
     <ClInclude Include="resource.h">
       <Filter>resource</Filter>
     </ClInclude>
-    <ClInclude Include="xml_parser.hpp" />
     <ClInclude Include="lib\cstdmf\string_converter.h">
       <Filter>cstdmf</Filter>
     </ClInclude>

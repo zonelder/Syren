@@ -233,8 +233,6 @@
     <ClInclude Include="lib\systems\ui_text_render.h" />
     <ClInclude Include="lib\third_party\pugixml\src\pugixml.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="lib\Time\timer.h" />
-    <ClInclude Include="xml_parser.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build\codegenerators\init.lua" />

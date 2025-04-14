@@ -1,6 +1,7 @@
 #pragma once
-#include "../common/Scene/base_system.h"
+#include "scene/base_system.h"
 #include "math/vector3.h"
+#include "resmgr/material.h"
 
 using MaterialPtr = std::shared_ptr<Material>;
 

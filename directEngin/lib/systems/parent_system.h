@@ -1,5 +1,5 @@
 #pragma once
-#include "../common/Scene/base_system.h"
+#include "scene/base_system.h"
 #include "components/parent.h"
 #include "components/transform.h"
 

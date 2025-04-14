@@ -1,5 +1,6 @@
 #include "geometry_cast.h"
 #include "components/transform.h"
+#include "components/render.h"
 #include <limits>
 
 Hit GeometryCast::raycast(SceneManager& scene, const Vector3& origin, const Vector3& dir)

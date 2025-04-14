@@ -1,6 +1,6 @@
 #pragma once
-#include "common/Scene/base_system.h"
-#include "components/material.h"
+#include "scene/base_system.h"
+#include "resmgr/material.h"
 
 
 class TileSystem : public BaseSystem

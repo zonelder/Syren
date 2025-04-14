@@ -1,5 +1,7 @@
 #include "tile_system.h"
 #include "components/tilemap.h"
+#include "resmgr/scene_context.h"
+#include "components/render.h"
 
 void TileSystem::onInit(SceneManager& scene)
 {

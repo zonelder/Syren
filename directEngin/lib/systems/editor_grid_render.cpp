@@ -1,12 +1,13 @@
 #include "editor_grid_render.h"
-
+#include "components/render.h"
+#include "components/transform.h"
+#include "resmgr/scene_context.h"
 
 static constexpr float gridSize = 5.0f;
-static constexpr int gridCount = 40; // Количество линий в каждую сторону от центра
+static constexpr int gridCount = 40;
 void EditorGridRenderer::onInit(SceneManager& scene)
 {
     auto gfx = SceneContext::pGfx();
-    INFOMAN((*gfx));
     _enttID = scene.createEntity().getID();
     scene.addComponent<Transform>(_enttID);
     auto& r = scene.addComponent<Render>(_enttID);

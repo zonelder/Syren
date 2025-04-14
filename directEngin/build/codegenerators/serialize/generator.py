@@ -147,7 +147,7 @@ struct Serializer<{type.name}> {{
 #include <string>
 #include <unordered_map>
 
-#include "common/Scene/scene_manager.h"
+#include "scene/scene_manager.h"
 
 struct PoolSerializer
 {{

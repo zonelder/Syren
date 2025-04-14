@@ -1,5 +1,5 @@
 #pragma once
-#include "resmngr/xml_node.h"
+#include "resmgr/xml_node.h"
 #include <string>
 #include <iostream>
 

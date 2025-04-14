@@ -1,5 +1,6 @@
 #pragma once
-#include "../common/Scene/base_system.h"
+#include "scene/base_system.h"
+#include "resmgr/scene_context.h"
 #include <memory>
 
 #include <initguid.h>

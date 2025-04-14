@@ -1,6 +1,7 @@
 #include "camera_controller.h"
 #include "core/input.h"
 #include "components/timed_rotation.h"
+#include "resmgr/scene_context.h"
 #include <cmath>
 
 

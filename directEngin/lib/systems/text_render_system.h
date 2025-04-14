@@ -1,7 +1,7 @@
 #pragma once
-#include "../common/Scene/base_system.h"
+#include "scene/base_system.h"
 #include "FW1FontWrapper.h"
-
+#include "resmgr/scene_context.h"
 
 class TextRenderSystem:public BaseSystem
 {

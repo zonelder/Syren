@@ -1,13 +1,14 @@
 #include "pch.h"
 #include "window.h"
-
 #include "WindowThrowMacros.h"
+#include "cstdmf/string_converter.h"
+
 #include <sstream>
 
-#include "../cstdmf/string_converter.h"
 
 Window::WindowClass::WindowClass() noexcept
-	:_hInst(GetModuleHandle(nullptr)){
+	:_hInst(GetModuleHandle(nullptr))
+{
 	//register window class
 	WNDCLASSEX wc = { 0 };
 	wc.cbSize = sizeof(wc);
@@ -43,7 +44,8 @@ HINSTANCE Window::WindowClass::getInstance() noexcept
 Window::Window(int width, int height, const wchar_t* name) 
 	:
 	_width(width),
-	_height(height){
+	_height(height)
+{
 
 	RECT wr{ 0 };
 	wr.left = 100;
@@ -63,13 +65,10 @@ Window::Window(int width, int height, const wchar_t* name)
 		throw WND_LAST_EXCEPT();
 	}
 	ShowWindow(_hWnd, SW_SHOWDEFAULT);
-
-	//_pGraphic = std::make_unique<Graphics>(_hWnd);
 }
 
 Window::~Window() 
 {
-
 	DestroyWindow(_hWnd);
 }
 
@@ -84,8 +83,8 @@ void Window::SetTitle(const std::string& title)
 
 LRESULT WINAPI Window::handleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) 
 {
-
-	if (msg == WM_NCCREATE) {
+	if (msg == WM_NCCREATE)
+	{
 		const CREATESTRUCTW* const pCreate = reinterpret_cast<CREATESTRUCTW*>(lParam);
 		Window* const pWnd = static_cast<Window*>(pCreate->lpCreateParams);
 		SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
@@ -193,8 +192,6 @@ LRESULT Window::handleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
-
-
 
 ///Window::Exeption stuff
 

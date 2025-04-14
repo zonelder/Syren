@@ -1,11 +1,11 @@
 #pragma once
-#include "../common/Scene/base_system.h"
+#include "scene/base_system.h"
 #include "components/render.h"
 #include "components/transform.h"
-#include "../graphics/Graphics.h"
+#include "graphic/graphic.h"
 #include "components/parent.h"
-#include "graphics/Drawable/BindComponent/dynamic_buffer.h"
-#include "graphics/geometric_buffer.h"
+#include "graphic/dynamic_buffer.h"
+#include "graphic/geometric_buffer.h"
 
 struct BufferSlot 
 {

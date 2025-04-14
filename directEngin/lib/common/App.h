@@ -5,7 +5,12 @@
 #include "Time/Timer.h"
 #include "Scene/scene_manager.h"
 #include "Scene/system_manager.h"
-#include "resmngr/resource_manager.h"
+#include "resmgr/resource_manager.h"
+#include "resmgr/scene_context.h"
+
+#include <unordered_map>
+
+std::unordered_map<int, EntityID>  instantiate(SceneManager& scene, FbxPrefabPtr pPrefab);
 
 class App
 {

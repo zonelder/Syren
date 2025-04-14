@@ -1,7 +1,10 @@
 #include "cell_game.h"
 #include "components/game_cell.h"
-#include "common/geometry_cast.h"
+#include "components/render.h"
 
+#include "common/geometry_cast.h"
+#include "resmgr/scene_context.h"
+#include "resmgr/mesh.h"
 #include "math/vector2.h"
 
 void CellGameSystem::onInit(SceneManager& scene)

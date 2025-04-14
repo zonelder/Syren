@@ -1,9 +1,11 @@
 #ifndef __RENDER_H__
 #define __RENDER_H__
 
-#include "Mesh.h"
-#include "Material.h"
-#include "graphics/Drawable/BindComponent/bindable_components.h"
+#include "resmgr/mesh.h"
+#include "resmgr/material.h"
+
+#include "graphic/bindable_components.h"
+#include "serialization/base.h"
 
 #include <vector>
 #include <string>

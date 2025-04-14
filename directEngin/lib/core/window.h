@@ -4,8 +4,7 @@
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
-#include "..\exeption\pointed_exception.h"
-#include "..\graphics\graphics.h"
+#include "exeption\pointed_exception.h"
 #include "input_handler.h"
 #include "mouse_handler.h"
 

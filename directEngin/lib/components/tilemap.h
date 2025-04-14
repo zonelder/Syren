@@ -1,5 +1,5 @@
 #pragma once
-#include "common/Scene/scene_base.h"
+#include "scene/scene_base.h"
 
 /// @brief storage for Tile-specific data and entity, that represent this tile
 SERIALIZE

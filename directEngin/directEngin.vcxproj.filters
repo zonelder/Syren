@@ -27,64 +27,13 @@
     <ClCompile Include="lib\common\app.cpp">
       <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\Camera\camera.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="lib\systems\camera_controller.cpp">
       <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\cell_game.cpp">
       <Filter>systems</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\Scene\component_manager.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\Scene\component_pool.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\constant_buffer.cpp">
-      <Filter>visual</Filter>
-    </ClCompile>
     <ClCompile Include="lib\common\custom_app.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\direct\dxerr.cpp">
-      <Filter>visual\directX</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\direct\DxgiInfoManager.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\Scene\entity.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\Scene\entity_manager.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\graphics\graphics.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\Scene\icomponent_pool.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\index_buffer.cpp">
-      <Filter>visual</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\input.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\input_handler.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\Input_layout.cpp">
-      <Filter>visual</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\components\material.cpp">
-      <Filter>visual</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\components\mesh.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\mouse_handler.cpp">
       <Filter>app</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\orientation_system.cpp">
@@ -93,20 +42,11 @@
     <ClCompile Include="lib\systems\parent_system.cpp">
       <Filter>systems</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\pixel_shader.cpp">
-      <Filter>visual</Filter>
-    </ClCompile>
     <ClCompile Include="lib\exeption\pointed_exception.cpp">
       <Filter>app</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\render_system.cpp">
       <Filter>systems</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\Scene\scene_manager.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\Scene\system_manager.cpp">
-      <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="lib\systems\text_render_system.cpp">
       <Filter>systems</Filter>
@@ -114,41 +54,8 @@
     <ClCompile Include="lib\systems\timed_rotationt_system.cpp">
       <Filter>systems</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex.cpp">
-      <Filter>visual</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex_shader.cpp">
-      <Filter>visual</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\vertex_buffer.cpp">
-      <Filter>visual</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\window.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
     <ClCompile Include="lib\systems\ui_text_render.cpp">
       <Filter>systems</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\topology.cpp">
-      <Filter>visual</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\texture.cpp">
-      <Filter>visual</Filter>
-    </ClCompile>
-    <ClCompile Include="..\third_party\pugixml\src\pugixml.cpp">
-      <Filter>third_party\pugixml</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\Scene\filters.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\windows_message_map.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\common\Scene\scene_loader.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\resmngr\xml_node.cpp">
-      <Filter>resmngr</Filter>
     </ClCompile>
     <ClCompile Include="lib\cstdmf\string_converter.cpp">
       <Filter>cstdmf</Filter>
@@ -159,30 +66,23 @@
     <ClCompile Include="lib\systems\fps_counter_system.cpp">
       <Filter>systems</Filter>
     </ClCompile>
-    <ClCompile Include="lib\resmngr\resource_manager.cpp">
-      <Filter>resmngr</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\resmngr\fbx_prefab.cpp">
-      <Filter>resmngr</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\resmngr\fbx_utils.cpp">
-      <Filter>resmngr</Filter>
-    </ClCompile>
     <ClCompile Include="lib\systems\editor_grid_render.cpp">
       <Filter>systems</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\Drawable\BindComponent\dynamic_buffer.cpp" />
-    <ClCompile Include="lib\resmngr\file_system.cpp">
-      <Filter>resmngr</Filter>
+    <ClCompile Include="lib\third_party\pugixml\src\pugixml.cpp">
+      <Filter>third_party\pugixml</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\render_target.cpp">
-      <Filter>visual</Filter>
+    <ClCompile Include="lib\cstdmf\file_system.cpp">
+      <Filter>cstdmf</Filter>
     </ClCompile>
-    <ClCompile Include="lib\graphics\geometric_buffer.cpp">
-      <Filter>visual</Filter>
+    <ClCompile Include="lib\serialization\default.cpp">
+      <Filter>serialization</Filter>
     </ClCompile>
-    <ClCompile Include="lib\common\scene_context.cpp">
-      <Filter>app</Filter>
+    <ClCompile Include="lib\serialization\scene_loader.cpp">
+      <Filter>serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\serialization\xml_parser.cpp">
+      <Filter>serialization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,83 +91,14 @@
     <ClInclude Include="lib\common\app.h">
       <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\base_system.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\bindable_components.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\Camera\camera.h">
-      <Filter>scene</Filter>
-    </ClInclude>
     <ClInclude Include="lib\systems\camera_controller.h">
       <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\cell_game.h">
       <Filter>systems</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\component_manager.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\component_pool.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\constant_buffer.h">
-      <Filter>visual</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\direct\dxerr.h">
-      <Filter>visual\directX</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\direct\DxgiInfoManager.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\entity.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\entity_manager.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\family_generator.h">
-      <Filter>scene</Filter>
-    </ClInclude>
     <ClInclude Include="lib\components\game_cell.h">
       <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\graphics.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\graphics_throw_macros.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\idrawable.h">
-      <Filter>visual</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\icomponent_pool.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\IBindable.h">
-      <Filter>visual</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\index_buffer.h">
-      <Filter>visual</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\input.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\input_handler.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\input_layout.h">
-      <Filter>visual</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\components\material.h">
-      <Filter>visual</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\components\mesh.h">
-      <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\mouse_handler.h">
-      <Filter>app</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\orientation_system.h">
       <Filter>systems</Filter>
@@ -287,18 +118,6 @@
     <ClInclude Include="lib\systems\render_system.h">
       <Filter>systems</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\Scene\scene_base.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\scene_manager.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\system_manager.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\texture.h">
-      <Filter>visual</Filter>
-    </ClInclude>
     <ClInclude Include="lib\components\text.h">
       <Filter>components</Filter>
     </ClInclude>
@@ -307,21 +126,6 @@
     </ClInclude>
     <ClInclude Include="lib\systems\timed_rotationt_system.h">
       <Filter>systems</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex.h">
-      <Filter>visual</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex_shader.h">
-      <Filter>visual</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\vertex_buffer.h">
-      <Filter>visual</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\WindowThrowMacros.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\window.h">
-      <Filter>app</Filter>
     </ClInclude>
     <ClInclude Include="lib\systems\ui_text_render.h">
       <Filter>systems</Filter>
@@ -332,37 +136,13 @@
     <ClInclude Include="lib\components\text_ui.h">
       <Filter>components</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\topology.h">
-      <Filter>visual</Filter>
-    </ClInclude>
     <ClInclude Include="lib\components\transform.h">
       <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\pixel_shader.h">
-      <Filter>visual</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>resource</Filter>
     </ClInclude>
     <ClInclude Include="xml_parser.hpp" />
-    <ClInclude Include="..\third_party\pugixml\src\pugiconfig.hpp">
-      <Filter>third_party\pugixml</Filter>
-    </ClInclude>
-    <ClInclude Include="..\third_party\pugixml\src\pugixml.hpp">
-      <Filter>third_party\pugixml</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\resmngr\xml_node.h">
-      <Filter>resmngr</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\filters.h">
-      <Filter>scene</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\windows_message_map.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\common\Scene\scene_loader.hpp">
-      <Filter>scene</Filter>
-    </ClInclude>
     <ClInclude Include="lib\cstdmf\string_converter.h">
       <Filter>cstdmf</Filter>
     </ClInclude>
@@ -378,30 +158,29 @@
     <ClInclude Include="lib\systems\fps_counter_system.h">
       <Filter>systems</Filter>
     </ClInclude>
-    <ClInclude Include="lib\resmngr\resource_manager.h">
-      <Filter>resmngr</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\resmngr\fbx_prefab.h">
-      <Filter>resmngr</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\resmngr\fbx_utils.h">
-      <Filter>resmngr</Filter>
-    </ClInclude>
     <ClInclude Include="lib\systems\editor_grid_render.h">
       <Filter>systems</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\Drawable\BindComponent\dynamic_buffer.h" />
-    <ClInclude Include="lib\resmngr\file_system.h">
-      <Filter>resmngr</Filter>
+    <ClInclude Include="lib\third_party\pugixml\src\pugixml.hpp">
+      <Filter>third_party\pugixml</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\render_target.h">
-      <Filter>visual</Filter>
+    <ClInclude Include="lib\cstdmf\file_system.h">
+      <Filter>cstdmf</Filter>
     </ClInclude>
-    <ClInclude Include="lib\graphics\geometric_buffer.h">
-      <Filter>visual</Filter>
+    <ClInclude Include="lib\serialization\base.h">
+      <Filter>serialization</Filter>
     </ClInclude>
-    <ClInclude Include="lib\common\scene_context.h">
-      <Filter>app</Filter>
+    <ClInclude Include="lib\serialization\default.h">
+      <Filter>serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\serialization\resource_serializers.h">
+      <Filter>serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\serialization\scene_loader.hpp">
+      <Filter>serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\serialization\xml_parser.hpp">
+      <Filter>serialization</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -414,15 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="lib\direct\DXGetErrorString.inl">
-      <Filter>visual\directX</Filter>
-    </None>
-    <None Include="lib\direct\DXGetErrorDescription.inl">
-      <Filter>visual\directX</Filter>
-    </None>
-    <None Include="lib\direct\DXTrace.inl">
-      <Filter>visual\directX</Filter>
-    </None>
     <None Include="resource\myfile.spritefont">
       <Filter>resource\font</Filter>
     </None>
@@ -439,15 +209,6 @@
   <ItemGroup>
     <Filter Include="app">
       <UniqueIdentifier>{3c027019-46e0-4789-8673-db77c40fda02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scene">
-      <UniqueIdentifier>{2e02508a-1a59-4d96-adfb-011af2f493e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="visual">
-      <UniqueIdentifier>{f2a75eb0-21f7-484a-a95e-e99de1d2b30f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="visual\directX">
-      <UniqueIdentifier>{6d812892-67b8-4c34-b43e-b24f3f3d7f62}</UniqueIdentifier>
     </Filter>
     <Filter Include="resource">
       <UniqueIdentifier>{1e299217-a286-4f8c-8223-043481a14fdb}</UniqueIdentifier>
@@ -473,9 +234,6 @@
     <Filter Include="build\codegenerators">
       <UniqueIdentifier>{f4adeef3-b9d7-4fa8-8036-b9e4d804952d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resmngr">
-      <UniqueIdentifier>{367d206e-6f77-40d7-a5fc-7b59838088ec}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cstdmf">
       <UniqueIdentifier>{03e1fef6-3afc-4a93-ae6d-d157586fd1b0}</UniqueIdentifier>
     </Filter>
@@ -485,13 +243,8 @@
     <Filter Include="systems">
       <UniqueIdentifier>{8d507a13-3c87-404b-981f-d0cb11508931}</UniqueIdentifier>
     </Filter>
-    <Filter Include="third_party\fbxsdk">
-      <UniqueIdentifier>{aa775b91-dba2-48be-866b-c359674ca2fe}</UniqueIdentifier>
+    <Filter Include="serialization">
+      <UniqueIdentifier>{87cddb8a-9268-4dad-ac71-c13a650f8538}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\third_party\pugixml\readme.txt">
-      <Filter>third_party\pugixml</Filter>
-    </Text>
   </ItemGroup>
 </Project>

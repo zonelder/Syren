@@ -2,11 +2,15 @@
 #define __RESOURCE_SERIALIZERS_H__
 
 #include "default.h"
-#include "resmngr/resource_manager.h"
-#include "resmngr/xml_node.h"
-#include "graphics/Drawable/BindComponent/vertex_shader.h"
-#include "graphics/Drawable/BindComponent/pixel_shader.h"
-#include "graphics/Drawable/BindComponent/texture.h"
+
+#include "resmgr/resource_manager.h"
+#include "resmgr/xml_node.h"
+#include "resmgr/scene_context.h"
+
+#include "graphic/vertex_shader.h"
+#include "graphic/pixel_shader.h"
+#include "graphic/texture.h"
+
 #include <string>
 
 template<typename T>

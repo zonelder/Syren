@@ -3,6 +3,9 @@
 #include <iostream>
 #include <map>
 
+#include "resmgr/scene_context.h"
+#include "components/render.h"
+
 namespace
 {
 	class SemanticParser {
@@ -67,7 +70,7 @@ namespace
 		}
 	}
 
-	UINT getElementCount(const Mesh& mesh, SemanticType semantic)
+	size_t getElementCount(const Mesh& mesh, SemanticType semantic)
 	{
 		switch (semantic) {
 		case SemanticType::Position: return mesh.vertexes.size();

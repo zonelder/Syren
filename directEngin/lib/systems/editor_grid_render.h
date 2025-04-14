@@ -2,8 +2,8 @@
 #define __EDITOR_GRID_RENDERER__
 
 
-#include "common/Scene/base_system.h"
-#include "components/material.h"
+#include "scene/base_system.h"
+#include "resmgr/material.h"
 #include <vector>
 
 class EditorGridRenderer : public BaseSystem

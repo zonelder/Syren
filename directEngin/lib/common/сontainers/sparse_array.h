@@ -5,8 +5,6 @@ template<typename Data,typename Entity,unsigned N>
 class SparseArray
 {
 public:
-
-
 	using key_type = Entity;
 	using sparse_set_type = SparseSet<Entity, N>;
 
@@ -58,9 +56,6 @@ public:
 	{
 		delete[] _begin;
 	}
-
-
-
 
 	auto ebegin() noexcept
 	{
@@ -149,7 +144,10 @@ public:
 		return _set.size();
 	}
 
-
+	auto empty() const noexcept
+	{
+		return _set.size() == 0;
+	}
 		 
 private:
 

@@ -9,7 +9,7 @@
 #undef max
 #undef min
 
-class Color
+class alignas(16) Color
 {
 	union
 	{

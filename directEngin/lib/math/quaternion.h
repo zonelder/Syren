@@ -5,7 +5,7 @@
 #include "vector3.h"
 #include <numbers>
 
-class Quaternion
+class alignas(16) Quaternion
 {
     static const Quaternion s_qepsilon;
     union

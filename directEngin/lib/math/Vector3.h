@@ -5,12 +5,11 @@
 #include <algorithm>
 #include <iostream>
 
-
 //focking WIPAPI issue
 #undef max
 #undef min
 
-class Vector3
+class alignas(16) Vector3
 {
 
 	union

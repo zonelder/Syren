@@ -8,7 +8,7 @@
 #undef max
 #undef min
 
-class Vector4
+class alignas(16) Vector4
 {
     union
     {

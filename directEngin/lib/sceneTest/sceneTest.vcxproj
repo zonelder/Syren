@@ -123,6 +123,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="sparce_array_test.cpp" />
+    <ClCompile Include="sparce_set_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

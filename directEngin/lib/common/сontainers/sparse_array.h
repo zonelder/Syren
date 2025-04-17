@@ -111,9 +111,9 @@ public:
 	{
 		if (!_set.contains(key))
 			return false;
-
-		std::swap(*(_begin +_set[key]),*(_end - 1));
+		auto pos = _set[key];
 		_set.remove(key);
+		std::swap(*(_begin + pos),*(_end - 1));
 		pop_back();
 		return true;
 

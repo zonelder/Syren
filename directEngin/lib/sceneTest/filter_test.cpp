@@ -42,6 +42,8 @@ TEST(ComponentViewTest, WithOnlyFilter)
     // View entities with both Position and Velocity
     ComponentView<With<Position, Velocity>, Without<>> view(mgr);
     std::vector<EntityID> found;
+
+
     for (auto [id, pos, vel] : view) {
         found.push_back(id);
         EXPECT_EQ(pos.x, 1.0f);
@@ -60,21 +62,37 @@ TEST(ComponentViewTest, WithoutOnlyFilter)
     ComponentManager mgr;
     EntityID e1 = eh.next();
     EntityID e2 = eh.next();
+    EntityID e3 = eh.next();
 
     add<Position>(mgr, e1, { 5.0f, 6.0f });
     add<Position>(mgr, e2, { 7.0f, 8.0f });
     add<Health>(mgr, e2, { 100 });
-
+    add<Position>(mgr, e3, { 9,10 });
     // View entities with Position but without Health
     ComponentView<With<Position>, Without<Health>> view(mgr);
+
+    EXPECT_EQ(view.contains(e1), true);
+    EXPECT_EQ(view.contains(e2), false);
+
+    auto it = view.begin();
+    auto first_ent = it.current();
+    EXPECT_EQ(*first_ent, e1);
+    ++it;
+    auto second_ent = it.current();
+    EXPECT_EQ(*second_ent, e3);
+
     std::vector<EntityID> found;
-    for (auto [id, pos] : view) {
+    
+    for (auto [id, pos] : view)
+    {
         found.push_back(id);
-        EXPECT_EQ(pos.x, 5.0f);
-        EXPECT_EQ(pos.y, 6.0f);
+        EXPECT_EQ(view.contains(id), true);
+        EXPECT_EQ(pos.x, view.get<Position>(id).x);
+        EXPECT_EQ(pos.y, view.get<Position>(id).y);
     }
-    EXPECT_EQ(found.size(), 1);
+    EXPECT_EQ(found.size(), 2);
     EXPECT_EQ(found[0], e1);
+    EXPECT_EQ(found[1], e3);
 }
 
 

@@ -83,7 +83,7 @@ TEST_F(ComponentManagerTest, AddRemoveEquavalence)
 	auto pool = componentManager.getPool<TestComponent1>();
 
 
-	for (auto it = pool->ebegin();it != pool->eend();++it)
+	for (auto it = pool->index_begin();it != pool->index_end();++it)
 	{
 		auto e = *it;
 		EXPECT_FALSE(e % 2 == 0);//all even entities was erased

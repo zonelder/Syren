@@ -1,226 +1,162 @@
-#pragma once
+#ifndef __SYREN_SPARSE_SET_H__
+#define __SYREN_SPARSE_SET_H__
 
-#include <vector>
-#include <array>
+#include <iterator>
 
-template<typename Entity,unsigned N>
+
+namespace detail
+{
+
+	template<typename T>
+	class iterator_base
+	{
+	public:
+		using iterator_category = std::contiguous_iterator_tag;
+		using value_type = T;
+		using difference_type = std::ptrdiff_t;
+		using pointer = T*;
+		using reference = T&;
+
+		explicit iterator_base(value_type* ptr = nullptr) noexcept : _ptr(ptr) {};
+
+		bool operator==(const iterator_base& other) const noexcept = default;
+		auto operator<=>(const iterator_base& other) const noexcept = default;
+
+		iterator_base& operator++() noexcept { ++_ptr; return *this; }
+		iterator_base operator++(int) noexcept { auto copy = *this; ++(*this); return copy; }
+		reference operator*() const noexcept { return *_ptr; }
+		pointer operator->() const noexcept { return *_ptr; }
+
+		iterator_base operator+(difference_type n) const noexcept { return iterator_base(_ptr + n); }
+		difference_type operator-(iterator_base other) const noexcept { return _ptr - other._ptr; }
+
+	private:
+		value_type* _ptr;
+	};
+
+	constexpr size_t cache_line_size = 64u;
+	template<typename T>
+	T* aligned_alloc(size_t count)
+	{
+		void* ptr = ::operator new(count * sizeof(T), std::align_val_t{ cache_line_size });
+		return static_cast<T*>(ptr);
+	}
+
+	template<typename T>
+	void aligned_free(T* ptr)  noexcept
+	{
+		::operator delete(ptr, std::align_val_t{ cache_line_size });
+	}
+
+	template<typename Entity>
+	constexpr size_t elements_per_cache_line = cache_line_size / sizeof(Entity);
+	
+	template<typename Entity>
+	size_t optimal_capacity(size_t desired) noexcept
+	{
+		return ((desired + elements_per_cache_line<Entity> - 1) / elements_per_cache_line<Entity>)* elements_per_cache_line<Entity>;
+	}
+}
+
+template<typename Entity>
 class SparseSet
 {
-	using key_type = Entity;
-	static constexpr key_type tombstone = N - 1;
+	using value_type = Entity;
+	static_assert(std::is_unsigned_v<value_type>, "Key must be unsigned");
+	static_assert(sizeof(Entity) <= sizeof(size_t), "Entity size insufficient for addressing.");
+	static constexpr value_type tombstone = std::numeric_limits<Entity>::max();
 public:
-	class sentinel{};
 
-	class iterator
+	using iterator = detail::iterator_base<Entity>;
+	using const_iterator = detail::iterator_base<const Entity>;
+
+	SparseSet(size_t initial_capacity =  1024) : 
+		_sparse(nullptr),
+		_dense(nullptr),
+		_capacity(0u),
+		_size(0u)
 	{
-	public:
-		iterator(Entity* ptr) noexcept : _ptr(ptr) {};
-
-		bool operator==(const iterator& other) const noexcept
-		{
-			return _ptr == other._ptr;
-		}
-
-		bool operator==(const sentinel& other) const noexcept
-		{
-			return *_ptr == tombstone;
-		}
-
-		iterator& operator++() noexcept
-		{
-			++_ptr;
-			return *this;
-		}
-
-		iterator operator++(int) noexcept
-		{
-			auto copy = *this;
-			++(*this);
-			return copy;
-		}
-
-		Entity& operator*() const noexcept
-		{
-			return *_ptr;
-		}
-
-		Entity& operator->() const noexcept
-		{
-			return *_ptr;
-		}
-
-
-	private:
-		Entity* _ptr;
-	};
-
-
-	class const_iterator
-	{
-	public:
-		const_iterator(Entity* ptr) noexcept : _ptr(ptr) {};
-
-		bool operator==(const iterator& other) const noexcept
-		{
-			return _ptr == other._ptr;
-		}
-
-		bool operator==(const sentinel& other) const noexcept
-		{
-			return *_ptr == tombstone;
-		}
-
-		const_iterator& operator++() noexcept
-		{
-			++_ptr;
-			return *this;
-		}
-
-		const_iterator operator++(int) noexcept
-		{
-			auto copy = *this;
-			++(*this);
-			return copy;
-		}
-
-		const Entity& operator*() const noexcept
-		{
-			return *_ptr;
-		}
-
-		const Entity& operator->() const noexcept
-		{
-			return *_ptr;
-		}
-
-
-	private:
-		Entity* _ptr;
-	};
-
-
-
-
-	/*
-	class reverse_iterator
-	{
-	public:
-
-		reverse_iterator(densed_container_type::iterator it) :_curIt(it) {}
-
-		auto operator++(int) const noexcept
-		{
-			auto copy = *this;
-			++(*this);
-			return copy;
-		}
-
-		auto operator++() noexcept
-		{
-			--_curIt;
-			return *this;
-		}
-
-		bool operator==(const reverse_iterator& other) const noexcept
-		{
-			return _curIt == other._curIt;
-		}
-
-		bool operator!=(const reverse_iterator& other) const noexcept
-		{
-			return _curIt != other._curIt;
-		}
-
-		auto& operator*() const noexcept
-		{
-			return *_curIt;
-		}
-
-	private:
-		densed_container_type::iterator _curIt;
-	};
-	*/
-
-
-	SparseSet() : _pSparse( new Entity[N]),_densedBegin(new Entity[N]),_densedEnd(_densedBegin),_size(0)
-	{
-		for (size_t i = 0;i < N;++i)
-		{
-			_pSparse[i] = tombstone;
-			_densedBegin[i] = tombstone;
-		}
+		resize(detail::optimal_capacity<Entity>(initial_capacity));
 	}
 
-	auto begin() noexcept
+	~SparseSet()
 	{
-		// using reverse_iterator to enshure that modification of SparseArray
-		// during iteration will not trigger any exeptions
-		return iterator(_densedBegin);
-	}
-
-	auto end() noexcept { return sentinel{};}
-
-	auto begin() const noexcept { return const_iterator(_densedBegin); }
-
-	auto end() const noexcept { return sentinel{}; };
-
-	bool contains(key_type key) const
-	{
-		return _pSparse[key] != tombstone;
+		detail::aligned_free(_sparse);
+		detail::aligned_free(_dense);
 	}
 
 
-	auto operator[](key_type key) const
+	void resize(size_t new_capacity)
 	{
-		return _pSparse[key];
+		Entity* new_sparse = detail::aligned_alloc<Entity>(new_capacity);
+		Entity* new_dense = detail::aligned_alloc<Entity>(new_capacity);
+
+		if (_sparse)
+		{
+			std::copy(_sparse, _sparse + std::min(_capacity,new_capacity), new_sparse);
+			std::copy(_dense, _dense + std::min(_size, new_capacity), new_dense);
+		}
+		else
+		{
+			std::fill_n(new_sparse, new_capacity, tombstone);
+		}
+
+		detail::aligned_free(_sparse);
+		detail::aligned_free(_dense);
+
+		_sparse = new_sparse;
+		_dense = new_dense;
+		_capacity = new_capacity;
 	}
 
-	void add(key_type key)
-	{
-		if (contains(key))
-			return;
 
-		auto pos = size();
-		*_densedEnd = key;
-		++_densedEnd;
-		_pSparse[key] = pos;
-		++_size;
+	bool contains(Entity e) const noexcept
+	{
+		return e < _capacity && _sparse[e] < _size && _dense[_sparse[e]] == e;
 	}
 
-	bool remove(key_type key)
+	void add(Entity e)
 	{
-		const auto pos = _pSparse[key];
-		if (pos == tombstone)// Data not exist
-			return false;
-		_pSparse[*_densedEnd] = pos;
-		std::swap(_densedBegin[pos], *_densedEnd);
-		_pSparse[key] = tombstone;
-		*_densedEnd = tombstone;
-		--_densedEnd;
+		if (contains(e)) return;
+
+		if (_size >= _capacity) resize(detail::optimal_capacity< Entity >(_capacity * 2u));
+
+		_sparse[e] = static_cast<Entity>(_size);
+		_dense[_size++] = e;
+	}
+
+	bool remove(Entity e) noexcept
+	{
+		if (!contains(e)) return false;
+
+		const Entity pos = _sparse[e];
+		const Entity last = _dense[_size - 1];
+
+		_dense[pos] = last;
+		_sparse[last] = pos;
+		//std::swap(_dense[pos], _sparse[last]);
+		_sparse[e] = tombstone;
 		--_size;
+
 		return true;
 	}
 
-	auto size() const noexcept
-	{
-		return _size;
-	}
+	iterator begin() noexcept { return iterator(_dense); }
+	iterator end() noexcept { return iterator(_dense + _size);}
 
-	virtual ~SparseSet() 
-	{
-		delete[] _pSparse;
-		delete[] _densedBegin;
-		_densedEnd = nullptr;
-	};
-		 
+	const_iterator begin() const noexcept { return const_iterator(_dense); }
+	const_iterator end() const noexcept { return const_iterator(_dense + _size); };
+
+	const_iterator::pointer data() const noexcept { return _dense; }
+	size_t size() const noexcept { return _size; }
+	size_t capacity()  const noexcept { return _capacity; }
+	Entity index_of(Entity e) const noexcept { return e < _capacity ? _sparse[e] : tombstone; }
 private:
 
-	Entity* _pSparse;
-
-	Entity* _densedBegin;
-
-	//end look at back element
-	Entity* _densedEnd;
+	Entity* _sparse;
+	Entity* _dense;
+	size_t _capacity;
 	size_t _size;
-
 };
+
+#endif

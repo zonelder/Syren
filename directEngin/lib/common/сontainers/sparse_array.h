@@ -1,12 +1,13 @@
 #pragma once
 #include "sparse_set.h"
+#include <stdexcept>
 
 template<typename Data,typename Entity,unsigned N>
 class SparseArray
 {
 public:
 	using key_type = Entity;
-	using sparse_set_type = SparseSet<Entity, N>;
+	using sparse_set_type = SparseSet<Entity>;
 
 /*
 	class reverse_iterator
@@ -48,122 +49,86 @@ public:
 		data_densed_container_type::iterator _curIt;
 	};
 	*/
-	SparseArray() :_begin(new Data[N]), _end(_begin)
+	SparseArray()
 	{
+		_data = static_cast<Data*>(::operator new(sizeof(Data) * N));
+		_end = _data;
 	}
 
 	~SparseArray()
 	{
-		delete[] _begin;
-	}
+		for (auto it = _data; it != _end; ++it)
+		{
+			it->~Data();
+		}
 
-	auto ebegin() noexcept
-	{
-		return _set.begin();
-	}
-
-	auto eend() noexcept
-	{
-		return _set.end();
-	}
-
-	auto ebegin() const noexcept { return _set.begin(); };
-
-	auto eend() const noexcept { return _set.end(); };
-	/*
-	* 	auto begin() noexcept
-	{
-		// using reverse_iterator to enshure that modification of SparseArray
-		// during iteration will not trigger any exeptions
-		return reverse_iterator(_data.begin() + _data.size()); 
-	}
-	auto end() noexcept
-	{
-		return reverse_iterator(_data.begin());
-	*/
-
-	bool contains(key_type key) const
-	{
-		return _set.contains(key);
+		::operator delete(_data);
 	}
 
 	Data& operator[](key_type key)
 	{
-		return *(_begin +_set[key]);
+		if (key < 0 || key >= N)
+		{
+			throw std::out_of_range("SparseArray::operator[]: index out of range.");
+		}
+		return *(_data +_set.index_of(key));
 	}
 
 	const Data& operator[](key_type key) const
 	{
-		return *(_begin + _set[key]);
+		if (key < 0 || key >= N)
+		{
+			throw std::out_of_range("SparseArray::operator[]: index out of range.");
+		}
+		return *(_data + _set.index_of(key));
 	}
 
-	Data& add(key_type key)
+	Data& add(Entity id)
 	{
-		if(_set.contains(key))
-			return this->operator[](key);
-
-		_set.add(key);
-		return emplace_back();
-	}
-
-
-	bool remove(key_type key)
-	{
-		if (!_set.contains(key))
-			return false;
-		auto pos = _set[key];
-		_set.remove(key);
-		std::swap(*(_begin + pos),*(_end - 1));
-		pop_back();
-		return true;
-
-	}
-
-	auto begin() noexcept
-	{
-		return _begin;//_data.begin();
-	}
-	auto end() noexcept
-	{
-		return _end;//_data.end();
-	}
-
-	auto begin() const noexcept
-	{
-		return _begin;//_data.begin();
-	}
-
-	auto end() const noexcept
-	{
-		return _end;//_data.end();
+		if (_set.contains(id)) return get(id);
+		if (size() >= N)
+		{
+			throw std::out_of_range("SparseArray::add: container overflow.");
+		}
+		_set.add(id);
+		Data* ptr = new(_end++)Data();
+		return *ptr;
 	}
 
 
-	auto size() const noexcept
+	bool remove(key_type id)
 	{
-		return _set.size();
-	}
-
-	auto empty() const noexcept
-	{
-		return _set.size() == 0;
-	}
-		 
-private:
-
-	auto& emplace_back() noexcept(std::is_nothrow_constructible_v<Data>)
-	{
-		Data* pData = new (_end++) Data{};
-		return *pData;
-	}
-
-	auto pop_back() noexcept(std::is_nothrow_destructible_v<Data>)
-	{
+		if (!_set.contains(id)) return false;
+		size_t idx = _set.index_of(id);
+		_set.remove(id);
+		auto last = _end - 1;
+		std::swap(_data[idx], *last);
+		last->~Data();
 		--_end;
-		_end->~Data();
+		return true;
 	}
 
+	bool contains(Entity id) const noexcept { return _set.contains(id); }
+	Data& get(Entity id) noexcept { return _data[_set.index_of(id)]; }
+	const Data& get(Entity& id) const noexcept { return _data[_set.index_of(id)]; }
+
+	Data* begin() noexcept { return _data; }
+	Data* end() noexcept { return _end; }
+
+	const Data* begin() const noexcept { return _data; }
+	const Data* end() const noexcept { return _end; };
+
+	size_t size() const noexcept { return _set.size(); }
+	bool empty() const noexcept { return _set.size() == 0; }
+
+	sparse_set_type::iterator index_begin()			noexcept { return _set.begin(); }
+	sparse_set_type::iterator index_end()				noexcept { return _set.end(); }
+
+	sparse_set_type::const_iterator index_begin()		const noexcept { return _set.begin(); }
+	sparse_set_type::const_iterator index_end()		const noexcept { return _set.end(); }
+
+private:
 	sparse_set_type _set;
-	Data* _begin;
+	Data* _data;
 	Data* _end;
 };

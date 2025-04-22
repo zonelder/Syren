@@ -7,9 +7,10 @@ namespace TSparseSet
     TEST(Basic, InitialState) 
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
         EXPECT_EQ(set.size(), 0);
-        for (unsigned i = 0; i < N; ++i) {
+        for (unsigned i = 0; i < N; ++i)
+        {
             EXPECT_FALSE(set.contains(i));
         }
     }
@@ -17,7 +18,7 @@ namespace TSparseSet
     TEST(Basic, AddSingleElement) 
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
         set.add(5);
         EXPECT_EQ(set.size(), 1);
         EXPECT_TRUE(set.contains(5));
@@ -31,7 +32,7 @@ namespace TSparseSet
     TEST(Basic, AddMultipleElements) 
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
         set.add(5);
         set.add(3);
         set.add(7);
@@ -49,7 +50,7 @@ namespace TSparseSet
     TEST(Basic, AddDuplicate)
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
         set.add(5);
         set.add(5);
         EXPECT_EQ(set.size(), 1);
@@ -58,7 +59,7 @@ namespace TSparseSet
     TEST(Basic, RemoveExisting) 
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
         set.add(5);
         set.add(3);
         set.add(7);
@@ -78,7 +79,7 @@ namespace TSparseSet
     TEST(Basic, RemoveNonExisting)
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
         set.add(5);
         bool removed = set.remove(6);
         EXPECT_FALSE(removed);
@@ -88,7 +89,7 @@ namespace TSparseSet
     TEST(Basic, Iteration)
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
         set.add(5);
         set.add(3);
         set.add(7);
@@ -103,7 +104,7 @@ namespace TSparseSet
     TEST(Basic, ConstIteration) 
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
         set.add(5);
         set.add(3);
 
@@ -118,7 +119,7 @@ namespace TSparseSet
     TEST(Basic, SizeChanges)
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
 
         EXPECT_EQ(set.size(), 0);
         set.add(1);
@@ -134,14 +135,14 @@ namespace TSparseSet
     TEST(Basic, RemoveFromEmpty)
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
         EXPECT_FALSE(set.remove(0));
     }
 
     TEST(Basic, AddAfterRemove)
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
 
         set.add(1);
         set.remove(1);
@@ -154,8 +155,10 @@ namespace TSparseSet
 
     TEST(Basic, RemoveSwapsWithLast)
     {
+
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        constexpr auto v = sizeof(unsigned);
+        SparseSet<unsigned> set;
 
         set.add(1);
         set.add(2);
@@ -173,7 +176,7 @@ namespace TSparseSet
     TEST(Basic, EmptyIteration)
     {
         constexpr unsigned N = 10;
-        SparseSet<unsigned, N> set;
+        SparseSet<unsigned> set;
 
         std::vector<unsigned> elements;
         for (auto e : set) elements.push_back(e);
@@ -184,8 +187,8 @@ namespace TSparseSet
     TEST(Basic, TombstoneHandling)
     {
         constexpr unsigned N = 10;
-        constexpr auto tombstone = N - 1;
-        SparseSet<unsigned, N> set;
+        constexpr auto tombstone = std::numeric_limits<unsigned>::max();
+        SparseSet<unsigned> set;
 
         set.add(tombstone);
         EXPECT_EQ(set.size(), 1);

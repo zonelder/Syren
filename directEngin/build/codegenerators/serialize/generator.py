@@ -272,8 +272,8 @@ constexpr auto get_pool_saver()
     {{
        // manager.getPool<T>();// in case pool did not load earlier this method create it;
        auto& pool = manager.getPool<T>();
-       auto eIt =  pool.ebegin();
-       auto eend = pool.eend();
+       auto eIt =  pool.index_begin();
+       auto eend = pool.index_end();
        auto dataIt = pool.begin();
 
        for(;eIt != eend;++eIt,++dataIt)

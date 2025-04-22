@@ -7,8 +7,7 @@
 namespace filters
 {
 
-	template<class Wt, class Wtout>
-	class ComponentView;
+
 	struct filter_type {};
 	template<class... Args>
 	struct With
@@ -52,31 +51,20 @@ namespace filters
 	template<class... Args>
 	concept has_not_filters = !has_component_filters<Args...>;
 
-	template<typename Pools, typename Entity, size_t I = 0>
+	template<typename Pools, typename Entity>
 	inline bool all_of(const Pools& pools, const Entity& entt) noexcept
 	{
-		if constexpr (I >= std::tuple_size_v<Pools>)
-			return true;
-		else
-		{
-			if (!std::get<I>(pools)->contains(entt))
-				return false;
-			return all_of<Pools, Entity, I + 1>(pools, entt);
-		}
+		return std::apply([entt](auto*... pool) { return (pool->contains(entt) && ...); }, pools);
 	}
 
-	template<typename Pools, typename Entity, size_t I = 0>
+	template<typename Pools, typename Entity>
 	inline bool none_of(const Pools& pools, const Entity& entt) noexcept
 	{
-		if constexpr (I >= std::tuple_size_v<Pools>)
-			return true;
-		else
-		{
-			if (std::get<I>(pools)->contains(entt))
-				return false;
-			return none_of<Pools, Entity, I + 1>(pools, entt);
-		}
+		return std::apply([entt](auto*... pool) { return !(pool->contains(entt) || ...); }, pools);
 	}
+
+	template<class Wt, class Wtout>
+	class ComponentView;
 
 	template<class... WithArgs, class... WithoutArgs>
 	class ComponentView<With<WithArgs...>, Without<WithoutArgs...>>
@@ -85,28 +73,29 @@ namespace filters
 
 		using with_tuple = std::tuple< ComponentPool<WithArgs>*...>;
 		using without_tuple = std::tuple<ComponentPool< WithoutArgs>*...>;
-		using entity_iterator = SparseSet<EntityID,MAX_ENTITY>::iterator;
-		using entity_sentinel = SparseSet<EntityID,MAX_ENTITY>::sentinel;
+		using entity_iterator = SparseSet<EntityID>::iterator;
 
 		ComponentView(ComponentManager& scene) :
 			_includes({ scene.getPool<WithArgs>()... }),
 			_excludes({ scene.getPool<WithoutArgs>()... })
 		{
-
+			initialize_iterators();
 		}
-		class sentinel {};
+
 		class iterator
 		{
 			using entity_iterator_type = entity_iterator;
 		public:
-			iterator(with_tuple& include, without_tuple& exclude, entity_iterator_type it) : 
+			iterator(with_tuple& include, without_tuple& exclude, entity_iterator_type it, entity_iterator_type end) :
 				_include(include),
 				_exclude(exclude),
-				_it(it)
+				_current(it),
+				_end(end)
 			{
-				if (!isValidCurrent())
-					++(*this);
+				validate_current();
 			}
+
+			auto current() const noexcept { return _current; }
 
 			iterator operator++(int) const noexcept
 			{
@@ -118,39 +107,44 @@ namespace filters
 
 			iterator& operator++() noexcept
 			{
-				for (constexpr  entity_sentinel s{}; ++_it != s && !isValidCurrent();){}
+				++_current;
+				validate_current();
 				return *this;
 			}
 
 			bool operator==(const iterator& other) const noexcept
 			{
-				return _it == other._it;
-			}
-
-			bool operator==(const sentinel& other) const noexcept
-			{
-				constexpr entity_sentinel s{};
-				return _it == s;
+				return _current == other._current;
 			}
 
 			auto operator*() noexcept
 			{
-				const auto& entt = *_it;
-				return std::tuple<const EntityID&, WithArgs&...>(
+				return get_components(*_current);
+			}
+
+
+		private:
+			bool is_valid() const noexcept
+			{
+				return all_of(_include, *_current) && none_of(_exclude, *_current);
+			}
+			void validate_current()
+			{
+				while (_current != _end && !is_valid()) { ++_current; };
+			}
+
+			auto get_components(EntityID entt) const noexcept
+			{
+				return std::tuple<EntityID, WithArgs&...>(
 					entt,
 					(std::get<ComponentPool<WithArgs>*>(_include)->operator[](entt))...
 				);
 			}
 
-
-		private:
-			bool isValidCurrent() const noexcept
-			{
-				return all_of(_include, *_it) && none_of(_exclude, *_it);
-			}
 			with_tuple& _include;
 			without_tuple& _exclude;
-			entity_iterator_type _it;
+			entity_iterator_type _current;
+			entity_iterator_type _end;
 		};
 
 
@@ -168,13 +162,13 @@ namespace filters
 		}
 
 
-		auto contains(const EntityID& entt) noexcept
+		bool contains(const EntityID& entt) const noexcept
 		{
 			return all_of(_includes, entt) && none_of(_excludes, entt);
 		}
 
 		template<class T>
-		auto has(const EntityID& entt) noexcept
+		bool has(const EntityID& entt) noexcept
 		{
 			static_assert (isWith<T>);
 			return std::get< ComponentPool<T>*>(_includes)->contains(entt);
@@ -185,18 +179,32 @@ namespace filters
 
 		iterator begin() noexcept
 		{
-			auto* pool = std::get<0>(_includes);
-			return iterator(_includes, _excludes, pool->ebegin());
+			return iterator(_includes, _excludes, _begin, _end);
 		}
 
 		auto end() noexcept
 		{
-			return sentinel{};
+			return iterator(_includes, _excludes, _end, _end);
 		}
 
+
+
+
 	private:
+		void initialize_iterators() 
+		{
+			// Find smallest pool to optimize iteration
+			auto* smallest = std::get<0>(_includes);
+			size_t min_size = std::numeric_limits<size_t>::max();
+			std::apply([&](auto*... pools) {
+				((pools->size() < min_size ? (min_size = pools->size(), _begin = pools->index_begin(),_end = pools->index_end(), 0) : 0), ...);
+				}, _includes);
+		}
+
 		with_tuple _includes;
 		without_tuple _excludes;
+		entity_iterator _begin;
+		entity_iterator _end;
 	};
 }
 

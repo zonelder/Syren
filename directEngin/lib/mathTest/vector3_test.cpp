@@ -235,4 +235,9 @@ namespace TVector3
 		EXPECT_EQ(r, Vector3::one);
 	}
 
+
+	TEST(Benchmark, aligment)
+	{
+
+	}
 }

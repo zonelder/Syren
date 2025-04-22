@@ -38,14 +38,14 @@ public:
      * @param entt Entity to destroy
      * @return true if destruction succeeded, false otherwise
      */
-	bool destroyEntity(const Entity& entt) noexcept;
+	bool destroy(const Entity& entt) noexcept;
 
     /**
      * @brief Destroy an entity by ID
      * @param id ID of entity to destroy
      * @return true if destruction succeeded, false otherwise
      */
-	bool destroyEntity(EntityID id) noexcept;
+	bool destroy(EntityID id) noexcept;
 
 	
     /**
@@ -68,6 +68,7 @@ public:
      * @return ComponentView configured with specified filters
      * 
      * @note The view is cached per filter combination type for efficiency
+     * @example view<Transform, Render>() returns view of entities with both components
      */
 	template<typename With, typename Without = filters::Without<>>
 		requires filters::is_with_filter_v<With> && filters::is_without_filter_v<Without>
@@ -113,34 +114,51 @@ public:
 		return *(_ComponentManager.getPool<T>());
 	}
 
-	/// @brief return existent component of entity. if component dont exist, create it.
-	/// @tparam T - component type
-	/// @param entt - enttity that contain component
-	/// @return existed or created component of type T
+	/**
+	 * @brief Retrieve a component from an entity
+	 * @tparam T Type of component to retrieve
+	 * @param entt Entity reference to get component from
+	 * @return Reference to the component
+	 */
 	template<typename T>
 	T& getComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
 		return _ComponentManager.getComponent<T>(entt_id);
 	}
-
-	/// @brief return existent component of entity. if component dont exist, create it.
-	/// @tparam T - component type
-	/// @param entt - enttity that contain component
-	/// @return existed or created component of type T
+	/**
+	 * @brief Retrieve a component from an entity
+	 * @tparam T Type of component to retrieve
+	 * @param entt Entity reference to get component from
+	 * @return Reference to the component
+	 * @throws std::runtime_error if component doesn't exist
+	 */
 	template<typename T>
 	T& getComponent(EntityID entt)
 	{
 		return _ComponentManager.getComponent<T>(entt);
 	}
 
-
+	/**
+	 * @brief Add component to entity
+	 * @tparam T Type of component to add
+	 * @param entt Entity to add component to
+	 * @return Reference to newly created component
+	 * @post Entity's component mask is updated
+	 */
 	template<typename T>
 	T& addComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
 		return addComponent<T>(entt_id);
 	}
+	/**
+	 * @brief Add component to entity
+	 * @tparam T Type of component to add
+	 * @param entt Entity to add component to
+	 * @return Reference to newly created component
+	 * @post Entity's component mask is updated
+	 */
 	template<typename T>
 	T& addComponent(EntityID entt)
 	{
@@ -171,18 +189,18 @@ public:
 	{
 		return _entityManager.get(entt).hasComponent(Family::type_id<T>());
 	}
-
-	void onStartFrame();
-
-	void onEndFrame();
-
+;
+	/**
+	 * @brief Get entity by ID
+	 * @param id Entity ID to look up
+	 * @return const Reference to the entity
+	 */
 	const Entity& getEntity(EntityID id) const noexcept;
 
 	const auto& pools() const noexcept
 	{
 		return _ComponentManager.pools();
 	}
-
 
 private:
 	ComponentManager _ComponentManager;

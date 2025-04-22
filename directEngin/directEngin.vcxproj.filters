@@ -180,6 +180,9 @@
     <ClInclude Include="lib\serialization\xml_parser.hpp">
       <Filter>serialization</Filter>
     </ClInclude>
+    <ClInclude Include="lib\common\сontainers\sparse_page.h">
+      <Filter>cstdmf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\test_texture.dds">

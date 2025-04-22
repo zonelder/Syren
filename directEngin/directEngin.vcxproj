@@ -202,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\common\geometry_cast.h" />
+    <ClInclude Include="lib\common\сontainers\sparse_page.h" />
     <ClInclude Include="lib\components\fps_counter.h" />
     <ClInclude Include="lib\components\game_cell.h" />
     <ClInclude Include="lib\components\parent.h" />

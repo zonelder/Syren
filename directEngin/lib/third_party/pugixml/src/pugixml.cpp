@@ -366,7 +366,7 @@ PUGI_IMPL_NS_BEGIN
 
 		size_t _count;
 
-		bool rehash(size_t count);
+		bool rehash(size_t _count);
 
 		item_t* get_item(const void* key)
 		{
@@ -406,10 +406,10 @@ PUGI_IMPL_NS_BEGIN
 		}
 	};
 
-	PUGI_IMPL_FN_NO_INLINE bool compact_hash_table::rehash(size_t count)
+	PUGI_IMPL_FN_NO_INLINE bool compact_hash_table::rehash(size_t _count)
 	{
 		size_t capacity = 32;
-		while (count >= capacity - capacity / 4)
+		while (_count >= capacity - capacity / 4)
 			capacity *= 2;
 
 		compact_hash_table rt;

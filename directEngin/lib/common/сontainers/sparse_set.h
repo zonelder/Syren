@@ -7,7 +7,7 @@
 namespace detail
 {
 
-	template<typename T>
+	template<class Cont,typename T>
 	class iterator_base
 	{
 	public:
@@ -61,14 +61,15 @@ namespace detail
 template<typename Entity>
 class SparseSet
 {
+	using This = SparseSet<Entity>;
 	using value_type = Entity;
 	static_assert(std::is_unsigned_v<value_type>, "Key must be unsigned");
 	static_assert(sizeof(Entity) <= sizeof(size_t), "Entity size insufficient for addressing.");
 	static constexpr value_type tombstone = std::numeric_limits<Entity>::max();
 public:
 
-	using iterator = detail::iterator_base<Entity>;
-	using const_iterator = detail::iterator_base<const Entity>;
+	using iterator = detail::iterator_base<This,Entity>;
+	using const_iterator = detail::iterator_base<This,const Entity>;
 
 	SparseSet(size_t initial_capacity =  1024) : 
 		_sparse(nullptr),

@@ -8,47 +8,6 @@ class SparseArray
 public:
 	using key_type = Entity;
 	using sparse_set_type = SparseSet<Entity>;
-
-/*
-	class reverse_iterator
-	{
-	public:
-
-		reverse_iterator(data_densed_container_type::iterator it) :_curIt(it) {}
-
-		auto operator++(int) const noexcept
-		{
-			auto copy = *this;
-			++(*this);
-			return copy;
-		}
-
-		auto operator++() noexcept
-		{
-			--_curIt;
-			return *this;
-		}
-
-		bool operator==(const reverse_iterator& other) const noexcept
-		{
-			return _curIt == other._curIt;
-		}
-
-		bool operator!=(const reverse_iterator& other) const noexcept
-		{
-			return _curIt != other._curIt;
-		}
-
-		auto& operator*() const noexcept
-		{
-			return *_curIt;
-		}
-
-	private:
-		sparse_set_type::reverse_iterator _itEnttID;
-		data_densed_container_type::iterator _curIt;
-	};
-	*/
 	SparseArray()
 	{
 		_data = static_cast<Data*>(::operator new(sizeof(Data) * N));

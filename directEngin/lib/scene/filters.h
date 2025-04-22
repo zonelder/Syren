@@ -6,50 +6,25 @@
 
 namespace filters
 {
+	template<class... Args> struct With{};
+	template<class... Args> struct Without{};
 
+	template<class T> struct is_filter : std::false_type{};
+	template<class... Args> struct is_filter < With<Args...>> : std::true_type {};
+	template<class... Args> struct is_filter < Without<Args...>> : std::true_type{};
+	template<class T> inline constexpr bool is_filter_v = is_filter<T>::value;
 
-	struct filter_type {};
-	template<class... Args>
-	struct With
-	{
-		using ComponentFilterWith = filter_type;
-	};
+	template<class T> struct is_with_filter : std::false_type{};
+	template<class... Args> struct is_with_filter<With<Args...>> : std::true_type{};
+	template<class T> inline constexpr bool is_with_filter_v = is_with_filter<T>::value;
 
+	template<class T> struct is_without_filter : std::false_type {};
+	template<class... Args> struct is_without_filter<Without<Args...>> : std::true_type {};
+	template<class T> inline constexpr bool is_without_filter_v = is_without_filter<T>::value;
 
+	template<class...Args> inline constexpr bool is_contain_filters = (is_filter_v<Args> || ...);
+	template<class...Args> inline constexpr bool is_filter_free = !is_contain_filters<Args...>;
 
-	template<class... Args>
-	struct Without
-	{
-		using t = With<Args...>;
-		using ComponentFilterWithout = filter_type;
-	};
-
-
-	template<class TWith, class TWithout>
-	concept is_component_filters = requires
-	{
-		typename TWith::ComponentFilterWith;
-		typename TWithout::ComponentFilterWithout;
-	};
-
-	template<class T>
-	concept is_with_filter = requires{
-		typename T::ComponentFilterWith;
-	};
-
-	template<class T>
-	concept is_without_filter = requires{
-		typename T::ComponentFilterWithout;
-	};
-
-	template<class T>
-	concept is_component_filter = is_with_filter<T> || is_without_filter<T>;
-
-	template<class ...Args>
-	concept has_component_filters = (is_component_filter<Args> ||...);
-
-	template<class... Args>
-	concept has_not_filters = !has_component_filters<Args...>;
 
 	template<typename Pools, typename Entity>
 	inline bool all_of(const Pools& pools, const Entity& entt) noexcept
@@ -69,6 +44,9 @@ namespace filters
 	template<class... WithArgs, class... WithoutArgs>
 	class ComponentView<With<WithArgs...>, Without<WithoutArgs...>>
 	{
+		template<class T>
+		static constexpr bool has_component = (... || std::is_same_v<T, WithArgs>);
+
 	public:
 
 		using with_tuple = std::tuple< ComponentPool<WithArgs>*...>;
@@ -147,48 +125,35 @@ namespace filters
 			entity_iterator_type _end;
 		};
 
+		template<class T> T& get(const Entity entt) noexcept { return get<T>(entt.getID()); }
+		template<class T> const T& get(const Entity entt) const noexcept { return get<T>(entt.getID());}
 
 		template<class T>
-		T& get(const Entity& entt) noexcept
+		T& get(const EntityID& entt) noexcept
 		{
-			return get<T>(entt.getID());
-		}
-
-		template<class T>
-		auto& get(const EntityID& entt) noexcept
-		{
-			static_assert (isWith<T>);
+			static_assert (has_component<T>,"Attempt to get component data, that dont belong to view.");
 			return std::get< ComponentPool<T>*>(_includes)->operator[](entt);
 		}
 
-
-		bool contains(const EntityID& entt) const noexcept
+		template<class T>
+		const T& get(const EntityID entt) const noexcept
 		{
-			return all_of(_includes, entt) && none_of(_excludes, entt);
+			static_assert (has_component<T>, "Attempt to get component data, that dont belong to view.");
+			return std::get< ComponentPool<T>*>(_includes)->operator[](entt);
 		}
+
+		bool contains(const EntityID& entt) const noexcept { return all_of(_includes, entt) && none_of(_excludes, entt); }
 
 		template<class T>
 		bool has(const EntityID& entt) noexcept
 		{
-			static_assert (isWith<T>);
+			static_assert (has_component<T>, "Attempt to get component data, that dont belong to view.");
 			return std::get< ComponentPool<T>*>(_includes)->contains(entt);
 		}
 
-		template<class T>
-		static constexpr bool isWith = (... || std::is_same_v<T, WithArgs>);
+		iterator begin() noexcept { return iterator(_includes, _excludes, _begin, _end); }
 
-		iterator begin() noexcept
-		{
-			return iterator(_includes, _excludes, _begin, _end);
-		}
-
-		auto end() noexcept
-		{
-			return iterator(_includes, _excludes, _end, _end);
-		}
-
-
-
+		auto end() noexcept { return iterator(_includes, _excludes, _end, _end); }
 
 	private:
 		void initialize_iterators() 

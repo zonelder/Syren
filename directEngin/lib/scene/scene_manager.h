@@ -10,70 +10,124 @@
 #include "core/input.h"
 
 
+/**
+ * @class SceneManager
+ * @brief Central management class for scene entities, components, and systems
+ * 
+ * Handles entity creation/destruction, component management, and provides views
+ * for iterating through component combinations.
+ */
 class SceneManager
 {
 public:
 
+    /**
+     * @brief Get the main camera reference
+     * @return Reference to the scene's main camera
+     */
 	Camera& getCamera() noexcept;
 
+    /**
+     * @brief Create a new entity
+     * @return Reference to the newly created entity
+     */
 	const Entity& createEntity() noexcept;
 
+    /**
+     * @brief Destroy an entity by reference
+     * @param entt Entity to destroy
+     * @return true if destruction succeeded, false otherwise
+     */
 	bool destroyEntity(const Entity& entt) noexcept;
 
+    /**
+     * @brief Destroy an entity by ID
+     * @param id ID of entity to destroy
+     * @return true if destruction succeeded, false otherwise
+     */
 	bool destroyEntity(EntityID id) noexcept;
 
 	
-	/// @brief create simple view with include types only
-	/// @tparam ...Args List of types we want to include in filter
-	/// @return ComponentView
-	template<class... Args> requires filters::has_not_filters<Args...>
+    /**
+     * @brief Create a component view with specified included components
+     * @tparam Args List of component types to include in the view
+     * @return ComponentView configured with specified filters
+     */
+	template<class... Args> requires (sizeof...(Args) > 0) && filters::is_filter_free<Args...>
 	auto& view() noexcept
 	{
 		using with = filters::With<Args...>;
 		using without = filters::Without<>;
-
-		constexpr auto b = filters::is_component_filters<with, without>;
 		return view<with, without>();
 	}
 
-	/// @brief create view by type of other view.
-	/// @tparam TWith
-	/// @tparam TWithout
-	/// @return ComponentView
-	template<class TWith, class TWithout = filters::Without<>> requires filters::is_component_filters< TWith, TWithout>
+    /**
+     * @brief Create a component view with inclusion/exclusion filters
+     * @tparam WithArgs Component types to include in the view
+     * @tparam WithoutArgs Component types to exclude from the view
+     * @return ComponentView configured with specified filters
+     * 
+     * @note The view is cached per filter combination type for efficiency
+     */
+	template<typename With, typename Without = filters::Without<>>
+		requires filters::is_with_filter_v<With> && filters::is_without_filter_v<Without>
 	auto& view() noexcept
 	{
 		// TODO each filter can be crate once if component manageer wont relocate em view on each filter once and then reuse it
-		static filters::ComponentView<TWith, TWithout> m(_ComponentManager);
+		static filters::ComponentView<With,Without> m(_ComponentManager);
 		return m;
 	}
 	
-	/// @brief return view of all entities
-	/// @return 
+    /**
+     * @brief Get a view of all entities in the scene
+     * @return EntityView providing access to all entities
+     */
 	auto view() noexcept
 	{
 		return _entityManager.entityView();
 	}
 
+    /**
+     * @brief Get component pool (deprecated)
+     * @tparam T Type of component to get pool for
+     * @return Reference to component pool
+     * @deprecated Use view<T>() instead
+     */
+    template<typename T>
+    //[[deprecated("Use view<T>() instead")]] 
+    ComponentPool<T>& getPool()
+    {
+        return *(_ComponentManager.getPool<T>());
+    }
+
+    /**
+     * @brief Get component pool (deprecated)
+     * @tparam T Type of component to get pool for
+     * @return Reference to component pool
+     * @deprecated Use view<T>() instead
+     */
 	template<typename T>
-	ComponentPool<T>& getPool()
-	{
-		return *(_ComponentManager.getPool<T>());
-	}
-	template<typename T>
+	//[[deprecated("Use view<T>() instead")]]
 	const ComponentPool<T>& getPool() const
 	{
 		return *(_ComponentManager.getPool<T>());
 	}
 
-	// ���������� ������ getComponent
+	/// @brief return existent component of entity. if component dont exist, create it.
+	/// @tparam T - component type
+	/// @param entt - enttity that contain component
+	/// @return existed or created component of type T
 	template<typename T>
 	T& getComponent(const Entity& entt)
 	{
 		auto entt_id = entt.getID();
 		return _ComponentManager.getComponent<T>(entt_id);
 	}
-	// ���������� ������ getComponent
+
+	/// @brief return existent component of entity. if component dont exist, create it.
+	/// @tparam T - component type
+	/// @param entt - enttity that contain component
+	/// @return existed or created component of type T
 	template<typename T>
 	T& getComponent(EntityID entt)
 	{

@@ -25,6 +25,9 @@
 
 #include <chrono> 
 
+#include "common/ñontainers/sparse_page.h"
+#include <random>
+
 void App::onInit()
 {
 	srand((unsigned int)time(0));
@@ -65,5 +68,21 @@ void App::onInit()
 		auto& r = _scene.getComponent<Render>(id);
 		r.pMaterial->pTexture = context::getTexture("resource/example/fbx_load/textures/Material_BaseColor.png");
 		r.pMaterial->color = { 1.0f,1.0f,1.0f,1.0f };
+	}
+
+	SparsePage<int, uint32_t> sp;
+	const uint32_t num_operations = 1000;
+	std::mt19937 rng;
+	std::uniform_int_distribution<uint32_t> dist(0, 100'000);
+
+	for (uint32_t i = 0; i < num_operations; ++i) {
+		auto id = dist(rng);
+		if (sp.contains(id)) {
+			sp.remove(id);
+		}
+		else
+		{
+			sp.add(id) = id;
+		}
 	}
 }

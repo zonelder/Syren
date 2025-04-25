@@ -6,12 +6,6 @@
 #include <iterator>
 
 
-namespace detail
-{
-	template<class Data>
-	class sparsepage_base_iterator;
-
-}
 
 
 template<typename Data,typename Entity>
@@ -21,8 +15,6 @@ class SparsePage
 public:
 	using iterator = detail::iterator_base<This, Data>;
 	using const_iterator = detail::iterator_base<This, const Data>;
-	//friend detail::sparsepage_base_iterator<Data>;
-	//friend detail::sparsepage_base_iterator<const Data>;
 	friend iterator;
 	friend const_iterator;
 	static_assert(std::is_unsigned_v<Entity>, "Entity must be unsigned integer");
@@ -84,6 +76,10 @@ public:
 
 
 public:
+
+	using page_container = std::vector<std::unique_ptr<Page>>;
+	using page_iterator = page_container::iterator;
+	using const_page_iterator = page_container::const_iterator;
 	static constexpr size_t PAGE_SIZE = Page::PAGE_SIZE;
 	SparsePage()
 	{
@@ -142,22 +138,22 @@ public:
 
 	iterator begin() noexcept
 	{
-		return iterator(_pages.data(), _pages.data() + _pages.size());
+		return iterator(_pages.begin(), _pages.end());
 	}
 
 	const_iterator begin() const noexcept
 	{
-		return const_iterator(_pages.data(), _pages.data() + _pages.size());
+		return const_iterator(_pages.begin(), _pages.end());
 	}
 
 	iterator end() noexcept
 	{
-		return iterator(_pages.data() + _pages.size(), _pages.data() + _pages.size());
+		return iterator(_pages.end(),_pages.end());
 	}
 
 	const_iterator end() const noexcept
 	{
-		return const_iterator(_pages.data() + _pages.size(), _pages.data() + _pages.size());
+		return const_iterator(_pages.end(),_pages.end());
 	}
 
 private:
@@ -195,7 +191,7 @@ private:
 		return _pages[page_idx].get();
 	}
 	//TODO make deque with bitmask ant test its perfomance.
-	std::vector<std::unique_ptr<Page>> _pages;
+	page_container _pages;
 };
 
 
@@ -207,13 +203,14 @@ namespace detail
 	{
 		using Cont = SparsePage<HandleData, Entity>;
 		using Page = Cont::Page;
+		using page_iterator = std::conditional_t<std::is_const_v<Data>,typename Cont::const_page_iterator,typename Cont::page_iterator>;
 	public:
 		using iterator_category = std::forward_iterator_tag;
 		using value_type = Data;
 		using difference_type = std::ptrdiff_t;
 		using pointer = Data*;
 		using reference = Data&;
-		iterator_base(Page** begin, Page** end) noexcept :
+		iterator_base(page_iterator begin, page_iterator end) noexcept :
 			_current(find_first_non_empty(begin, end)),
 			_end(end),
 			_comp_idx(0u)
@@ -252,14 +249,14 @@ namespace detail
 
 	private:
 
-		static Page** find_first_non_empty(Page** start, Page** end)
+		static page_iterator find_first_non_empty(page_iterator start, page_iterator end)
 		{
-			while (start < end && &start == nullptr || (*start)->_count == 0) { ++start; };
+			while (start != end && (!*start || (*start)->_count == 0)) { ++start; };
 			return start;
 		}
 
-		Page** _current;
-		Page** _end;
+		page_iterator _current;
+		page_iterator _end;
 		size_t _comp_idx;
 	};
 }

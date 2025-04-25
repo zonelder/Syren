@@ -25,7 +25,7 @@ namespace detail
 		iterator_base& operator++() noexcept { ++_ptr; return *this; }
 		iterator_base operator++(int) noexcept { auto copy = *this; ++(*this); return copy; }
 		reference operator*() const noexcept { return *_ptr; }
-		pointer operator->() const noexcept { return *_ptr; }
+		pointer operator->() const noexcept { return _ptr; }
 
 		iterator_base operator+(difference_type n) const noexcept { return iterator_base(_ptr + n); }
 		difference_type operator-(iterator_base other) const noexcept { return _ptr - other._ptr; }
@@ -71,7 +71,7 @@ public:
 	using iterator = detail::iterator_base<This,Entity>;
 	using const_iterator = detail::iterator_base<This,const Entity>;
 
-	SparseSet(size_t initial_capacity =  1024) : 
+	SparseSet(size_t initial_capacity =  4096) : 
 		_sparse(nullptr),
 		_dense(nullptr),
 		_capacity(0u),
@@ -85,6 +85,39 @@ public:
 		detail::aligned_free(_sparse);
 		detail::aligned_free(_dense);
 	}
+
+	//disable copy as its not needed yet.
+	SparseSet(const SparseSet&) = delete;
+	SparseSet& operator=(const SparseSet&) = delete;
+
+	SparseSet(SparseSet&& other) noexcept
+		: _sparse(other._sparse),
+		_dense(other._dense),
+		_capacity(other._capacity),
+		_size(other._size)
+	{
+		other._sparse = nullptr;
+		other._dense = nullptr;
+		other._capacity = 0;
+		other._size = 0;
+	}
+	SparseSet& operator=(SparseSet&& other) noexcept {
+		if (this != &other) 
+		{
+			detail::aligned_free(_sparse);
+			detail::aligned_free(_dense);
+			_sparse = other._sparse;
+			_dense = other._dense;
+			_capacity = other._capacity;
+			_size = other._size;
+			other._sparse = nullptr;
+			other._dense = nullptr;
+			other._capacity = 0;
+			other._size = 0;
+		}
+		return *this;
+	}
+
 
 
 	void resize(size_t new_capacity)
@@ -119,7 +152,7 @@ public:
 	void add(Entity e)
 	{
 		if (contains(e)) return;
-
+		if(e > _capacity) resize(detail::optimal_capacity<Entity>(e + 1));
 		if (_size >= _capacity) resize(detail::optimal_capacity< Entity >(_capacity * 2u));
 
 		_sparse[e] = static_cast<Entity>(_size);

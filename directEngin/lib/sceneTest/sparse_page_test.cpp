@@ -317,5 +317,111 @@ TEST(SparsePageTest, StressTest)
     }
 }
 
+using Entity = uint32_t;
+using Data = int;
+
+TEST(SparsePageIteratorTest, IteratorTraversal) 
+{
+    SparsePage<Data, Entity> page;
+    page.add(1) = 10;
+    page.add(4097) = 20;
+    page.add(8193) = 30;
+
+    std::vector<int> expected = { 10, 20, 30 };
+    std::vector<int> result;
+
+    for (auto it = page.begin(); it != page.end(); ++it) {
+        result.push_back(*it);
+    }
+
+    EXPECT_EQ(result, expected);
+}
+
+TEST(SparsePageIteratorTest, ConstIteratorTraversal) 
+{
+    SparsePage<Data, Entity> page;
+    page.add(1) = 10;
+    page.add(4097) = 20;
+    page.add(8193) = 30;
+
+    const auto& const_page = page;
+    std::vector<int> expected = { 10, 20, 30 };
+    std::vector<int> result;
+
+    for (auto it = const_page.begin(); it != const_page.end(); ++it) {
+        result.push_back(*it);
+    }
+
+    EXPECT_EQ(result, expected);
+}
+
+TEST(SparsePageIteratorTest, IndexIteratorTraversal) 
+{
+    SparsePage<Data, Entity> page;
+    page.add(1) = 10;
+    page.add(4097) = 20;
+    page.add(8193) = 30;
+
+    std::vector<Entity> expected = { 1, 4097, 8193 }; // Локальные идентификаторы
+    std::vector<Entity> result;
+
+    for (auto it = page.index_begin(); it != page.index_end(); ++it) {
+        result.push_back(*it);
+    }
+    EXPECT_EQ(result, expected);
+}
+
+TEST(SparsePageIteratorTest, ConstIndexIteratorTraversal) 
+{
+    SparsePage<Data, Entity> page;
+    page.add(1) = 10;
+    page.add(4097) = 20;
+    page.add(8193) = 30;
+
+    const auto& const_page = page;
+    std::vector<Entity> expected = { 1, 4097, 8193 }; // Локальные идентификаторы
+    std::vector<Entity> result;
+
+    for (auto it = const_page.index_begin(); it != const_page.index_end(); ++it) {
+        result.push_back(*it);
+    }
+
+    EXPECT_EQ(result, expected);
+}
+
+TEST(SparsePageIteratorTest, PairIteratorTraversal) 
+{
+    SparsePage<Data, Entity> page;
+    page.add(1) = 10;
+    page.add(4097) = 20;
+    page.add(8193) = 30;
+
+    std::vector<std::pair<Entity, int>> expected = { {1, 10}, {4097, 20}, {8193, 30} };
+    std::vector<std::pair<Entity, int>> result;
+
+    for (auto it = page.pair_begin(); it != page.pair_end(); ++it) {
+        result.push_back(*it);
+    }
+
+    EXPECT_EQ(result, expected);
+}
+
+TEST(SparsePageIteratorTest, ConstPairIteratorTraversal) 
+{
+    SparsePage<Data, Entity> page;
+    page.add(1) = 10;
+    page.add(4097) = 20;
+    page.add(8193) = 30;
+
+    const auto& const_page = page;
+    std::vector<std::pair<Entity, int>> expected = { {1, 10}, {4097, 20}, {8193, 30} };
+    std::vector<std::pair<Entity, int>> result;
+
+    for (auto it = const_page.pair_begin(); it != const_page.pair_end(); ++it) {
+        result.push_back(*it);
+    }
+
+    EXPECT_EQ(result, expected);
+}
 
 }

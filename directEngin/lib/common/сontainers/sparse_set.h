@@ -8,8 +8,20 @@ namespace detail
 {
 
 	template<class Cont,typename T>
+	class index_iterator;
+
+	template<class Cont,typename T>
+	class data_iterator;
+
+	template<class Cont,typename T>
+	class pair_iterator;
+
+	template<class Cont,typename T>
 	class iterator_base
 	{
+	/*
+	default iterator implementation.
+	if any container want to use some other default iterator it should create its own Type definition as iterator_base<std::vector<int>> */
 	public:
 		using iterator_category = std::contiguous_iterator_tag;
 		using value_type = T;
@@ -185,6 +197,7 @@ public:
 	size_t size() const noexcept { return _size; }
 	size_t capacity()  const noexcept { return _capacity; }
 	Entity index_of(Entity e) const noexcept { return e < _capacity ? _sparse[e] : tombstone; }
+	Entity entity_at(Entity index) const noexcept { return index < _size ? _dense[index] : tombstone; }
 private:
 
 	Entity* _sparse;

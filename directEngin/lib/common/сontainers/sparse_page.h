@@ -5,9 +5,6 @@
 #include <memory>
 #include <iterator>
 
-
-
-
 template<typename Data,typename Entity>
 class SparsePage
 {
@@ -15,17 +12,26 @@ class SparsePage
 public:
 	using iterator = detail::iterator_base<This, Data>;
 	using const_iterator = detail::iterator_base<This, const Data>;
-	friend iterator;
-	friend const_iterator;
+	using index_iterator = detail::index_iterator<This,Entity>;
+	using const_index_iterator = detail::index_iterator<This,const Entity>;
+	using pair_iterator = detail::pair_iterator<This, Data>;
+	using const_pair_iterator = detail::pair_iterator<This, const Data>;
 	static_assert(std::is_unsigned_v<Entity>, "Entity must be unsigned integer");
 	class alignas(64) Page
 	{
 		friend iterator;
 		friend const_iterator;
+		friend index_iterator;
+		friend const_index_iterator;
+		friend pair_iterator;
+		friend const_pair_iterator;
+
 	public:
+		using entity_iterator = SparseSet<Entity>::iterator;
 		static constexpr size_t PAGE_SIZE = 4096;
 
-		Page()
+		Page(size_t page_index)
+			: _page_idx(page_index)
 		{
 			_data = static_cast<Data*>(::operator new(sizeof(Data) * PAGE_SIZE));
 		}
@@ -68,9 +74,16 @@ public:
 			return true;
 		}
 
+		Entity get_entt(size_t index) const noexcept
+		{
+			return _set.entity_at(index) + static_cast<Entity>(_page_idx * PAGE_SIZE);
+		}
+
 	private:
+
 		SparseSet<Entity> _set;
 		Data* _data{ nullptr };
+		size_t _page_idx;
 		size_t _count{ 0u };
 	};
 
@@ -85,13 +98,6 @@ public:
 	{
 		_pages.reserve(16);
 	}
-	/*TODO rebuild to exeption free imp
-	Data& operator[](Entity id)
-	{
-		auto [page_idx, local_id] = decompose(id);
-		return get_page(page_idx)->get(local_id);
-	}
-	*/
 	Data& add(Entity id) noexcept
 	{
 		auto [page_idx, local_id] = decompose(id);
@@ -136,24 +142,34 @@ public:
 		return page->get(id);
 	}
 
-	iterator begin() noexcept
-	{
-		return iterator(_pages.begin(), _pages.end());
-	}
+	iterator				begin() noexcept { return iterator(_pages.begin(), _pages.end()); }
+	iterator				end() noexcept { return iterator(_pages.end(),_pages.end()); }
 
-	const_iterator begin() const noexcept
-	{
-		return const_iterator(_pages.begin(), _pages.end());
-	}
+	const_iterator			begin() const noexcept { return const_iterator(_pages.begin(), _pages.end()); }
+	const_iterator			end() const noexcept { return const_iterator(_pages.end(),_pages.end()); }
 
-	iterator end() noexcept
-	{
-		return iterator(_pages.end(),_pages.end());
-	}
+	index_iterator			index_begin() noexcept { return index_iterator(_pages.begin(), _pages.end()); }
+	index_iterator			index_end() noexcept { return index_iterator(_pages.end(), _pages.end()); }
 
-	const_iterator end() const noexcept
+	const_index_iterator	index_begin() const noexcept { return const_index_iterator(_pages.begin(), _pages.end()); }
+	const_index_iterator	index_end() const noexcept { return const_index_iterator(_pages.end(), _pages.end()); }
+
+	pair_iterator			pair_begin()	noexcept { return pair_iterator(_pages.begin(), _pages.end()); }
+	pair_iterator			pair_end()		noexcept { return pair_iterator(_pages.end(), _pages.end()); }
+
+	const_pair_iterator		pair_begin() const noexcept { return const_pair_iterator(_pages.begin(), _pages.end()); }
+	const_pair_iterator		pair_end()   const noexcept { return const_pair_iterator(_pages.end(), _pages.end()); }
+
+private:
+
+	void shrink_to_fit() noexcept
 	{
-		return const_iterator(_pages.end(),_pages.end());
+		while (!_pages.empty())
+		{
+			auto& p = _pages.back();
+			if (!p || p->_count == 0) _pages.pop_back();
+		}
+		//_pages.shrink_to_fit();
 	}
 
 private:
@@ -186,18 +202,18 @@ private:
 			_pages.resize(page_idx + 1);
 
 		if(!_pages[page_idx])
-			_pages[page_idx] = std::make_unique<Page>();
+			_pages[page_idx] = std::make_unique<Page>(page_idx);
 
 		return _pages[page_idx].get();
 	}
 	//TODO make deque with bitmask ant test its perfomance.
 	page_container _pages;
+	std::vector<size_t> _page_table;
 };
-
-
 
 namespace detail
 {
+
 	template<class HandleData,class Entity,class Data>
 	class iterator_base<SparsePage<HandleData,Entity>,Data>
 	{
@@ -257,6 +273,121 @@ namespace detail
 
 		page_iterator _current;
 		page_iterator _end;
+		size_t _comp_idx;
+	};
+
+	template<class HandleData, class Entity,class IndexType>
+	class index_iterator<SparsePage<HandleData, Entity>, IndexType>
+	{
+	public:
+		using Cont = SparsePage<HandleData, Entity>;
+		using Page = typename Cont::Page;
+		using page_iterator = typename Cont::page_iterator;
+		using const_page_iterator = typename Cont::const_page_iterator;
+		using current_page_iterator = std::conditional_t<std::is_const_v<IndexType>, const_page_iterator, page_iterator>;
+
+		using iterator_category = std::forward_iterator_tag;
+		using value_type = IndexType;
+		using difference_type = std::ptrdiff_t;
+		using pointer = IndexType*;
+		using reference = IndexType;
+
+		index_iterator(current_page_iterator begin, current_page_iterator end) noexcept
+			: _current(find_first_non_empty(begin, end)), _end(end), _comp_idx(0) {
+		}
+
+		reference operator*() const noexcept 
+		{
+			return (*_current)->get_entt(_comp_idx);
+		}
+
+		index_iterator& operator++() noexcept 
+		{
+			if (++_comp_idx < (*_current)->_count) return *this;
+			_current = find_first_non_empty(++_current, _end);
+			_comp_idx = 0;
+			return *this;
+		}
+
+		index_iterator operator++(int) noexcept 
+		{
+			auto tmp = *this;
+			++(*this);
+			return tmp;
+		}
+
+		bool operator==(const index_iterator& other) const noexcept 
+		{
+			return _current == other._current && _comp_idx == other._comp_idx;
+		}
+
+	private:
+		static current_page_iterator find_first_non_empty(current_page_iterator start, current_page_iterator end) noexcept 
+		{
+			while (start != end && (!*start || (*start)->_count == 0)) ++start;
+			return start;
+		}
+
+		current_page_iterator _current;
+		current_page_iterator _end;
+		size_t _comp_idx;
+	};
+
+	template<class HandleData, class Entity, class Data>
+	class pair_iterator< SparsePage<HandleData, Entity>, Data>
+	{
+	public:
+		using Cont = SparsePage<HandleData, Entity>;
+		using Page = typename Cont::Page;
+		using page_iterator = typename Cont::page_iterator;
+		using const_page_iterator = typename Cont::const_page_iterator;
+		using current_page_iterator = std::conditional_t<std::is_const_v<Data>, const_page_iterator, page_iterator>;
+
+		using iterator_category = std::forward_iterator_tag;
+		using value_type = std::pair<Entity, Data&>;
+		using difference_type = std::ptrdiff_t;
+		using pointer = value_type*;
+		using reference = value_type;
+
+		pair_iterator(current_page_iterator begin, current_page_iterator end) noexcept
+			: _current(find_first_non_empty(begin, end)), _end(end), _comp_idx(0) {
+		}
+
+		reference operator*() const noexcept 
+		{
+			auto& page = **_current;
+			return { page.get_entt(_comp_idx), page._data[_comp_idx]};
+		}
+
+		pair_iterator& operator++() noexcept 
+		{
+			if (++_comp_idx < (*_current)->_count) return *this;
+			_current = find_first_non_empty(++_current, _end);
+			_comp_idx = 0;
+			return *this;
+		}
+
+		pair_iterator operator++(int) noexcept 
+		{
+			auto tmp = *this;
+			++(*this);
+			return tmp;
+		}
+
+		bool operator==(const pair_iterator& other) const noexcept 
+		{
+			return _current == other._current && _comp_idx == other._comp_idx;
+		}
+
+	private:
+		static current_page_iterator find_first_non_empty(current_page_iterator start, current_page_iterator end) noexcept 
+		{
+			while (start != end && (!*start || (*start)->_count == 0)) ++start;
+			return start;
+		}
+
+		current_page_iterator _current;
+		current_page_iterator _end;
 		size_t _comp_idx;
 	};
 }

@@ -1,0 +1,60 @@
+\doxysection{system\+\_\+manager.\+h}
+\hypertarget{system__manager_8h_source}{}\label{system__manager_8h_source}\index{directEngin/lib/scene/system\_manager.h@{directEngin/lib/scene/system\_manager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}base\_system.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00010\ \textcolor{keyword}{concept\ }\mbox{\hyperlink{concept_derive_from}{DeriveFrom}}\ =\ std::is\_base\_of<U,\ T>::value;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }SystemManager}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ SystemManager()\ :\_maxPriority(0)\{}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\textcolor{keyword}{class}...\ Args>}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_system_manager_a0883a2574475bca90ecf53891f0023bc}{add}}(Args\&\&...\ args)\ \textcolor{keyword}{requires}\ \mbox{\hyperlink{concept_derive_from}{DeriveFrom<T,\ BaseSystem>}}}
+\DoxyCodeLine{00022\ \ \ \ \ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_system_manager_a0883a2574475bca90ecf53891f0023bc}{add<T>}}(\_maxPriority\ +\ 1,std::forward<Args>(args)...);}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{class}...\ Args>}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_system_manager_aa8cb005f483b52af7c91524425ca7629}{add}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ priority,Args\&\&...\ args)\ \textcolor{keyword}{requires}\ \mbox{\hyperlink{concept_derive_from}{DeriveFrom<T,\ BaseSystem>}}}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_systems.find(priority)\ !=\ \_systems.end())}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//TODO\ add\ warn:\ attempt\ to\ add\ system\ with\ priority\ that\ already\ exist.\ you\ should\ set\ unique\ priority\ to\ system}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (priority\ >\ \_maxPriority)}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \_maxPriority\ =\ priority;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \_systems.try\_emplace(priority,std::make\_unique<T>(std::forward<Args>(args)...));}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_system_manager_aa8f3e9387841053d6c28199510b450c3}{removeSystem}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ priority)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_system_manager_ad2dbeb832551a100c15231282dc6085a}{resetPriority}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ curPriority,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ priority)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ init(\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ scene);}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_system_manager_a62e6657bfaf20818fcfd188aa31df556}{update}}(\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ scene,\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_system_manager_a8b31b5ffdd2a4f4151e771b8efbe25ce}{frame}}(\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ scene);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_maxPriority;}
+\DoxyCodeLine{00067\ \ \ \ \ std::unordered\_map<unsigned\ int\ ,std::unique\_ptr<BaseSystem>>\ \ \_systems;}
+\DoxyCodeLine{00068\ \};}
+\DoxyCodeLine{00069\ }
+
+\end{DoxyCode}

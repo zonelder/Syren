@@ -1,0 +1,76 @@
+\doxysection{resource\+\_\+manager.\+h}
+\hypertarget{resource__manager_8h_source}{}\label{resource__manager_8h_source}\index{directEngin/lib/resmgr/resource\_manager.h@{directEngin/lib/resmgr/resource\_manager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_RESOURCE\_MANAGER\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_RESOURCE\_MANAGER\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}material.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}fbx\_prefab.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_mesh}{Mesh}};}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_vertex_shader}{VertexShader}};}
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_pixel_shader}{PixelShader}};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{using\ }MeshPtr\ \ \ \ \ \ \ \ \ \ \ \ =\ std::shared\_ptr<Mesh>;}
+\DoxyCodeLine{00016\ \textcolor{keyword}{using\ }VertexShaderPtr\ \ \ \ =\ std::shared\_ptr<VertexShader>;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ }PixelShaderPtr\ \ \ \ \ =\ std::shared\_ptr<PixelShader>;}
+\DoxyCodeLine{00018\ \textcolor{keyword}{using\ }TexturePtr\ \ \ \ \ \ \ \ \ =\ std::shared\_ptr<Texture>;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{using\ }FbxPrefabPtr\ \ \ \ \ \ \ =\ std::shared\_ptr<FbxPrefab>;}
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_resource_manager_a8c781bb67d604f485e5ca4d806984f76}{ResourceManager}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_resource_manager_a8c781bb67d604f485e5ca4d806984f76}{ResourceManager}}(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//@seems\ to\ need\ getResource<T>()}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{using\ }ResourceContainer\_t\ =\ std::unordered\_map<std::string,std::shared\_ptr<T>>;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{using\ }UnhandleResources\_t\ =\ std::vector<T>;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//getters}}
+\DoxyCodeLine{00035\ \ \ \ \ MeshPtr\ \mbox{\hyperlink{class_resource_manager_a31bfc945163d3931e4dc7226fecd7f22}{getMesh}}(\textcolor{keyword}{const}\ std::string\&\ resourceID);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ MeshPtr\ getProceduralMesh(\textcolor{keyword}{const}\ std::string\&\ resourceID);}
+\DoxyCodeLine{00038\ \ \ \ \ VertexShaderPtr\ getVertexShader(\textcolor{keyword}{const}\ std::string\&\ resourceID);}
+\DoxyCodeLine{00039\ \ \ \ \ PixelShaderPtr\ getPixelShader(\textcolor{keyword}{const}\ std::string\&\ resorceID);}
+\DoxyCodeLine{00040\ \ \ \ \ MaterialPtr\ getMaterial(\textcolor{keyword}{const}\ std::string\&\ resourceID);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ TexturePtr\ getTexture(\textcolor{keyword}{const}\ std::string\&\ resourceID);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ TexturePtr\ \mbox{\hyperlink{class_resource_manager_a76debe903799078fea4a28bc8cc375a2}{getDefaultTexture}}();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ FbxPrefabPtr\ getFbxPrefab(\textcolor{keyword}{const}\ std::string\&\ resourceID);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//build\ resource\ on\ run}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ saveMesh(\textcolor{keyword}{const}\ MeshPtr\ pMesh,\textcolor{keyword}{const}\ std::string\&\ resourceID);}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{bool}\ saveMaterial(\textcolor{keyword}{const}\ MaterialPtr\ pMaterial,\ \textcolor{keyword}{const}\ std::string\&\ resourceID);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{bool}\ loadSyrenMeshInternal(MeshPtr\ mesh,\textcolor{keyword}{const}\ std::string\&\ file);}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{bool}\ loadMaterialInternal(MaterialPtr\ pMat,\ \textcolor{keyword}{const}\ std::string\&\ file);}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{bool}\ saveMeshInternal(\textcolor{keyword}{const}\ MeshPtr\ mesh,\ \textcolor{keyword}{const}\ std::string\&\ file);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_graphics}{Graphics}}\&\ \_gfx;\textcolor{comment}{//to\ init\ buffers;}}
+\DoxyCodeLine{00060\ \ \ \ \ ResourceContainer\_t<Mesh>\ \ \ \ \ \ \ \ \ \ \ meshes\_;}
+\DoxyCodeLine{00061\ \ \ \ \ ResourceContainer\_t<Mesh>\ \ \ \ \ \ \ \ \ \ \ proceduralMesh\_;}
+\DoxyCodeLine{00062\ \ \ \ \ ResourceContainer\_t<VertexShader>\ \ \ vertexShaders\_;}
+\DoxyCodeLine{00063\ \ \ \ \ ResourceContainer\_t<PixelShader>\ \ \ \ pixelShaders\_;}
+\DoxyCodeLine{00064\ \ \ \ \ ResourceContainer\_t<Material>\ \ \ \ \ \ \ materials\_;}
+\DoxyCodeLine{00065\ \ \ \ \ ResourceContainer\_t<Texture>\ \ \ \ \ \ \ \ textures\_;}
+\DoxyCodeLine{00066\ \ \ \ \ ResourceContainer\_t<FbxPrefab>\ \ \ \ \ \ fbxPrefabs\_;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ UnhandleResources\_t<Mesh>\ \ \ \ \ \ \ \ \ \ \ unhandledMeshes\_;}
+\DoxyCodeLine{00069\ \ \ \ \ UnhandleResources\_t<Material>\ \ \ \ \ \ \ unhandledMaterial\_;}
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

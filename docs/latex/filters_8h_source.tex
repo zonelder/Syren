@@ -1,0 +1,182 @@
+\doxysection{filters.\+h}
+\hypertarget{filters_8h_source}{}\label{filters_8h_source}\index{directEngin/lib/scene/filters.h@{directEngin/lib/scene/filters.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_FILTERS\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_FILTERS\_H\_\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}scene/component\_manager.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}scene/Entity.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }filters}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}...\ Args>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfilters_1_1_with}{With}}\{\};}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}...\ Args>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfilters_1_1_without}{Without}}\{\};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfilters_1_1is__filter}{is\_filter}}\ :\ std::false\_type\{\};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}...\ Args>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfilters_1_1is__filter}{is\_filter}}\ <\ \mbox{\hyperlink{structfilters_1_1_with}{With}}<Args...>>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}...\ Args>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfilters_1_1is__filter}{is\_filter}}\ <\ \mbox{\hyperlink{structfilters_1_1_without}{Without}}<Args...>>\ :\ std::true\_type\{\};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_filter\_v\ =\ \mbox{\hyperlink{structfilters_1_1is__filter}{is\_filter<T>::value}};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfilters_1_1is__with__filter}{is\_with\_filter}}\ :\ std::false\_type\{\};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}...\ Args>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfilters_1_1is__with__filter}{is\_with\_filter}}<\mbox{\hyperlink{structfilters_1_1_with}{With}}<Args...>>\ :\ std::true\_type\{\};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_with\_filter\_v\ =\ \mbox{\hyperlink{structfilters_1_1is__with__filter}{is\_with\_filter<T>::value}};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfilters_1_1is__without__filter}{is\_without\_filter}}\ :\ std::false\_type\ \{\};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}...\ Args>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfilters_1_1is__without__filter}{is\_without\_filter}}<\mbox{\hyperlink{structfilters_1_1_without}{Without}}<Args...>>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_without\_filter\_v\ =\ \mbox{\hyperlink{structfilters_1_1is__without__filter}{is\_without\_filter<T>::value}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}...Args>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_contain\_filters\ =\ (is\_filter\_v<Args>\ ||\ ...);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}...Args>\ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ is\_filter\_free\ =\ !is\_contain\_filters<Args...>;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Pools,\ \textcolor{keyword}{typename}\ Entity>}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ all\_of(\textcolor{keyword}{const}\ Pools\&\ pools,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_entity}{Entity}}\&\ entt)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::apply([entt](\textcolor{keyword}{auto}*...\ pool)\ \{\ \textcolor{keywordflow}{return}\ (pool-\/>contains(entt)\ \&\&\ ...);\ \},\ pools);}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Pools,\ \textcolor{keyword}{typename}\ Entity>}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ none\_of(\textcolor{keyword}{const}\ Pools\&\ pools,\ \textcolor{keyword}{const}\ Entity\&\ entt)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::apply([entt](\textcolor{keyword}{auto}*...\ pool)\ \{\ \textcolor{keywordflow}{return}\ !(pool-\/>contains(entt)\ ||\ ...);\ \},\ pools);}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Wt,\ \textcolor{keyword}{class}\ Wtout>}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfilters_1_1_component_view}{ComponentView}};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}...\ WithArgs,\ \textcolor{keyword}{class}...\ WithoutArgs>}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{class\ }ComponentView<\mbox{\hyperlink{structfilters_1_1_with}{With}}<WithArgs...>,\ \mbox{\hyperlink{structfilters_1_1_without}{Without}}<WithoutArgs...>>}
+\DoxyCodeLine{00051\ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ has\_component\ =\ (...\ ||\ std::is\_same\_v<T,\ WithArgs>);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }with\_tuple\ =\ std::tuple<\ ComponentPool<WithArgs>*...>;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }without\_tuple\ =\ std::tuple<ComponentPool<\ WithoutArgs>*...>;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }entity\_iterator\ =\ SparseSet<EntityID>::iterator;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ ComponentView(\mbox{\hyperlink{class_component_manager}{ComponentManager}}\&\ scene)\ :}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \_includes(\{\ scene.getPool<WithArgs>()...\ \}),}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \_excludes(\{\ scene.getPool<WithoutArgs>()...\ \})}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ initialize\_iterators();}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }iterator}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }entity\_iterator\_type\ =\ entity\_iterator;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ iterator(with\_tuple\&\ include,\ without\_tuple\&\ exclude,\ entity\_iterator\_type\ it,\ entity\_iterator\_type\ end)\ :}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_include(include),}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_exclude(exclude),}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_current(it),}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_end(end)}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ validate\_current();}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ current()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_current;\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ iterator\ operator++(\textcolor{keywordtype}{int})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ copy\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++(*this);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ copy;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ iterator\&\ operator++()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++\_current;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ validate\_current();}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ iterator\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_current\ ==\ other.\_current;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ operator*()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ get\_components(*\_current);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_valid()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ all\_of(\_include,\ *\_current)\ \&\&\ none\_of(\_exclude,\ *\_current);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ validate\_current()}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\_current\ !=\ \_end\ \&\&\ !is\_valid())\ \{\ ++\_current;\ \};}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ get\_components(EntityID\ entt)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::tuple<EntityID,\ WithArgs\&...>(}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ entt,}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (std::get<ComponentPool<WithArgs>*>(\_include)-\/>operator[](entt))...}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ with\_tuple\&\ \_include;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ without\_tuple\&\ \_exclude;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ entity\_iterator\_type\ \_current;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ entity\_iterator\_type\ \_end;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ T\&\ \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a3272d9c33ef60ccc0385c756dc6d7d95}{get}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_entity}{Entity}}\ entt)\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a3272d9c33ef60ccc0385c756dc6d7d95}{get<T>}}(entt.getID());\ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{const}\ T\&\ \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_aa9827366e43fc454b9a5665164ae1139}{get}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_entity}{Entity}}\ entt)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a3272d9c33ef60ccc0385c756dc6d7d95}{get<T>}}(entt.getID());\}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ T\&\ \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a717555c851e5b83a848593080a0c74c5}{get}}(\textcolor{keyword}{const}\ EntityID\&\ entt)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}\ (has\_component<T>,\textcolor{stringliteral}{"{}Attempt\ to\ get\ component\ data,\ that\ dont\ belong\ to\ view."{}});}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::get<\ ComponentPool<T>*>(\_includes)-\/>\textcolor{keyword}{operator}[](entt);}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\&\ \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a21bde956b8accc51eb6cb447c143a25d}{get}}(\textcolor{keyword}{const}\ EntityID\ entt)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}\ (has\_component<T>,\ \textcolor{stringliteral}{"{}Attempt\ to\ get\ component\ data,\ that\ dont\ belong\ to\ view."{}});}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::get<\ ComponentPool<T>*>(\_includes)-\/>\textcolor{keyword}{operator}[](entt);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a674b9bb35afaef3005586fa7b514f759}{contains}}(\textcolor{keyword}{const}\ EntityID\&\ entt)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ all\_of(\_includes,\ entt)\ \&\&\ none\_of(\_excludes,\ entt);\ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a043dac3a0d1c020cce3fdb7564bd12fb}{has}}(\textcolor{keyword}{const}\ EntityID\&\ entt)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}\ (has\_component<T>,\ \textcolor{stringliteral}{"{}Attempt\ to\ get\ component\ data,\ that\ dont\ belong\ to\ view."{}});}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::get<\ ComponentPool<T>*>(\_includes)-\/>\mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a674b9bb35afaef3005586fa7b514f759}{contains}}(entt);}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sparse_set}{iterator}}\ begin()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_sparse_set}{iterator}}(\_includes,\ \_excludes,\ \_begin,\ \_end);\ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ end()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_sparse_set}{iterator}}(\_includes,\ \_excludes,\ \_end,\ \_end);\ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ initialize\_iterators()\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ smallest\ pool\ to\ optimize\ iteration}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ smallest\ =\ std::get<0>(\_includes);}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ min\_size\ =\ std::numeric\_limits<size\_t>::max();}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ std::apply([\&](\textcolor{keyword}{auto}*...\ pools)\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((pools-\/>size()\ <\ min\_size\ ?\ (min\_size\ =\ pools-\/>size(),\ \_begin\ =\ pools-\/>index\_begin(),\_end\ =\ pools-\/>index\_end(),\ 0)\ :\ 0),\ ...);}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \},\ \_includes);}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ with\_tuple\ \_includes;}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ without\_tuple\ \_excludes;}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ entity\_iterator\ \_begin;}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ entity\_iterator\ \_end;}
+\DoxyCodeLine{00217\ \ \ \ \ \};}
+\DoxyCodeLine{00218\ \}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

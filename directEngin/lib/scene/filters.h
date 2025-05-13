@@ -41,6 +41,11 @@ namespace filters
 	template<class Wt, class Wtout>
 	class ComponentView;
 
+	/**
+	 * @brief Iterable view that represent entities with specific types.
+	 * @tparam WithArgs... - #types that reqiures to be in entity
+	 * @tparam WithoutArgs... - #types that should not be in entity;
+	 */
 	template<class... WithArgs, class... WithoutArgs>
 	class ComponentView<With<WithArgs...>, Without<WithoutArgs...>>
 	{
@@ -125,9 +130,30 @@ namespace filters
 			entity_iterator_type _end;
 		};
 
+		/**
+		 * @brief Method for get access to components that was requires with view
+		 *
+		 * @tparam T - type of component we want to get
+		 * @param entt -#id of entity we a looking for
+		 * @return component of entity
+		 */
 		template<class T> T& get(const Entity entt) noexcept { return get<T>(entt.getID()); }
+		/**
+		 * @brief Method for get access to components that was requires with view
+		 *
+		 * @tparam T - type of component we want to get
+		 * @param entt -#id of entity we a looking for
+		 * @return component of entity
+		 */
 		template<class T> const T& get(const Entity entt) const noexcept { return get<T>(entt.getID());}
 
+		/**
+		 * @brief Method for get access to components that was requires with view
+		 *
+		 * @tparam T - type of component we want to get
+		 * @param entt -#id of entity we a looking for
+		 * @return component of entity
+		 */
 		template<class T>
 		T& get(const EntityID& entt) noexcept
 		{
@@ -135,6 +161,13 @@ namespace filters
 			return std::get< ComponentPool<T>*>(_includes)->operator[](entt);
 		}
 
+		/**
+		 * @brief Method for get access to components that was requires with view
+		 *
+		 * @tparam T - type of component we want to get
+		 * @param entt -#id of entity we a looking for
+		 * @return component of entity
+		 */
 		template<class T>
 		const T& get(const EntityID entt) const noexcept
 		{
@@ -142,8 +175,19 @@ namespace filters
 			return std::get< ComponentPool<T>*>(_includes)->operator[](entt);
 		}
 
+		/**
+		* @brief Check wether entity pass the requirement of ComponentView
+		* @param entt -#id of entity
+		* @return true if entity pass requirements, false otherwise
+		*/
 		bool contains(const EntityID& entt) const noexcept { return all_of(_includes, entt) && none_of(_excludes, entt); }
 
+		/**
+		* @brief Check wether entity has some component that view requires.
+		* @tparam T - # type of component.
+		* @param entt - #id of entity
+		* @return true if entity has component of type T, false otherwise
+		*/
 		template<class T>
 		bool has(const EntityID& entt) noexcept
 		{

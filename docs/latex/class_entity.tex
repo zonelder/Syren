@@ -1,0 +1,67 @@
+\doxysection{Entity Class Reference}
+\hypertarget{class_entity}{}\label{class_entity}\index{Entity@{Entity}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_entity_1_1_component_iterator}{Component\+Iterator}}
+\begin{DoxyCompactList}\small\item\em iterator through all existing components of entity \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_entity_a589343ced47b036ee3befa765f150184}\label{class_entity_a589343ced47b036ee3befa765f150184} 
+{\bfseries Entity} (Entity\+ID id)
+\item 
+\Hypertarget{class_entity_a108fc8a2106ebc2d832491089a34e218}\label{class_entity_a108fc8a2106ebc2d832491089a34e218} 
+{\bfseries Entity} (const \mbox{\hyperlink{class_entity}{Entity}} \&other)=default
+\item 
+\Hypertarget{class_entity_a32c3d1b7e4029970647fa03b804e3a6b}\label{class_entity_a32c3d1b7e4029970647fa03b804e3a6b} 
+\mbox{\hyperlink{class_entity}{Entity}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_entity}{Entity}} \&other)
+\item 
+\Hypertarget{class_entity_aa9d7429fa14532d0e0063d044ed12981}\label{class_entity_aa9d7429fa14532d0e0063d044ed12981} 
+void {\bfseries register\+Component} (Component\+ID component\+\_\+id) noexcept
+\item 
+\Hypertarget{class_entity_afc6a669769dc4ae59c84fdba65b3950f}\label{class_entity_afc6a669769dc4ae59c84fdba65b3950f} 
+void {\bfseries unregister\+Component} (Component\+ID component\+\_\+id) noexcept
+\item 
+\Hypertarget{class_entity_ac497c4eebf550e3f3edd6239f853c09c}\label{class_entity_ac497c4eebf550e3f3edd6239f853c09c} 
+constexpr bool {\bfseries has\+Component} (Component\+ID id) const noexcept
+\item 
+\Hypertarget{class_entity_a38fa02fafdd5ecfee5e5a1fa3849e37d}\label{class_entity_a38fa02fafdd5ecfee5e5a1fa3849e37d} 
+{\footnotesize template$<$size\+\_\+t N$>$ }\\constexpr bool {\bfseries has\+Components} (const std\+::array$<$ Component\+ID, N $>$ \&ids) const
+\item 
+\Hypertarget{class_entity_af7612c3bfb3e6ecde83b0cae9a0726ed}\label{class_entity_af7612c3bfb3e6ecde83b0cae9a0726ed} 
+{\footnotesize template$<$size\+\_\+t N$>$ }\\constexpr bool {\bfseries has\+Not\+Components} (const std\+::array$<$ Component\+ID, N $>$ \&ids) const
+\item 
+\mbox{\hyperlink{class_entity_1_1_component_iterator}{Component\+Iterator}} \mbox{\hyperlink{class_entity_a3c0ce761a5dc654241316c8e2a739fef}{begin}} () const
+\begin{DoxyCompactList}\small\item\em return iterator pointing on id of first existing component of entity \end{DoxyCompactList}\item 
+\Hypertarget{class_entity_a935658ba3f51b2b1a5c24d38d6bc5407}\label{class_entity_a935658ba3f51b2b1a5c24d38d6bc5407} 
+\mbox{\hyperlink{class_entity_1_1_component_iterator}{Component\+Iterator}} {\bfseries end} () const
+\item 
+\Hypertarget{class_entity_a46bcda6064a848c8074ac389df35e5d5}\label{class_entity_a46bcda6064a848c8074ac389df35e5d5} 
+const Entity\+ID {\bfseries get\+ID} () const noexcept
+\item 
+\Hypertarget{class_entity_a72d8156211e92762157543d194165073}\label{class_entity_a72d8156211e92762157543d194165073} 
+constexpr bool {\bfseries is\+Valid} () const noexcept
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_entity_a3c0ce761a5dc654241316c8e2a739fef}\index{Entity@{Entity}!begin@{begin}}
+\index{begin@{begin}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \label{class_entity_a3c0ce761a5dc654241316c8e2a739fef} 
+\mbox{\hyperlink{class_entity_1_1_component_iterator}{Entity\+::\+Component\+Iterator}} Entity\+::begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+return iterator pointing on id of first existing component of entity 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/scene/entity.\+h\item 
+direct\+Engin/lib/scene/entity.\+cpp\end{DoxyCompactItemize}

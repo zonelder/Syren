@@ -1,0 +1,68 @@
+\doxysection{Mesh Struct Reference}
+\hypertarget{struct_mesh}{}\label{struct_mesh}\index{Mesh@{Mesh}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_mesh_ad9b173448060ee800b94ff0ef31bcbec}\label{struct_mesh_ad9b173448060ee800b94ff0ef31bcbec} 
+{\footnotesize template$<$class T$>$ }\\using {\bfseries Element\+Container} = std\+::vector$<$T$>$
+\item 
+\Hypertarget{struct_mesh_a5c3c3ac968d4544a7b94fb080506edda}\label{struct_mesh_a5c3c3ac968d4544a7b94fb080506edda} 
+using {\bfseries Position\+\_\+t} = \mbox{\hyperlink{struct_vertex}{Vertex}}
+\item 
+\Hypertarget{struct_mesh_a5d34fd4672c22e1bc7e50bb2bd30d228}\label{struct_mesh_a5d34fd4672c22e1bc7e50bb2bd30d228} 
+using {\bfseries UV\+\_\+t} = Direct\+X\+::\+XMFLOAT2
+\item 
+\Hypertarget{struct_mesh_a844645029c82f176e6cfd9913cc07f91}\label{struct_mesh_a844645029c82f176e6cfd9913cc07f91} 
+using {\bfseries Normal\+\_\+t} = \mbox{\hyperlink{class_vector3}{Vector3}}
+\item 
+\Hypertarget{struct_mesh_ab015e59d24f2ce45bb886bafe643055e}\label{struct_mesh_ab015e59d24f2ce45bb886bafe643055e} 
+using {\bfseries Color\+\_\+t} = \mbox{\hyperlink{class_color}{Color}}
+\item 
+\Hypertarget{struct_mesh_a8409959c9b8f00ef7dc1fd531cf0cdfa}\label{struct_mesh_a8409959c9b8f00ef7dc1fd531cf0cdfa} 
+using {\bfseries Index\+\_\+t} = unsigned short
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_mesh_a69e1f40faa07f9e3080d698007f5e83c}\label{struct_mesh_a69e1f40faa07f9e3080d698007f5e83c} 
+{\bfseries Mesh} (Element\+Container$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \&\&verts, Element\+Container$<$ Index\+\_\+t $>$ \&\&inds, Element\+Container$<$ \mbox{\hyperlink{class_color}{Color\+\_\+t}} $>$ \&\&colors)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_mesh_af76daef3f88ae805a0a31457968c5554}\label{struct_mesh_af76daef3f88ae805a0a31457968c5554} 
+std\+::string {\bfseries resource\+ID}
+\item 
+\Hypertarget{struct_mesh_a152610c92c7b010cb93a53b86ed37ad8}\label{struct_mesh_a152610c92c7b010cb93a53b86ed37ad8} 
+std\+::string {\bfseries identifier}
+\item 
+\Hypertarget{struct_mesh_a60b89bfa989fade3848f026932995671}\label{struct_mesh_a60b89bfa989fade3848f026932995671} 
+size\+\_\+t {\bfseries Index\+Count}
+\item 
+\Hypertarget{struct_mesh_a18b967c5249f33c303a864aeb0487380}\label{struct_mesh_a18b967c5249f33c303a864aeb0487380} 
+size\+\_\+t {\bfseries start\+Index}
+\item 
+\Hypertarget{struct_mesh_a14e37923fb4d7c3b79bc7b74fa02ef67}\label{struct_mesh_a14e37923fb4d7c3b79bc7b74fa02ef67} 
+Element\+Container$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ {\bfseries vertexes}
+\item 
+\Hypertarget{struct_mesh_ac9662260a506a16c8f150e0acd4239e1}\label{struct_mesh_ac9662260a506a16c8f150e0acd4239e1} 
+Element\+Container$<$ UV\+\_\+t $>$ {\bfseries uvs}
+\item 
+\Hypertarget{struct_mesh_ae98dac23a48cb7f51b25d106f6033347}\label{struct_mesh_ae98dac23a48cb7f51b25d106f6033347} 
+Element\+Container$<$ \mbox{\hyperlink{class_vector3}{Vector3}} $>$ {\bfseries normals}
+\item 
+\Hypertarget{struct_mesh_ab04ba87bacbe10d9b548882699de5f30}\label{struct_mesh_ab04ba87bacbe10d9b548882699de5f30} 
+Element\+Container$<$ Index\+\_\+t $>$ {\bfseries indices}
+\item 
+\Hypertarget{struct_mesh_a3b08be9efb346e9b2f84ece4fd94f2d4}\label{struct_mesh_a3b08be9efb346e9b2f84ece4fd94f2d4} 
+Element\+Container$<$ \mbox{\hyperlink{class_color}{Color\+\_\+t}} $>$ {\bfseries colors}
+\item 
+\Hypertarget{struct_mesh_a9e098a769852a1411a5cc8a7f486ab31}\label{struct_mesh_a9e098a769852a1411a5cc8a7f486ab31} 
+\mbox{\hyperlink{struct_bounding_box}{Bounding\+Box}} {\bfseries bounding\+Box}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/resmgr/mesh.\+h\item 
+direct\+Engin/lib/resmgr/mesh.\+cpp\end{DoxyCompactItemize}

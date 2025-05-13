@@ -1,0 +1,164 @@
+\doxysection{Vector4 Class Reference}
+\hypertarget{class_vector4}{}\label{class_vector4}\index{Vector4@{Vector4}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector4_ad10f211f59efb91633914c0b109c254a}\label{class_vector4_ad10f211f59efb91633914c0b109c254a} 
+{\bfseries Vector4} (float x, float y, float z, float w)
+\item 
+\Hypertarget{class_vector4_a10da8df580e1ff81f31f2e35d7effe6c}\label{class_vector4_a10da8df580e1ff81f31f2e35d7effe6c} 
+{\bfseries Vector4} (const Direct\+X\+::\+XMVECTOR \&reg)
+\item 
+\Hypertarget{class_vector4_af6465d32f24c82ddd5677ca9c43df654}\label{class_vector4_af6465d32f24c82ddd5677ca9c43df654} 
+{\bfseries Vector4} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&other)=default
+\item 
+\Hypertarget{class_vector4_aaf96343027c0a774fbc522d6eccab675}\label{class_vector4_aaf96343027c0a774fbc522d6eccab675} 
+\mbox{\hyperlink{class_vector4}{Vector4}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&other)
+\item 
+\Hypertarget{class_vector4_a24688aeab3c2930d1f7bb791c4b75485}\label{class_vector4_a24688aeab3c2930d1f7bb791c4b75485} 
+{\bfseries Vector4} (\mbox{\hyperlink{class_vector4}{Vector4}} \&\&other) noexcept=default
+\item 
+\Hypertarget{class_vector4_a2aceab1237a3d937a6be0eba9243a412}\label{class_vector4_a2aceab1237a3d937a6be0eba9243a412} 
+\mbox{\hyperlink{class_vector4}{Vector4}} \& {\bfseries operator=} (\mbox{\hyperlink{class_vector4}{Vector4}} \&\&other) noexcept=default
+\item 
+\Hypertarget{class_vector4_a81b9cc04f88da2f676b28be4ffa76ee7}\label{class_vector4_a81b9cc04f88da2f676b28be4ffa76ee7} 
+\mbox{\hyperlink{class_vector4}{Vector4}} \& {\bfseries operator=} (const Direct\+X\+::\+XMVECTOR \&vec)
+\item 
+\Hypertarget{class_vector4_a0542da9518216985008c7b48103338b0}\label{class_vector4_a0542da9518216985008c7b48103338b0} 
+{\bfseries operator Direct\+X\+::\+XMVECTOR} () const
+\item 
+\Hypertarget{class_vector4_a159bc99d02cdd93be3091122ad85fd04}\label{class_vector4_a159bc99d02cdd93be3091122ad85fd04} 
+{\bfseries operator Direct\+X\+::\+XMVECTOR} ()
+\item 
+\Hypertarget{class_vector4_a2875d3ef6ec9f6cf063041a141801501}\label{class_vector4_a2875d3ef6ec9f6cf063041a141801501} 
+bool {\bfseries equal} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&other) const noexcept
+\item 
+\Hypertarget{class_vector4_a6a346913e28503d9a5c07b40188e49ca}\label{class_vector4_a6a346913e28503d9a5c07b40188e49ca} 
+\mbox{\hyperlink{class_vector4}{Vector4}} \& {\bfseries operator+=} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&other) noexcept
+\item 
+\Hypertarget{class_vector4_ab67d0e4538604616f8479b03d188f297}\label{class_vector4_ab67d0e4538604616f8479b03d188f297} 
+\mbox{\hyperlink{class_vector4}{Vector4}} \& {\bfseries operator-\/=} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&other) noexcept
+\item 
+\Hypertarget{class_vector4_afd32d657592547ee2524b10cdcaaa31c}\label{class_vector4_afd32d657592547ee2524b10cdcaaa31c} 
+\mbox{\hyperlink{class_vector4}{Vector4}} \& {\bfseries operator\texorpdfstring{$\ast$}{*}=} (float scalar) noexcept
+\item 
+\Hypertarget{class_vector4_abd59b6d1d560656feb5150f3802c5525}\label{class_vector4_abd59b6d1d560656feb5150f3802c5525} 
+\mbox{\hyperlink{class_vector4}{Vector4}} \& {\bfseries operator/=} (float scalar) noexcept
+\item 
+\Hypertarget{class_vector4_ab7b9d07a4e231ebbed4a36fddb7ab109}\label{class_vector4_ab7b9d07a4e231ebbed4a36fddb7ab109} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries operator-\/} () const noexcept
+\item 
+\Hypertarget{class_vector4_a9c51883c58a248f97e118abb09a6e779}\label{class_vector4_a9c51883c58a248f97e118abb09a6e779} 
+float {\bfseries dot} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&v) const noexcept
+\item 
+\Hypertarget{class_vector4_a1cc3542a0feb068e0eab9c1df533fe5b}\label{class_vector4_a1cc3542a0feb068e0eab9c1df533fe5b} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries normalized} () const \&noexcept
+\item 
+\Hypertarget{class_vector4_a7ae7ef6dc7cf5505b9692c230f121bab}\label{class_vector4_a7ae7ef6dc7cf5505b9692c230f121bab} 
+void {\bfseries normalize} () noexcept
+\item 
+\Hypertarget{class_vector4_a2845470e04c49aa419d32c7a731c57fe}\label{class_vector4_a2845470e04c49aa419d32c7a731c57fe} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries scale} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&v) const noexcept
+\item 
+\Hypertarget{class_vector4_a638999b202671c25c5c518f852b62977}\label{class_vector4_a638999b202671c25c5c518f852b62977} 
+float {\bfseries magnitude} () const noexcept
+\item 
+\Hypertarget{class_vector4_a09ef89090c2f653ba2eff68a63eebe73}\label{class_vector4_a09ef89090c2f653ba2eff68a63eebe73} 
+float {\bfseries sqr\+Magnitude} () const noexcept
+\item 
+\Hypertarget{class_vector4_a07b1b84e13d8c6d3b1347cb3e73a2fa9}\label{class_vector4_a07b1b84e13d8c6d3b1347cb3e73a2fa9} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries clamp\+Magnitude} (float max\+Length) const noexcept
+\item 
+\Hypertarget{class_vector4_a61e544293d5025737c6b473d049c8a93}\label{class_vector4_a61e544293d5025737c6b473d049c8a93} 
+float {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index) const noexcept
+\item 
+\Hypertarget{class_vector4_ab752a3781ab0a56b6fd7fa2dd80c1287}\label{class_vector4_ab752a3781ab0a56b6fd7fa2dd80c1287} 
+float \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector4_aa78c94406a302592918623ae15576631}\label{class_vector4_aa78c94406a302592918623ae15576631} 
+static float {\bfseries dot} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&v1, const \mbox{\hyperlink{class_vector4}{Vector4}} \&v2) noexcept
+\item 
+\Hypertarget{class_vector4_a47aaaf72c54f812592b29b3d4c5c350d}\label{class_vector4_a47aaaf72c54f812592b29b3d4c5c350d} 
+static float {\bfseries distance} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&a, const \mbox{\hyperlink{class_vector4}{Vector4}} \&b) noexcept
+\item 
+\Hypertarget{class_vector4_a0720a1227fd33d485b9d37070c8e3f93}\label{class_vector4_a0720a1227fd33d485b9d37070c8e3f93} 
+static \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries lerp} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&a, const \mbox{\hyperlink{class_vector4}{Vector4}} \&b, float t)
+\item 
+\Hypertarget{class_vector4_a61d72553876917af6360b226e7b685ef}\label{class_vector4_a61d72553876917af6360b226e7b685ef} 
+static \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries lerp\+Unclamped} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&a, const \mbox{\hyperlink{class_vector4}{Vector4}} \&b, float t)
+\item 
+\Hypertarget{class_vector4_ac7bcc0a33896ca0ef5bdb4e67ff6822f}\label{class_vector4_ac7bcc0a33896ca0ef5bdb4e67ff6822f} 
+static \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries reflect} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&incident, const \mbox{\hyperlink{class_vector4}{Vector4}} \&normal)
+\item 
+\Hypertarget{class_vector4_aa1cd2f9d7a3c57873fbe260420c38fb1}\label{class_vector4_aa1cd2f9d7a3c57873fbe260420c38fb1} 
+static \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries project} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&v, const \mbox{\hyperlink{class_vector4}{Vector4}} \&onto)
+\item 
+\Hypertarget{class_vector4_a1695b0f22f2aa51958524f3bf635ca20}\label{class_vector4_a1695b0f22f2aa51958524f3bf635ca20} 
+static float {\bfseries angle} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&a, const \mbox{\hyperlink{class_vector4}{Vector4}} \&b)
+\item 
+\Hypertarget{class_vector4_a1d1c45527d4574e2e1c6b3306c2f5083}\label{class_vector4_a1d1c45527d4574e2e1c6b3306c2f5083} 
+static \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries max} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&a, const \mbox{\hyperlink{class_vector4}{Vector4}} \&b)
+\item 
+\Hypertarget{class_vector4_a4d38cd5f50c17004165b9adb6941ec9f}\label{class_vector4_a4d38cd5f50c17004165b9adb6941ec9f} 
+static \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries min} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&a, const \mbox{\hyperlink{class_vector4}{Vector4}} \&b)
+\item 
+\Hypertarget{class_vector4_ab0feecadab17581786954e33fdeb5171}\label{class_vector4_ab0feecadab17581786954e33fdeb5171} 
+static \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries move\+Towards} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&current, const \mbox{\hyperlink{class_vector4}{Vector4}} \&target, float max\+Dist\+Delta)
+\item 
+\Hypertarget{class_vector4_a40d333d7c6cd4b563bf1031ac4c06c3e}\label{class_vector4_a40d333d7c6cd4b563bf1031ac4c06c3e} 
+static \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries scale} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&a, const \mbox{\hyperlink{class_vector4}{Vector4}} \&b)
+\item 
+\Hypertarget{class_vector4_a863297722d712088a7c820e075542a37}\label{class_vector4_a863297722d712088a7c820e075542a37} 
+static bool {\bfseries equal} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&a, const \mbox{\hyperlink{class_vector4}{Vector4}} \&b) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector4_a4673eb62960479725a2475fe7419b980}\label{class_vector4_a4673eb62960479725a2475fe7419b980} 
+static const \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries one}
+\item 
+\Hypertarget{class_vector4_aebb2dd9c8e9755faeb8cb68a7806845a}\label{class_vector4_aebb2dd9c8e9755faeb8cb68a7806845a} 
+static const \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries zero}
+\item 
+\Hypertarget{class_vector4_a1fbac0cebf3ef47e09642fe1caab28a6}\label{class_vector4_a1fbac0cebf3ef47e09642fe1caab28a6} 
+static const \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries negative\+Infinity}
+\item 
+\Hypertarget{class_vector4_a9da7e8d44950657c20d23157748b19f6}\label{class_vector4_a9da7e8d44950657c20d23157748b19f6} 
+static const \mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries positive\+Infinity}
+\item 
+\Hypertarget{class_vector4_adc9e59e35a97129d203e78703092c968}\label{class_vector4_adc9e59e35a97129d203e78703092c968} 
+static constexpr float {\bfseries s\+\_\+epsilon} = 0.\+001f
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector4_a5b5b1f829b618750bbaa7a9783696ba1}\label{class_vector4_a5b5b1f829b618750bbaa7a9783696ba1} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries operator+} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&v1, const \mbox{\hyperlink{class_vector4}{Vector4}} \&v2)
+\item 
+\Hypertarget{class_vector4_a03569d9466ea5286e01ebe2c538de2d7}\label{class_vector4_a03569d9466ea5286e01ebe2c538de2d7} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries operator-\/} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&v1, const \mbox{\hyperlink{class_vector4}{Vector4}} \&v2)
+\item 
+\Hypertarget{class_vector4_a7c6e87532064220219682f299432a2e0}\label{class_vector4_a7c6e87532064220219682f299432a2e0} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&v, float m)
+\item 
+\Hypertarget{class_vector4_a805fb94a6e272845d7d9e71cf8605616}\label{class_vector4_a805fb94a6e272845d7d9e71cf8605616} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (float m, const \mbox{\hyperlink{class_vector4}{Vector4}} \&v)
+\item 
+\Hypertarget{class_vector4_ae00fb9a32db2c9db0d269fbf6bb37986}\label{class_vector4_ae00fb9a32db2c9db0d269fbf6bb37986} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries operator/} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&v, float d)
+\item 
+\Hypertarget{class_vector4_a52c889baa418f3d7be94c2b556012007}\label{class_vector4_a52c889baa418f3d7be94c2b556012007} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries operator/} (float d, const \mbox{\hyperlink{class_vector4}{Vector4}} \&v)
+\item 
+\Hypertarget{class_vector4_a2beb64d712555eea827590a28765302c}\label{class_vector4_a2beb64d712555eea827590a28765302c} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&v1, const \mbox{\hyperlink{class_vector4}{Vector4}} \&v2)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/math/vector4.\+h\item 
+direct\+Engin/lib/math/vector4.\+cpp\end{DoxyCompactItemize}

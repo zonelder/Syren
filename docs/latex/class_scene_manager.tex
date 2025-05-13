@@ -1,0 +1,336 @@
+\doxysection{Scene\+Manager Class Reference}
+\hypertarget{class_scene_manager}{}\label{class_scene_manager}\index{SceneManager@{SceneManager}}
+
+
+Central management class for scene entities, components, and systems.  
+
+
+
+
+{\ttfamily \#include $<$scene\+\_\+manager.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_camera}{Camera}} \& \mbox{\hyperlink{class_scene_manager_abd32310aff88ebefc6236aed4065744e}{get\+Camera}} () noexcept
+\begin{DoxyCompactList}\small\item\em Get the main camera reference. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_entity}{Entity}} \& \mbox{\hyperlink{class_scene_manager_a744397d3cb3d7ac004f62a8f528a77a5}{create\+Entity}} () noexcept
+\begin{DoxyCompactList}\small\item\em Create a new entity. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_scene_manager_aec95e2abf538b8341ad98cdaa23723bb}{destroy}} (const \mbox{\hyperlink{class_entity}{Entity}} \&entt) noexcept
+\begin{DoxyCompactList}\small\item\em Destroy an entity by reference. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_scene_manager_a8d865ccb71b3f02bbaaf6d0e46e33eb6}{destroy}} (Entity\+ID id) noexcept
+\begin{DoxyCompactList}\small\item\em Destroy an entity by ID. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class... Args$>$ \newline
+requires (sizeof...(Args) $>$ 0) \&\& filters\+::is\+\_\+filter\+\_\+free$<$Args...$>$}\\auto \& \mbox{\hyperlink{class_scene_manager_a45983843b502782647112a037c37aca4}{view}} () noexcept
+\begin{DoxyCompactList}\small\item\em Create a component view with specified included components. \end{DoxyCompactList}\item 
+\Hypertarget{class_scene_manager_a1c0d91dbdb4aeae0071fc32cb01b44d1}\label{class_scene_manager_a1c0d91dbdb4aeae0071fc32cb01b44d1} 
+{\footnotesize template$<$typename With, typename Without = filters\+::\+Without$<$$>$$>$ \newline
+requires filters\+::is\+\_\+with\+\_\+filter\+\_\+v$<$With$>$ \&\& filters\+::is\+\_\+without\+\_\+filter\+\_\+v$<$Without$>$}\\auto \& {\bfseries view} () noexcept
+\item 
+auto \mbox{\hyperlink{class_scene_manager_a1fc8b0929ddb742106ce5a0e6e416413}{view}} () noexcept
+\begin{DoxyCompactList}\small\item\em Get a view of all entities in the scene. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\\mbox{\hyperlink{class_component_pool}{Component\+Pool}}$<$ T $>$ \& \mbox{\hyperlink{class_scene_manager_ab1c0b394adcb7956c1a02596ff47e2b5}{get\+Pool}} ()
+\begin{DoxyCompactList}\small\item\em Get component pool (deprecated) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\const \mbox{\hyperlink{class_component_pool}{Component\+Pool}}$<$ T $>$ \& \mbox{\hyperlink{class_scene_manager_a2cb1d155e23a0b4d19825625da482726}{get\+Pool}} () const
+\begin{DoxyCompactList}\small\item\em Get component pool (deprecated) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\T \& \mbox{\hyperlink{class_scene_manager_a4821427bccae0f73f183166ce98dd4e6}{get\+Component}} (const \mbox{\hyperlink{class_entity}{Entity}} \&entt)
+\begin{DoxyCompactList}\small\item\em Retrieve a component from an entity. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\T \& \mbox{\hyperlink{class_scene_manager_a965e1fa4944c26bb1135481b8ecbf5dc}{get\+Component}} (Entity\+ID entt)
+\begin{DoxyCompactList}\small\item\em Retrieve a component from an entity. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\T \& \mbox{\hyperlink{class_scene_manager_a3c9ffa2ad1ca2198f6047613e3dfd4bf}{add\+Component}} (const \mbox{\hyperlink{class_entity}{Entity}} \&entt)
+\begin{DoxyCompactList}\small\item\em Add component to entity. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\T \& \mbox{\hyperlink{class_scene_manager_a047a4a8611ded5a4b8958316223e1dca}{add\+Component}} (Entity\+ID entt)
+\begin{DoxyCompactList}\small\item\em Add component to entity. \end{DoxyCompactList}\item 
+\Hypertarget{class_scene_manager_ab587768456246c42253858ad0ce2fd3c}\label{class_scene_manager_ab587768456246c42253858ad0ce2fd3c} 
+{\footnotesize template$<$typename T$>$ }\\void {\bfseries remove\+Component} (const \mbox{\hyperlink{class_entity}{Entity}} \&entt)
+\item 
+\Hypertarget{class_scene_manager_ac359a597db7eeb350b8efdb7d9c90feb}\label{class_scene_manager_ac359a597db7eeb350b8efdb7d9c90feb} 
+{\footnotesize template$<$typename T$>$ }\\void {\bfseries remove\+Component} (Entity\+ID entt)
+\item 
+\Hypertarget{class_scene_manager_adbd3c960148007d8fc6f741c26ddc6f8}\label{class_scene_manager_adbd3c960148007d8fc6f741c26ddc6f8} 
+{\footnotesize template$<$typename T$>$ }\\bool {\bfseries has\+Component} (const \mbox{\hyperlink{class_entity}{Entity}} \&entt) const noexcept
+\item 
+\Hypertarget{class_scene_manager_a92706f0d88c0ea6c0bc577307eb1f4a6}\label{class_scene_manager_a92706f0d88c0ea6c0bc577307eb1f4a6} 
+{\footnotesize template$<$typename T$>$ }\\bool {\bfseries has\+Component} (Entity\+ID entt) const noexcept
+\item 
+const \mbox{\hyperlink{class_entity}{Entity}} \& \mbox{\hyperlink{class_scene_manager_a7e3ec01405d4273e8ce6e5c3b743d6d8}{get\+Entity}} (Entity\+ID id) const noexcept
+\begin{DoxyCompactList}\small\item\em Get entity by ID. \end{DoxyCompactList}\item 
+\Hypertarget{class_scene_manager_aeb150732f66b5a10d87db21ecc4b0ce3}\label{class_scene_manager_aeb150732f66b5a10d87db21ecc4b0ce3} 
+const auto \& {\bfseries pools} () const noexcept
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Central management class for scene entities, components, and systems. 
+
+Handles entity creation/destruction, component management, and provides views for iterating through component combinations. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_scene_manager_a3c9ffa2ad1ca2198f6047613e3dfd4bf}\index{SceneManager@{SceneManager}!addComponent@{addComponent}}
+\index{addComponent@{addComponent}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{addComponent()}{addComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_a3c9ffa2ad1ca2198f6047613e3dfd4bf} 
+template$<$typename T$>$ \\
+T \& Scene\+Manager\+::add\+Component (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_entity}{Entity}} \&}]{entt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add component to entity. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of component to add \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & \doxylink{class_entity}{Entity} to add component to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to newly created component 
+\end{DoxyReturn}
+\begin{DoxyPostcond}{Postcondition}
+\doxylink{class_entity}{Entity}\textquotesingle{}s component mask is updated 
+\end{DoxyPostcond}
+\Hypertarget{class_scene_manager_a047a4a8611ded5a4b8958316223e1dca}\index{SceneManager@{SceneManager}!addComponent@{addComponent}}
+\index{addComponent@{addComponent}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{addComponent()}{addComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_a047a4a8611ded5a4b8958316223e1dca} 
+template$<$typename T$>$ \\
+T \& Scene\+Manager\+::add\+Component (\begin{DoxyParamCaption}\item[{Entity\+ID}]{entt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add component to entity. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of component to add \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & \doxylink{class_entity}{Entity} to add component to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to newly created component 
+\end{DoxyReturn}
+\begin{DoxyPostcond}{Postcondition}
+\doxylink{class_entity}{Entity}\textquotesingle{}s component mask is updated 
+\end{DoxyPostcond}
+\Hypertarget{class_scene_manager_a744397d3cb3d7ac004f62a8f528a77a5}\index{SceneManager@{SceneManager}!createEntity@{createEntity}}
+\index{createEntity@{createEntity}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{createEntity()}{createEntity()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a744397d3cb3d7ac004f62a8f528a77a5} 
+const \mbox{\hyperlink{class_entity}{Entity}} \& Scene\+Manager\+::create\+Entity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Create a new entity. 
+
+\begin{DoxyReturn}{Returns}
+Reference to the newly created entity 
+\end{DoxyReturn}
+\Hypertarget{class_scene_manager_aec95e2abf538b8341ad98cdaa23723bb}\index{SceneManager@{SceneManager}!destroy@{destroy}}
+\index{destroy@{destroy}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{destroy()}{destroy()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_aec95e2abf538b8341ad98cdaa23723bb} 
+bool Scene\+Manager\+::destroy (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_entity}{Entity}} \&}]{entt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Destroy an entity by reference. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & \doxylink{class_entity}{Entity} to destroy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if destruction succeeded, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{class_scene_manager_a8d865ccb71b3f02bbaaf6d0e46e33eb6}\index{SceneManager@{SceneManager}!destroy@{destroy}}
+\index{destroy@{destroy}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{destroy()}{destroy()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_a8d865ccb71b3f02bbaaf6d0e46e33eb6} 
+bool Scene\+Manager\+::destroy (\begin{DoxyParamCaption}\item[{Entity\+ID}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Destroy an entity by ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & ID of entity to destroy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if destruction succeeded, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{class_scene_manager_abd32310aff88ebefc6236aed4065744e}\index{SceneManager@{SceneManager}!getCamera@{getCamera}}
+\index{getCamera@{getCamera}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{getCamera()}{getCamera()}}
+{\footnotesize\ttfamily \label{class_scene_manager_abd32310aff88ebefc6236aed4065744e} 
+\mbox{\hyperlink{class_camera}{Camera}} \& Scene\+Manager\+::get\+Camera (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the main camera reference. 
+
+\begin{DoxyReturn}{Returns}
+Reference to the scene\textquotesingle{}s main camera 
+\end{DoxyReturn}
+\Hypertarget{class_scene_manager_a4821427bccae0f73f183166ce98dd4e6}\index{SceneManager@{SceneManager}!getComponent@{getComponent}}
+\index{getComponent@{getComponent}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{getComponent()}{getComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_a4821427bccae0f73f183166ce98dd4e6} 
+template$<$typename T$>$ \\
+T \& Scene\+Manager\+::get\+Component (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_entity}{Entity}} \&}]{entt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrieve a component from an entity. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of component to retrieve \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & \doxylink{class_entity}{Entity} reference to get component from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to the component 
+\end{DoxyReturn}
+\Hypertarget{class_scene_manager_a965e1fa4944c26bb1135481b8ecbf5dc}\index{SceneManager@{SceneManager}!getComponent@{getComponent}}
+\index{getComponent@{getComponent}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{getComponent()}{getComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_a965e1fa4944c26bb1135481b8ecbf5dc} 
+template$<$typename T$>$ \\
+T \& Scene\+Manager\+::get\+Component (\begin{DoxyParamCaption}\item[{Entity\+ID}]{entt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrieve a component from an entity. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of component to retrieve \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & \doxylink{class_entity}{Entity} reference to get component from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to the component 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if component doesn\textquotesingle{}t exist \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_scene_manager_a7e3ec01405d4273e8ce6e5c3b743d6d8}\index{SceneManager@{SceneManager}!getEntity@{getEntity}}
+\index{getEntity@{getEntity}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{getEntity()}{getEntity()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a7e3ec01405d4273e8ce6e5c3b743d6d8} 
+const \mbox{\hyperlink{class_entity}{Entity}} \& Scene\+Manager\+::get\+Entity (\begin{DoxyParamCaption}\item[{Entity\+ID}]{id}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get entity by ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \doxylink{class_entity}{Entity} ID to look up \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const Reference to the entity 
+\end{DoxyReturn}
+\Hypertarget{class_scene_manager_ab1c0b394adcb7956c1a02596ff47e2b5}\index{SceneManager@{SceneManager}!getPool@{getPool}}
+\index{getPool@{getPool}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{getPool()}{getPool()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_ab1c0b394adcb7956c1a02596ff47e2b5} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{class_component_pool}{Component\+Pool}}$<$ T $>$ \& Scene\+Manager\+::get\+Pool (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get component pool (deprecated) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of component to get pool for \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+Reference to component pool 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Deprecated}
+\item[\mbox{\hyperlink{deprecated__deprecated000001}{Deprecated}}]Use \doxylink{class_scene_manager_a45983843b502782647112a037c37aca4}{view$<$\+T$>$()} instead \end{DoxyRefDesc}
+\Hypertarget{class_scene_manager_a2cb1d155e23a0b4d19825625da482726}\index{SceneManager@{SceneManager}!getPool@{getPool}}
+\index{getPool@{getPool}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{getPool()}{getPool()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_a2cb1d155e23a0b4d19825625da482726} 
+template$<$typename T$>$ \\
+const \mbox{\hyperlink{class_component_pool}{Component\+Pool}}$<$ T $>$ \& Scene\+Manager\+::get\+Pool (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get component pool (deprecated) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of component to get pool for \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+Reference to component pool 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Deprecated}
+\item[\mbox{\hyperlink{deprecated__deprecated000002}{Deprecated}}]Use \doxylink{class_scene_manager_a45983843b502782647112a037c37aca4}{view$<$\+T$>$()} instead \end{DoxyRefDesc}
+\Hypertarget{class_scene_manager_a45983843b502782647112a037c37aca4}\index{SceneManager@{SceneManager}!view@{view}}
+\index{view@{view}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{view()}{view()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_a45983843b502782647112a037c37aca4} 
+template$<$class... Args$>$ \newline
+requires (sizeof...(Args) $>$ 0) \&\& filters\+::is\+\_\+filter\+\_\+free$<$Args...$>$\\
+auto \& Scene\+Manager\+::view (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Create a component view with specified included components. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Args} & List of component types to include in the view \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+Component\+View configured with specified filters 
+\end{DoxyReturn}
+\Hypertarget{class_scene_manager_a1fc8b0929ddb742106ce5a0e6e416413}\index{SceneManager@{SceneManager}!view@{view}}
+\index{view@{view}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{view()}{view()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_scene_manager_a1fc8b0929ddb742106ce5a0e6e416413} 
+auto Scene\+Manager\+::view (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Get a view of all entities in the scene. 
+
+\begin{DoxyReturn}{Returns}
+Entity\+View providing access to all entities 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/scene/scene\+\_\+manager.\+h\item 
+direct\+Engin/lib/scene/scene\+\_\+manager.\+cpp\end{DoxyCompactItemize}

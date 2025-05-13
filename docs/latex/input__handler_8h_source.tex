@@ -1,0 +1,92 @@
+\doxysection{input\+\_\+handler.\+h}
+\hypertarget{input__handler_8h_source}{}\label{input__handler_8h_source}\index{directEngin/lib/core/input\_handler.h@{directEngin/lib/core/input\_handler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ NOMINMAX}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ NOMINMAX}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <windows.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <bitset>}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{enum}\ MOUSE\_KEY}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ LEFT,}
+\DoxyCodeLine{00011\ \ \ \ \ RIGHT,}
+\DoxyCodeLine{00012\ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }InputHandler}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Window;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{class\ }Event\ \{}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum\ class}\ Type\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ Press,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ Release,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ Invalid,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ Type\ \_type;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \_code;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ Event()\ :\_type(Type::Invalid),\ \_code(0u)\ \{\};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ Event(Type\ type,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ code)\ noexcept\ :\_type(type),\ \_code(code)\ \{\};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isPress()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_type\ ==\ Type::Press;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isRelease()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_type\ ==\ Type::Release;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isValid()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_type\ !=\ Type::Invalid;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ getCode()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_code;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \};}
+\DoxyCodeLine{00048\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ InputHandler()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00051\ \ \ \ \ InputHandler(\textcolor{keyword}{const}\ InputHandler\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00052\ \ \ \ \ InputHandler\&\ operator=(\textcolor{keyword}{const}\ InputHandler\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//<\ key\ event\ stuff>}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{bool}\ isPressed(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ keykode)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_input_handler_1_1_event}{Event}}\ readKey()\ noexcept;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{bool}\ isEmpty()\ const\ noexcept;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ flushKey()\ noexcept;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{//<\ key\ event\ stuff>}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//<\ Char\ event\ stuff>}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{char}\ readChar()\ noexcept;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ charIdEmpty()\ const\ noexcept;}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ flushChar()\ noexcept;}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ flush()\ noexcept;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//<\ /Char\ event\ stuff>}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ enableAutorepeat()\ noexcept;}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ disaableAutorepeat()\ noexcept;}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{bool}\ isEnabledAutorepeat()\ noexcept;}
+\DoxyCodeLine{00071\ private:}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ onkeyPressed(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ keycode)\ noexcept;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ onKeyReleased(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ keycode)\ noexcept;}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ onChar(\textcolor{keywordtype}{char}\ cha)\ noexcept;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ clearState()noexcept;}
+\DoxyCodeLine{00076\ \ \ \ \ template<typename\ T>}
+\DoxyCodeLine{00077\ \ \ \ \ static\ \textcolor{keywordtype}{void}\ trimBuffer(std::queue<T>\&\ buffer)\ noexcept;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ static\ constexpr\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_nKeys\ =\ 256u;}
+\DoxyCodeLine{00080\ \ \ \ \ static\ constexpr\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_bufferSize\ =\ 16u;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_autorepeatIsEnabled\ =\ false;}
+\DoxyCodeLine{00082\ \ \ \ \ std::bitset<\_nKeys>\ \_keyStates;}
+\DoxyCodeLine{00083\ \ \ \ \ std::queue<\mbox{\hyperlink{class_input_handler_1_1_event}{Event}}>\ \_keyBuffer;}
+\DoxyCodeLine{00084\ \ \ \ \ std::queue<\textcolor{keywordtype}{char}>\ \_charBuffer;}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+
+\end{DoxyCode}

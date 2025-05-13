@@ -1,0 +1,97 @@
+\doxysection{Resource\+Manager Class Reference}
+\hypertarget{class_resource_manager}{}\label{class_resource_manager}\index{ResourceManager@{ResourceManager}}
+
+
+class that control loading of Resources. it handles construct\textbackslash{}destruct login by itsself. deleting anything that has been returned from \doxylink{class_resource_manager}{Resource\+Manager} emits UB  
+
+
+
+
+{\ttfamily \#include $<$resource\+\_\+manager.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_resource_manager_aea3b1604c264e86cf7514a2a999e0921}\label{class_resource_manager_aea3b1604c264e86cf7514a2a999e0921} 
+{\footnotesize template$<$class T$>$ }\\using {\bfseries Resource\+Container\+\_\+t} = std\+::unordered\+\_\+map$<$std\+::string,std\+::shared\+\_\+ptr$<$T$>$$>$
+\item 
+\Hypertarget{class_resource_manager_a1998c636217b9f252a88d6824686a02d}\label{class_resource_manager_a1998c636217b9f252a88d6824686a02d} 
+{\footnotesize template$<$class T$>$ }\\using {\bfseries Unhandle\+Resources\+\_\+t} = std\+::vector$<$T$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_resource_manager_a8c781bb67d604f485e5ca4d806984f76}\label{class_resource_manager_a8c781bb67d604f485e5ca4d806984f76} 
+{\bfseries Resource\+Manager} (\mbox{\hyperlink{class_graphics}{Graphics}} \&gfx)
+\begin{DoxyCompactList}\small\item\em //////////////////////\+RESOURCE MANAGER //////////////////// \end{DoxyCompactList}\item 
+Mesh\+Ptr \mbox{\hyperlink{class_resource_manager_a31bfc945163d3931e4dc7226fecd7f22}{get\+Mesh}} (const std\+::string \&resource\+ID)
+\begin{DoxyCompactList}\small\item\em get\+Ptr to exact resource.\+if resource isnot loaded then load it and return to user; \end{DoxyCompactList}\item 
+\Hypertarget{class_resource_manager_a4e1ce8d2de7d7b8872d67d016b128348}\label{class_resource_manager_a4e1ce8d2de7d7b8872d67d016b128348} 
+Mesh\+Ptr {\bfseries get\+Procedural\+Mesh} (const std\+::string \&resource\+ID)
+\item 
+\Hypertarget{class_resource_manager_a242bcf712c30decacd8582130e228e5b}\label{class_resource_manager_a242bcf712c30decacd8582130e228e5b} 
+Vertex\+Shader\+Ptr {\bfseries get\+Vertex\+Shader} (const std\+::string \&resource\+ID)
+\item 
+\Hypertarget{class_resource_manager_ac91a3c741fea86f71ba8a25083094be8}\label{class_resource_manager_ac91a3c741fea86f71ba8a25083094be8} 
+Pixel\+Shader\+Ptr {\bfseries get\+Pixel\+Shader} (const std\+::string \&resorce\+ID)
+\item 
+\Hypertarget{class_resource_manager_ac8eaedb7b64e932b9474e55e3e81be8a}\label{class_resource_manager_ac8eaedb7b64e932b9474e55e3e81be8a} 
+Material\+Ptr {\bfseries get\+Material} (const std\+::string \&resource\+ID)
+\item 
+\Hypertarget{class_resource_manager_a788da0098882ff597e46ccc7bc2936c8}\label{class_resource_manager_a788da0098882ff597e46ccc7bc2936c8} 
+Texture\+Ptr {\bfseries get\+Texture} (const std\+::string \&resource\+ID)
+\item 
+Texture\+Ptr \mbox{\hyperlink{class_resource_manager_a76debe903799078fea4a28bc8cc375a2}{get\+Default\+Texture}} ()
+\begin{DoxyCompactList}\small\item\em method return the texture that engine use as default texture.\+as a pair of exception-\/free semantic in case some texture cant be loaded we return texture that can(engine should guarantie it) \end{DoxyCompactList}\item 
+\Hypertarget{class_resource_manager_a180b01bb5bcc8e4e516883f4bce8972c}\label{class_resource_manager_a180b01bb5bcc8e4e516883f4bce8972c} 
+Fbx\+Prefab\+Ptr {\bfseries get\+Fbx\+Prefab} (const std\+::string \&resource\+ID)
+\item 
+\Hypertarget{class_resource_manager_a5fc49eb41d16cff51db3235826d6b863}\label{class_resource_manager_a5fc49eb41d16cff51db3235826d6b863} 
+bool {\bfseries save\+Mesh} (const Mesh\+Ptr p\+Mesh, const std\+::string \&resource\+ID)
+\item 
+\Hypertarget{class_resource_manager_af6a22a6d9cf5ff706ba309816a80ad33}\label{class_resource_manager_af6a22a6d9cf5ff706ba309816a80ad33} 
+bool {\bfseries save\+Material} (const Material\+Ptr p\+Material, const std\+::string \&resource\+ID)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+class that control loading of Resources. it handles construct\textbackslash{}destruct login by itsself. deleting anything that has been returned from \doxylink{class_resource_manager}{Resource\+Manager} emits UB 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_resource_manager_a76debe903799078fea4a28bc8cc375a2}\index{ResourceManager@{ResourceManager}!getDefaultTexture@{getDefaultTexture}}
+\index{getDefaultTexture@{getDefaultTexture}!ResourceManager@{ResourceManager}}
+\doxysubsubsection{\texorpdfstring{getDefaultTexture()}{getDefaultTexture()}}
+{\footnotesize\ttfamily \label{class_resource_manager_a76debe903799078fea4a28bc8cc375a2} 
+Texture\+Ptr Resource\+Manager\+::get\+Default\+Texture (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+method return the texture that engine use as default texture.\+as a pair of exception-\/free semantic in case some texture cant be loaded we return texture that can(engine should guarantie it) 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\Hypertarget{class_resource_manager_a31bfc945163d3931e4dc7226fecd7f22}\index{ResourceManager@{ResourceManager}!getMesh@{getMesh}}
+\index{getMesh@{getMesh}!ResourceManager@{ResourceManager}}
+\doxysubsubsection{\texorpdfstring{getMesh()}{getMesh()}}
+{\footnotesize\ttfamily \label{class_resource_manager_a31bfc945163d3931e4dc7226fecd7f22} 
+Mesh\+Ptr Resource\+Manager\+::get\+Mesh (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{resource\+ID}{}\end{DoxyParamCaption})}
+
+
+
+get\+Ptr to exact resource.\+if resource isnot loaded then load it and return to user; 
+
+
+\begin{DoxyParams}{Parameters}
+{\em resource\+ID} & full path to resource; \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/resmgr/resource\+\_\+manager.\+h\item 
+direct\+Engin/lib/resmgr/resource\+\_\+manager.\+cpp\end{DoxyCompactItemize}

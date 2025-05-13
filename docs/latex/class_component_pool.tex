@@ -1,0 +1,117 @@
+\doxysection{Component\+Pool\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_component_pool}{}\label{class_component_pool}\index{ComponentPool$<$ T $>$@{ComponentPool$<$ T $>$}}
+Inheritance diagram for Component\+Pool\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_component_pool}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_component_pool_a5fb2da7ddb3081a0b7dbbf5247a5dd69}\label{class_component_pool_a5fb2da7ddb3081a0b7dbbf5247a5dd69} 
+auto \& {\bfseries get\+Component} (Entity\+ID entt)
+\item 
+\Hypertarget{class_component_pool_a3df7d8dd2a465f465faee1cdee8a73b8}\label{class_component_pool_a3df7d8dd2a465f465faee1cdee8a73b8} 
+bool {\bfseries has\+Component} (Entity\+ID entt)
+\item 
+bool \mbox{\hyperlink{class_component_pool_acebba8c92199844632257cd9c7f79441}{remove\+Component}} (Entity\+ID id) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_sparse_array}{Sparse\+Array$<$ T, Entity\+ID, MAX\+\_\+\+ENTITY $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+T \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (key\+\_\+type key)
+\item 
+const T \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (key\+\_\+type key) const
+\item 
+T \& {\bfseries add} (Entity\+ID id)
+\item 
+bool {\bfseries remove} (key\+\_\+type id)
+\item 
+bool {\bfseries contains} (Entity\+ID id) const noexcept
+\item 
+T \& {\bfseries get} (Entity\+ID id) noexcept
+\item 
+const T \& {\bfseries get} (Entity\+ID \&id) const noexcept
+\item 
+T \texorpdfstring{$\ast$}{*} {\bfseries begin} () noexcept
+\item 
+T \texorpdfstring{$\ast$}{*} {\bfseries end} () noexcept
+\item 
+const T \texorpdfstring{$\ast$}{*} {\bfseries begin} () const noexcept
+\item 
+const T \texorpdfstring{$\ast$}{*} {\bfseries end} () const noexcept
+\item 
+size\+\_\+t {\bfseries size} () const noexcept
+\item 
+bool {\bfseries empty} () const noexcept
+\item 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::iterator}} {\bfseries index\+\_\+begin} () noexcept
+\item 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::iterator}} {\bfseries index\+\_\+end} () noexcept
+\item 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::const\+\_\+iterator}} {\bfseries index\+\_\+begin} () const noexcept
+\item 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::const\+\_\+iterator}} {\bfseries index\+\_\+end} () const noexcept
+\item 
+T \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (key\+\_\+type key)
+\item 
+const T \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (key\+\_\+type key) const
+\item 
+T \& {\bfseries add} (Entity\+ID id)
+\item 
+bool {\bfseries remove} (key\+\_\+type id)
+\item 
+bool {\bfseries contains} (Entity\+ID id) const noexcept
+\item 
+T \& {\bfseries get} (Entity\+ID id) noexcept
+\item 
+const T \& {\bfseries get} (Entity\+ID \&id) const noexcept
+\item 
+T \texorpdfstring{$\ast$}{*} {\bfseries begin} () noexcept
+\item 
+const T \texorpdfstring{$\ast$}{*} {\bfseries begin} () const noexcept
+\item 
+T \texorpdfstring{$\ast$}{*} {\bfseries end} () noexcept
+\item 
+const T \texorpdfstring{$\ast$}{*} {\bfseries end} () const noexcept
+\item 
+size\+\_\+t {\bfseries size} () const noexcept
+\item 
+bool {\bfseries empty} () const noexcept
+\item 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::iterator}} {\bfseries index\+\_\+begin} () noexcept
+\item 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::const\+\_\+iterator}} {\bfseries index\+\_\+begin} () const noexcept
+\item 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::iterator}} {\bfseries index\+\_\+end} () noexcept
+\item 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::const\+\_\+iterator}} {\bfseries index\+\_\+end} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_sparse_array}{Sparse\+Array$<$ T, Entity\+ID, MAX\+\_\+\+ENTITY $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+using {\bfseries key\+\_\+type}
+\item 
+using {\bfseries sparse\+\_\+set\+\_\+type}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_component_pool_acebba8c92199844632257cd9c7f79441}\index{ComponentPool$<$ T $>$@{ComponentPool$<$ T $>$}!removeComponent@{removeComponent}}
+\index{removeComponent@{removeComponent}!ComponentPool$<$ T $>$@{ComponentPool$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeComponent()}{removeComponent()}}
+{\footnotesize\ttfamily \label{class_component_pool_acebba8c92199844632257cd9c7f79441} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_component_pool}{Component\+Pool}}$<$ T $>$\+::remove\+Component (\begin{DoxyParamCaption}\item[{Entity\+ID}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_i_component_pool}{IComponent\+Pool}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/scene/component\+\_\+pool.\+h\end{DoxyCompactItemize}

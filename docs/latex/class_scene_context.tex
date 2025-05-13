@@ -1,0 +1,71 @@
+\doxysection{Scene\+Context Class Reference}
+\hypertarget{class_scene_context}{}\label{class_scene_context}\index{SceneContext@{SceneContext}}
+
+
+Some usefull context of app.\+its support overriding of context but its always should be at least one instance of class. in commpon case class \doxylink{class_app}{App} provide such an instance so be carefull when you overriding main\+Context;.  
+
+
+
+
+{\ttfamily \#include $<$scene\+\_\+context.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_scene_context_aa5bc36c641343a8c76c03edd583f19e9}\label{class_scene_context_aa5bc36c641343a8c76c03edd583f19e9} 
+{\bfseries Scene\+Context} (const \mbox{\hyperlink{class_window}{Window}} \&wnd)
+\begin{DoxyCompactList}\small\item\em create new instance of scene context.\+its forbidden to pass nullptr to this constructor. cause contest SHALL BE SERTAN AND WELL DEFINED. \end{DoxyCompactList}\item 
+\Hypertarget{class_scene_context_aa3ae15fa3fd61dd3adbae472ea12da8a}\label{class_scene_context_aa3ae15fa3fd61dd3adbae472ea12da8a} 
+void {\bfseries update\+Input} (const \mbox{\hyperlink{class_window}{Window}} \&wnd)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_resource_manager}{Resource\+Manager}} \& \mbox{\hyperlink{class_scene_context_abff95923f1c9ada02588b7d6f77d4709}{resources}} () noexcept
+\begin{DoxyCompactList}\small\item\em get main resource manager of application \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{class_graphics}{Graphics}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_scene_context_a2c0af8d6c9f13dad115818cdcaa1f334}{p\+Gfx}} () noexcept
+\begin{DoxyCompactList}\small\item\em get main graphic handler of application \end{DoxyCompactList}\item 
+\Hypertarget{class_scene_context_ab3db75e951debb34dfb333b328555b64}\label{class_scene_context_ab3db75e951debb34dfb333b328555b64} 
+static \mbox{\hyperlink{class_input}{Input}} \& {\bfseries input} () noexcept
+\item 
+\Hypertarget{class_scene_context_abf62aecf57f3441ee8addb72e6d37d08}\label{class_scene_context_abf62aecf57f3441ee8addb72e6d37d08} 
+static void {\bfseries set\+Main\+Context} (\mbox{\hyperlink{class_scene_context}{Scene\+Context}} \texorpdfstring{$\ast$}{*}context)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Some usefull context of app.\+its support overriding of context but its always should be at least one instance of class. in commpon case class \doxylink{class_app}{App} provide such an instance so be carefull when you overriding main\+Context;. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_scene_context_a2c0af8d6c9f13dad115818cdcaa1f334}\index{SceneContext@{SceneContext}!pGfx@{pGfx}}
+\index{pGfx@{pGfx}!SceneContext@{SceneContext}}
+\doxysubsubsection{\texorpdfstring{pGfx()}{pGfx()}}
+{\footnotesize\ttfamily \label{class_scene_context_a2c0af8d6c9f13dad115818cdcaa1f334} 
+static \mbox{\hyperlink{class_graphics}{Graphics}} \texorpdfstring{$\ast$}{*} Scene\+Context\+::p\+Gfx (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [noexcept]}}
+
+
+
+get main graphic handler of application 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\Hypertarget{class_scene_context_abff95923f1c9ada02588b7d6f77d4709}\index{SceneContext@{SceneContext}!resources@{resources}}
+\index{resources@{resources}!SceneContext@{SceneContext}}
+\doxysubsubsection{\texorpdfstring{resources()}{resources()}}
+{\footnotesize\ttfamily \label{class_scene_context_abff95923f1c9ada02588b7d6f77d4709} 
+static \mbox{\hyperlink{class_resource_manager}{Resource\+Manager}} \& Scene\+Context\+::resources (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [noexcept]}}
+
+
+
+get main resource manager of application 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/resmgr/scene\+\_\+context.\+h\item 
+direct\+Engin/lib/resmgr/scene\+\_\+context.\+cpp\end{DoxyCompactItemize}

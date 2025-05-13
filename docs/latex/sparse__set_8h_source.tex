@@ -1,0 +1,215 @@
+\doxysection{sparse\+\_\+set.\+h}
+\hypertarget{sparse__set_8h_source}{}\label{sparse__set_8h_source}\index{directEngin/lib/common/сontainers/sparse\_set.h@{directEngin/lib/common/сontainers/sparse\_set.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_SYREN\_SPARSE\_SET\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_SYREN\_SPARSE\_SET\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iterator>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }detail}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Cont,\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetail_1_1index__iterator}{index\_iterator}};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Cont,\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetail_1_1data__iterator}{data\_iterator}};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Cont,\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdetail_1_1pair__iterator}{pair\_iterator}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Cont,\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{class\ }iterator\_base}
+\DoxyCodeLine{00021\ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ \ \ default\ iterator\ implementation.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ \ \ if\ any\ container\ want\ to\ use\ some\ other\ default\ iterator\ it\ should\ create\ its\ own\ Type\ definition\ as\ iterator\_base<std::vector<int>>\ */}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }iterator\_category\ =\ std::contiguous\_iterator\_tag;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ T;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }difference\_type\ =\ std::ptrdiff\_t;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }pointer\ =\ T*;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }reference\ =\ T\&;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ iterator\_base(value\_type*\ ptr\ =\ \textcolor{keyword}{nullptr})\ noexcept\ :\ \_ptr(ptr)\ \{\};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ iterator\_base\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ operator<=>(\textcolor{keyword}{const}\ iterator\_base\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ iterator\_base\&\ operator++()\ \textcolor{keyword}{noexcept}\ \{\ ++\_ptr;\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ iterator\_base\ operator++(\textcolor{keywordtype}{int})\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keyword}{auto}\ copy\ =\ *\textcolor{keyword}{this};\ ++(*this);\ \textcolor{keywordflow}{return}\ copy;\ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ reference\ operator*()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ *\_ptr;\ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ pointer\ operator-\/>()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_ptr;\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ iterator\_base\ operator+(difference\_type\ n)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ iterator\_base(\_ptr\ +\ n);\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ difference\_type\ operator-\/(iterator\_base\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_ptr\ -\/\ other.\_ptr;\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ value\_type*\ \_ptr;}
+\DoxyCodeLine{00047\ \ \ \ \ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ cache\_line\_size\ =\ 64u;}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00051\ \ \ \ \ T*\ aligned\_alloc(\textcolor{keywordtype}{size\_t}\ count)}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ ptr\ =\ ::operator\ \textcolor{keyword}{new}(count\ *\ \textcolor{keyword}{sizeof}(T),\ std::align\_val\_t\{\ cache\_line\_size\ \});}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}T*\textcolor{keyword}{>}(ptr);}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ aligned\_free(T*\ ptr)\ \ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ ::operator\ \textcolor{keyword}{delete}(ptr,\ std::align\_val\_t\{\ cache\_line\_size\ \});}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Entity>}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ elements\_per\_cache\_line\ =\ cache\_line\_size\ /\ \textcolor{keyword}{sizeof}(Entity);}
+\DoxyCodeLine{00065\ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Entity>}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ optimal\_capacity(\textcolor{keywordtype}{size\_t}\ desired)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00068\ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((desired\ +\ elements\_per\_cache\_line<Entity>\ -\/\ 1)\ /\ elements\_per\_cache\_line<Entity>)*\ elements\_per\_cache\_line<Entity>;}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Entity>}
+\DoxyCodeLine{00074\ \textcolor{keyword}{class\ }SparseSet}
+\DoxyCodeLine{00075\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{using\ }This\ =\ SparseSet<Entity>;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ \mbox{\hyperlink{class_entity}{Entity}};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_unsigned\_v<value\_type>,\ \textcolor{stringliteral}{"{}Key\ must\ be\ unsigned"{}});}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_entity}{Entity}})\ <=\ \textcolor{keyword}{sizeof}(size\_t),\ \textcolor{stringliteral}{"{}Entity\ size\ insufficient\ for\ addressing."{}});}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ value\_type\ tombstone\ =\ std::numeric\_limits<Entity>::max();}
+\DoxyCodeLine{00081\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{using\ }iterator\ =\ \mbox{\hyperlink{classdetail_1_1iterator__base}{detail::iterator\_base<This,Entity>}};}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{using\ }const\_iterator\ =\ \mbox{\hyperlink{classdetail_1_1iterator__base}{detail::iterator\_base<This,const\ Entity>}};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ SparseSet(\textcolor{keywordtype}{size\_t}\ initial\_capacity\ =\ \ 4096)\ :\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \_sparse(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \_dense(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \_capacity(0u),}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \_size(0u)}
+\DoxyCodeLine{00091\ \ \ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ resize(detail::optimal\_capacity<Entity>(initial\_capacity));}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \string~SparseSet()}
+\DoxyCodeLine{00096\ \ \ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ detail::aligned\_free(\_sparse);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ detail::aligned\_free(\_dense);}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{comment}{//disable\ copy\ as\ its\ not\ needed\ yet.}}
+\DoxyCodeLine{00102\ \ \ \ \ SparseSet(\textcolor{keyword}{const}\ SparseSet\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00103\ \ \ \ \ SparseSet\&\ operator=(\textcolor{keyword}{const}\ SparseSet\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ SparseSet(SparseSet\&\&\ other)\ noexcept}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ :\ \_sparse(other.\_sparse),}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \_dense(other.\_dense),}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \_capacity(other.\_capacity),}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \_size(other.\_size)}
+\DoxyCodeLine{00110\ \ \ \ \ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ other.\_sparse\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ other.\_dense\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ other.\_capacity\ =\ 0;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ other.\_size\ =\ 0;}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ SparseSet\&\ operator=(SparseSet\&\&\ other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&other)\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ detail::aligned\_free(\_sparse);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ detail::aligned\_free(\_dense);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \_sparse\ =\ other.\_sparse;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \_dense\ =\ other.\_dense;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \_capacity\ =\ other.\_capacity;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \_size\ =\ other.\_size;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ other.\_sparse\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ other.\_dense\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ other.\_capacity\ =\ 0;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ other.\_size\ =\ 0;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ resize(\textcolor{keywordtype}{size\_t}\ new\_capacity)}
+\DoxyCodeLine{00136\ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_entity}{Entity}}*\ new\_sparse\ =\ detail::aligned\_alloc<Entity>(new\_capacity);}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_entity}{Entity}}*\ new\_dense\ =\ detail::aligned\_alloc<Entity>(new\_capacity);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_sparse)}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ std::copy(\_sparse,\ \_sparse\ +\ std::min(\_capacity,new\_capacity),\ new\_sparse);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ std::copy(\_dense,\ \_dense\ +\ std::min(\_size,\ new\_capacity),\ new\_dense);}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ std::fill\_n(new\_sparse,\ new\_capacity,\ tombstone);}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ detail::aligned\_free(\_sparse);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ detail::aligned\_free(\_dense);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \_sparse\ =\ new\_sparse;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \_dense\ =\ new\_dense;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \_capacity\ =\ new\_capacity;}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{bool}\ contains(\mbox{\hyperlink{class_entity}{Entity}}\ e)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00160\ \ \ \ \ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ e\ <\ \_capacity\ \&\&\ \_sparse[e]\ <\ \_size\ \&\&\ \_dense[\_sparse[e]]\ ==\ e;}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{void}\ add(\mbox{\hyperlink{class_entity}{Entity}}\ e)}
+\DoxyCodeLine{00165\ \ \ \ \ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (contains(e))\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(e\ >\ \_capacity)\ resize(detail::optimal\_capacity<Entity>(e\ +\ 1));}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_size\ >=\ \_capacity)\ resize(detail::optimal\_capacity<\ Entity\ >(\_capacity\ *\ 2u));}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \_sparse[e]\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_entity}{Entity}}\textcolor{keyword}{>}(\_size);}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \_dense[\_size++]\ =\ e;}
+\DoxyCodeLine{00172\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{bool}\ remove(\mbox{\hyperlink{class_entity}{Entity}}\ e)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00175\ \ \ \ \ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!contains(e))\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_entity}{Entity}}\ pos\ =\ \_sparse[e];}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_entity}{Entity}}\ last\ =\ \_dense[\_size\ -\/\ 1];}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \_dense[pos]\ =\ last;}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \_sparse[last]\ =\ pos;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::swap(\_dense[pos],\ \_sparse[last]);}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \_sparse[e]\ =\ tombstone;}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ -\/-\/\_size;}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00188\ \ \ \ \ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ iterator\ begin()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ iterator(\_dense);\ \}}
+\DoxyCodeLine{00191\ \ \ \ \ iterator\ end()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ iterator(\_dense\ +\ \_size);\}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ const\_iterator\ begin()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ const\_iterator(\_dense);\ \}}
+\DoxyCodeLine{00194\ \ \ \ \ const\_iterator\ end()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ const\_iterator(\_dense\ +\ \_size);\ \};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ const\_iterator::pointer\ data()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_dense;\ \}}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_size;\ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ capacity()\ \ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_capacity;\ \}}
+\DoxyCodeLine{00199\ \ \ \ \ \mbox{\hyperlink{class_entity}{Entity}}\ index\_of(\mbox{\hyperlink{class_entity}{Entity}}\ e)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ e\ <\ \_capacity\ ?\ \_sparse[e]\ :\ tombstone;\ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \mbox{\hyperlink{class_entity}{Entity}}\ entity\_at(\mbox{\hyperlink{class_entity}{Entity}}\ index)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ index\ <\ \_size\ ?\ \_dense[index]\ :\ tombstone;\ \}}
+\DoxyCodeLine{00201\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \mbox{\hyperlink{class_entity}{Entity}}*\ \_sparse;}
+\DoxyCodeLine{00204\ \ \ \ \ \mbox{\hyperlink{class_entity}{Entity}}*\ \_dense;}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_capacity;}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_size;}
+\DoxyCodeLine{00207\ \};}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

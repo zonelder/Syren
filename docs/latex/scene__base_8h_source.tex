@@ -1,0 +1,19 @@
+\doxysection{scene\+\_\+base.\+h}
+\hypertarget{scene__base_8h_source}{}\label{scene__base_8h_source}\index{directEngin/lib/scene/scene\_base.h@{directEngin/lib/scene/scene\_base.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_SCENE\_BASE\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_SCENE\_BASE\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{using\ }ComponentID\ =\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ int;}
+\DoxyCodeLine{00007\ \textcolor{keyword}{const}\ ComponentID\ MAX\_COMPONENT\ =\ 64;}
+\DoxyCodeLine{00008\ \textcolor{keyword}{using\ }EntityID\ =\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ int;}
+\DoxyCodeLine{00009\ \textcolor{keyword}{const}\ EntityID\ MAX\_ENTITY\ =\ 10000u;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ tombstone\ =\ std::numeric\_limits<EntityID>::max();}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

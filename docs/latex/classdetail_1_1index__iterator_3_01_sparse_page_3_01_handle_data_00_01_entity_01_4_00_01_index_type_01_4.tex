@@ -1,0 +1,58 @@
+\doxysection{detail\+::index\+\_\+iterator\texorpdfstring{$<$}{<} Sparse\+Page\texorpdfstring{$<$}{<} Handle\+Data, Entity \texorpdfstring{$>$}{>}, Index\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4}{}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4}\index{detail::index\_iterator$<$ SparsePage$<$ HandleData, Entity $>$, IndexType $>$@{detail::index\_iterator$<$ SparsePage$<$ HandleData, Entity $>$, IndexType $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_aafc29f4421fe0e3497d57730077a8f70}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_aafc29f4421fe0e3497d57730077a8f70} 
+using {\bfseries Cont} = \mbox{\hyperlink{class_sparse_page}{Sparse\+Page}}$<$Handle\+Data, \mbox{\hyperlink{class_entity}{Entity}}$>$
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_aa0dbbdb180681e3779f7e11977c11246}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_aa0dbbdb180681e3779f7e11977c11246} 
+using {\bfseries Page} = typename Cont\+::\+Page
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ac2e2ecf24a6f844c7c7d69a24a934114}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ac2e2ecf24a6f844c7c7d69a24a934114} 
+using {\bfseries page\+\_\+iterator} = typename Cont\+::page\+\_\+iterator
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ad2cc9111e89b52c6dc11b62a2b2875a7}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ad2cc9111e89b52c6dc11b62a2b2875a7} 
+using {\bfseries const\+\_\+page\+\_\+iterator} = typename Cont\+::const\+\_\+page\+\_\+iterator
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_aea01290586d9909233ea0b65914c33a6}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_aea01290586d9909233ea0b65914c33a6} 
+using {\bfseries current\+\_\+page\+\_\+iterator} = std\+::conditional\+\_\+t$<$std\+::is\+\_\+const\+\_\+v$<$Index\+Type$>$, const\+\_\+page\+\_\+iterator, page\+\_\+iterator$>$
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a12deacaca642f5acfe29e7e3737c03f0}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a12deacaca642f5acfe29e7e3737c03f0} 
+using {\bfseries iterator\+\_\+category} = std\+::forward\+\_\+iterator\+\_\+tag
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a7b3ec5aa6be89b1e3d86441ba469fc5a}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a7b3ec5aa6be89b1e3d86441ba469fc5a} 
+using {\bfseries value\+\_\+type} = Index\+Type
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a5de5be9a724d4e10d5f1fc645fc62dc1}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a5de5be9a724d4e10d5f1fc645fc62dc1} 
+using {\bfseries difference\+\_\+type} = std\+::ptrdiff\+\_\+t
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ae940c0098f2c058d6ed5fc728261ec8a}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ae940c0098f2c058d6ed5fc728261ec8a} 
+using {\bfseries pointer} = Index\+Type\texorpdfstring{$\ast$}{*}
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ae712dd17e30330b4be4148e463cba2e9}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ae712dd17e30330b4be4148e463cba2e9} 
+using {\bfseries reference} = Index\+Type
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a7f90bd5b401813492173110d352c95cb}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a7f90bd5b401813492173110d352c95cb} 
+{\bfseries index\+\_\+iterator} (current\+\_\+page\+\_\+iterator begin, current\+\_\+page\+\_\+iterator end) noexcept
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a6caa02fb79f74c420d1ea757af520481}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a6caa02fb79f74c420d1ea757af520481} 
+reference {\bfseries operator\texorpdfstring{$\ast$}{*}} () const noexcept
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a790ccde9d0f5929b77a5484da766c23b}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_a790ccde9d0f5929b77a5484da766c23b} 
+\mbox{\hyperlink{classdetail_1_1index__iterator}{index\+\_\+iterator}} \& {\bfseries operator++} () noexcept
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ae324c22b7e0933aba290f9e4ac3ca89a}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ae324c22b7e0933aba290f9e4ac3ca89a} 
+\mbox{\hyperlink{classdetail_1_1index__iterator}{index\+\_\+iterator}} {\bfseries operator++} (int) noexcept
+\item 
+\Hypertarget{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ab5e54d0de2db1ece9b84c60b19fd1fdc}\label{classdetail_1_1index__iterator_3_01_sparse_page_3_01_handle_data_00_01_entity_01_4_00_01_index_type_01_4_ab5e54d0de2db1ece9b84c60b19fd1fdc} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{classdetail_1_1index__iterator}{index\+\_\+iterator}} \&other) const noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/common/сontainers/sparse\+\_\+page.\+h\end{DoxyCompactItemize}

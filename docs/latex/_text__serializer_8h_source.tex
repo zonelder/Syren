@@ -1,0 +1,65 @@
+\doxysection{Text\+\_\+serializer.\+h}
+\hypertarget{_text__serializer_8h_source}{}\label{_text__serializer_8h_source}\index{directEngin/lib/generation\_iternal/Text\_serializer.h@{directEngin/lib/generation\_iternal/Text\_serializer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TEXT\_SERIALIZER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TEXT\_SERIALIZER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_serializer}{Serializer}};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_serializer}{Serializer}}<\mbox{\hyperlink{struct_text}{Text}}>\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ serialize(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_text}{Text}}\&\ value)\ }
+\DoxyCodeLine{00014\ \ \ \ \ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ Serializer<std::wstring>::serialize(node.\mbox{\hyperlink{class_x_m_l_node_a72fb446ec8814b2fbc67b826bcdbd11c}{saveGetChild}}(\textcolor{stringliteral}{"{}content"{}}),\ value.content);}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ Serializer<float>::serialize(node.\mbox{\hyperlink{class_x_m_l_node_a72fb446ec8814b2fbc67b826bcdbd11c}{saveGetChild}}(\textcolor{stringliteral}{"{}size"{}}),\ value.size);}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ arrayNode\ =\ node.\mbox{\hyperlink{class_x_m_l_node_a72fb446ec8814b2fbc67b826bcdbd11c}{saveGetChild}}(\textcolor{stringliteral}{"{}array\_of\_color"{}});}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ size\ =\ std::distance(std::begin(value.color),std::end(value.color));}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<XMLNode>\ childs;}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ arrayNode.childs(\textcolor{stringliteral}{"{}color"{}},childs,(\textcolor{keywordtype}{int})size);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(ptrdiff\_t\ i\ =\ 0\ ;i\ <\ size\ ;++i\ )}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serializer<int>::serialize(childs[i],value.color[i]);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_text}{Text}}\ deserialize(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ node)\ }
+\DoxyCodeLine{00032\ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_text}{Text}}\ value;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ deserialize(node,value);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ deserialize(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ node,\mbox{\hyperlink{struct_text}{Text}}\&\ value)}
+\DoxyCodeLine{00039\ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \textcolor{keyword}{auto}\ fieldNode\ =\ node.child(\textcolor{stringliteral}{"{}content"{}}))}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ Serializer<std::wstring>::deserialize(fieldNode,value.content);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \textcolor{keyword}{auto}\ fieldNode\ =\ node.child(\textcolor{stringliteral}{"{}size"{}}))}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ Serializer<float>::deserialize(fieldNode,value.size);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \textcolor{keyword}{auto}\ fieldNode\ =\ node.child(\textcolor{stringliteral}{"{}array\_of\_color"{}}))}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<XMLNode>\ childs;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ fieldNode.childs(\textcolor{stringliteral}{"{}color"{}},childs);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ std::vector<XMLNode>::size\_type\ i\ =\ 0\ ;\ i\ <\ childs.size()\ ;\ ++i\ )}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value.color[i]\ =\ Serializer<int>::deserialize(childs[i]);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TEXT\_SERIALIZER\_HPP}}
+
+\end{DoxyCode}

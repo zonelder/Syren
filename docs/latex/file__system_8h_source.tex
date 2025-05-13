@@ -1,0 +1,36 @@
+\doxysection{file\+\_\+system.\+h}
+\hypertarget{file__system_8h_source}{}\label{file__system_8h_source}\index{directEngin/lib/cstdmf/file\_system.h@{directEngin/lib/cstdmf/file\_system.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_SYREN\_FILE\_SYSTEM\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_SYREN\_FILE\_SYSTEM\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }fileSystem}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ std::string\ getExtension(\textcolor{keyword}{const}\ std::string\&\ file);}
+\DoxyCodeLine{00010\ \ \ \ \ std::wstring\ getExtension(\textcolor{keyword}{const}\ std::wstring\&\ file);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ std::string\ getFilename(\textcolor{keyword}{const}\ std::string\&\ file);}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ fileExist(\textcolor{keyword}{const}\ std::string\&\ file);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ std::string\ resolvePath(\textcolor{keyword}{const}\ std::string\&\ path);}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ std::string\ relativePath(\textcolor{keyword}{const}\ std::string\&\ path);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ std::wstring\ relativePath(\textcolor{keyword}{const}\ std::wstring\&\ path);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ std::wstring\ resolvePath(\textcolor{keyword}{const}\ std::wstring\&\ path);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ std::string\ simplifyPath(\textcolor{keyword}{const}\ std::string\&\ path);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ std::wstring\ simplifyPath(\textcolor{keyword}{const}\ std::wstring\&\ path);}
+\DoxyCodeLine{00027\ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

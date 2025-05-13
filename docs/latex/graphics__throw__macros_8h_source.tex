@@ -1,0 +1,23 @@
+\doxysection{graphics\+\_\+throw\+\_\+macros.\+h}
+\hypertarget{graphics__throw__macros_8h_source}{}\label{graphics__throw__macros_8h_source}\index{directEngin/lib/graphic/graphics\_throw\_macros.h@{directEngin/lib/graphic/graphics\_throw\_macros.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ GFX\_EXCEPT\_NOINFO(hr)\ Graphics::HrException(\_\_LINE\_\_,\_\_FILE\_\_,(hr))}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ GFX\_THROW\_NOINFO(hrcall)\ if(FAILED(hr\ =\ (hrcall)))\ throw\ Graphics::HrException(\_\_LINE\_\_,\ \_\_FILE\_\_,\ hr)}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ NDEBUG}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ GFX\_EXCEPT(hr)\ Graphics::HrException(\_\_LINE\_\_,\_\_FILE\_\_,(hr),\_infoManager.getMessage())}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ GFX\_THROW\_INFO(hrcall)\ \_infoManager.set();\ if(FAILED(hr\ =\ (hrcall)))\ throw\ GFX\_EXCEPT(hr)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ GFX\_DEVICE\_REMOVED\_EXCEPT(hr)\ Graphics::DeviceRemoveException(\_\_LINE\_\_,\_\_FILE\_\_,(hr),\_infoManager.getMessage())}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ GFX\_THROW\_INFO\_ONLY(call)\ \_infoManager.set();(call);\{auto\ v\ =\ \_infoManager.getMessage();\ if(!v.empty())\{throw\ Graphics::InfoException(\_\_LINE\_\_,\_\_FILE\_\_,v);\}\}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ GFX\_EXCEPT(hr)\ Graphics::HrException(\_\_LINE\_\_,\_\_FILE\_\_,(hr))}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ GFX\_THROW\_INFO(hrcall)\ GFX\_THROW\_NOINFO(hrcall)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ GFX\_DEVICE\_REMOVED\_EXCEPT(hr)\ Graphics::DeviceRemoveException(\_\_LINE\_\_,\_\_FILE\_\_,(hr))}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ GFX\_THROW\_INFO\_ONLY(call)\ (call)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NDEBUG}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ INFOMAN(gfx)\ HRESULT\ hr;\ DxgiInfoManager\&\ \_infoManager\ =\ gfx.getInfoManager()}}
+
+\end{DoxyCode}

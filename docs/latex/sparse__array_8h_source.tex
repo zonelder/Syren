@@ -1,0 +1,99 @@
+\doxysection{sparse\+\_\+array.\+h}
+\hypertarget{sparse__array_8h_source}{}\label{sparse__array_8h_source}\index{directEngin/lib/common/сontainers/sparse\_array.h@{directEngin/lib/common/сontainers/sparse\_array.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}sparse\_set.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Data,\textcolor{keyword}{typename}\ Entity,\textcolor{keywordtype}{unsigned}\ N>}
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }SparseArray}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{using\ }key\_type\ =\ \mbox{\hyperlink{class_entity}{Entity}};}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{using\ }sparse\_set\_type\ =\ \mbox{\hyperlink{class_sparse_set}{SparseSet<Entity>}};}
+\DoxyCodeLine{00011\ \ \ \ \ SparseArray()}
+\DoxyCodeLine{00012\ \ \ \ \ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \_data\ =\ \textcolor{keyword}{static\_cast<}Data*\textcolor{keyword}{>}(::operator\ \textcolor{keyword}{new}(\textcolor{keyword}{sizeof}(Data)\ *\ N));}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \_end\ =\ \_data;}
+\DoxyCodeLine{00015\ \ \ \ \ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \string~SparseArray()}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ \_data;\ it\ !=\ \_end;\ ++it)}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ it-\/>\string~Data();}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ ::operator\ \textcolor{keyword}{delete}(\_data);}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ Data\&\ operator[](key\_type\ key)}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (key\ <\ 0\ ||\ key\ >=\ N)}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}SparseArray::operator[]:\ index\ out\ of\ range."{}});}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *(\_data\ +\_set.index\_of(key));}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{const}\ Data\&\ operator[](key\_type\ key)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (key\ <\ 0\ ||\ key\ >=\ N)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}SparseArray::operator[]:\ index\ out\ of\ range."{}});}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *(\_data\ +\ \_set.index\_of(key));}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ Data\&\ add(\mbox{\hyperlink{class_entity}{Entity}}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00046\ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_set.contains(\textcolor{keywordtype}{id}))\ \textcolor{keywordflow}{return}\ get(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size()\ >=\ N)}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}SparseArray::add:\ container\ overflow."{}});}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \_set.add(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ Data*\ ptr\ =\ \textcolor{keyword}{new}(\_end++)Data();}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *ptr;}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{bool}\ remove(key\_type\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_set.contains(\textcolor{keywordtype}{id}))\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ idx\ =\ \_set.index\_of(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \_set.remove(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ last\ =\ \_end\ -\/\ 1;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ std::swap(\_data[idx],\ *last);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ last-\/>\string~Data();}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ -\/-\/\_end;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{bool}\ contains(\mbox{\hyperlink{class_entity}{Entity}}\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_set.contains(\textcolor{keywordtype}{id});\ \}}
+\DoxyCodeLine{00071\ \ \ \ \ Data\&\ get(\mbox{\hyperlink{class_entity}{Entity}}\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_data[\_set.index\_of(\textcolor{keywordtype}{id})];\ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{const}\ Data\&\ get(\mbox{\hyperlink{class_entity}{Entity}}\&\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_data[\_set.index\_of(\textcolor{keywordtype}{id})];\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ Data*\ begin()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_data;\ \}}
+\DoxyCodeLine{00075\ \ \ \ \ Data*\ end()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_end;\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{const}\ Data*\ begin()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_data;\ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{const}\ Data*\ end()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_end;\ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_set.size();\ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ empty()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_set.size()\ ==\ 0;\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ sparse\_set\_type::iterator\ index\_begin()\ \ \ \ \ \ \ \ \ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_set.begin();\ \}}
+\DoxyCodeLine{00084\ \ \ \ \ sparse\_set\_type::iterator\ index\_end()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_set.end();\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ sparse\_set\_type::const\_iterator\ index\_begin()\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_set.begin();\ \}}
+\DoxyCodeLine{00087\ \ \ \ \ sparse\_set\_type::const\_iterator\ index\_end()\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_set.end();\ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00090\ \ \ \ \ sparse\_set\_type\ \_set;}
+\DoxyCodeLine{00091\ \ \ \ \ Data*\ \_data;}
+\DoxyCodeLine{00092\ \ \ \ \ Data*\ \_end;}
+\DoxyCodeLine{00093\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,73 @@
+\doxysection{Sparse\+Set\texorpdfstring{$<$}{<} Entity \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_sparse_set}{}\label{class_sparse_set}\index{SparseSet$<$ Entity $>$@{SparseSet$<$ Entity $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sparse_set_a7230890af3793cace3f95f98be33a7dd}\label{class_sparse_set_a7230890af3793cace3f95f98be33a7dd} 
+using {\bfseries iterator} = \mbox{\hyperlink{classdetail_1_1iterator__base}{detail\+::iterator\+\_\+base}}$<$\mbox{\hyperlink{class_sparse_set}{This}},\mbox{\hyperlink{class_entity}{Entity}}$>$
+\item 
+\Hypertarget{class_sparse_set_aab783a840d3d459bab603237265bb44a}\label{class_sparse_set_aab783a840d3d459bab603237265bb44a} 
+using {\bfseries const\+\_\+iterator} = \mbox{\hyperlink{classdetail_1_1iterator__base}{detail\+::iterator\+\_\+base}}$<$\mbox{\hyperlink{class_sparse_set}{This}},const \mbox{\hyperlink{class_entity}{Entity}}$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sparse_set_a98673457f67027a6c072037e63f6fdb8}\label{class_sparse_set_a98673457f67027a6c072037e63f6fdb8} 
+{\bfseries Sparse\+Set} (size\+\_\+t initial\+\_\+capacity=4096)
+\item 
+\Hypertarget{class_sparse_set_afaa033c01aefbf0685bd4f3ca0ac0033}\label{class_sparse_set_afaa033c01aefbf0685bd4f3ca0ac0033} 
+{\bfseries Sparse\+Set} (const \mbox{\hyperlink{class_sparse_set}{Sparse\+Set}} \&)=delete
+\item 
+\Hypertarget{class_sparse_set_a0653fff8433a97fd46cadc25138ada5b}\label{class_sparse_set_a0653fff8433a97fd46cadc25138ada5b} 
+\mbox{\hyperlink{class_sparse_set}{Sparse\+Set}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_sparse_set}{Sparse\+Set}} \&)=delete
+\item 
+\Hypertarget{class_sparse_set_a9aa03a7cb7649372a71ab0f44d5156f7}\label{class_sparse_set_a9aa03a7cb7649372a71ab0f44d5156f7} 
+{\bfseries Sparse\+Set} (\mbox{\hyperlink{class_sparse_set}{Sparse\+Set}} \&\&other) noexcept
+\item 
+\Hypertarget{class_sparse_set_a21091448f5c7a353c26764c3411451a3}\label{class_sparse_set_a21091448f5c7a353c26764c3411451a3} 
+\mbox{\hyperlink{class_sparse_set}{Sparse\+Set}} \& {\bfseries operator=} (\mbox{\hyperlink{class_sparse_set}{Sparse\+Set}} \&\&other) noexcept
+\item 
+\Hypertarget{class_sparse_set_a87ca40bd1c5da224ed4b3dee145676ca}\label{class_sparse_set_a87ca40bd1c5da224ed4b3dee145676ca} 
+void {\bfseries resize} (size\+\_\+t new\+\_\+capacity)
+\item 
+\Hypertarget{class_sparse_set_a9a56e81595afe15e758fb827e914f03b}\label{class_sparse_set_a9a56e81595afe15e758fb827e914f03b} 
+bool {\bfseries contains} (\mbox{\hyperlink{class_entity}{Entity}} e) const noexcept
+\item 
+\Hypertarget{class_sparse_set_a87f0ebe24d5ebcd43b870c4d432d2ecf}\label{class_sparse_set_a87f0ebe24d5ebcd43b870c4d432d2ecf} 
+void {\bfseries add} (\mbox{\hyperlink{class_entity}{Entity}} e)
+\item 
+\Hypertarget{class_sparse_set_a31cd0b1cbc6def625db10cc71a43a6e1}\label{class_sparse_set_a31cd0b1cbc6def625db10cc71a43a6e1} 
+bool {\bfseries remove} (\mbox{\hyperlink{class_entity}{Entity}} e) noexcept
+\item 
+\Hypertarget{class_sparse_set_a1593c094a991731dba6c4358cfbcc093}\label{class_sparse_set_a1593c094a991731dba6c4358cfbcc093} 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{iterator}} {\bfseries begin} () noexcept
+\item 
+\Hypertarget{class_sparse_set_a84104d31d3e9501a757ec7a1e3ef963d}\label{class_sparse_set_a84104d31d3e9501a757ec7a1e3ef963d} 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{iterator}} {\bfseries end} () noexcept
+\item 
+\Hypertarget{class_sparse_set_a461bdae43e38e124d95f14103b7ec0db}\label{class_sparse_set_a461bdae43e38e124d95f14103b7ec0db} 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{const\+\_\+iterator}} {\bfseries begin} () const noexcept
+\item 
+\Hypertarget{class_sparse_set_a18559509581324f6c252c022529ca24a}\label{class_sparse_set_a18559509581324f6c252c022529ca24a} 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{const\+\_\+iterator}} {\bfseries end} () const noexcept
+\item 
+\Hypertarget{class_sparse_set_a637de027637d99e71289be8c54d71d94}\label{class_sparse_set_a637de027637d99e71289be8c54d71d94} 
+\mbox{\hyperlink{class_entity}{const\+\_\+iterator\+::pointer}} {\bfseries data} () const noexcept
+\item 
+\Hypertarget{class_sparse_set_ac45b0eec8532f42e88f12abcabebe082}\label{class_sparse_set_ac45b0eec8532f42e88f12abcabebe082} 
+size\+\_\+t {\bfseries size} () const noexcept
+\item 
+\Hypertarget{class_sparse_set_ac6c396fca69a8d181dc859d5e943931a}\label{class_sparse_set_ac6c396fca69a8d181dc859d5e943931a} 
+size\+\_\+t {\bfseries capacity} () const noexcept
+\item 
+\Hypertarget{class_sparse_set_ae1d7d5962f060b25ae3b97f6d2f4a74d}\label{class_sparse_set_ae1d7d5962f060b25ae3b97f6d2f4a74d} 
+\mbox{\hyperlink{class_entity}{Entity}} {\bfseries index\+\_\+of} (\mbox{\hyperlink{class_entity}{Entity}} e) const noexcept
+\item 
+\Hypertarget{class_sparse_set_aa6fdb9f910e1cc7c6f8626634c4919e4}\label{class_sparse_set_aa6fdb9f910e1cc7c6f8626634c4919e4} 
+\mbox{\hyperlink{class_entity}{Entity}} {\bfseries entity\+\_\+at} (\mbox{\hyperlink{class_entity}{Entity}} index) const noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/common/сontainers/sparse\+\_\+set.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,40 @@
+\doxysection{Component\+Manager Class Reference}
+\hypertarget{class_component_manager}{}\label{class_component_manager}\index{ComponentManager@{ComponentManager}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_component_manager_ad792fe747d70fbc312e9828c4f204f72}\label{class_component_manager_ad792fe747d70fbc312e9828c4f204f72} 
+using {\bfseries pool\+\_\+base\+\_\+type} = \mbox{\hyperlink{class_i_component_pool}{IComponent\+Pool}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_component_manager_ac6234bb41fb8e5067ae4c361b31b08ed}\label{class_component_manager_ac6234bb41fb8e5067ae4c361b31b08ed} 
+{\footnotesize template$<$typename T$>$ }\\\mbox{\hyperlink{class_component_pool}{Component\+Pool}}$<$ T $>$ \texorpdfstring{$\ast$}{*} {\bfseries add\+Pool} ()
+\item 
+\Hypertarget{class_component_manager_a5627eaa6e9a5e11603949b422e52e260}\label{class_component_manager_a5627eaa6e9a5e11603949b422e52e260} 
+{\footnotesize template$<$typename T$>$ }\\\mbox{\hyperlink{class_component_pool}{Component\+Pool}}$<$ T $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Pool} ()
+\item 
+\Hypertarget{class_component_manager_aea8d30ae428ad8ad31f189d80257620d}\label{class_component_manager_aea8d30ae428ad8ad31f189d80257620d} 
+{\footnotesize template$<$typename T$>$ }\\const \mbox{\hyperlink{class_component_pool}{Component\+Pool}}$<$ T $>$ \texorpdfstring{$\ast$}{*} {\bfseries get\+Pool} () const
+\item 
+\Hypertarget{class_component_manager_a578e7e23d0d328154c13d69984d50f0b}\label{class_component_manager_a578e7e23d0d328154c13d69984d50f0b} 
+{\footnotesize template$<$typename T$>$ }\\T \& {\bfseries get\+Component} (Entity\+ID id)
+\item 
+\Hypertarget{class_component_manager_a682ec5ba8397e287ce983ecdc498390e}\label{class_component_manager_a682ec5ba8397e287ce983ecdc498390e} 
+{\footnotesize template$<$typename T$>$ }\\T \& {\bfseries add\+Component} (Entity\+ID id)
+\item 
+\Hypertarget{class_component_manager_ad086f031f02ccf2d44addf109f63cc7f}\label{class_component_manager_ad086f031f02ccf2d44addf109f63cc7f} 
+{\footnotesize template$<$typename T$>$ }\\bool {\bfseries remove\+Component} (Entity\+ID id)
+\item 
+\Hypertarget{class_component_manager_a8147091d366f5b5c1af68deaf694850e}\label{class_component_manager_a8147091d366f5b5c1af68deaf694850e} 
+bool {\bfseries remove\+Component} (Component\+ID comp\+ID, Entity\+ID id)
+\item 
+\Hypertarget{class_component_manager_ad3c0ee83345b95585d21a7c3f5e4effc}\label{class_component_manager_ad3c0ee83345b95585d21a7c3f5e4effc} 
+const auto \& {\bfseries pools} () const noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/scene/component\+\_\+manager.\+h\end{DoxyCompactItemize}

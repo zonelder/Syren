@@ -1,0 +1,247 @@
+\doxysection{color.\+h}
+\hypertarget{color_8h_source}{}\label{color_8h_source}\index{directEngin/lib/math/color.h@{directEngin/lib/math/color.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_SYREN\_COLOR\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_SYREN\_COLOR\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#undef\ max}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#undef\ min}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\textcolor{keyword}{alignas}(16)\ Color}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00015\ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\textcolor{keyword}{alignas}(16)\ \{\ \textcolor{keywordtype}{float}\ r,\ g,\ b,\ a;\ \};}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ DirectX::XMVECTOR\ \_vec;}
+\DoxyCodeLine{00018\ \ \ \ \ \};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ s\_epsilon\ =\ 0.001f;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ Color()\ noexcept\ :\ \_vec(DirectX::XMVectorZero())\ \{\};}
+\DoxyCodeLine{00022\ \ \ \ \ Color(\textcolor{keywordtype}{float}\ x,\textcolor{keywordtype}{float}\ y,\textcolor{keywordtype}{float}\ z,\textcolor{keywordtype}{float}\ a\ =\ 1.0f)\ noexcept\ :\ \_vec(DirectX::XMVectorSet(x,y,z,a))\{\}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{explicit}\ Color(DirectX::XMVECTOR\ vec)\ noexcept\ :\ \_vec(vec)\ \{\};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{operator}\ DirectX::XMVECTOR()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_vec;\ \};}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ Color\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ Color\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{friend}\ Color\ operator*(\textcolor{keyword}{const}\ Color\&\ color,\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scalar)\textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{friend}\ Color\ operator*(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scalar,\ \textcolor{keyword}{const}\ Color\&\ color)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00034\ \ \ \ \ Color\ operator/(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scalar)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ Color\ operator+(\textcolor{keyword}{const}\ Color\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00037\ \ \ \ \ Color\ operator-\/(\textcolor{keyword}{const}\ Color\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00038\ \ \ \ \ Color\ operator*(\textcolor{keyword}{const}\ Color\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00039\ \ \ \ \ Color\ operator/(\textcolor{keyword}{const}\ Color\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ Color\&\ operator+=(\textcolor{keyword}{const}\ Color\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00042\ \ \ \ \ Color\&\ operator-\/=(\textcolor{keyword}{const}\ Color\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00043\ \ \ \ \ Color\&\ operator*=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scalar)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00044\ \ \ \ \ Color\&\ operator*=(\textcolor{keyword}{const}\ Color\&\ scalar)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00045\ \ \ \ \ Color\&\ operator/=(\textcolor{keyword}{const}\ Color\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00046\ \ \ \ \ Color\&\ operator/=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scalar)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{float}\ maxComponent()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{float}\ minComponent()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{float}\ grayscale()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00052\ \ \ \ \ Color\ gamma()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00053\ \ \ \ \ Color\ linear()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ Color\ lerp(\textcolor{keyword}{const}\ Color\&\ a,\ \textcolor{keyword}{const}\ Color\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}\ Color\ lerpUnclamped(\textcolor{keyword}{const}\ Color\&\ a,\ \textcolor{keyword}{const}\ Color\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ Color\ HSVToRGB(\textcolor{keywordtype}{float}\ H,\ \textcolor{keywordtype}{float}\ S,\ \textcolor{keywordtype}{float}\ V,\ \textcolor{keywordtype}{bool}\ hdr\ =\ \textcolor{keyword}{true})\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ RGBToHSV(\textcolor{keyword}{const}\ Color\&\ rgbColor,\ \textcolor{keywordtype}{float}\&\ H,\ \textcolor{keywordtype}{float}\&\ S,\ \textcolor{keywordtype}{float}\&\ V)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{float}\ operator[](\textcolor{keywordtype}{size\_t}\ index)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00061\ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ assert(index\ <\ 4\ \&\&\ \textcolor{stringliteral}{"{}Color\ index\ out\ of\ bound."{}});}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\&r)[index];}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{float}\&\ operator[](\textcolor{keywordtype}{size\_t}\ index)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00067\ \ \ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ assert(index\ <\ 4\ \&\&\ \textcolor{stringliteral}{"{}Color\ index\ out\ of\ bound."{}});}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\&r)[index];}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Color\ black;}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Color\ white;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Color\ red;}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Color\ green;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Color\ blue;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Color\ yellow;}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Color\ cyan;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Color\ magenta;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Color\ gray;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Color::operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00087\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ eps\ =\ DirectX::XMVectorReplicate(Color::s\_epsilon);}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{return}\ DirectX::XMVector4NearEqual(\_vec,\ other.\_vec,\ eps);}
+\DoxyCodeLine{00090\ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Color::operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00093\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{return}\ !(*\textcolor{keyword}{this}\ ==\ other);}
+\DoxyCodeLine{00095\ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ color,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scalar)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00098\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_color}{Color}}(DirectX::XMVectorScale(color.\_vec,\ scalar));}
+\DoxyCodeLine{00100\ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ operator*(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scalar,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ color\ )\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00103\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_color}{Color}}(DirectX::XMVectorScale(color.\_vec,\ scalar));}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ Color::operator/(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scalar)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00108\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ assert(scalar\ !=\ 0.0f\ \&\&\ \textcolor{stringliteral}{"{}Vector4\ division\ by\ zero"{}});}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_color}{Color}}(DirectX::XMVectorScale(\_vec,\ 1.0f\ /\ scalar));}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ Color::operator+(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00115\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_color}{Color}}(DirectX::XMVectorAdd(\_vec,other.\_vec));}
+\DoxyCodeLine{00117\ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ Color::operator-\/(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00120\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_color}{Color}}(DirectX::XMVectorSubtract(\_vec,\ other.\_vec));}
+\DoxyCodeLine{00122\ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ Color::operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00125\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_color}{Color}}(DirectX::XMVectorMultiply(\_vec,other.\_vec));}
+\DoxyCodeLine{00127\ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ Color::operator/(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00130\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_color}{Color}}(DirectX::XMVectorDivide(\_vec,other.\_vec));}
+\DoxyCodeLine{00132\ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\&\ Color::operator+=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00135\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \_vec\ =\ DirectX::XMVectorAdd(\_vec,\ other.\_vec);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\&\ Color::operator-\/=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00142\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \_vec\ =\ DirectX::XMVectorSubtract(\_vec,\ other.\_vec);}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00146\ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\&\ Color::operator*=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scalar)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00149\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \_vec\ =\ DirectX::XMVectorScale(\_vec,\ scalar);}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00152\ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\&\ Color::operator*=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00155\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \_vec\ =\ DirectX::XMVectorMultiply(\_vec,\ other.\_vec);}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00158\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\&\ Color::operator/=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00161\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \_vec\ =\ DirectX::XMVectorDivide(\_vec,other.\_vec);}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00164\ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\&\ Color::operator/=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ scalar)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00167\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ assert(scalar\ !=\ 0.0f\ \&\&\ \textcolor{stringliteral}{"{}Vector4\ division\ by\ zero"{}});}
+\DoxyCodeLine{00169\ \ \ \ \ \_vec\ =\ DirectX::XMVectorScale(\_vec,\ 1.0f\ /\ scalar);}
+\DoxyCodeLine{00170\ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ Color::lerp(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ a,\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00173\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_color}{Color}}(DirectX::XMVectorLerp(a.\_vec,\ b.\_vec,\ std::clamp(t,\ 0.0f,\ 1.0f)));}
+\DoxyCodeLine{00175\ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ Color::lerpUnclamped(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ a,\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00178\ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_color}{Color}}(DirectX::XMVectorLerp(a.\_vec,\ b.\_vec,t));}
+\DoxyCodeLine{00180\ \}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ Color::HSVToRGB(\textcolor{keywordtype}{float}\ H,\ \textcolor{keywordtype}{float}\ S,\ \textcolor{keywordtype}{float}\ V,\ \textcolor{keywordtype}{bool}\ hdr)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00183\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ }
+\DoxyCodeLine{00185\ \ \ \ \ DirectX::XMVECTOR\ hsv\ =\ DirectX::XMVectorSet(H,\ S,\ V,\ 1.0f);}
+\DoxyCodeLine{00186\ \ \ \ \ \mbox{\hyperlink{class_color}{Color}}\ rgb(DirectX::XMColorHSVToRGB(hsv));}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{if}\ (!hdr)\ rgb.\_vec\ =\ DirectX::XMVectorClamp(rgb.\_vec,}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ DirectX::XMVectorZero(),\ DirectX::XMVectorSplatOne());}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{return}\ rgb;}
+\DoxyCodeLine{00190\ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Color::RGBToHSV(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_color}{Color}}\&\ rgbColor,\ \textcolor{keywordtype}{float}\&\ H,\ \textcolor{keywordtype}{float}\&\ S,\ \textcolor{keywordtype}{float}\&\ V)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00193\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ DirectX::XMVECTOR\ hsv\ =\ DirectX::XMColorRGBToHSV(rgbColor.\_vec);}
+\DoxyCodeLine{00195\ \ \ \ \ H\ =\ DirectX::XMVectorGetX(hsv);}
+\DoxyCodeLine{00196\ \ \ \ \ S\ =\ DirectX::XMVectorGetY(hsv);}
+\DoxyCodeLine{00197\ \ \ \ \ V\ =\ DirectX::XMVectorGetZ(hsv);}
+\DoxyCodeLine{00198\ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ Color::gamma()\ const\ noexcept\ }
+\DoxyCodeLine{00202\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ pow\ =\ DirectX::XMVectorReplicate(1.0f\ /\ 2.2f);}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{return}\ Color(DirectX::XMVectorPow(\_vec,\ pow));}
+\DoxyCodeLine{00205\ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_color}{Color}}\ Color::linear()\ const\ noexcept\ }
+\DoxyCodeLine{00208\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ pow\ =\ DirectX::XMVectorReplicate(2.2f);}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{return}\ Color(DirectX::XMVectorPow(\_vec,\ pow));}
+\DoxyCodeLine{00211\ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Color::maxComponent()\ const\ noexcept}
+\DoxyCodeLine{00214\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{float}\ x,\ y,\ z,\ w;}
+\DoxyCodeLine{00216\ \ \ \ \ x\ =\ DirectX::XMVectorGetX(\_vec);}
+\DoxyCodeLine{00217\ \ \ \ \ y\ =\ DirectX::XMVectorGetY(\_vec);}
+\DoxyCodeLine{00218\ \ \ \ \ z\ =\ DirectX::XMVectorGetZ(\_vec);}
+\DoxyCodeLine{00219\ \ \ \ \ w\ =\ DirectX::XMVectorGetW(\_vec);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{return}\ std::max(std::max(x,\ y),std::max(\ z,\ w));}
+\DoxyCodeLine{00222\ \}}
+\DoxyCodeLine{00223\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Color::minComponent()\ const\ noexcept}
+\DoxyCodeLine{00224\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordtype}{float}\ x,\ y,\ z,\ w;}
+\DoxyCodeLine{00226\ \ \ \ \ x\ =\ DirectX::XMVectorGetX(\_vec);}
+\DoxyCodeLine{00227\ \ \ \ \ y\ =\ DirectX::XMVectorGetY(\_vec);}
+\DoxyCodeLine{00228\ \ \ \ \ z\ =\ DirectX::XMVectorGetZ(\_vec);}
+\DoxyCodeLine{00229\ \ \ \ \ w\ =\ DirectX::XMVectorGetW(\_vec);}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordflow}{return}\ std::min(std::min(x,\ y),\ std::min(z,\ w));}
+\DoxyCodeLine{00232\ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Color::grayscale()\ const\ noexcept}
+\DoxyCodeLine{00235\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.299f\ *\ r\ +\ 0.587f\ *\ g\ +\ 0.114f\ *\ b;}
+\DoxyCodeLine{00237\ \}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00241\ }
+
+\end{DoxyCode}

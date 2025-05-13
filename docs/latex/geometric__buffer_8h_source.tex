@@ -1,0 +1,45 @@
+\doxysection{geometric\+\_\+buffer.\+h}
+\hypertarget{geometric__buffer_8h_source}{}\label{geometric__buffer_8h_source}\index{directEngin/lib/graphic/geometric\_buffer.h@{directEngin/lib/graphic/geometric\_buffer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_GEOMETRIC\_BUFFER\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_GEOMETRIC\_BUFFER\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}render\_target.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }GBuffer}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \ \ GBuffer(\mbox{\hyperlink{class_graphics}{Graphics}}*\ pGfx);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}\ bind(\mbox{\hyperlink{class_graphics}{Graphics}}*\ pGfx);}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{void}\ unbind(\mbox{\hyperlink{class_graphics}{Graphics}}*\ pGfx);}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ clear(\mbox{\hyperlink{class_graphics}{Graphics}}*\ pGfx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ color[4]);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{auto}\ getAlbedo()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_pAlbedo.get();}
+\DoxyCodeLine{00020\ \ \ \ \ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{auto}\ getNormal()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_pNormal.get();}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{auto}\ getDepth()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_pDepth.get();}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \ \ std::unique\_ptr<RenderTarget>\ \_pAlbedo;}
+\DoxyCodeLine{00034\ \ \ \ \ std::unique\_ptr<RenderTarget>\ \_pNormal;}
+\DoxyCodeLine{00035\ \ \ \ \ std::unique\_ptr<RenderTarget>\ \_pDepth;}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

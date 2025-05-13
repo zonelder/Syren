@@ -1,0 +1,22 @@
+\doxysection{index\+\_\+buffer.\+h}
+\hypertarget{index__buffer_8h_source}{}\label{index__buffer_8h_source}\index{directEngin/lib/graphic/index\_buffer.h@{directEngin/lib/graphic/index\_buffer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}IBindable.h"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }IndexBuffer:\textcolor{keyword}{public}\ \mbox{\hyperlink{class_i_bindable}{IBindable}}}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00008\ \ \ \ \ IndexBuffer()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00009\ \ \ \ \ IndexBuffer(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx,\ \textcolor{keyword}{const}\ std::vector<unsigned\ short>\&\ indices);}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{void}\ bind(\mbox{\hyperlink{class_graphics}{Graphics}}\&)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00011\ \ \ \ \ UINT\ getCount()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00012\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00013\ \ \ \ \ UINT\ p\_count;}
+\DoxyCodeLine{00014\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ p\_pIndexBuffer\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00015\ \};}
+\DoxyCodeLine{00016\ }
+
+\end{DoxyCode}

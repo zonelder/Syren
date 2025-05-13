@@ -1,0 +1,59 @@
+\doxysection{Tile\+Map\+\_\+serializer.\+h}
+\hypertarget{_tile_map__serializer_8h_source}{}\label{_tile_map__serializer_8h_source}\index{directEngin/lib/generation\_iternal/TileMap\_serializer.h@{directEngin/lib/generation\_iternal/TileMap\_serializer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TILEMAP\_SERIALIZER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TILEMAP\_SERIALIZER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_serializer}{Serializer}};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_serializer}{Serializer}}<\mbox{\hyperlink{struct_tile_map}{TileMap}}>\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ serialize(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ node,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_tile_map}{TileMap}}\&\ value)\ }
+\DoxyCodeLine{00014\ \ \ \ \ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ arrayNode\ =\ node.\mbox{\hyperlink{class_x_m_l_node_a72fb446ec8814b2fbc67b826bcdbd11c}{saveGetChild}}(\textcolor{stringliteral}{"{}array\_of\_tiles"{}});}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ size\ =\ std::distance(std::begin(value.tiles),std::end(value.tiles));}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<XMLNode>\ childs;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ arrayNode.childs(\textcolor{stringliteral}{"{}tiles"{}},childs,(\textcolor{keywordtype}{int})size);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(ptrdiff\_t\ i\ =\ 0\ ;i\ <\ size\ ;++i\ )}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serializer<TileData>::serialize(childs[i],value.tiles[i]);}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_tile_map}{TileMap}}\ deserialize(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ node)\ }
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_tile_map}{TileMap}}\ value;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ deserialize(node,value);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ deserialize(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ node,\mbox{\hyperlink{struct_tile_map}{TileMap}}\&\ value)}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \textcolor{keyword}{auto}\ fieldNode\ =\ node.child(\textcolor{stringliteral}{"{}array\_of\_tiles"{}}))}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<XMLNode>\ childs;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ fieldNode.childs(\textcolor{stringliteral}{"{}tiles"{}},childs);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ std::vector<XMLNode>::size\_type\ i\ =\ 0\ ;\ i\ <\ childs.size()\ ;\ ++i\ )}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value.tiles[i]\ =\ Serializer<TileData>::deserialize(childs[i]);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TILEMAP\_SERIALIZER\_HPP}}
+
+\end{DoxyCode}

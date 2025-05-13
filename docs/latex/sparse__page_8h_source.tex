@@ -1,0 +1,400 @@
+\doxysection{sparse\+\_\+page.\+h}
+\hypertarget{sparse__page_8h_source}{}\label{sparse__page_8h_source}\index{directEngin/lib/common/сontainers/sparse\_page.h@{directEngin/lib/common/сontainers/sparse\_page.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_SYREN\_SPARSE\_PAGE\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_SYREN\_SPARSE\_PAGE\_H\_\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}sparse\_set.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iterator>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Data,\textcolor{keyword}{typename}\ Entity>}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }SparsePage}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{using\ }This\ =\ SparsePage<Data,\ Entity>;}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{using\ }iterator\ =\ \mbox{\hyperlink{classdetail_1_1iterator__base}{detail::iterator\_base<This,\ Data>}};}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{using\ }const\_iterator\ =\ \mbox{\hyperlink{classdetail_1_1iterator__base}{detail::iterator\_base<This,\ const\ Data>}};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{using\ }index\_iterator\ =\ \mbox{\hyperlink{classdetail_1_1index__iterator}{detail::index\_iterator<This,Entity>}};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{using\ }const\_index\_iterator\ =\ \mbox{\hyperlink{classdetail_1_1index__iterator}{detail::index\_iterator<This,const\ Entity>}};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{using\ }pair\_iterator\ =\ \mbox{\hyperlink{classdetail_1_1pair__iterator}{detail::pair\_iterator<This,\ Data>}};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{using\ }const\_pair\_iterator\ =\ \mbox{\hyperlink{classdetail_1_1pair__iterator}{detail::pair\_iterator<This,\ const\ Data>}};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_unsigned\_v<Entity>,\ \textcolor{stringliteral}{"{}Entity\ must\ be\ unsigned\ integer"{}});}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{class\ }\textcolor{keyword}{alignas}(64)\ Page}
+\DoxyCodeLine{00021\ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ iterator;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ const\_iterator;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ index\_iterator;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ const\_index\_iterator;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ pair\_iterator;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ const\_pair\_iterator;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }entity\_iterator\ =\ SparseSet<Entity>::iterator;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ PAGE\_SIZE\ =\ 4096;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ Page(\textcolor{keywordtype}{size\_t}\ page\_index)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \_page\_idx(page\_index)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \_data\ =\ \textcolor{keyword}{static\_cast<}Data*\textcolor{keyword}{>}(::operator\ \textcolor{keyword}{new}(\textcolor{keyword}{sizeof}(Data)\ *\ PAGE\_SIZE));}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \string~Page()}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_count;\ ++i)\ \_data[i].\string~Data();}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ ::operator\ \textcolor{keyword}{delete}(\_data);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ Data\&\ get(\mbox{\hyperlink{class_entity}{Entity}}\ local\_id)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_data[\_set.index\_of(local\_id)];}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Data\&\ get(\mbox{\hyperlink{class_entity}{Entity}}\ local\_id)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_data[\_set.index\_of(local\_id)];}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ contains(\mbox{\hyperlink{class_entity}{Entity}}\ local\_id)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_set.contains(local\_id);\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ Data\&\ add(\mbox{\hyperlink{class_entity}{Entity}}\ local\_id)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_set.contains(local\_id))\ \textcolor{keywordflow}{return}\ get(local\_id);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}(\&\_data[\_count])\ Data();}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \_set.add(local\_id);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_data[\_count++];}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ remove(\mbox{\hyperlink{class_entity}{Entity}}\ local\_id)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_set.contains(local\_id))\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ idx\ =\ \_set.index\_of(local\_id);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \_set.remove(local\_id);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ last\ =\ \_data\ +\ (\_count\ -\/\ 1);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ std::swap(\_data[idx],\ *last);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ last-\/>\string~Data();}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/\_count;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_entity}{Entity}}\ get\_entt(\textcolor{keywordtype}{size\_t}\ index)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_set.entity\_at(index)\ +\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_entity}{Entity}}\textcolor{keyword}{>}(\_page\_idx\ *\ PAGE\_SIZE);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sparse_set}{SparseSet<Entity>}}\ \_set;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ Data*\ \_data\{\ \textcolor{keyword}{nullptr}\ \};}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_page\_idx;}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_count\{\ 0u\ \};}
+\DoxyCodeLine{00088\ \ \ \ \ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{using\ }page\_container\ =\ std::vector<std::unique\_ptr<Page>>;}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{using\ }page\_iterator\ =\ page\_container::iterator;}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{using\ }const\_page\_iterator\ =\ page\_container::const\_iterator;}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ PAGE\_SIZE\ =\ Page::PAGE\_SIZE;}
+\DoxyCodeLine{00097\ \ \ \ \ SparsePage()}
+\DoxyCodeLine{00098\ \ \ \ \ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \_pages.reserve(16);}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ Data\&\ add(\mbox{\hyperlink{class_entity}{Entity}}\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00102\ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [page\_idx,\ local\_id]\ =\ decompose(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ get\_or\_create\_page(page\_idx)-\/>add(local\_id);}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{bool}\ remove(Entity\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00108\ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [page\_idx,\ local\_id]\ =\ decompose(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ page\ =\ get\_save\_page(page\_idx);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ page\ \&\&\ page-\/>remove(local\_id);}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{bool}\ page\_exist(Entity\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00115\ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [page\_idx,\ local\_id]\ =\ decompose(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ get\_save\_page(page\_idx);}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{bool}\ contains(Entity\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00121\ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [page\_idx,\ local\_id]\ =\ decompose(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ page\ =\ get\_save\_page(page\_idx);}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ page\ \&\&\ page-\/>contains(local\_id);}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ \ *\ @brief\ unsave\ get\ data.Use\ it\ only\ when\ you\ can\ guarantee\ that\ data\ exist.}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ \ *\ }}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00131\ \ \ \ \ Data\&\ get(Entity\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00132\ \ \ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [page\_idx,\ local\_id]\ =\ decompose(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ page\ =\ get\_page(page\_idx);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ page-\/>get(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{const}\ Data\&\ get(Entity\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00139\ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [page\_idx,\ local\_id]\ =\ decompose(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ page\ =\ get\_page(page\_idx);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ page-\/>get(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ iterator\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ begin()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ iterator(\_pages.begin(),\ \_pages.end());\ \}}
+\DoxyCodeLine{00146\ \ \ \ \ iterator\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ end()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ iterator(\_pages.end(),\_pages.end());\ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ const\_iterator\ \ \ \ \ \ \ \ \ \ begin()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ const\_iterator(\_pages.begin(),\ \_pages.end());\ \}}
+\DoxyCodeLine{00149\ \ \ \ \ const\_iterator\ \ \ \ \ \ \ \ \ \ end()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ const\_iterator(\_pages.end(),\_pages.end());\ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ index\_iterator\ \ \ \ \ \ \ \ \ \ index\_begin()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ index\_iterator(\_pages.begin(),\ \_pages.end());\ \}}
+\DoxyCodeLine{00152\ \ \ \ \ index\_iterator\ \ \ \ \ \ \ \ \ \ index\_end()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ index\_iterator(\_pages.end(),\ \_pages.end());\ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ const\_index\_iterator\ \ \ \ index\_begin()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ const\_index\_iterator(\_pages.begin(),\ \_pages.end());\ \}}
+\DoxyCodeLine{00155\ \ \ \ \ const\_index\_iterator\ \ \ \ index\_end()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ const\_index\_iterator(\_pages.end(),\ \_pages.end());\ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ pair\_iterator\ \ \ \ \ \ \ \ \ \ \ pair\_begin()\ \ \ \ noexcept\ \{\ \textcolor{keywordflow}{return}\ pair\_iterator(\_pages.begin(),\ \_pages.end());\ \}}
+\DoxyCodeLine{00158\ \ \ \ \ pair\_iterator\ \ \ \ \ \ \ \ \ \ \ pair\_end()\ \ \ \ \ \ noexcept\ \{\ \textcolor{keywordflow}{return}\ pair\_iterator(\_pages.end(),\ \_pages.end());\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ const\_pair\_iterator\ \ \ \ \ pair\_begin()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ const\_pair\_iterator(\_pages.begin(),\ \_pages.end());\ \}}
+\DoxyCodeLine{00161\ \ \ \ \ const\_pair\_iterator\ \ \ \ \ pair\_end()\ \ \ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ const\_pair\_iterator(\_pages.end(),\ \_pages.end());\ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{void}\ shrink\_to\_fit()\ noexcept}
+\DoxyCodeLine{00166\ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!\_pages.empty())}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ p\ =\ \_pages.back();}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!p\ ||\ p-\/>\_count\ ==\ 0)\ \_pages.pop\_back();}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\_pages.shrink\_to\_fit();}}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{inline}\ std::pair<size\_t,\ Entity>\ decompose(Entity\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00178\ \ \ \ \ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ page\_idx\ =\ \textcolor{keywordtype}{id}\ /\ Page::PAGE\_SIZE;}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ local\_id\ =\ \textcolor{keywordtype}{id}\ \%\ Page::PAGE\_SIZE;}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ page\_idx,\ local\_id\ \};}
+\DoxyCodeLine{00182\ \ \ \ \ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{//ensure\ that\ page\ exist\ before\ using\ this\ methods}}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_sparse_page_1_1_page}{Page}}*\ get\_page(\textcolor{keywordtype}{size\_t}\ page\_idx)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00186\ \ \ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_pages[page\_idx].get();}
+\DoxyCodeLine{00188\ \ \ \ \ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{comment}{//this\ methods\ do\ a\ check\ of\ existence\ and\ return\ nullptr\ if\ page\ is\ not\ exist}}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_sparse_page_1_1_page}{Page}}*\ get\_save\_page(\textcolor{keywordtype}{size\_t}\ page\_idx)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00192\ \ \ \ \ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_pages.size()\ >\ page\_idx)}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_pages[page\_idx].get();}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00197\ \ \ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_sparse_page_1_1_page}{Page}}*\ get\_or\_create\_page(\textcolor{keywordtype}{size\_t}\ page\_idx)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00200\ \ \ \ \ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (page\_idx\ >=\ \_pages.size())}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \_pages.resize(page\_idx\ +\ 1);}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\_pages[page\_idx])}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \_pages[page\_idx]\ =\ std::make\_unique<Page>(page\_idx);}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_pages[page\_idx].get();}
+\DoxyCodeLine{00208\ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{comment}{//TODO\ make\ deque\ with\ bitmask\ ant\ test\ its\ perfomance.}}
+\DoxyCodeLine{00210\ \ \ \ \ page\_container\ \_pages;}
+\DoxyCodeLine{00211\ \ \ \ \ std::vector<size\_t>\ \_page\_table;}
+\DoxyCodeLine{00212\ \};}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{namespace\ }detail}
+\DoxyCodeLine{00215\ \{}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ HandleData,\textcolor{keyword}{class}\ Entity,\textcolor{keyword}{class}\ Data>}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keyword}{class\ }iterator\_base<\mbox{\hyperlink{class_sparse_page}{SparsePage}}<HandleData,\mbox{\hyperlink{class_entity}{Entity}}>,Data>}
+\DoxyCodeLine{00219\ \ \ \ \ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Cont\ =\ \mbox{\hyperlink{class_sparse_page}{SparsePage<HandleData,\ Entity>}};}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Page\ =\ Cont::Page;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }page\_iterator\ =\ std::conditional\_t<std::is\_const\_v<Data>,\textcolor{keyword}{typename}\ Cont::const\_page\_iterator,\textcolor{keyword}{typename}\ Cont::page\_iterator>;}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }iterator\_category\ =\ std::forward\_iterator\_tag;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ Data;}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }difference\_type\ =\ std::ptrdiff\_t;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }pointer\ =\ Data*;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }reference\ =\ Data\&;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ iterator\_base(page\_iterator\ begin,\ page\_iterator\ end)\ noexcept\ :}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \_current(find\_first\_non\_empty(begin,\ end)),}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \_end(end),}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \_comp\_idx(0u)}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ reference\ operator*()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\_current)-\/>\_data[\_comp\_idx];}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ pointer\ operator-\/>()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((*\_current)-\/>\_data\ +\ \_comp\_idx);}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ iterator\_base\&\ operator++()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++\_comp\_idx\ <\ (*\_current)-\/>\_count)\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \_current\ =\ find\_first\_non\_empty(++\_current,\ \_end);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \_comp\_idx\ =\ 0;}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ iterator\_base\ operator++(\textcolor{keywordtype}{int})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ copy\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ ++(*this);}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ copy;}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ iterator\_base\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_current\ ==\ other.\_current\ \&\&\ \_comp\_idx\ ==\ other.\_comp\_idx;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ page\_iterator\ find\_first\_non\_empty(page\_iterator\ start,\ page\_iterator\ end)}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (start\ !=\ end\ \&\&\ (!*start\ ||\ (*start)-\/>\_count\ ==\ 0))\ \{\ ++start;\ \};}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ start;}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ page\_iterator\ \_current;}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ page\_iterator\ \_end;}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_comp\_idx;}
+\DoxyCodeLine{00277\ \ \ \ \ \};}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ HandleData,\ \textcolor{keyword}{class}\ Entity,\textcolor{keyword}{class}\ IndexType>}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keyword}{class\ }index\_iterator<\mbox{\hyperlink{class_sparse_page}{SparsePage}}<HandleData,\ \mbox{\hyperlink{class_entity}{Entity}}>,\ IndexType>}
+\DoxyCodeLine{00281\ \ \ \ \ \{}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Cont\ =\ \mbox{\hyperlink{class_sparse_page}{SparsePage<HandleData,\ Entity>}};}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Page\ =\ \textcolor{keyword}{typename}\ Cont::Page;}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }page\_iterator\ =\ \textcolor{keyword}{typename}\ Cont::page\_iterator;}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }const\_page\_iterator\ =\ \textcolor{keyword}{typename}\ Cont::const\_page\_iterator;}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }current\_page\_iterator\ =\ std::conditional\_t<std::is\_const\_v<IndexType>,\ const\_page\_iterator,\ page\_iterator>;}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }iterator\_category\ =\ std::forward\_iterator\_tag;}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ IndexType;}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }difference\_type\ =\ std::ptrdiff\_t;}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }pointer\ =\ IndexType*;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }reference\ =\ IndexType;}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ index\_iterator(current\_page\_iterator\ begin,\ current\_page\_iterator\ end)\ noexcept}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \_current(find\_first\_non\_empty(begin,\ end)),\ \_end(end),\ \_comp\_idx(0)\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ reference\ operator*()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\_current)-\/>get\_entt(\_comp\_idx);}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ index\_iterator\&\ operator++()\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++\_comp\_idx\ <\ (*\_current)-\/>\_count)\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \_current\ =\ find\_first\_non\_empty(++\_current,\ \_end);}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \_comp\_idx\ =\ 0;}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ index\_iterator\ operator++(\textcolor{keywordtype}{int})\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tmp\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ ++(*this);}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tmp;}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ index\_iterator\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_current\ ==\ other.\_current\ \&\&\ \_comp\_idx\ ==\ other.\_comp\_idx;}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ current\_page\_iterator\ find\_first\_non\_empty(current\_page\_iterator\ start,\ current\_page\_iterator\ end)\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (start\ !=\ end\ \&\&\ (!*start\ ||\ (*start)-\/>\_count\ ==\ 0))\ ++start;}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ start;}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ current\_page\_iterator\ \_current;}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ current\_page\_iterator\ \_end;}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_comp\_idx;}
+\DoxyCodeLine{00334\ \ \ \ \ \};}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ HandleData,\ \textcolor{keyword}{class}\ Entity,\ \textcolor{keyword}{class}\ Data>}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keyword}{class\ }pair\_iterator<\ \mbox{\hyperlink{class_sparse_page}{SparsePage}}<HandleData,\ \mbox{\hyperlink{class_entity}{Entity}}>,\ Data>}
+\DoxyCodeLine{00338\ \ \ \ \ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Cont\ =\ \mbox{\hyperlink{class_sparse_page}{SparsePage<HandleData,\ Entity>}};}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }Page\ =\ \textcolor{keyword}{typename}\ Cont::Page;}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }page\_iterator\ =\ \textcolor{keyword}{typename}\ Cont::page\_iterator;}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }const\_page\_iterator\ =\ \textcolor{keyword}{typename}\ Cont::const\_page\_iterator;}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }current\_page\_iterator\ =\ std::conditional\_t<std::is\_const\_v<Data>,\ const\_page\_iterator,\ page\_iterator>;}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }iterator\_category\ =\ std::forward\_iterator\_tag;}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }value\_type\ =\ std::pair<Entity,\ Data\&>;}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }difference\_type\ =\ std::ptrdiff\_t;}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }pointer\ =\ value\_type*;}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }reference\ =\ value\_type;}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ pair\_iterator(current\_page\_iterator\ begin,\ current\_page\_iterator\ end)\ noexcept}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \_current(find\_first\_non\_empty(begin,\ end)),\ \_end(end),\ \_comp\_idx(0)\ \{}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ reference\ operator*()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ page\ =\ **\_current;}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ page.get\_entt(\_comp\_idx),\ page.\_data[\_comp\_idx]\};}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ pair\_iterator\&\ operator++()\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++\_comp\_idx\ <\ (*\_current)-\/>\_count)\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \_current\ =\ find\_first\_non\_empty(++\_current,\ \_end);}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \_comp\_idx\ =\ 0;}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ pair\_iterator\ operator++(\textcolor{keywordtype}{int})\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tmp\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ ++(*this);}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tmp;}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ pair\_iterator\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_current\ ==\ other.\_current\ \&\&\ \_comp\_idx\ ==\ other.\_comp\_idx;}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ current\_page\_iterator\ find\_first\_non\_empty(current\_page\_iterator\ start,\ current\_page\_iterator\ end)\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (start\ !=\ end\ \&\&\ (!*start\ ||\ (*start)-\/>\_count\ ==\ 0))\ ++start;}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ start;}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ current\_page\_iterator\ \_current;}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ current\_page\_iterator\ \_end;}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_comp\_idx;}
+\DoxyCodeLine{00392\ \ \ \ \ \};}
+\DoxyCodeLine{00393\ \}}
+\DoxyCodeLine{00394\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

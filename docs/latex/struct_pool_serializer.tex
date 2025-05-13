@@ -1,0 +1,95 @@
+\doxysection{Pool\+Serializer Struct Reference}
+\hypertarget{struct_pool_serializer}{}\label{struct_pool_serializer}\index{PoolSerializer@{PoolSerializer}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_pool_serializer_aceedd48c9b65e0675620dc93e2ca5b0d}\label{struct_pool_serializer_aceedd48c9b65e0675620dc93e2ca5b0d} 
+using {\bfseries Function\+\_\+t} = std\+::function$<$void(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}},\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}}\&)$>$
+\item 
+\Hypertarget{struct_pool_serializer_ae3fed336fee26e205964b91f35fea46f}\label{struct_pool_serializer_ae3fed336fee26e205964b91f35fea46f} 
+using {\bfseries Function\+\_\+const\+\_\+t} = std\+::function$<$void(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}},const \mbox{\hyperlink{class_scene_manager}{Scene\+Manager}}\&)$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_pool_serializer_ab474e153d0917e96dfd827107d38c5ca}\label{struct_pool_serializer_ab474e153d0917e96dfd827107d38c5ca} 
+static void {\bfseries serialize} (\mbox{\hyperlink{class_x_m_l_node}{XMLNode}} pools\+Node, const \mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&manager)
+\item 
+\Hypertarget{struct_pool_serializer_a2e60c6cbeadd812e41f385bb6a4d7463}\label{struct_pool_serializer_a2e60c6cbeadd812e41f385bb6a4d7463} 
+static void {\bfseries deserialize} (\mbox{\hyperlink{class_x_m_l_node}{XMLNode}} pools\+Node, \mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&manager)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::unordered\+\_\+map$<$ std\+::string, Function\+\_\+const\+\_\+t $>$ \mbox{\hyperlink{struct_pool_serializer_a97e994e614e48888d16cd408aa04f891}{serialize\+\_\+pool}}
+\item 
+static const std\+::unordered\+\_\+map$<$ std\+::string, Function\+\_\+t $>$ \mbox{\hyperlink{struct_pool_serializer_a323ed16830bd01f4fe4178f461d290a1}{deserialize\+\_\+pool}}
+\item 
+static const std\+::unordered\+\_\+map$<$ Component\+ID, std\+::string $>$ \mbox{\hyperlink{struct_pool_serializer_a5b749cef59d9e67b104b9bce5e5574e0}{component\+\_\+id\+\_\+to\+\_\+name}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_pool_serializer_a5b749cef59d9e67b104b9bce5e5574e0}\index{PoolSerializer@{PoolSerializer}!component\_id\_to\_name@{component\_id\_to\_name}}
+\index{component\_id\_to\_name@{component\_id\_to\_name}!PoolSerializer@{PoolSerializer}}
+\doxysubsubsection{\texorpdfstring{component\_id\_to\_name}{component\_id\_to\_name}}
+{\footnotesize\ttfamily \label{struct_pool_serializer_a5b749cef59d9e67b104b9bce5e5574e0} 
+const std\+::unordered\+\_\+map$<$ Component\+ID, std\+::string $>$ Pool\+Serializer\+::component\+\_\+id\+\_\+to\+\_\+name\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Family::type\_id<Render>(),\textcolor{stringliteral}{"{}Render"{}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Family::type\_id<Text>(),\textcolor{stringliteral}{"{}Text"{}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Family::type\_id<TileData>(),\textcolor{stringliteral}{"{}TileData"{}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Family::type\_id<Tile>(),\textcolor{stringliteral}{"{}Tile"{}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Family::type\_id<Selected>(),\textcolor{stringliteral}{"{}Selected"{}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Family::type\_id<TileMap>(),\textcolor{stringliteral}{"{}TileMap"{}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{Family::type\_id<Transform>(),\textcolor{stringliteral}{"{}Transform"{}}\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{struct_pool_serializer_a323ed16830bd01f4fe4178f461d290a1}\index{PoolSerializer@{PoolSerializer}!deserialize\_pool@{deserialize\_pool}}
+\index{deserialize\_pool@{deserialize\_pool}!PoolSerializer@{PoolSerializer}}
+\doxysubsubsection{\texorpdfstring{deserialize\_pool}{deserialize\_pool}}
+{\footnotesize\ttfamily \label{struct_pool_serializer_a323ed16830bd01f4fe4178f461d290a1} 
+const std\+::unordered\+\_\+map$<$ std\+::string, Pool\+Serializer\+::\+Function\+\_\+t $>$ Pool\+Serializer\+::deserialize\+\_\+pool\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Render"{}},get\_pool\_loader<Render>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Text"{}},get\_pool\_loader<Text>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}TileData"{}},get\_pool\_loader<TileData>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Tile"{}},get\_pool\_loader<Tile>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Selected"{}},get\_pool\_loader<Selected>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}TileMap"{}},get\_pool\_loader<TileMap>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Transform"{}},get\_pool\_loader<Transform>()\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{struct_pool_serializer_a97e994e614e48888d16cd408aa04f891}\index{PoolSerializer@{PoolSerializer}!serialize\_pool@{serialize\_pool}}
+\index{serialize\_pool@{serialize\_pool}!PoolSerializer@{PoolSerializer}}
+\doxysubsubsection{\texorpdfstring{serialize\_pool}{serialize\_pool}}
+{\footnotesize\ttfamily \label{struct_pool_serializer_a97e994e614e48888d16cd408aa04f891} 
+const std\+::unordered\+\_\+map$<$ std\+::string, Pool\+Serializer\+::\+Function\+\_\+const\+\_\+t $>$ Pool\+Serializer\+::serialize\+\_\+pool\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Render"{}},get\_pool\_saver<Render>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Text"{}},get\_pool\_saver<Text>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}TileData"{}},get\_pool\_saver<TileData>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Tile"{}},get\_pool\_saver<Tile>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Selected"{}},get\_pool\_saver<Selected>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}TileMap"{}},get\_pool\_saver<TileMap>()\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Transform"{}},get\_pool\_saver<Transform>()\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/generation\+\_\+iternal/scene\+\_\+serializer.\+h\item 
+direct\+Engin/lib/generation\+\_\+iternal/scene\+\_\+serializer.\+ipp\end{DoxyCompactItemize}

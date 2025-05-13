@@ -1,0 +1,134 @@
+\doxysection{System\+Manager Class Reference}
+\hypertarget{class_system_manager}{}\label{class_system_manager}\index{SystemManager@{SystemManager}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T, class... Args$>$ \newline
+requires \mbox{\hyperlink{concept_derive_from}{Derive\+From}}$<$T, \mbox{\hyperlink{class_base_system}{Base\+System}}$>$}\\void \mbox{\hyperlink{class_system_manager_a0883a2574475bca90ecf53891f0023bc}{add}} (Args \&\&... args)
+\begin{DoxyCompactList}\small\item\em create new system at the end of call queue \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T, class... Args$>$ \newline
+requires \mbox{\hyperlink{concept_derive_from}{Derive\+From}}$<$T, \mbox{\hyperlink{class_base_system}{Base\+System}}$>$}\\void \mbox{\hyperlink{class_system_manager_aa8cb005f483b52af7c91524425ca7629}{add}} (unsigned int priority, Args \&\&... args)
+\begin{DoxyCompactList}\small\item\em create new system in processor with setted priory \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_system_manager_aa8f3e9387841053d6c28199510b450c3}{remove\+System}} (unsigned int priority) noexcept
+\begin{DoxyCompactList}\small\item\em Remove system from the list with specific priority level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_system_manager_ad2dbeb832551a100c15231282dc6085a}{reset\+Priority}} (unsigned int cur\+Priority, unsigned int priority) noexcept
+\begin{DoxyCompactList}\small\item\em find system with priority level equal cur\+Priority and set new Priority level \end{DoxyCompactList}\item 
+\Hypertarget{class_system_manager_a4be22989977c59d353a48f1fef0e3230}\label{class_system_manager_a4be22989977c59d353a48f1fef0e3230} 
+void {\bfseries init} (\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&scene)
+\item 
+void \mbox{\hyperlink{class_system_manager_a62e6657bfaf20818fcfd188aa31df556}{update}} (\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&scene, float dt)
+\begin{DoxyCompactList}\small\item\em update all systems \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_system_manager_a8b31b5ffdd2a4f4151e771b8efbe25ce}{frame}} (\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&scene)
+\begin{DoxyCompactList}\small\item\em call "{}frame"{} method of system from added list \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_system_manager_a0883a2574475bca90ecf53891f0023bc}\index{SystemManager@{SystemManager}!add@{add}}
+\index{add@{add}!SystemManager@{SystemManager}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_system_manager_a0883a2574475bca90ecf53891f0023bc} 
+template$<$typename T, class... Args$>$ \newline
+requires \mbox{\hyperlink{concept_derive_from}{Derive\+From}}$<$T, \mbox{\hyperlink{class_base_system}{Base\+System}}$>$\\
+void System\+Manager\+::add (\begin{DoxyParamCaption}\item[{Args \&\&...}]{args}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+create new system at the end of call queue 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Class,that derived from \doxylink{class_base_system}{Base\+System} Class \\
+\hline
+\end{DoxyTemplParams}
+\Hypertarget{class_system_manager_aa8cb005f483b52af7c91524425ca7629}\index{SystemManager@{SystemManager}!add@{add}}
+\index{add@{add}!SystemManager@{SystemManager}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_system_manager_aa8cb005f483b52af7c91524425ca7629} 
+template$<$typename T, class... Args$>$ \newline
+requires \mbox{\hyperlink{concept_derive_from}{Derive\+From}}$<$T, \mbox{\hyperlink{class_base_system}{Base\+System}}$>$\\
+void System\+Manager\+::add (\begin{DoxyParamCaption}\item[{unsigned int}]{priority}{, }\item[{Args \&\&...}]{args}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+create new system in processor with setted priory 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Class,that derived from \doxylink{class_base_system}{Base\+System} Class \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em priority} & Prioriy of calls. Systems with less priority will be called earlier \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_system_manager_a8b31b5ffdd2a4f4151e771b8efbe25ce}\index{SystemManager@{SystemManager}!frame@{frame}}
+\index{frame@{frame}!SystemManager@{SystemManager}}
+\doxysubsubsection{\texorpdfstring{frame()}{frame()}}
+{\footnotesize\ttfamily \label{class_system_manager_a8b31b5ffdd2a4f4151e771b8efbe25ce} 
+void System\+Manager\+::frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&}]{scene}{}\end{DoxyParamCaption})}
+
+
+
+call "{}frame"{} method of system from added list 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scene} & Scene, where systems update needed \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_system_manager_aa8f3e9387841053d6c28199510b450c3}\index{SystemManager@{SystemManager}!removeSystem@{removeSystem}}
+\index{removeSystem@{removeSystem}!SystemManager@{SystemManager}}
+\doxysubsubsection{\texorpdfstring{removeSystem()}{removeSystem()}}
+{\footnotesize\ttfamily \label{class_system_manager_aa8f3e9387841053d6c28199510b450c3} 
+void System\+Manager\+::remove\+System (\begin{DoxyParamCaption}\item[{unsigned int}]{priority}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Remove system from the list with specific priority level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em priority} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_system_manager_ad2dbeb832551a100c15231282dc6085a}\index{SystemManager@{SystemManager}!resetPriority@{resetPriority}}
+\index{resetPriority@{resetPriority}!SystemManager@{SystemManager}}
+\doxysubsubsection{\texorpdfstring{resetPriority()}{resetPriority()}}
+{\footnotesize\ttfamily \label{class_system_manager_ad2dbeb832551a100c15231282dc6085a} 
+void System\+Manager\+::reset\+Priority (\begin{DoxyParamCaption}\item[{unsigned int}]{cur\+Priority}{, }\item[{unsigned int}]{priority}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+find system with priority level equal cur\+Priority and set new Priority level 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur\+Priority} & current priority level \\
+\hline
+{\em prioruty} & new priority level \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_system_manager_a62e6657bfaf20818fcfd188aa31df556}\index{SystemManager@{SystemManager}!update@{update}}
+\index{update@{update}!SystemManager@{SystemManager}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_system_manager_a62e6657bfaf20818fcfd188aa31df556} 
+void System\+Manager\+::update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&}]{scene}{, }\item[{float}]{dt}{}\end{DoxyParamCaption})}
+
+
+
+update all systems 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scene} & Scene, where systems update needed \\
+\hline
+{\em dt} & time from last update call \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/scene/system\+\_\+manager.\+h\item 
+direct\+Engin/lib/scene/system\+\_\+manager.\+cpp\end{DoxyCompactItemize}

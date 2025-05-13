@@ -1,0 +1,218 @@
+\doxysection{filters\+::Component\+View\texorpdfstring{$<$}{<} With\texorpdfstring{$<$}{<} With\+Args... \texorpdfstring{$>$}{>}, Without\texorpdfstring{$<$}{<} Without\+Args... \texorpdfstring{$>$}{>} \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4}{}\label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4}\index{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}}
+
+
+Iterable view that represent entities with specific types.  
+
+
+
+
+{\ttfamily \#include $<$filters.\+h$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_1_1iterator}{iterator}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a202f51b82e7a9ab23a46f99556e6a5f8}\label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a202f51b82e7a9ab23a46f99556e6a5f8} 
+using {\bfseries with\+\_\+tuple} = std\+::tuple$<$ \mbox{\hyperlink{class_component_pool}{Component\+Pool}}$<$With\+Args$>$\texorpdfstring{$\ast$}{*}...$>$
+\item 
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a5988d8e2a19bdb8e95ae8e3c9a0a94ca}\label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a5988d8e2a19bdb8e95ae8e3c9a0a94ca} 
+using {\bfseries without\+\_\+tuple} = std\+::tuple$<$\mbox{\hyperlink{class_component_pool}{Component\+Pool}}$<$ Without\+Args$>$\texorpdfstring{$\ast$}{*}...$>$
+\item 
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a4be0d3b442a7709100fc851d2e0d84ed}\label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a4be0d3b442a7709100fc851d2e0d84ed} 
+using {\bfseries entity\+\_\+iterator} = \mbox{\hyperlink{class_sparse_set}{Sparse\+Set}}$<$Entity\+ID$>$\mbox{\hyperlink{class_sparse_set}{\+::iterator}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_ad71eb3e02aa107e1d547d38bbc40c9b6}\label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_ad71eb3e02aa107e1d547d38bbc40c9b6} 
+{\bfseries Component\+View} (\mbox{\hyperlink{class_component_manager}{Component\+Manager}} \&scene)
+\item 
+{\footnotesize template$<$class T$>$ }\\T \& \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a3272d9c33ef60ccc0385c756dc6d7d95}{get}} (const \mbox{\hyperlink{class_entity}{Entity}} entt) noexcept
+\begin{DoxyCompactList}\small\item\em Method for get access to components that was requires with view. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\const T \& \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_aa9827366e43fc454b9a5665164ae1139}{get}} (const \mbox{\hyperlink{class_entity}{Entity}} entt) const noexcept
+\begin{DoxyCompactList}\small\item\em Method for get access to components that was requires with view. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\T \& \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a717555c851e5b83a848593080a0c74c5}{get}} (const Entity\+ID \&entt) noexcept
+\begin{DoxyCompactList}\small\item\em Method for get access to components that was requires with view. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\const T \& \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a21bde956b8accc51eb6cb447c143a25d}{get}} (const Entity\+ID entt) const noexcept
+\begin{DoxyCompactList}\small\item\em Method for get access to components that was requires with view. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a674b9bb35afaef3005586fa7b514f759}{contains}} (const Entity\+ID \&entt) const noexcept
+\begin{DoxyCompactList}\small\item\em Check wether entity pass the requirement of \doxylink{classfilters_1_1_component_view}{Component\+View}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\bool \mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a043dac3a0d1c020cce3fdb7564bd12fb}{has}} (const Entity\+ID \&entt) noexcept
+\begin{DoxyCompactList}\small\item\em Check wether entity has some component that view requires. \end{DoxyCompactList}\item 
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_af435e6d6bfd62d86e4b8a3f6f138b6f9}\label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_af435e6d6bfd62d86e4b8a3f6f138b6f9} 
+\mbox{\hyperlink{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_1_1iterator}{iterator}} {\bfseries begin} () noexcept
+\item 
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_ab20ebc90e244336707d9b47bcf188adc}\label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_ab20ebc90e244336707d9b47bcf188adc} 
+auto {\bfseries end} () noexcept
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class... With\+Args, class... Without\+Args$>$\newline
+class filters\+::\+Component\+View$<$ With$<$ With\+Args... $>$, Without$<$ Without\+Args... $>$ $>$}
+Iterable view that represent entities with specific types. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em With\+Args...} & -\/ \#types that reqiures to be in entity \\
+\hline
+{\em Without\+Args...} & -\/ \#types that should not be in entity; \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a674b9bb35afaef3005586fa7b514f759}\index{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}!contains@{contains}}
+\index{contains@{contains}!filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}}
+\doxysubsubsection{\texorpdfstring{contains()}{contains()}}
+{\footnotesize\ttfamily \label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a674b9bb35afaef3005586fa7b514f759} 
+template$<$class... With\+Args, class... Without\+Args$>$ \\
+bool \mbox{\hyperlink{classfilters_1_1_component_view}{filters\+::\+Component\+View}}$<$ \mbox{\hyperlink{structfilters_1_1_with}{With}}$<$ With\+Args... $>$, \mbox{\hyperlink{structfilters_1_1_without}{Without}}$<$ Without\+Args... $>$ $>$\+::contains (\begin{DoxyParamCaption}\item[{const Entity\+ID \&}]{entt}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Check wether entity pass the requirement of \doxylink{classfilters_1_1_component_view}{Component\+View}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & -\/\#id of entity \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if entity pass requirements, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_aa9827366e43fc454b9a5665164ae1139}\index{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}!get@{get}}
+\index{get@{get}!filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_aa9827366e43fc454b9a5665164ae1139} 
+template$<$class... With\+Args, class... Without\+Args$>$ \\
+template$<$class T$>$ \\
+const T \& \mbox{\hyperlink{classfilters_1_1_component_view}{filters\+::\+Component\+View}}$<$ \mbox{\hyperlink{structfilters_1_1_with}{With}}$<$ With\+Args... $>$, \mbox{\hyperlink{structfilters_1_1_without}{Without}}$<$ Without\+Args... $>$ $>$\+::get (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_entity}{Entity}}}]{entt}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Method for get access to components that was requires with view. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ type of component we want to get \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & -\/\#id of entity we a looking for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+component of entity 
+\end{DoxyReturn}
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a3272d9c33ef60ccc0385c756dc6d7d95}\index{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}!get@{get}}
+\index{get@{get}!filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a3272d9c33ef60ccc0385c756dc6d7d95} 
+template$<$class... With\+Args, class... Without\+Args$>$ \\
+template$<$class T$>$ \\
+T \& \mbox{\hyperlink{classfilters_1_1_component_view}{filters\+::\+Component\+View}}$<$ \mbox{\hyperlink{structfilters_1_1_with}{With}}$<$ With\+Args... $>$, \mbox{\hyperlink{structfilters_1_1_without}{Without}}$<$ Without\+Args... $>$ $>$\+::get (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_entity}{Entity}}}]{entt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Method for get access to components that was requires with view. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ type of component we want to get \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & -\/\#id of entity we a looking for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+component of entity 
+\end{DoxyReturn}
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a717555c851e5b83a848593080a0c74c5}\index{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}!get@{get}}
+\index{get@{get}!filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a717555c851e5b83a848593080a0c74c5} 
+template$<$class... With\+Args, class... Without\+Args$>$ \\
+template$<$class T$>$ \\
+T \& \mbox{\hyperlink{classfilters_1_1_component_view}{filters\+::\+Component\+View}}$<$ \mbox{\hyperlink{structfilters_1_1_with}{With}}$<$ With\+Args... $>$, \mbox{\hyperlink{structfilters_1_1_without}{Without}}$<$ Without\+Args... $>$ $>$\+::get (\begin{DoxyParamCaption}\item[{const Entity\+ID \&}]{entt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Method for get access to components that was requires with view. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ type of component we want to get \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & -\/\#id of entity we a looking for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+component of entity 
+\end{DoxyReturn}
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a21bde956b8accc51eb6cb447c143a25d}\index{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}!get@{get}}
+\index{get@{get}!filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a21bde956b8accc51eb6cb447c143a25d} 
+template$<$class... With\+Args, class... Without\+Args$>$ \\
+template$<$class T$>$ \\
+const T \& \mbox{\hyperlink{classfilters_1_1_component_view}{filters\+::\+Component\+View}}$<$ \mbox{\hyperlink{structfilters_1_1_with}{With}}$<$ With\+Args... $>$, \mbox{\hyperlink{structfilters_1_1_without}{Without}}$<$ Without\+Args... $>$ $>$\+::get (\begin{DoxyParamCaption}\item[{const Entity\+ID}]{entt}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Method for get access to components that was requires with view. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ type of component we want to get \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & -\/\#id of entity we a looking for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+component of entity 
+\end{DoxyReturn}
+\Hypertarget{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a043dac3a0d1c020cce3fdb7564bd12fb}\index{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}!has@{has}}
+\index{has@{has}!filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$@{filters::ComponentView$<$ With$<$ WithArgs... $>$, Without$<$ WithoutArgs... $>$ $>$}}
+\doxysubsubsection{\texorpdfstring{has()}{has()}}
+{\footnotesize\ttfamily \label{classfilters_1_1_component_view_3_01_with_3_01_with_args_8_8_8_01_4_00_01_without_3_01_without_args_8_8_8_01_4_01_4_a043dac3a0d1c020cce3fdb7564bd12fb} 
+template$<$class... With\+Args, class... Without\+Args$>$ \\
+template$<$class T$>$ \\
+bool \mbox{\hyperlink{classfilters_1_1_component_view}{filters\+::\+Component\+View}}$<$ \mbox{\hyperlink{structfilters_1_1_with}{With}}$<$ With\+Args... $>$, \mbox{\hyperlink{structfilters_1_1_without}{Without}}$<$ Without\+Args... $>$ $>$\+::has (\begin{DoxyParamCaption}\item[{const Entity\+ID \&}]{entt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Check wether entity has some component that view requires. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ \# type of component. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em entt} & -\/ \#id of entity \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if entity has component of type T, false otherwise 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/scene/filters.\+h\end{DoxyCompactItemize}

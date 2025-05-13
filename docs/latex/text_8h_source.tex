@@ -1,0 +1,22 @@
+\doxysection{text.\+h}
+\hypertarget{text_8h_source}{}\label{text_8h_source}\index{directEngin/lib/components/text.h@{directEngin/lib/components/text.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}serialization/base.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#ifndef\ NOMINMAX}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ NOMINMAX}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ SERIALIZE}
+\DoxyCodeLine{00010\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_text}{Text}}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ SERIALIZE\_FIELD\ std::wstring\ content\{\};}
+\DoxyCodeLine{00013\ \ \ \ \ HFONT\ font\{\ \textcolor{keyword}{nullptr}\ \};}
+\DoxyCodeLine{00014\ \ \ \ \ SERIALIZE\_FIELD\ \textcolor{keywordtype}{float}\ size\ =\ 40.0f;}
+\DoxyCodeLine{00015\ \ \ \ \ SERIALIZE\_FIELD\ \textcolor{keywordtype}{int}\ color[4];}
+\DoxyCodeLine{00016\ \};}
+
+\end{DoxyCode}

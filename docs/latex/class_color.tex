@@ -1,0 +1,134 @@
+\doxysection{Color Class Reference}
+\hypertarget{class_color}{}\label{class_color}\index{Color@{Color}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_color_a35dd87622cb7a3fe6e884c46d7c8f0a2}\label{class_color_a35dd87622cb7a3fe6e884c46d7c8f0a2} 
+{\bfseries Color} (float x, float y, float z, float a=1.\+0f) noexcept
+\item 
+\Hypertarget{class_color_a823038ff5fe3e0cf0af61c268a5cdb54}\label{class_color_a823038ff5fe3e0cf0af61c268a5cdb54} 
+{\bfseries Color} (Direct\+X\+::\+XMVECTOR vec) noexcept
+\item 
+\Hypertarget{class_color_a557058812bf9988ec526d933146fdb32}\label{class_color_a557058812bf9988ec526d933146fdb32} 
+{\bfseries operator Direct\+X\+::\+XMVECTOR} () const noexcept
+\item 
+\Hypertarget{class_color_a62f62f039aad245d61c108305f97f1b2}\label{class_color_a62f62f039aad245d61c108305f97f1b2} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_color}{Color}} \&other) const noexcept
+\item 
+\Hypertarget{class_color_a065b70d55b1d6df8243e02f5819dd496}\label{class_color_a065b70d55b1d6df8243e02f5819dd496} 
+bool {\bfseries operator!=} (const \mbox{\hyperlink{class_color}{Color}} \&other) const noexcept
+\item 
+\Hypertarget{class_color_a2b0be678d1c1b54ad2532a33ddfe9c4f}\label{class_color_a2b0be678d1c1b54ad2532a33ddfe9c4f} 
+\mbox{\hyperlink{class_color}{Color}} {\bfseries operator/} (const float scalar) const noexcept
+\item 
+\Hypertarget{class_color_af097cec61754115a2bd689edb796ea35}\label{class_color_af097cec61754115a2bd689edb796ea35} 
+\mbox{\hyperlink{class_color}{Color}} {\bfseries operator+} (const \mbox{\hyperlink{class_color}{Color}} \&other) const noexcept
+\item 
+\Hypertarget{class_color_af2afe9ed46cefed1e0734c75a4317f5c}\label{class_color_af2afe9ed46cefed1e0734c75a4317f5c} 
+\mbox{\hyperlink{class_color}{Color}} {\bfseries operator-\/} (const \mbox{\hyperlink{class_color}{Color}} \&other) const noexcept
+\item 
+\Hypertarget{class_color_ab608a8e8be4f6a7232ae096b6dcfdb8a}\label{class_color_ab608a8e8be4f6a7232ae096b6dcfdb8a} 
+\mbox{\hyperlink{class_color}{Color}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{class_color}{Color}} \&other) const noexcept
+\item 
+\Hypertarget{class_color_a989d6e482c3369a25f011d666f2374f4}\label{class_color_a989d6e482c3369a25f011d666f2374f4} 
+\mbox{\hyperlink{class_color}{Color}} {\bfseries operator/} (const \mbox{\hyperlink{class_color}{Color}} \&other) const noexcept
+\item 
+\Hypertarget{class_color_a4e96802d7a5d215aa763f568756db4c7}\label{class_color_a4e96802d7a5d215aa763f568756db4c7} 
+\mbox{\hyperlink{class_color}{Color}} \& {\bfseries operator+=} (const \mbox{\hyperlink{class_color}{Color}} \&other) noexcept
+\item 
+\Hypertarget{class_color_af38e90b335fa021077b9ebb5492b5e62}\label{class_color_af38e90b335fa021077b9ebb5492b5e62} 
+\mbox{\hyperlink{class_color}{Color}} \& {\bfseries operator-\/=} (const \mbox{\hyperlink{class_color}{Color}} \&other) noexcept
+\item 
+\Hypertarget{class_color_adf74207f947b83348f4aca5141c760b1}\label{class_color_adf74207f947b83348f4aca5141c760b1} 
+\mbox{\hyperlink{class_color}{Color}} \& {\bfseries operator\texorpdfstring{$\ast$}{*}=} (const float scalar) noexcept
+\item 
+\Hypertarget{class_color_ae714c27a4b27ba067cc8ea68bc48a756}\label{class_color_ae714c27a4b27ba067cc8ea68bc48a756} 
+\mbox{\hyperlink{class_color}{Color}} \& {\bfseries operator\texorpdfstring{$\ast$}{*}=} (const \mbox{\hyperlink{class_color}{Color}} \&scalar) noexcept
+\item 
+\Hypertarget{class_color_aae102fca2f30c83eef9218d62e57950a}\label{class_color_aae102fca2f30c83eef9218d62e57950a} 
+\mbox{\hyperlink{class_color}{Color}} \& {\bfseries operator/=} (const \mbox{\hyperlink{class_color}{Color}} \&other) noexcept
+\item 
+\Hypertarget{class_color_a24c72d4c7db4c9703a1179135d3b74dc}\label{class_color_a24c72d4c7db4c9703a1179135d3b74dc} 
+\mbox{\hyperlink{class_color}{Color}} \& {\bfseries operator/=} (const float scalar) noexcept
+\item 
+\Hypertarget{class_color_af2b11d71da209666ed796e6e1e9de9db}\label{class_color_af2b11d71da209666ed796e6e1e9de9db} 
+float {\bfseries max\+Component} () const noexcept
+\item 
+\Hypertarget{class_color_ad5abcf75f20ff033e04d5b28f8d52fdc}\label{class_color_ad5abcf75f20ff033e04d5b28f8d52fdc} 
+float {\bfseries min\+Component} () const noexcept
+\item 
+\Hypertarget{class_color_a7e5438eff1732702bb5318f7759ce885}\label{class_color_a7e5438eff1732702bb5318f7759ce885} 
+float {\bfseries grayscale} () const noexcept
+\item 
+\Hypertarget{class_color_a7c5f672d26c7c9195ab360092e0b6ded}\label{class_color_a7c5f672d26c7c9195ab360092e0b6ded} 
+\mbox{\hyperlink{class_color}{Color}} {\bfseries gamma} () const noexcept
+\item 
+\Hypertarget{class_color_a002bde652111e63a19f7b5c01f500697}\label{class_color_a002bde652111e63a19f7b5c01f500697} 
+\mbox{\hyperlink{class_color}{Color}} {\bfseries linear} () const noexcept
+\item 
+\Hypertarget{class_color_a9aa49c371792cf35e7f6c777502376e5}\label{class_color_a9aa49c371792cf35e7f6c777502376e5} 
+float {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index) const noexcept
+\item 
+\Hypertarget{class_color_a5eae656b2e0d492bb2932a6f0934d27e}\label{class_color_a5eae656b2e0d492bb2932a6f0934d27e} 
+float \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_color_af7e294fb644d1d554a52ede10bfaf2f5}\label{class_color_af7e294fb644d1d554a52ede10bfaf2f5} 
+static \mbox{\hyperlink{class_color}{Color}} {\bfseries lerp} (const \mbox{\hyperlink{class_color}{Color}} \&a, const \mbox{\hyperlink{class_color}{Color}} \&b, float t) noexcept
+\item 
+\Hypertarget{class_color_aa15eb91b7f352621be4b32ec9f3169ee}\label{class_color_aa15eb91b7f352621be4b32ec9f3169ee} 
+static \mbox{\hyperlink{class_color}{Color}} {\bfseries lerp\+Unclamped} (const \mbox{\hyperlink{class_color}{Color}} \&a, const \mbox{\hyperlink{class_color}{Color}} \&b, float t) noexcept
+\item 
+\Hypertarget{class_color_a933cfebb25265b6e74d8b06e881aebb5}\label{class_color_a933cfebb25265b6e74d8b06e881aebb5} 
+static \mbox{\hyperlink{class_color}{Color}} {\bfseries HSVTo\+RGB} (float H, float S, float V, bool hdr=true) noexcept
+\item 
+\Hypertarget{class_color_a2c31cfcd1645335ee089bd153f3e4f7d}\label{class_color_a2c31cfcd1645335ee089bd153f3e4f7d} 
+static void {\bfseries RGBTo\+HSV} (const \mbox{\hyperlink{class_color}{Color}} \&rgb\+Color, float \&H, float \&S, float \&V) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_color_abd9ff0ede74198c75b8bc830dd81c10c}\label{class_color_abd9ff0ede74198c75b8bc830dd81c10c} 
+static const \mbox{\hyperlink{class_color}{Color}} {\bfseries black}
+\item 
+\Hypertarget{class_color_a279307ec0d3a076c9c66bfc52d0c781b}\label{class_color_a279307ec0d3a076c9c66bfc52d0c781b} 
+static const \mbox{\hyperlink{class_color}{Color}} {\bfseries white}
+\item 
+\Hypertarget{class_color_ae49463e1304b7b86b2c6df689c6bbb21}\label{class_color_ae49463e1304b7b86b2c6df689c6bbb21} 
+static const \mbox{\hyperlink{class_color}{Color}} {\bfseries red}
+\item 
+\Hypertarget{class_color_a750a35e6278b39e348c2757db54fdda7}\label{class_color_a750a35e6278b39e348c2757db54fdda7} 
+static const \mbox{\hyperlink{class_color}{Color}} {\bfseries green}
+\item 
+\Hypertarget{class_color_aa87280fb8d4db0eef8abb75f8b38f454}\label{class_color_aa87280fb8d4db0eef8abb75f8b38f454} 
+static const \mbox{\hyperlink{class_color}{Color}} {\bfseries blue}
+\item 
+\Hypertarget{class_color_a412e363e456165ede1fe411639b72af2}\label{class_color_a412e363e456165ede1fe411639b72af2} 
+static const \mbox{\hyperlink{class_color}{Color}} {\bfseries yellow}
+\item 
+\Hypertarget{class_color_a21312bf978adb06dddc6b28c050d1e97}\label{class_color_a21312bf978adb06dddc6b28c050d1e97} 
+static const \mbox{\hyperlink{class_color}{Color}} {\bfseries cyan}
+\item 
+\Hypertarget{class_color_aef8e459e9c324ae76adede4ee8c89863}\label{class_color_aef8e459e9c324ae76adede4ee8c89863} 
+static const \mbox{\hyperlink{class_color}{Color}} {\bfseries magenta}
+\item 
+\Hypertarget{class_color_ad9b952a93caf56c080ad0f4e4da6ce9a}\label{class_color_ad9b952a93caf56c080ad0f4e4da6ce9a} 
+static const \mbox{\hyperlink{class_color}{Color}} {\bfseries gray}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_color_a438d157950a578bf7c89b728eb820532}\label{class_color_a438d157950a578bf7c89b728eb820532} 
+\mbox{\hyperlink{class_color}{Color}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{class_color}{Color}} \&color, const float scalar)
+\item 
+\Hypertarget{class_color_a8c855274719cc8ffe2ddbc80d2ef4d82}\label{class_color_a8c855274719cc8ffe2ddbc80d2ef4d82} 
+\mbox{\hyperlink{class_color}{Color}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const float scalar, const \mbox{\hyperlink{class_color}{Color}} \&color)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/math/color.\+h\item 
+direct\+Engin/lib/math/color.\+cpp\end{DoxyCompactItemize}

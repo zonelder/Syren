@@ -1,0 +1,68 @@
+\doxysection{Graphics\+::Device\+Remove\+Exception Class Reference}
+\hypertarget{class_graphics_1_1_device_remove_exception}{}\label{class_graphics_1_1_device_remove_exception}\index{Graphics::DeviceRemoveException@{Graphics::DeviceRemoveException}}
+Inheritance diagram for Graphics\+::Device\+Remove\+Exception\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{class_graphics_1_1_device_remove_exception}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_graphics_1_1_device_remove_exception_a276ad442e02d647303db5893738ebeba}{get\+Type}} () const noexcept override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graphics_1_1_hr_exception}{Graphics\+::\+Hr\+Exception}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Hr\+Exception} (int line, const char \texorpdfstring{$\ast$}{*}file, HRESULT hr, std\+::vector$<$ std\+::string $>$=\{\}) noexcept
+\item 
+const char \texorpdfstring{$\ast$}{*} {\bfseries what} () const noexcept override
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_graphics_1_1_hr_exception_aa20fda8453b6a828dfc550768fda44ea}{get\+Type}} () const noexcept override
+\item 
+HRESULT {\bfseries get\+Error\+Code} () const noexcept
+\item 
+std\+::string {\bfseries get\+Error\+String} () const noexcept
+\item 
+std\+::string {\bfseries get\+Error\+Description} () const noexcept
+\item 
+std\+::string {\bfseries get\+Error\+Info} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_pointed_exception}{Pointed\+Exception}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Pointed\+Exception} (int line, const char \texorpdfstring{$\ast$}{*}file) noexcept
+\item 
+const char \texorpdfstring{$\ast$}{*} {\bfseries what} () const noexcept override
+\item 
+int {\bfseries get\+Line} () const noexcept
+\item 
+const std\+::string \& {\bfseries get\+File} () const noexcept
+\item 
+std\+::string {\bfseries get\+Original\+String} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_pointed_exception}{Pointed\+Exception}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries p\+\_\+buffer}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graphics_1_1_device_remove_exception_a276ad442e02d647303db5893738ebeba}\index{Graphics::DeviceRemoveException@{Graphics::DeviceRemoveException}!getType@{getType}}
+\index{getType@{getType}!Graphics::DeviceRemoveException@{Graphics::DeviceRemoveException}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \label{class_graphics_1_1_device_remove_exception_a276ad442e02d647303db5893738ebeba} 
+const char \texorpdfstring{$\ast$}{*} Graphics\+::\+Device\+Remove\+Exception\+::get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_pointed_exception}{Pointed\+Exception}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/graphic/graphic.\+h\item 
+direct\+Engin/lib/graphic/graphic.\+cpp\end{DoxyCompactItemize}

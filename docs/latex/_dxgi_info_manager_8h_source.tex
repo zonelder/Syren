@@ -1,0 +1,32 @@
+\doxysection{Dxgi\+Info\+Manager.\+h}
+\hypertarget{_dxgi_info_manager_8h_source}{}\label{_dxgi_info_manager_8h_source}\index{directEngin/lib/graphic/DxgiInfoManager.h@{directEngin/lib/graphic/DxgiInfoManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ NOMINMAX}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ NOMINMAX}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <wrl.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <dxgidebug.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }DxgiInfoManager}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ DxgiInfoManager();}
+\DoxyCodeLine{00017\ \ \ \ \ \string~DxgiInfoManager()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00018\ \ \ \ \ DxgiInfoManager(\textcolor{keyword}{const}\ DxgiInfoManager\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00019\ \ \ \ \ DxgiInfoManager\&\ operator=(\textcolor{keyword}{const}\ DxgiInfoManager\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ set()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00021\ \ \ \ \ std::vector<std::string>\ getMessage()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00022\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \_next\ =\ 0u;}
+\DoxyCodeLine{00024\ \ \ \ \ Microsoft::WRL::ComPtr<IDXGIInfoQueue>\ \_dxgiInfoQueue;}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+
+\end{DoxyCode}

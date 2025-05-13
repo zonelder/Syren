@@ -1,0 +1,22 @@
+\doxysection{windows\+\_\+message\+\_\+map.\+h}
+\hypertarget{windows__message__map_8h_source}{}\label{windows__message__map_8h_source}\index{directEngin/lib/core/windows\_message\_map.h@{directEngin/lib/core/windows\_message\_map.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ NOMINMAX}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ NOMINMAX}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }WindowsMessageMap}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ WindowsMessageMap()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00013\ \ \ \ \ std::string\ operator()(DWORD\ msg,\ LPARAM\ lp,\ WPARAM\ wp)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00014\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00015\ \ \ \ \ std::unordered\_map<DWORD,\ std::string>\ map;}
+\DoxyCodeLine{00016\ \};}
+
+\end{DoxyCode}

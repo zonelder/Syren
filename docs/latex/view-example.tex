@@ -1,0 +1,21 @@
+\doxysection{view}
+\hypertarget{view-example}{}\label{view-example}Create a component view with inclusion/exclusion filters.
+
+Create a component view with inclusion/exclusion filters
+\begin{DoxyTemplParams}{Template Parameters}
+{\em With\+Args} & Component types to include in the view \\
+\hline
+{\em Without\+Args} & Component types to exclude from the view \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+Component\+View configured with specified filters
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The view is cached per filter combination type for efficiency \texorpdfstring{$<$}{<}\doxylink{struct_transform}{Transform}, \doxylink{struct_render}{Render}\texorpdfstring{$>$}{>}() returns view of entities with both components
+\end{DoxyNote}
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ 

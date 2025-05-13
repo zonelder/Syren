@@ -1,0 +1,56 @@
+\doxysection{mesh.\+h}
+\hypertarget{mesh_8h_source}{}\label{mesh_8h_source}\index{directEngin/lib/resmgr/mesh.h@{directEngin/lib/resmgr/mesh.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}math/vector3.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}math/color.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}graphic/Vertex.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_bounding_box}{BoundingBox}}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{using\ }Position\ =\ \mbox{\hyperlink{class_vector3}{Vector3}};}
+\DoxyCodeLine{00013\ \ \ \ \ Position\ minBound;}
+\DoxyCodeLine{00014\ \ \ \ \ Position\ maxBound;}
+\DoxyCodeLine{00015\ \};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }Mesh}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{//in\ case\ i\ will\ implement\ more\ catch\ friendly\ container}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{using\ }ElementContainer\ =\ std::vector<T>;}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{using\ }Position\_t\ =\ \mbox{\hyperlink{struct_vertex}{Vertex}};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{using\ }UV\_t\ =\ DirectX::XMFLOAT2;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{using\ }Normal\_t\ =\ \mbox{\hyperlink{class_vector3}{Vector3}};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{using\ }Color\_t\ =\ \mbox{\hyperlink{class_color}{Color}};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{using\ }Index\_t\ =\ \textcolor{keywordtype}{unsigned}\ short;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ Mesh()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00030\ \ \ \ \ Mesh(ElementContainer<Vertex>\&\&\ verts,\ ElementContainer<Index\_t>\&\&\ inds,\ ElementContainer<Color\_t>\&\&\ colors);}
+\DoxyCodeLine{00031\ \ \ \ \ std::string\ resourceID;}
+\DoxyCodeLine{00032\ \ \ \ \ std::string\ identifier;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ IndexCount;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ startIndex;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ ElementContainer<Vertex>\ vertexes;}
+\DoxyCodeLine{00037\ \ \ \ \ ElementContainer<UV\_t>\ uvs;}
+\DoxyCodeLine{00038\ \ \ \ \ ElementContainer<\ Vector3\ >\ normals;}
+\DoxyCodeLine{00039\ \ \ \ \ ElementContainer<Index\_t>\ indices;}
+\DoxyCodeLine{00040\ \ \ \ \ ElementContainer<\ Color\_t\ >\ colors;}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{struct_bounding_box}{BoundingBox}}\ boundingBox;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{using\ }MeshPtr\ =\ std::shared\_ptr<Mesh>;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{namespace\ }meshHelpers}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ updateBB(\mbox{\hyperlink{struct_mesh}{Mesh}}*\ pMesh);}
+\DoxyCodeLine{00050\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,67 @@
+\doxysection{Render\+System Class Reference}
+\hypertarget{class_render_system}{}\label{class_render_system}\index{RenderSystem@{RenderSystem}}
+Inheritance diagram for Render\+System\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_render_system}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_render_system_a920f29916bdcdba98c71f3a67369c108}\label{class_render_system_a920f29916bdcdba98c71f3a67369c108} 
+using {\bfseries With\+Components} = \mbox{\hyperlink{structfilters_1_1_with}{filters\+::\+With}}$<$\mbox{\hyperlink{struct_render}{Render}}, \mbox{\hyperlink{struct_transform}{Transform}}$>$
+\item 
+\Hypertarget{class_render_system_a2bfc4d91c43b6b41e70f8e2d7eb58d1b}\label{class_render_system_a2bfc4d91c43b6b41e70f8e2d7eb58d1b} 
+using {\bfseries Render\+View} = \mbox{\hyperlink{classfilters_1_1_component_view}{filters\+::\+Component\+View}} $<$\mbox{\hyperlink{structfilters_1_1_with}{With\+Components}}, \mbox{\hyperlink{structfilters_1_1_without}{filters\+::\+Without}}$<$$>$$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_render_system_abcef62b33c4ca5930f73f2dc5e3429a9}{on\+Frame}} (\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&) override
+\item 
+void \mbox{\hyperlink{class_render_system_a36d084c428639786bcfd5dcdc7a5e6d5}{on\+Update}} (\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&, float dt) override
+\item 
+\Hypertarget{class_render_system_a505f2de54cd1d255e2a4fb545f764a17}\label{class_render_system_a505f2de54cd1d255e2a4fb545f764a17} 
+void {\bfseries bind\+Mesh} (Mesh\+Ptr p\+Mesh, const \mbox{\hyperlink{class_input_layout}{Input\+Layout}} \&layout)
+\item 
+\Hypertarget{class_render_system_a3a752576d14aaaf8ca50b3ef7c5a252f}\label{class_render_system_a3a752576d14aaaf8ca50b3ef7c5a252f} 
+void {\bfseries register\+Buffer} (Semantic\+Type semantic, const \mbox{\hyperlink{struct_element_desc}{Element\+Desc}} \&desc)
+\item 
+\Hypertarget{class_render_system_aaf02053b059a4199442565a8489457f0}\label{class_render_system_aaf02053b059a4199442565a8489457f0} 
+void {\bfseries draw\+Final\+Pass} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_base_system}{Base\+System}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries on\+Init} (\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&scene)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_render_system_abcef62b33c4ca5930f73f2dc5e3429a9}\index{RenderSystem@{RenderSystem}!onFrame@{onFrame}}
+\index{onFrame@{onFrame}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{onFrame()}{onFrame()}}
+{\footnotesize\ttfamily \label{class_render_system_abcef62b33c4ca5930f73f2dc5e3429a9} 
+void Render\+System\+::on\+Frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&}]{scene}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_base_system}{Base\+System}}.
+
+\Hypertarget{class_render_system_a36d084c428639786bcfd5dcdc7a5e6d5}\index{RenderSystem@{RenderSystem}!onUpdate@{onUpdate}}
+\index{onUpdate@{onUpdate}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{onUpdate()}{onUpdate()}}
+{\footnotesize\ttfamily \label{class_render_system_a36d084c428639786bcfd5dcdc7a5e6d5} 
+void Render\+System\+::on\+Update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene_manager}{Scene\+Manager}} \&}]{scene}{, }\item[{float}]{dt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_base_system}{Base\+System}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/systems/render\+\_\+system.\+h\item 
+direct\+Engin/lib/systems/render\+\_\+system.\+cpp\end{DoxyCompactItemize}

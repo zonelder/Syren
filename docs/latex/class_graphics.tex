@@ -1,0 +1,70 @@
+\doxysection{Graphics Class Reference}
+\hypertarget{class_graphics}{}\label{class_graphics}\index{Graphics@{Graphics}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_graphics_1_1_device_remove_exception}{Device\+Remove\+Exception}}
+\item 
+class \mbox{\hyperlink{class_graphics_1_1_exeption}{Exeption}}
+\item 
+class \mbox{\hyperlink{class_graphics_1_1_hr_exception}{Hr\+Exception}}
+\item 
+class \mbox{\hyperlink{class_graphics_1_1_info_exception}{Info\+Exception}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graphics_ac778502de249d94b99a92a8c187e7dfb}\label{class_graphics_ac778502de249d94b99a92a8c187e7dfb} 
+{\bfseries Graphics} (HWND h\+Wnd)
+\item 
+\Hypertarget{class_graphics_abe2f13f24a1d35c55fdac10a282744eb}\label{class_graphics_abe2f13f24a1d35c55fdac10a282744eb} 
+{\bfseries Graphics} (const \mbox{\hyperlink{class_graphics}{Graphics}} \&)=delete
+\item 
+\Hypertarget{class_graphics_a0d7e0ca1b44e6d31935bb13c25a61ed6}\label{class_graphics_a0d7e0ca1b44e6d31935bb13c25a61ed6} 
+\mbox{\hyperlink{class_graphics}{Graphics}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_graphics}{Graphics}} \&)=delete
+\item 
+\Hypertarget{class_graphics_ab18bef9fd6024df2882abc559687e931}\label{class_graphics_ab18bef9fd6024df2882abc559687e931} 
+UINT {\bfseries screen\+Width} () const noexcept
+\item 
+\Hypertarget{class_graphics_a72366c4c06654ee0c1d82e9f65f36abc}\label{class_graphics_a72366c4c06654ee0c1d82e9f65f36abc} 
+UINT {\bfseries screen\+Height} () const noexcept
+\item 
+\Hypertarget{class_graphics_a3db48982641ea1fb21947e1524af9648}\label{class_graphics_a3db48982641ea1fb21947e1524af9648} 
+void {\bfseries end\+Frame} ()
+\item 
+\Hypertarget{class_graphics_ad058eb6ef2383e215612ebbe8b196eab}\label{class_graphics_ad058eb6ef2383e215612ebbe8b196eab} 
+void {\bfseries clear\+Buffer} (float red, float green, float blue) noexcept
+\item 
+\Hypertarget{class_graphics_ad9e8c9f95e51f4d810d332292147d10c}\label{class_graphics_ad9e8c9f95e51f4d810d332292147d10c} 
+void {\bfseries clear\+Buffer} (const float color\mbox{[}4\mbox{]}) noexcept
+\item 
+\Hypertarget{class_graphics_a9c97093fdf92ea9fa2199f987d76cc65}\label{class_graphics_a9c97093fdf92ea9fa2199f987d76cc65} 
+void {\bfseries clear\+Buffer} (Direct\+X\+::\+XMVECTOR color) noexcept
+\item 
+\Hypertarget{class_graphics_aef4357e01a4cd95cd9d3ad56626a8cbf}\label{class_graphics_aef4357e01a4cd95cd9d3ad56626a8cbf} 
+void {\bfseries draw\+Indexed} (size\+\_\+t index\+Count, size\+\_\+t start\+Index=0u)
+\item 
+\Hypertarget{class_graphics_af07144fa2d7c1fbb49eced735e9d35ff}\label{class_graphics_af07144fa2d7c1fbb49eced735e9d35ff} 
+void {\bfseries draw} (size\+\_\+t index\+Count, size\+\_\+t start\+Index=0u)
+\item 
+\Hypertarget{class_graphics_aa1151ec0c93006f32909cda18e857317}\label{class_graphics_aa1151ec0c93006f32909cda18e857317} 
+ID3\+D11\+Device\+Context \texorpdfstring{$\ast$}{*} {\bfseries get\+Context} () noexcept
+\item 
+\Hypertarget{class_graphics_a4621eef435af9af25d83122b906122ed}\label{class_graphics_a4621eef435af9af25d83122b906122ed} 
+ID3\+D11\+Device \texorpdfstring{$\ast$}{*} {\bfseries get\+Device} () noexcept
+\item 
+\Hypertarget{class_graphics_a1ed03c4041743331c09c2ea75c1d4392}\label{class_graphics_a1ed03c4041743331c09c2ea75c1d4392} 
+\mbox{\hyperlink{class_dxgi_info_manager}{Dxgi\+Info\+Manager}} \& {\bfseries get\+Info\+Manager} () noexcept
+\item 
+\Hypertarget{class_graphics_a370eb9714722ba911e9a6d8fccb0c6e6}\label{class_graphics_a370eb9714722ba911e9a6d8fccb0c6e6} 
+void {\bfseries bind\+Back\+Buffer} ()
+\item 
+\Hypertarget{class_graphics_a7876da9b3f423adc4922dbd2146e4b28}\label{class_graphics_a7876da9b3f423adc4922dbd2146e4b28} 
+auto {\bfseries p\+Depth\+Buffer} () const noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/graphic/graphic.\+h\item 
+direct\+Engin/lib/graphic/graphic.\+cpp\end{DoxyCompactItemize}

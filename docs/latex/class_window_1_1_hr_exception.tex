@@ -1,0 +1,74 @@
+\doxysection{Window\+::Hr\+Exception Class Reference}
+\hypertarget{class_window_1_1_hr_exception}{}\label{class_window_1_1_hr_exception}\index{Window::HrException@{Window::HrException}}
+Inheritance diagram for Window\+::Hr\+Exception\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_window_1_1_hr_exception}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_window_1_1_hr_exception_afbbaa3343e83f97f23fef153ac9c179c}\label{class_window_1_1_hr_exception_afbbaa3343e83f97f23fef153ac9c179c} 
+{\bfseries Hr\+Exception} (int, const char \texorpdfstring{$\ast$}{*}file, HRESULT) noexcept
+\begin{DoxyCompactList}\small\item\em Window\+::\+Exeption stuff. \end{DoxyCompactList}\item 
+\Hypertarget{class_window_1_1_hr_exception_a0b0b3381b422be730ad613a329548058}\label{class_window_1_1_hr_exception_a0b0b3381b422be730ad613a329548058} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries what} () const noexcept override
+\item 
+virtual const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_window_1_1_hr_exception_a8c5d0c1026aa0a19cac531652e63fe5e}{get\+Type}} () const noexcept
+\item 
+\Hypertarget{class_window_1_1_hr_exception_af9a2a9a627a81621c7c17586ca2623eb}\label{class_window_1_1_hr_exception_af9a2a9a627a81621c7c17586ca2623eb} 
+HRESULT {\bfseries get\+Error\+Code} () const noexcept
+\item 
+\Hypertarget{class_window_1_1_hr_exception_aad177471e3fc0fa698af98d5eab689a5}\label{class_window_1_1_hr_exception_aad177471e3fc0fa698af98d5eab689a5} 
+std\+::string {\bfseries get\+Error\+Dscription} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_pointed_exception}{Pointed\+Exception}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Pointed\+Exception} (int line, const char \texorpdfstring{$\ast$}{*}file) noexcept
+\item 
+const char \texorpdfstring{$\ast$}{*} {\bfseries what} () const noexcept override
+\item 
+int {\bfseries get\+Line} () const noexcept
+\item 
+const std\+::string \& {\bfseries get\+File} () const noexcept
+\item 
+std\+::string {\bfseries get\+Original\+String} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_window_1_1_hr_exception_acd6e569ca285baf6811ec61eff1335f2}\label{class_window_1_1_hr_exception_acd6e569ca285baf6811ec61eff1335f2} 
+static std\+::string {\bfseries translate\+Error\+Code} (HRESULT hr) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_window_1_1_exception}{Window\+::\+Exception}}}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::string {\bfseries translate\+Code} (HRESULT hr) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_pointed_exception}{Pointed\+Exception}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries p\+\_\+buffer}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_window_1_1_hr_exception_a8c5d0c1026aa0a19cac531652e63fe5e}\index{Window::HrException@{Window::HrException}!getType@{getType}}
+\index{getType@{getType}!Window::HrException@{Window::HrException}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \label{class_window_1_1_hr_exception_a8c5d0c1026aa0a19cac531652e63fe5e} 
+const char \texorpdfstring{$\ast$}{*} Window\+::\+Hr\+Exception\+::get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_pointed_exception}{Pointed\+Exception}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/core/window.\+h\item 
+direct\+Engin/lib/core/window.\+cpp\end{DoxyCompactItemize}

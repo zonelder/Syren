@@ -1,0 +1,38 @@
+\doxysection{vertex\+\_\+buffer.\+h}
+\hypertarget{vertex__buffer_8h_source}{}\label{vertex__buffer_8h_source}\index{directEngin/lib/graphic/vertex\_buffer.h@{directEngin/lib/graphic/vertex\_buffer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}IBindable.h"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }VertexBuffer:\textcolor{keyword}{public}\ \mbox{\hyperlink{class_i_bindable}{IBindable}}}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00007\ \ \ \ \ VertexBuffer()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00009\ \ \ \ \ VertexBuffer(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx,\ \textcolor{keyword}{const}\ std::vector<T>\&\ vertices)}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ :}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \_stride(\textcolor{keyword}{sizeof}(T))\ }
+\DoxyCodeLine{00012\ \ \ \ \ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ INFOMAN(gfx);}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ D3D11\_BUFFER\_DESC\ bd\ =\ \{\};}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ bd.BindFlags\ =\ D3D11\_BIND\_VERTEX\_BUFFER;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ bd.Usage\ =\ D3D11\_USAGE\_DEFAULT;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ bd.CPUAccessFlags\ =\ 0u;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ bd.MiscFlags\ =\ 0u;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ bd.ByteWidth\ =\ UINT(\textcolor{keyword}{sizeof}(T)*vertices.size());}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ bd.StructureByteStride\ =\ \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ D3D11\_SUBRESOURCE\_DATA\ sd\ =\ \{\};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ sd.pSysMem\ =\ vertices.data();}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ GFX\_THROW\_INFO(gfx.getDevice()-\/>CreateBuffer(\&bd,\ \&sd,\ \&\_pVertexBuffer));}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ bind(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00028\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00029\ \ \ \ \ UINT\ \_stride;}
+\DoxyCodeLine{00030\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ \_pVertexBuffer;}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+
+\end{DoxyCode}

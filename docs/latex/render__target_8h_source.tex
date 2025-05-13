@@ -1,0 +1,37 @@
+\doxysection{render\+\_\+target.\+h}
+\hypertarget{render__target_8h_source}{}\label{render__target_8h_source}\index{directEngin/lib/graphic/render\_target.h@{directEngin/lib/graphic/render\_target.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_RENDER\_TARGET\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_RENDER\_TARGET\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <wrl/client.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <dxgiformat.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}graphic.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{using\ }Microsoft::WRL::ComPtr;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }RenderTarget}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ RenderTarget(\mbox{\hyperlink{class_graphics}{Graphics}}*\ pGfx,\ \textcolor{keywordtype}{size\_t}\ width,\ \textcolor{keywordtype}{size\_t}\ height,\ DXGI\_FORMAT\ \ format);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ bind(\mbox{\hyperlink{class_graphics}{Graphics}}*\ pGfx);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ clear(\mbox{\hyperlink{class_graphics}{Graphics}}*\ pGfx,\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ color[4]);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ ID3D11RenderTargetView*\ GetRTV()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_pRTV.Get();\ \}}
+\DoxyCodeLine{00020\ \ \ \ \ ID3D11ShaderResourceView*\ GetSRV()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_pSRV.Get();\ \}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \ \ UINT\ \_width,\ \_height;}
+\DoxyCodeLine{00023\ \ \ \ \ DXGI\_FORMAT\ \_format;}
+\DoxyCodeLine{00024\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Texture2D>\ \_pTexture;}
+\DoxyCodeLine{00025\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11RenderTargetView>\ \_pRTV;}
+\DoxyCodeLine{00026\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>\ \_pSRV;}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,109 @@
+\doxysection{dxerr.\+h}
+\hypertarget{dxerr_8h_source}{}\label{dxerr_8h_source}\index{directEngin/lib/graphic/dxerr.h@{directEngin/lib/graphic/dxerr.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ DXErr.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ DirectX\ Error\ Library}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ THIS\ CODE\ AND\ INFORMATION\ IS\ PROVIDED\ "{}AS\ IS"{}\ WITHOUT\ WARRANTY\ OF}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ ANY\ KIND,\ EITHER\ EXPRESSED\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND/OR\ FITNESS\ FOR\ A}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ PARTICULAR\ PURPOSE.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Copyright\ (c)\ Microsoft\ Corporation.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <sal.h>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ DXGetErrorString}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{const}\ WCHAR*\ WINAPI\ DXGetErrorStringW(\ \_In\_\ HRESULT\ hr\ );}
+\DoxyCodeLine{00026\ \textcolor{keyword}{const}\ CHAR*\ WINAPI\ DXGetErrorStringA(\ \_In\_\ HRESULT\ hr\ );}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifdef\ UNICODE}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ DXGetErrorString\ DXGetErrorStringW}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ DXGetErrorString\ DXGetErrorStringA}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ DXGetErrorDescription\ has\ to\ be\ modified\ to\ return\ a\ copy\ in\ a\ buffer\ rather\ than}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ the\ original\ static\ string.}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ WINAPI\ DXGetErrorDescriptionW(\ \_In\_\ HRESULT\ hr,\ \_Out\_cap\_(count)\ WCHAR*\ desc,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ count\ );}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ WINAPI\ DXGetErrorDescriptionA(\ \_In\_\ HRESULT\ hr,\ \_Out\_cap\_(count)\ CHAR*\ desc,\ \_In\_\ \textcolor{keywordtype}{size\_t}\ count\ );}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#ifdef\ UNICODE}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ DXGetErrorDescription\ DXGetErrorDescriptionW}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ DXGetErrorDescription\ DXGetErrorDescriptionA}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ \ DXTrace}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ \ Desc:\ \ Outputs\ a\ formatted\ error\ message\ to\ the\ debug\ stream}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ \ Args:\ \ WCHAR*\ strFile\ \ \ The\ current\ file,\ typically\ passed\ in\ using\ the\ }}
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_FILEW\_\_\ macro.}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ DWORD\ dwLine\ \ \ \ The\ current\ line\ number,\ typically\ passed\ in\ using\ the\ }}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_LINE\_\_\ macro.}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ HRESULT\ hr\ \ \ \ \ \ An\ HRESULT\ that\ will\ be\ traced\ to\ the\ debug\ stream.}}
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ CHAR*\ strMsg\ \ \ \ A\ string\ that\ will\ be\ traced\ to\ the\ debug\ stream\ (may\ be\ NULL)}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ BOOL\ bPopMsgBox\ If\ TRUE,\ then\ a\ message\ box\ will\ popup\ also\ containing\ the\ passed\ info.}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ \ Return:\ The\ hr\ that\ was\ passed\ in.\ \ }}
+\DoxyCodeLine{00057\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00058\ HRESULT\ WINAPI\ DXTraceW(\ \_In\_z\_\ \textcolor{keyword}{const}\ WCHAR*\ strFile,\ \_In\_\ DWORD\ dwLine,\ \_In\_\ HRESULT\ hr,\ \_In\_opt\_\ \textcolor{keyword}{const}\ WCHAR*\ strMsg,\ \_In\_\ \textcolor{keywordtype}{bool}\ bPopMsgBox\ );}
+\DoxyCodeLine{00059\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ \ DXTrace}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//}}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ \ Desc:\ \ Outputs\ a\ formatted\ error\ message\ to\ the\ debug\ stream}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ \ Args:\ \ CHAR*\ strFile\ \ \ The\ current\ file,\ typically\ passed\ in\ using\ the\ }}
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_FILE\_\_\ macro.}}
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ DWORD\ dwLine\ \ \ \ The\ current\ line\ number,\ typically\ passed\ in\ using\ the\ }}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_LINE\_\_\ macro.}}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ HRESULT\ hr\ \ \ \ \ \ An\ HRESULT\ that\ will\ be\ traced\ to\ the\ debug\ stream.}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ CHAR*\ strMsg\ \ \ \ A\ string\ that\ will\ be\ traced\ to\ the\ debug\ stream\ (may\ be\ NULL)}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ BOOL\ bPopMsgBox\ If\ TRUE,\ then\ a\ message\ box\ will\ popup\ also\ containing\ the\ passed\ info.}}
+\DoxyCodeLine{00071\ \textcolor{comment}{//}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ \ Return:\ The\ hr\ that\ was\ passed\ in.\ \ }}
+\DoxyCodeLine{00073\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00074\ HRESULT\ WINAPI\ DXTraceA(\ \_In\_z\_\ \textcolor{keyword}{const}\ CHAR*\ strFile,\ \_In\_\ DWORD\ dwLine,\ \_In\_\ HRESULT\ hr,\ \_In\_opt\_\ \textcolor{keyword}{const}\ CHAR*\ strMsg,\ \_In\_\ \textcolor{keywordtype}{bool}\ bPopMsgBox\ );}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#ifdef\ UNICODE}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ DXTrace\ DXTraceW}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ DXTrace\ DXTraceA}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ Helper\ macros}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//}}
+\DoxyCodeLine{00084\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#if\ defined(DEBUG)\ ||\ defined(\_DEBUG)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#ifdef\ UNICODE}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ DXTRACE\_MSG(str)\ \ \ \ \ \ \ \ \ \ \ \ \ \ DXTrace(\ \_\_FILEW\_\_,\ (DWORD)\_\_LINE\_\_,\ 0,\ str,\ false\ )}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ DXTRACE\_ERR(str,hr)\ \ \ \ \ \ \ \ \ \ \ DXTrace(\ \_\_FILEW\_\_,\ (DWORD)\_\_LINE\_\_,\ hr,\ str,\ false\ )}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ DXTRACE\_ERR\_MSGBOX(str,hr)\ \ \ \ DXTrace(\ \_\_FILEW\_\_,\ (DWORD)\_\_LINE\_\_,\ hr,\ str,\ true\ )}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ DXTRACE\_MSG(str)\ \ \ \ \ \ \ \ \ \ \ \ \ \ DXTrace(\ \_\_FILE\_\_,\ (DWORD)\_\_LINE\_\_,\ 0,\ str,\ false\ )}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ DXTRACE\_ERR(str,hr)\ \ \ \ \ \ \ \ \ \ \ DXTrace(\ \_\_FILE\_\_,\ (DWORD)\_\_LINE\_\_,\ hr,\ str,\ false\ )}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ DXTRACE\_ERR\_MSGBOX(str,hr)\ \ \ \ DXTrace(\ \_\_FILE\_\_,\ (DWORD)\_\_LINE\_\_,\ hr,\ str,\ true\ )}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ DXTRACE\_MSG(str)\ \ \ \ \ \ \ \ \ \ \ \ \ \ (0L)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ DXTRACE\_ERR(str,hr)\ \ \ \ \ \ \ \ \ \ \ (hr)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ DXTRACE\_ERR\_MSGBOX(str,hr)\ \ \ \ (hr)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\_\_cplusplus}}
+
+\end{DoxyCode}

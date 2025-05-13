@@ -1,0 +1,54 @@
+\doxysection{generator.\+Serializer\+Generator Class Reference}
+\hypertarget{classgenerator_1_1_serializer_generator}{}\label{classgenerator_1_1_serializer_generator}\index{generator.SerializerGenerator@{generator.SerializerGenerator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classgenerator_1_1_serializer_generator_a892410825e144a1be4d57e0f3cbe2ef3}\label{classgenerator_1_1_serializer_generator_a892410825e144a1be4d57e0f3cbe2ef3} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, str output\+\_\+path)
+\item 
+\Hypertarget{classgenerator_1_1_serializer_generator_a04c81bbc6a6efeeb01dfd6beedab4bc2}\label{classgenerator_1_1_serializer_generator_a04c81bbc6a6efeeb01dfd6beedab4bc2} 
+{\bfseries generate\+\_\+from\+\_\+list} (self, serializable\+Types\+List)
+\item 
+\Hypertarget{classgenerator_1_1_serializer_generator_ac86d88f0886c8e6e680c191758041785}\label{classgenerator_1_1_serializer_generator_ac86d88f0886c8e6e680c191758041785} 
+{\bfseries generate} (self, Serializable\+Type type)
+\item 
+\mbox{\hyperlink{classgenerator_1_1_serializer_generator_ae1464c1ba687abf143d3bfde7c2253e3}{generate\+\_\+aggregator\+\_\+file}} (self, types, str output\+\_\+path)
+\item 
+\Hypertarget{classgenerator_1_1_serializer_generator_a7842217e79cb0b232ecbfbd2f8b0fc32}\label{classgenerator_1_1_serializer_generator_a7842217e79cb0b232ecbfbd2f8b0fc32} 
+{\bfseries serialize\+\_\+field\+\_\+str} (self, field\+\_\+type)
+\item 
+\Hypertarget{classgenerator_1_1_serializer_generator_aef6b4d2a5f17417b0da683aebe19925d}\label{classgenerator_1_1_serializer_generator_aef6b4d2a5f17417b0da683aebe19925d} 
+{\bfseries deserialize\+\_\+field\+\_\+str} (self, field\+\_\+type)
+\item 
+\Hypertarget{classgenerator_1_1_serializer_generator_ac7906b8098065bd0db60d486c3aa6b27}\label{classgenerator_1_1_serializer_generator_ac7906b8098065bd0db60d486c3aa6b27} 
+{\bfseries generate\+\_\+pools\+\_\+serializer\+\_\+header} (self, types, output\+\_\+path)
+\item 
+\Hypertarget{classgenerator_1_1_serializer_generator_acd9f68ec6f18b609eac0d9d3ffad83ef}\label{classgenerator_1_1_serializer_generator_acd9f68ec6f18b609eac0d9d3ffad83ef} 
+{\bfseries generate\+\_\+pools\+\_\+serializer\+\_\+cpp} (self, types, path, agreg)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classgenerator_1_1_serializer_generator_aa0e8e48bd58d0ebc3c4f269892b2f78b}\label{classgenerator_1_1_serializer_generator_aa0e8e48bd58d0ebc3c4f269892b2f78b} 
+{\bfseries output\+\_\+path} = output\+\_\+path
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classgenerator_1_1_serializer_generator_ae1464c1ba687abf143d3bfde7c2253e3}\index{generator.SerializerGenerator@{generator.SerializerGenerator}!generate\_aggregator\_file@{generate\_aggregator\_file}}
+\index{generate\_aggregator\_file@{generate\_aggregator\_file}!generator.SerializerGenerator@{generator.SerializerGenerator}}
+\doxysubsubsection{\texorpdfstring{generate\_aggregator\_file()}{generate\_aggregator\_file()}}
+{\footnotesize\ttfamily \label{classgenerator_1_1_serializer_generator_ae1464c1ba687abf143d3bfde7c2253e3} 
+generator.\+Serializer\+Generator.\+generate\+\_\+aggregator\+\_\+file (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{types}{, }\item[{str}]{output\+\_\+path}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Генерирует файл-агрегатор для всех сериализуемых типов.
+
+Args:
+    types (list[SerializableType]): Список сериализуемых типов.
+    output_path (str): Путь к файлу-агрегатору.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/build/codegenerators/serialize/generator.\+py\end{DoxyCompactItemize}

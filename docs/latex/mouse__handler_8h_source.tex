@@ -1,0 +1,109 @@
+\doxysection{mouse\+\_\+handler.\+h}
+\hypertarget{mouse__handler_8h_source}{}\label{mouse__handler_8h_source}\index{directEngin/lib/core/mouse\_handler.h@{directEngin/lib/core/mouse\_handler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ NOMINMAX}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ NOMINMAX}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <windows.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <bitset>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }MouseHandler}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Window;}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{class\ }Event\ \{}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum\ class}\ Type\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ LPress,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ LRelease,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ RPress,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ RRelease,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ WheelUp,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ WheelDown,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ Move,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ Enter,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ Leave,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ Invalid,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ Type\ \_type;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_leftIsPressed;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_rightIsPressed;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_x,\ \_y;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ Event()\ :\_type(Type::Invalid),\ \_leftIsPressed(\textcolor{keyword}{false}),\_rightIsPressed(\textcolor{keyword}{false}),\_x(0),\_y(0)\ \{\};}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ Event(Type\ type,\ MouseHandler\&\ parent)\ noexcept\ :\_type(type),\ \_leftIsPressed(parent.\_leftIsPressed),\_rightIsPressed(parent.\_rightIsPressed),\_x(parent.\_x),\_y(parent.\_y)\ \{\};}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ leftIsPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_leftIsPressed;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ rightIsPressed()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_rightIsPressed;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isValid()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_type\ !=\ Type::Invalid;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ Type\ getType()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_type;}
+\DoxyCodeLine{00053\ ;\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ getPosX()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ getPosY()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
+\DoxyCodeLine{00059\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ MouseHandler()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00062\ \ \ \ \ MouseHandler(\textcolor{keyword}{const}\ MouseHandler\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00063\ \ \ \ \ MouseHandler\&\ operator=(\textcolor{keyword}{const}\ MouseHandler\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ getPosX()\ const\ noexcept;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ getPosY()\ const\ noexcept;}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ isInWindow()\ const\ noexcept;}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ LeftIsPressed()\ const\ noexcept;}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ RightIsPressed()\ const\ noexcept;}
+\DoxyCodeLine{00070\ \ \ \ \ MouseHandler::\mbox{\hyperlink{class_mouse_handler_1_1_event}{Event}}\ read()\ noexcept;}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{bool}\ isEmpty()\ const\ noexcept\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_buffer.empty();}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ flush()\ noexcept;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ ResetButtons()\ noexcept;}
+\DoxyCodeLine{00076\ private:}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ trimBuffer()\ noexcept;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ onMouseMove(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ noexcept;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ onLeftPressed(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ noexcept;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ onLeftReleased(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ noexcept;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ onRightPressed(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ noexcept;}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ onRightReleased(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ noexcept;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ onWheelUp(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ noexcept;}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ onWheelDown(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ noexcept;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ onMouseLeave()\ noexcept;}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ onMouseEnter()\ noexcept;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ onWheelDelta(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keywordtype}{int}\ delta)\ noexcept;}
+\DoxyCodeLine{00093\ \ \ \ \ static\ constexpr\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_bufferSize\ =\ 16u;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_leftIsPressed\ =\ false;}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_rightIsPressed\ =\ false;}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_isInWindow\ =\ false;}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{int}\ \_wheelDeltaCarry\ =\ 0;}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{int}\ \_x,\ \_y\ =\ 0;}
+\DoxyCodeLine{00100\ \ \ \ \ std::queue<Event>\ \_buffer;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \};}
+\DoxyCodeLine{00103\ }
+
+\end{DoxyCode}

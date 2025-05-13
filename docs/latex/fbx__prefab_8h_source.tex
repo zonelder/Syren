@@ -1,0 +1,75 @@
+\doxysection{fbx\+\_\+prefab.\+h}
+\hypertarget{fbx__prefab_8h_source}{}\label{fbx__prefab_8h_source}\index{directEngin/lib/resmgr/fbx\_prefab.h@{directEngin/lib/resmgr/fbx\_prefab.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_FBX\_PREFAB\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_FBX\_PREFAB\_\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}fbx\_utils.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}math/vector3.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Предположим,\ что ResourceContainer\_t\ определён\ как\ контейнер для\ умных указателей.}}
+\DoxyCodeLine{00012\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00013\ \textcolor{keyword}{using\ }ResourceContainer\_t\ =\ std::vector<std::shared\_ptr<T>>;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_mesh}{Mesh}};}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_vertex_shader}{VertexShader}};}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_pixel_shader}{PixelShader}};}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_material}{Material}};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ }meshCache\ =\ std::unordered\_map<\ FbxMesh*,\ short>;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }FbxPrefab}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ FbxPrefab(\textcolor{keyword}{const}\ \mbox{\hyperlink{classfbx__utils_1_1_fbx_r_a_i_i}{fbx\_utils::FbxRAII<FbxScene>}}\&\ scene,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classfbx__utils_1_1_fbx_r_a_i_i}{fbx\_utils::FbxRAII<FbxManager>}}\&\ manager);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_fbx_prefab_1_1_node}{Node}}}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ position;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ rotation;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ scale;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ parent;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{short}\ meshID;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{short}\ materialID;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{short}\ vertexShaderID;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{short}\ pixelShaderID;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Node>\&\ getNodes()\ const\ noexcept}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nodes\_;}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{const}\ MeshPtr\ getMesh(\textcolor{keywordtype}{short}\ index)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00050\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ meshes\_[index];}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ processNode(FbxNode*\ fbxNode,\ \textcolor{keywordtype}{int}\ parentIndex,\ \textcolor{keyword}{const}\ fbx\_utils::FbxRAII<FbxManager>\&\ manager,\ meshCache\&\ cache);}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{short}\ processMesh(FbxMesh*\ fbxNode,\ \textcolor{keyword}{const}\ fbx\_utils::FbxRAII<FbxManager>\&\ manager,\ meshCache\&\ cache);}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{short}\ processMaterials(FbxNode*\ pNode,\ \textcolor{keyword}{const}\ fbx\_utils::FbxRAII<FbxManager>\&\ manager);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{//\ Контейнеры ресурсов,\ полученных\ из FBX-\/файла.}}
+\DoxyCodeLine{00061\ \ \ \ \ ResourceContainer\_t<Mesh>\ \ \ \ \ \ \ \ \ \ \ meshes\_;}
+\DoxyCodeLine{00062\ \ \ \ \ ResourceContainer\_t<VertexShader>\ \ \ vertexShaders\_;}
+\DoxyCodeLine{00063\ \ \ \ \ ResourceContainer\_t<PixelShader>\ \ \ \ pixelShaders\_;}
+\DoxyCodeLine{00064\ \ \ \ \ ResourceContainer\_t<Material>\ \ \ \ \ \ \ materials\_;}
+\DoxyCodeLine{00065\ \ \ \ \ std::vector<Node>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nodes\_;}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

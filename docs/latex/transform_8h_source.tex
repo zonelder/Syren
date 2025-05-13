@@ -1,0 +1,28 @@
+\doxysection{transform.\+h}
+\hypertarget{transform_8h_source}{}\label{transform_8h_source}\index{directEngin/lib/components/transform.h@{directEngin/lib/components/transform.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_TRANSFORM\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_TRANSFORM\_H\_\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}serialization/base.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}math/matrix4x4.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ SERIALIZE}
+\DoxyCodeLine{00007\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_transform}{Transform}}}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ SERIALIZE\_FIELD}
+\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ position;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ SERIALIZE\_FIELD}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ rotation;}
+\DoxyCodeLine{00014\ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ SERIALIZE\_FIELD}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ scale\{\ 1.0f,1.0f,1.0f\ \};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ orientationMatrix;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

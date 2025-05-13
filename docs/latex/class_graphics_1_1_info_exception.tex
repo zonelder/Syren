@@ -1,0 +1,60 @@
+\doxysection{Graphics\+::Info\+Exception Class Reference}
+\hypertarget{class_graphics_1_1_info_exception}{}\label{class_graphics_1_1_info_exception}\index{Graphics::InfoException@{Graphics::InfoException}}
+Inheritance diagram for Graphics\+::Info\+Exception\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_graphics_1_1_info_exception}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graphics_1_1_info_exception_ab9adb9b140f5ce0f0332bdaac51cd8f7}\label{class_graphics_1_1_info_exception_ab9adb9b140f5ce0f0332bdaac51cd8f7} 
+{\bfseries Info\+Exception} (int line, const char \texorpdfstring{$\ast$}{*}file, std\+::vector$<$ std\+::string $>$)
+\item 
+\Hypertarget{class_graphics_1_1_info_exception_afb6301d898c5ec7932e522d9bd089bf8}\label{class_graphics_1_1_info_exception_afb6301d898c5ec7932e522d9bd089bf8} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries what} () const noexcept override
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_graphics_1_1_info_exception_aa75d137c307ad68683988a5e34784519}{get\+Type}} () const noexcept override
+\item 
+\Hypertarget{class_graphics_1_1_info_exception_ad0919fe36ad1c91b6775b35e57ba83e3}\label{class_graphics_1_1_info_exception_ad0919fe36ad1c91b6775b35e57ba83e3} 
+std\+::string {\bfseries get\+Error\+Info} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_pointed_exception}{Pointed\+Exception}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Pointed\+Exception} (int line, const char \texorpdfstring{$\ast$}{*}file) noexcept
+\item 
+const char \texorpdfstring{$\ast$}{*} {\bfseries what} () const noexcept override
+\item 
+int {\bfseries get\+Line} () const noexcept
+\item 
+const std\+::string \& {\bfseries get\+File} () const noexcept
+\item 
+std\+::string {\bfseries get\+Original\+String} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_pointed_exception}{Pointed\+Exception}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries p\+\_\+buffer}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graphics_1_1_info_exception_aa75d137c307ad68683988a5e34784519}\index{Graphics::InfoException@{Graphics::InfoException}!getType@{getType}}
+\index{getType@{getType}!Graphics::InfoException@{Graphics::InfoException}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \label{class_graphics_1_1_info_exception_aa75d137c307ad68683988a5e34784519} 
+const char \texorpdfstring{$\ast$}{*} Graphics\+::\+Info\+Exception\+::get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_pointed_exception}{Pointed\+Exception}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/graphic/graphic.\+h\item 
+direct\+Engin/lib/graphic/graphic.\+cpp\end{DoxyCompactItemize}

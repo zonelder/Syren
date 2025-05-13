@@ -1,0 +1,61 @@
+\doxysection{scene\+\_\+context.\+h}
+\hypertarget{scene__context_8h_source}{}\label{scene__context_8h_source}\index{directEngin/lib/resmgr/scene\_context.h@{directEngin/lib/resmgr/scene\_context.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_SCENE\_CONTEXT\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_SCENE\_CONTEXT\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}resmgr/resource\_manager.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}core/window.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}core/input.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_scene_context_aa5bc36c641343a8c76c03edd583f19e9}{SceneContext}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_scene_context_aa5bc36c641343a8c76c03edd583f19e9}{SceneContext}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_window}{Window}}\&\ wnd);}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_scene_context_aa5bc36c641343a8c76c03edd583f19e9}{\string~SceneContext}}();}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}\&\ \mbox{\hyperlink{class_scene_context_abff95923f1c9ada02588b7d6f77d4709}{resources}}()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ s\_pMainContext-\/>\_pResourceManager;\ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_graphics}{Graphics}}*\ \mbox{\hyperlink{class_scene_context_a2c0af8d6c9f13dad115818cdcaa1f334}{pGfx}}()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ \&(s\_pMainContext-\/>\_pGraphics);\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_input}{Input}}\&\ input()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ (s\_pMainContext)-\/>\_input;\ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ setMainContext(\mbox{\hyperlink{class_scene_context_aa5bc36c641343a8c76c03edd583f19e9}{SceneContext}}*\ context)}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ assert(context\ !=\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ s\_pMainContext\ =\ context;}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ updateInput(\textcolor{keyword}{const}\ Window\&\ wnd);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ ResourceManager\ \_pResourceManager;}
+\DoxyCodeLine{00040\ \ \ \ \ Graphics\ \_pGraphics;}
+\DoxyCodeLine{00041\ \ \ \ \ Input\ \_input;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<SceneContext*>\ s\_contexts;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_scene_context_aa5bc36c641343a8c76c03edd583f19e9}{SceneContext}}*\ s\_pMainContext;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacecontext}{context}}}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}\&\ rm();}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx();}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_input}{Input}}\&\ input();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ TexturePtr\ \ \ \ \ \ getTexture(\textcolor{keyword}{const}\ std::string\&\ path);}
+\DoxyCodeLine{00056\ \ \ \ \ MeshPtr\ \ \ \ \ \ \ \ \ getMesh(\textcolor{keyword}{const}\ std::string\&\ path);}
+\DoxyCodeLine{00057\ \ \ \ \ MaterialPtr\ \ \ \ \ getMaterial(\textcolor{keyword}{const}\ std::string\&\ path);}
+\DoxyCodeLine{00058\ \ \ \ \ VertexShaderPtr\ getVertexShader(\textcolor{keyword}{const}\ std::string\&\ path);}
+\DoxyCodeLine{00059\ \ \ \ \ PixelShaderPtr\ \ getPixelShader(\textcolor{keyword}{const}\ std::string\&\ path);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

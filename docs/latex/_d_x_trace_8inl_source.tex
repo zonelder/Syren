@@ -1,0 +1,55 @@
+\doxysection{DXTrace.\+inl}
+\hypertarget{_d_x_trace_8inl_source}{}\label{_d_x_trace_8inl_source}\index{directEngin/lib/graphic/DXTrace.inl@{directEngin/lib/graphic/DXTrace.inl}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ DX\_CHAR\ strBufferLine[128];}
+\DoxyCodeLine{00002\ DX\_CHAR\ strBufferError[256];}
+\DoxyCodeLine{00003\ DX\_CHAR\ strBuffer[BUFFER\_SIZE];}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ DX\_SPRINTF\_S(\ strBufferLine,\ 128,\ DX\_STR\_WRAP(\textcolor{stringliteral}{"{}\%lu"{}}),\ dwLine\ );}
+\DoxyCodeLine{00006\ \textcolor{keywordflow}{if}(\ strFile\ )}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ DX\_SPRINTF\_S(\ strBuffer,\ BUFFER\_SIZE,\ DX\_STR\_WRAP(STR\_FMT\_SPEC\ \textcolor{stringliteral}{"{}("{}}\ STR\_FMT\_SPEC\ \textcolor{stringliteral}{"{}):\ "{}}),\ strFile,\ strBufferLine\ );}
+\DoxyCodeLine{00009\ \ \ \ \ DX\_OUTPUTDEBUGSTRING(\ strBuffer\ );}
+\DoxyCodeLine{00010\ \}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keywordtype}{size\_t}\ nMsgLen\ =\ (strMsg)\ ?\ DX\_STRNLEN\_S(\ strMsg,\ 1024\ )\ :\ 0;}
+\DoxyCodeLine{00013\ \textcolor{keywordflow}{if}(\ nMsgLen\ >\ 0\ )}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ DX\_OUTPUTDEBUGSTRING(\ strMsg\ );}
+\DoxyCodeLine{00016\ \ \ \ \ DX\_OUTPUTDEBUGSTRING(\ DX\_STR\_WRAP(\textcolor{stringliteral}{"{}\ "{}})\ );}
+\DoxyCodeLine{00017\ \}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ DX\_SPRINTF\_S(\ strBufferError,\ 256,\ DX\_STR\_WRAP(STR\_FMT\_SPEC\ \textcolor{stringliteral}{"{}\ (0x\%0.8x)"{}}),\ DX\_GETERRORSTRING(hr),\ hr\ );}
+\DoxyCodeLine{00020\ DX\_SPRINTF\_S(\ strBuffer,\ BUFFER\_SIZE,\ DX\_STR\_WRAP(\textcolor{stringliteral}{"{}hr="{}}\ STR\_FMT\_SPEC),\ strBufferError\ );}
+\DoxyCodeLine{00021\ DX\_OUTPUTDEBUGSTRING(\ strBuffer\ );}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ DX\_OUTPUTDEBUGSTRING(\ DX\_STR\_WRAP(\textcolor{stringliteral}{"{}\(\backslash\)n"{}})\ );}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#if\ !defined(WINAPI\_FAMILY)\ ||\ (WINAPI\_FAMILY\ ==\ WINAPI\_FAMILY\_DESKTOP\_APP)}}
+\DoxyCodeLine{00026\ \textcolor{keywordflow}{if}(\ bPopMsgBox\ )}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ DX\_CHAR\ strBufferFile[MAX\_PATH];}
+\DoxyCodeLine{00029\ \ \ \ \ DX\_STRCPY\_S(\ strBufferFile,\ MAX\_PATH,\ DX\_STR\_WRAP(\textcolor{stringliteral}{"{}"{}})\ );}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{if}(\ strFile\ )}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ DX\_STRCPY\_S(\ strBufferFile,\ MAX\_PATH,\ strFile\ );}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ DX\_CHAR\ strBufferMsg[1024];}
+\DoxyCodeLine{00034\ \ \ \ \ DX\_STRCPY\_S(\ strBufferMsg,\ 1024,\ DX\_STR\_WRAP(\textcolor{stringliteral}{"{}"{}})\ );}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{if}(\ nMsgLen\ >\ 0\ )}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ DX\_SPRINTF\_S(\ strBufferMsg,\ 1024,\ DX\_STR\_WRAP(\textcolor{stringliteral}{"{}Calling:\ "{}}\ STR\_FMT\_SPEC\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}),\ strMsg\ );}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ DX\_SPRINTF\_S(\ strBuffer,\ BUFFER\_SIZE,\ DX\_STR\_WRAP(\textcolor{stringliteral}{"{}File:\ "{}}\ STR\_FMT\_SPEC\ \textcolor{stringliteral}{"{}\(\backslash\)nLine:\ "{}}\ STR\_FMT\_SPEC\ \textcolor{stringliteral}{"{}\(\backslash\)nError\ Code:\ "{}}\ STR\_FMT\_SPEC\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ STR\_FMT\_SPEC\ \textcolor{stringliteral}{"{}Do\ you\ want\ to\ debug\ the\ application?"{}}),}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strBufferFile,\ strBufferLine,\ strBufferError,\ strBufferMsg\ );}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{int}\ nResult\ =\ DX\_MESSAGEBOX(\ GetForegroundWindow(),\ strBuffer,\ DX\_STR\_WRAP(\textcolor{stringliteral}{"{}Unexpected\ error\ encountered"{}}),\ MB\_YESNO\ |\ MB\_ICONERROR\ );}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{if}(\ nResult\ ==\ IDYES\ )}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ DebugBreak();}
+\DoxyCodeLine{00044\ \}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00046\ UNREFERENCED\_PARAMETER(bPopMsgBox);}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keywordflow}{return}\ hr;}
+
+\end{DoxyCode}

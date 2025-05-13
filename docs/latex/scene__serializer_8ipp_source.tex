@@ -1,0 +1,102 @@
+\doxysection{scene\+\_\+serializer.\+ipp}
+\hypertarget{scene__serializer_8ipp_source}{}\label{scene__serializer_8ipp_source}\index{directEngin/lib/generation\_iternal/scene\_serializer.ipp@{directEngin/lib/generation\_iternal/scene\_serializer.ipp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ \_\_SCENE\_SERIALIZER\_IPP\_\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ \_\_SCENE\_SERIALIZER\_IPP\_\_}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <format>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#undef\ max}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keywordtype}{size\_t}\ getEntityID(\textcolor{keyword}{const}\ std::string\&\ entityStr)}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ separator\_prefix\_size\ =\ 7;\textcolor{comment}{//\ we\ expect\ string\ like\ "{}Entity\_10"{}\ if\ its\ not\ save\ -\/\ something\ get\ wront;}}
+\DoxyCodeLine{00013\ \ \ \ \ std::string\ numberString\ =\ entityStr.substr(separator\_prefix\_size);}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ number\ =\ std::stoi(numberString);\textcolor{comment}{//Possibly\ can\ throw}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordflow}{return}\ number;}
+\DoxyCodeLine{00016\ \}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ std::string\ getEntityStr(\textcolor{keywordtype}{size\_t}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{return}\ std::format(\textcolor{stringliteral}{"{}Entity\_\{\}"{}},\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00021\ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00024\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ get\_pool\_loader()}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{return}\ [](\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ node,\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ manager)}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ manager.getPool<T>();\textcolor{comment}{//\ in\ case\ pool\ did\ not\ load\ earlier\ this\ method\ create\ it;}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ enttNode\ :\ node.childs())}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ enttID\ =\ getEntityID(enttNode.identifier());}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(enttID\ ==\ std::numeric\_limits<size\_t>::max())}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr<<\ \textcolor{stringliteral}{"{}cant\ read\ entity\ data\ in\ pool"{}}<<std::endl;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ dataNode\ \ =\ enttNode.saveGetChild(\textcolor{stringliteral}{"{}data"{}});}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ comp\ =\ manager.addComponent<T>(enttID);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ Serializer<T>::deserialize(dataNode,comp);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \};}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00047\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ get\_pool\_saver()}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ [](\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ node,\textcolor{keyword}{const}\ \mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ manager)}
+\DoxyCodeLine{00050\ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \textcolor{comment}{//\ manager.getPool<T>();//\ in\ case\ pool\ did\ not\ load\ earlier\ this\ method\ create\ it;}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ pool\ =\ manager.getPool<T>();}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ eIt\ =\ \ pool.index\_begin();}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ eend\ =\ pool.index\_end();}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ dataIt\ =\ pool.begin();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(;eIt\ !=\ eend;++eIt,++dataIt)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ enttNode\ =\ \ node.\mbox{\hyperlink{class_x_m_l_node_a72fb446ec8814b2fbc67b826bcdbd11c}{saveGetChild}}(getEntityStr(*eIt));}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ dataNode\ =\ enttNode.\mbox{\hyperlink{class_x_m_l_node_a72fb446ec8814b2fbc67b826bcdbd11c}{saveGetChild}}(\textcolor{stringliteral}{"{}data"{}});}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ Serializer<T>::serialize(dataNode,*dataIt);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \};}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ \textcolor{keyword}{const}\ std::unordered\_map<std::string,PoolSerializer::Function\_const\_t>\ PoolSerializer::serialize\_pool}
+\DoxyCodeLine{00066\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Render"{}},get\_pool\_saver<Render>()\},}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Text"{}},get\_pool\_saver<Text>()\},}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}TileData"{}},get\_pool\_saver<TileData>()\},}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Tile"{}},get\_pool\_saver<Tile>()\},}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Selected"{}},get\_pool\_saver<Selected>()\},}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}TileMap"{}},get\_pool\_saver<TileMap>()\},}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Transform"{}},get\_pool\_saver<Transform>()\},}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ \textcolor{keyword}{const}\ std::unordered\_map<std::string,PoolSerializer::Function\_t>\ PoolSerializer::deserialize\_pool}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Render"{}},get\_pool\_loader<Render>()\},}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Text"{}},get\_pool\_loader<Text>()\},}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}TileData"{}},get\_pool\_loader<TileData>()\},}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Tile"{}},get\_pool\_loader<Tile>()\},}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Selected"{}},get\_pool\_loader<Selected>()\},}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}TileMap"{}},get\_pool\_loader<TileMap>()\},}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}Transform"{}},get\_pool\_loader<Transform>()\},}
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ \textcolor{keyword}{const}\ std::unordered\_map<ComponentID,std::string>\ PoolSerializer::component\_id\_to\_name}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{Family::type\_id<Render>(),\textcolor{stringliteral}{"{}Render"{}}\},}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \{Family::type\_id<Text>(),\textcolor{stringliteral}{"{}Text"{}}\},}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \{Family::type\_id<TileData>(),\textcolor{stringliteral}{"{}TileData"{}}\},}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \{Family::type\_id<Tile>(),\textcolor{stringliteral}{"{}Tile"{}}\},}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \{Family::type\_id<Selected>(),\textcolor{stringliteral}{"{}Selected"{}}\},}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \{Family::type\_id<TileMap>(),\textcolor{stringliteral}{"{}TileMap"{}}\},}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \{Family::type\_id<Transform>(),\textcolor{stringliteral}{"{}Transform"{}}\},}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}\textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ }
+
+\end{DoxyCode}

@@ -1,0 +1,22 @@
+\doxysection{tile\+\_\+system.\+h}
+\hypertarget{tile__system_8h_source}{}\label{tile__system_8h_source}\index{directEngin/lib/systems/tile\_system.h@{directEngin/lib/systems/tile\_system.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}scene/base\_system.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}resmgr/material.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_tile_system}{TileSystem}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_base_system}{BaseSystem}}}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{void}\ onInit(\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ scene)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{void}\ onUpdate(\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ scene,\textcolor{keywordtype}{float}\ time)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ MaterialPtr\ p\_selectMat;}
+\DoxyCodeLine{00015\ \ \ \ \ MaterialPtr\ p\_deselectMat;}
+\DoxyCodeLine{00016\ \};}
+
+\end{DoxyCode}

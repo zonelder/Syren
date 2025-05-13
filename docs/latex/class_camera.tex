@@ -1,0 +1,50 @@
+\doxysection{Camera Class Reference}
+\hypertarget{class_camera}{}\label{class_camera}\index{Camera@{Camera}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_camera_a18cea16e830732cc106c27c7a840c3ac}\label{class_camera_a18cea16e830732cc106c27c7a840c3ac} 
+{\bfseries Camera} (const \mbox{\hyperlink{class_camera}{Camera}} \&)=delete
+\item 
+\Hypertarget{class_camera_a815562aa01b5ccfe876fcecbbcfb946d}\label{class_camera_a815562aa01b5ccfe876fcecbbcfb946d} 
+\mbox{\hyperlink{class_camera}{Camera}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_camera}{Camera}} \&)=delete
+\item 
+\Hypertarget{class_camera_a73b3e2ae27fb9f1be6a71158981099b8}\label{class_camera_a73b3e2ae27fb9f1be6a71158981099b8} 
+void {\bfseries On\+Frame} ()
+\item 
+\Hypertarget{class_camera_aa42e076f17813444bd32e073fb485d8d}\label{class_camera_aa42e076f17813444bd32e073fb485d8d} 
+void {\bfseries On\+Update} ()
+\item 
+\Hypertarget{class_camera_a86ff070f8d4f6e523a54f77c5c14235b}\label{class_camera_a86ff070f8d4f6e523a54f77c5c14235b} 
+const \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} \& {\bfseries view} () const noexcept
+\item 
+\Hypertarget{class_camera_a9a6432661b2bc65b97b571f39a7f2425}\label{class_camera_a9a6432661b2bc65b97b571f39a7f2425} 
+const \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} \& {\bfseries projection} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_camera_ad5cea63239e1519c1fe7d414f5e047a8}\label{class_camera_ad5cea63239e1519c1fe7d414f5e047a8} 
+\mbox{\hyperlink{struct_transform}{Transform}} {\bfseries transform}
+\item 
+\Hypertarget{class_camera_aff7393c9cfbccd7e369091f00008da93}\label{class_camera_aff7393c9cfbccd7e369091f00008da93} 
+float {\bfseries fov}
+\begin{DoxyCompactList}\small\item\em The Camera’s view angle, measured in radians. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_aa6f013fdb4560daaa5ca6ace1a846ca7}\label{class_camera_aa6f013fdb4560daaa5ca6ace1a846ca7} 
+float {\bfseries aspect\+Ratio}
+\begin{DoxyCompactList}\small\item\em Proportions of the representation space X\+:Y. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_a78d8722a95e4f7770d79c950bda2bfdc}\label{class_camera_a78d8722a95e4f7770d79c950bda2bfdc} 
+float {\bfseries near\+Plane}
+\begin{DoxyCompactList}\small\item\em near -\/ The closest distance relative to the camera that drawing will occur. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_a8e8436cced3a180e13bfafa0791fb82a}\label{class_camera_a8e8436cced3a180e13bfafa0791fb82a} 
+float {\bfseries far\+Plane}
+\begin{DoxyCompactList}\small\item\em far\+Plane -\/ The furthest distance relative to the camera that drawing will occur. \end{DoxyCompactList}\item 
+\Hypertarget{class_camera_a1e41178f9ac4dc13cfdc48284234324e}\label{class_camera_a1e41178f9ac4dc13cfdc48284234324e} 
+\mbox{\hyperlink{class_color}{Color}} {\bfseries background} = Color\+::white
+\begin{DoxyCompactList}\small\item\em The color applied to the remaining screen after all elements in view have been drawn and there is no skybox. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/scene/camera.\+h\item 
+direct\+Engin/lib/scene/camera.\+cpp\end{DoxyCompactItemize}

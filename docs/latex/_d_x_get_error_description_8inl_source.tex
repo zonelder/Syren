@@ -1,0 +1,428 @@
+\doxysection{DXGet\+Error\+Description.\+inl}
+\hypertarget{_d_x_get_error_description_8inl_source}{}\label{_d_x_get_error_description_8inl_source}\index{directEngin/lib/graphic/DXGetErrorDescription.inl@{directEngin/lib/graphic/DXGetErrorDescription.inl}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{keywordflow}{if}\ (\ !count\ )}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ *desc\ =\ 0;}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ First\ try\ to\ see\ if\ FormatMessage\ knows\ this\ hr}}
+\DoxyCodeLine{00007\ UINT\ icount\ =\ \textcolor{keyword}{static\_cast<}UINT\textcolor{keyword}{>}(\ std::min<size\_t>(\ count,\ 32767\ )\ );}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ DWORD\ result\ =\ DX\_FORMATMESSAGE(\ FORMAT\_MESSAGE\_FROM\_SYSTEM,\ \textcolor{keyword}{nullptr},\ hr,}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MAKELANGID(LANG\_NEUTRAL,\ SUBLANG\_DEFAULT),\ desc,\ icount,\ \textcolor{keyword}{nullptr}\ );}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keywordflow}{if}\ (result\ >\ 0)}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keywordflow}{switch}\ (hr)}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ Commmented\ out\ codes\ are\ actually\ alises\ for\ other\ codes}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#if\ !defined(WINAPI\_FAMILY)\ ||\ (WINAPI\_FAMILY\ ==\ WINAPI\_FAMILY\_DESKTOP\_APP)}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ ddraw.h\ error\ codes}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00024\ \ \ \ \ CHK\_ERR(DDERR\_ALREADYINITIALIZED,\ \textcolor{stringliteral}{"{}This\ object\ is\ already\ initialized"{}})}
+\DoxyCodeLine{00025\ \ \ \ \ CHK\_ERR(DDERR\_CANNOTATTACHSURFACE,\ \textcolor{stringliteral}{"{}This\ surface\ can\ not\ be\ attached\ to\ the\ requested\ surface."{}})}
+\DoxyCodeLine{00026\ \ \ \ \ CHK\_ERR(DDERR\_CANNOTDETACHSURFACE,\ \textcolor{stringliteral}{"{}This\ surface\ can\ not\ be\ detached\ from\ the\ requested\ surface."{}})}
+\DoxyCodeLine{00027\ \ \ \ \ CHK\_ERR(DDERR\_CURRENTLYNOTAVAIL,\ \textcolor{stringliteral}{"{}Support\ is\ currently\ not\ available."{}})}
+\DoxyCodeLine{00028\ \ \ \ \ CHK\_ERR(DDERR\_EXCEPTION,\ \textcolor{stringliteral}{"{}An\ exception\ was\ encountered\ while\ performing\ the\ requested\ operation"{}})}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DDERR\_GENERIC,\ "{}DDERR\_GENERIC"{})}}
+\DoxyCodeLine{00030\ \ \ \ \ CHK\_ERR(DDERR\_HEIGHTALIGN,\ \textcolor{stringliteral}{"{}Height\ of\ rectangle\ provided\ is\ not\ a\ multiple\ of\ reqd\ alignment"{}})}
+\DoxyCodeLine{00031\ \ \ \ \ CHK\_ERR(DDERR\_INCOMPATIBLEPRIMARY,\ \textcolor{stringliteral}{"{}Unable\ to\ match\ primary\ surface\ creation\ request\ with\ existing\ primary\ surface."{}})}
+\DoxyCodeLine{00032\ \ \ \ \ CHK\_ERR(DDERR\_INVALIDCAPS,\ \textcolor{stringliteral}{"{}One\ or\ more\ of\ the\ caps\ bits\ passed\ to\ the\ callback\ are\ incorrect."{}})}
+\DoxyCodeLine{00033\ \ \ \ \ CHK\_ERR(DDERR\_INVALIDCLIPLIST,\ \textcolor{stringliteral}{"{}DirectDraw\ does\ not\ support\ provided\ Cliplist."{}})}
+\DoxyCodeLine{00034\ \ \ \ \ CHK\_ERR(DDERR\_INVALIDMODE,\ \textcolor{stringliteral}{"{}DirectDraw\ does\ not\ support\ the\ requested\ mode"{}})}
+\DoxyCodeLine{00035\ \ \ \ \ CHK\_ERR(DDERR\_INVALIDOBJECT,\ \textcolor{stringliteral}{"{}DirectDraw\ received\ a\ pointer\ that\ was\ an\ invalid\ DIRECTDRAW\ object."{}})}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ \ \ \ \ \ \ \ CHK\_ERR(DDERR\_INVALIDPARAMS,\ "{}DDERR\_INVALIDPARAMS"{})}}
+\DoxyCodeLine{00037\ \ \ \ \ CHK\_ERR(DDERR\_INVALIDPIXELFORMAT,\ \textcolor{stringliteral}{"{}pixel\ format\ was\ invalid\ as\ specified"{}})}
+\DoxyCodeLine{00038\ \ \ \ \ CHK\_ERR(DDERR\_INVALIDRECT,\ \textcolor{stringliteral}{"{}Rectangle\ provided\ was\ invalid."{}})}
+\DoxyCodeLine{00039\ \ \ \ \ CHK\_ERR(DDERR\_LOCKEDSURFACES,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ one\ or\ more\ surfaces\ are\ locked"{}})}
+\DoxyCodeLine{00040\ \ \ \ \ CHK\_ERR(DDERR\_NO3D,\ \textcolor{stringliteral}{"{}There\ is\ no\ 3D\ present."{}})}
+\DoxyCodeLine{00041\ \ \ \ \ CHK\_ERR(DDERR\_NOALPHAHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ alpha\ accleration\ hardware\ present\ or\ available."{}})}
+\DoxyCodeLine{00042\ \ \ \ \ CHK\_ERR(DDERR\_NOSTEREOHARDWARE,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ stereo\ hardware\ present\ or\ available."{}})}
+\DoxyCodeLine{00043\ \ \ \ \ CHK\_ERR(DDERR\_NOSURFACELEFT,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ hardware\ present\ which\ supports\ stereo\ surfaces"{}})}
+\DoxyCodeLine{00044\ \ \ \ \ CHK\_ERR(DDERR\_NOCLIPLIST,\ \textcolor{stringliteral}{"{}no\ clip\ list\ available"{}})}
+\DoxyCodeLine{00045\ \ \ \ \ CHK\_ERR(DDERR\_NOCOLORCONVHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ color\ conversion\ hardware\ present\ or\ available."{}})}
+\DoxyCodeLine{00046\ \ \ \ \ CHK\_ERR(DDERR\_NOCOOPERATIVELEVELSET,\ \textcolor{stringliteral}{"{}Create\ function\ called\ without\ DirectDraw\ object\ method\ SetCooperativeLevel\ being\ called."{}})}
+\DoxyCodeLine{00047\ \ \ \ \ CHK\_ERR(DDERR\_NOCOLORKEY,\ \textcolor{stringliteral}{"{}Surface\ doesn't\ currently\ have\ a\ color\ key"{}})}
+\DoxyCodeLine{00048\ \ \ \ \ CHK\_ERR(DDERR\_NOCOLORKEYHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ hardware\ support\ of\ the\ dest\ color\ key."{}})}
+\DoxyCodeLine{00049\ \ \ \ \ CHK\_ERR(DDERR\_NODIRECTDRAWSUPPORT,\ \textcolor{stringliteral}{"{}No\ DirectDraw\ support\ possible\ with\ current\ display\ driver"{}})}
+\DoxyCodeLine{00050\ \ \ \ \ CHK\_ERR(DDERR\_NOEXCLUSIVEMODE,\ \textcolor{stringliteral}{"{}Operation\ requires\ the\ application\ to\ have\ exclusive\ mode\ but\ the\ application\ does\ not\ have\ exclusive\ mode."{}})}
+\DoxyCodeLine{00051\ \ \ \ \ CHK\_ERR(DDERR\_NOFLIPHW,\ \textcolor{stringliteral}{"{}Flipping\ visible\ surfaces\ is\ not\ supported."{}})}
+\DoxyCodeLine{00052\ \ \ \ \ CHK\_ERR(DDERR\_NOGDI,\ \textcolor{stringliteral}{"{}There\ is\ no\ GDI\ present."{}})}
+\DoxyCodeLine{00053\ \ \ \ \ CHK\_ERR(DDERR\_NOMIRRORHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ hardware\ present\ or\ available."{}})}
+\DoxyCodeLine{00054\ \ \ \ \ CHK\_ERR(DDERR\_NOTFOUND,\ \textcolor{stringliteral}{"{}Requested\ item\ was\ not\ found"{}})}
+\DoxyCodeLine{00055\ \ \ \ \ CHK\_ERR(DDERR\_NOOVERLAYHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ overlay\ hardware\ present\ or\ available."{}})}
+\DoxyCodeLine{00056\ \ \ \ \ CHK\_ERR(DDERR\_OVERLAPPINGRECTS,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ the\ source\ and\ destination\ rectangles\ are\ on\ the\ same\ surface\ and\ overlap\ each\ other."{}})}
+\DoxyCodeLine{00057\ \ \ \ \ CHK\_ERR(DDERR\_NORASTEROPHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ appropriate\ raster\ op\ hardware\ present\ or\ available."{}})}
+\DoxyCodeLine{00058\ \ \ \ \ CHK\_ERR(DDERR\_NOROTATIONHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ rotation\ hardware\ present\ or\ available."{}})}
+\DoxyCodeLine{00059\ \ \ \ \ CHK\_ERR(DDERR\_NOSTRETCHHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ hardware\ support\ for\ stretching"{}})}
+\DoxyCodeLine{00060\ \ \ \ \ CHK\_ERR(DDERR\_NOT4BITCOLOR,\ \textcolor{stringliteral}{"{}DirectDrawSurface\ is\ not\ in\ 4\ bit\ color\ palette\ and\ the\ requested\ operation\ requires\ 4\ bit\ color\ palette."{}})}
+\DoxyCodeLine{00061\ \ \ \ \ CHK\_ERR(DDERR\_NOT4BITCOLORINDEX,\ \textcolor{stringliteral}{"{}DirectDrawSurface\ is\ not\ in\ 4\ bit\ color\ index\ palette\ and\ the\ requested\ operation\ requires\ 4\ bit\ color\ index\ palette."{}})}
+\DoxyCodeLine{00062\ \ \ \ \ CHK\_ERR(DDERR\_NOT8BITCOLOR,\ \textcolor{stringliteral}{"{}DirectDraw\ Surface\ is\ not\ in\ 8\ bit\ color\ mode\ and\ the\ requested\ operation\ requires\ 8\ bit\ color."{}})}
+\DoxyCodeLine{00063\ \ \ \ \ CHK\_ERR(DDERR\_NOTEXTUREHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ texture\ mapping\ hardware\ present\ or\ available."{}})}
+\DoxyCodeLine{00064\ \ \ \ \ CHK\_ERR(DDERR\_NOVSYNCHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ hardware\ support\ for\ vertical\ blank\ synchronized\ operations."{}})}
+\DoxyCodeLine{00065\ \ \ \ \ CHK\_ERR(DDERR\_NOZBUFFERHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ hardware\ support\ for\ zbuffer\ blting."{}})}
+\DoxyCodeLine{00066\ \ \ \ \ CHK\_ERR(DDERR\_NOZOVERLAYHW,\ \textcolor{stringliteral}{"{}Overlay\ surfaces\ could\ not\ be\ z\ layered\ based\ on\ their\ BltOrder\ because\ the\ hardware\ does\ not\ support\ z\ layering\ of\ overlays."{}})}
+\DoxyCodeLine{00067\ \ \ \ \ CHK\_ERR(DDERR\_OUTOFCAPS,\ \textcolor{stringliteral}{"{}The\ hardware\ needed\ for\ the\ requested\ operation\ has\ already\ been\ allocated."{}})}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ \ \ \ \ \ \ \ CHK\_ERR(DDERR\_OUTOFMEMORY,\ "{}DDERR\_OUTOFMEMORY"{})}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ \ \ \ \ \ \ \ CHK\_ERR(DDERR\_OUTOFVIDEOMEMORY,\ "{}DDERR\_OUTOFVIDEOMEMORY"{})}}
+\DoxyCodeLine{00070\ \ \ \ \ CHK\_ERR(DDERR\_OVERLAYCANTCLIP,\ \textcolor{stringliteral}{"{}hardware\ does\ not\ support\ clipped\ overlays"{}})}
+\DoxyCodeLine{00071\ \ \ \ \ CHK\_ERR(DDERR\_OVERLAYCOLORKEYONLYONEACTIVE,\ \textcolor{stringliteral}{"{}Can\ only\ have\ ony\ color\ key\ active\ at\ one\ time\ for\ overlays"{}})}
+\DoxyCodeLine{00072\ \ \ \ \ CHK\_ERR(DDERR\_PALETTEBUSY,\ \textcolor{stringliteral}{"{}Access\ to\ this\ palette\ is\ being\ refused\ because\ the\ palette\ is\ already\ locked\ by\ another\ thread."{}})}
+\DoxyCodeLine{00073\ \ \ \ \ CHK\_ERR(DDERR\_COLORKEYNOTSET,\ \textcolor{stringliteral}{"{}No\ src\ color\ key\ specified\ for\ this\ operation."{}})}
+\DoxyCodeLine{00074\ \ \ \ \ CHK\_ERR(DDERR\_SURFACEALREADYATTACHED,\ \textcolor{stringliteral}{"{}This\ surface\ is\ already\ attached\ to\ the\ surface\ it\ is\ being\ attached\ to."{}})}
+\DoxyCodeLine{00075\ \ \ \ \ CHK\_ERR(DDERR\_SURFACEALREADYDEPENDENT,\ \textcolor{stringliteral}{"{}This\ surface\ is\ already\ a\ dependency\ of\ the\ surface\ it\ is\ being\ made\ a\ dependency\ of."{}})}
+\DoxyCodeLine{00076\ \ \ \ \ CHK\_ERR(DDERR\_SURFACEBUSY,\ \textcolor{stringliteral}{"{}Access\ to\ this\ surface\ is\ being\ refused\ because\ the\ surface\ is\ already\ locked\ by\ another\ thread."{}})}
+\DoxyCodeLine{00077\ \ \ \ \ CHK\_ERR(DDERR\_CANTLOCKSURFACE,\ \textcolor{stringliteral}{"{}Access\ to\ this\ surface\ is\ being\ refused\ because\ no\ driver\ exists\ which\ can\ supply\ a\ pointer\ to\ the\ surface.\ This\ is\ most\ likely\ to\ happen\ when\ attempting\ to\ lock\ the\ primary\ surface\ when\ no\ DCI\ provider\ is\ present.\ Will\ also\ happen\ on\ attempts\ to\ lock\ an\ optimized\ surface."{}})}
+\DoxyCodeLine{00078\ \ \ \ \ CHK\_ERR(DDERR\_SURFACEISOBSCURED,\ \textcolor{stringliteral}{"{}Access\ to\ Surface\ refused\ because\ Surface\ is\ obscured."{}})}
+\DoxyCodeLine{00079\ \ \ \ \ CHK\_ERR(DDERR\_SURFACELOST,\ \textcolor{stringliteral}{"{}Access\ to\ this\ surface\ is\ being\ refused\ because\ the\ surface\ is\ gone.\ The\ DIRECTDRAWSURFACE\ object\ representing\ this\ surface\ should\ have\ Restore\ called\ on\ it."{}})}
+\DoxyCodeLine{00080\ \ \ \ \ CHK\_ERR(DDERR\_SURFACENOTATTACHED,\ \textcolor{stringliteral}{"{}The\ requested\ surface\ is\ not\ attached."{}})}
+\DoxyCodeLine{00081\ \ \ \ \ CHK\_ERR(DDERR\_TOOBIGHEIGHT,\ \textcolor{stringliteral}{"{}Height\ requested\ by\ DirectDraw\ is\ too\ large."{}})}
+\DoxyCodeLine{00082\ \ \ \ \ CHK\_ERR(DDERR\_TOOBIGSIZE,\ \textcolor{stringliteral}{"{}Size\ requested\ by\ DirectDraw\ is\ too\ large\ -\/-\/\ \ The\ individual\ height\ and\ width\ are\ OK."{}})}
+\DoxyCodeLine{00083\ \ \ \ \ CHK\_ERR(DDERR\_TOOBIGWIDTH,\ \textcolor{stringliteral}{"{}Width\ requested\ by\ DirectDraw\ is\ too\ large."{}})}
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ \ \ \ \ \ \ \ CHK\_ERR(DDERR\_UNSUPPORTED,\ "{}DDERR\_UNSUPPORTED"{})}}
+\DoxyCodeLine{00085\ \ \ \ \ CHK\_ERR(DDERR\_UNSUPPORTEDFORMAT,\ \textcolor{stringliteral}{"{}Pixel\ format\ requested\ is\ unsupported\ by\ DirectDraw"{}})}
+\DoxyCodeLine{00086\ \ \ \ \ CHK\_ERR(DDERR\_UNSUPPORTEDMASK,\ \textcolor{stringliteral}{"{}Bitmask\ in\ the\ pixel\ format\ requested\ is\ unsupported\ by\ DirectDraw"{}})}
+\DoxyCodeLine{00087\ \ \ \ \ CHK\_ERR(DDERR\_INVALIDSTREAM,\ \textcolor{stringliteral}{"{}The\ specified\ stream\ contains\ invalid\ data"{}})}
+\DoxyCodeLine{00088\ \ \ \ \ CHK\_ERR(DDERR\_VERTICALBLANKINPROGRESS,\ \textcolor{stringliteral}{"{}vertical\ blank\ is\ in\ progress"{}})}
+\DoxyCodeLine{00089\ \ \ \ \ CHK\_ERR(DDERR\_WASSTILLDRAWING,\ \textcolor{stringliteral}{"{}Was\ still\ drawing"{}})}
+\DoxyCodeLine{00090\ \ \ \ \ CHK\_ERR(DDERR\_DDSCAPSCOMPLEXREQUIRED,\ \textcolor{stringliteral}{"{}The\ specified\ surface\ type\ requires\ specification\ of\ the\ COMPLEX\ flag"{}})}
+\DoxyCodeLine{00091\ \ \ \ \ CHK\_ERR(DDERR\_XALIGN,\ \textcolor{stringliteral}{"{}Rectangle\ provided\ was\ not\ horizontally\ aligned\ on\ reqd.\ boundary"{}})}
+\DoxyCodeLine{00092\ \ \ \ \ CHK\_ERR(DDERR\_INVALIDDIRECTDRAWGUID,\ \textcolor{stringliteral}{"{}The\ GUID\ passed\ to\ DirectDrawCreate\ is\ not\ a\ valid\ DirectDraw\ driver\ identifier."{}})}
+\DoxyCodeLine{00093\ \ \ \ \ CHK\_ERR(DDERR\_DIRECTDRAWALREADYCREATED,\ \textcolor{stringliteral}{"{}A\ DirectDraw\ object\ representing\ this\ driver\ has\ already\ been\ created\ for\ this\ process."{}})}
+\DoxyCodeLine{00094\ \ \ \ \ CHK\_ERR(DDERR\_NODIRECTDRAWHW,\ \textcolor{stringliteral}{"{}A\ hardware\ only\ DirectDraw\ object\ creation\ was\ attempted\ but\ the\ driver\ did\ not\ support\ any\ hardware."{}})}
+\DoxyCodeLine{00095\ \ \ \ \ CHK\_ERR(DDERR\_PRIMARYSURFACEALREADYEXISTS,\ \textcolor{stringliteral}{"{}this\ process\ already\ has\ created\ a\ primary\ surface"{}})}
+\DoxyCodeLine{00096\ \ \ \ \ CHK\_ERR(DDERR\_NOEMULATION,\ \textcolor{stringliteral}{"{}software\ emulation\ not\ available."{}})}
+\DoxyCodeLine{00097\ \ \ \ \ CHK\_ERR(DDERR\_REGIONTOOSMALL,\ \textcolor{stringliteral}{"{}region\ passed\ to\ Clipper::GetClipList\ is\ too\ small."{}})}
+\DoxyCodeLine{00098\ \ \ \ \ CHK\_ERR(DDERR\_CLIPPERISUSINGHWND,\ \textcolor{stringliteral}{"{}an\ attempt\ was\ made\ to\ set\ a\ clip\ list\ for\ a\ clipper\ objec\ that\ is\ already\ monitoring\ an\ hwnd."{}})}
+\DoxyCodeLine{00099\ \ \ \ \ CHK\_ERR(DDERR\_NOCLIPPERATTACHED,\ \textcolor{stringliteral}{"{}No\ clipper\ object\ attached\ to\ surface\ object"{}})}
+\DoxyCodeLine{00100\ \ \ \ \ CHK\_ERR(DDERR\_NOHWND,\ \textcolor{stringliteral}{"{}Clipper\ notification\ requires\ an\ HWND\ or\ no\ HWND\ has\ previously\ been\ set\ as\ the\ CooperativeLevel\ HWND."{}})}
+\DoxyCodeLine{00101\ \ \ \ \ CHK\_ERR(DDERR\_HWNDSUBCLASSED,\ \textcolor{stringliteral}{"{}HWND\ used\ by\ DirectDraw\ CooperativeLevel\ has\ been\ subclassed,\ this\ prevents\ DirectDraw\ from\ restoring\ state."{}})}
+\DoxyCodeLine{00102\ \ \ \ \ CHK\_ERR(DDERR\_HWNDALREADYSET,\ \textcolor{stringliteral}{"{}The\ CooperativeLevel\ HWND\ has\ already\ been\ set.\ It\ can\ not\ be\ reset\ while\ the\ process\ has\ surfaces\ or\ palettes\ created."{}})}
+\DoxyCodeLine{00103\ \ \ \ \ CHK\_ERR(DDERR\_NOPALETTEATTACHED,\ \textcolor{stringliteral}{"{}No\ palette\ object\ attached\ to\ this\ surface."{}})}
+\DoxyCodeLine{00104\ \ \ \ \ CHK\_ERR(DDERR\_NOPALETTEHW,\ \textcolor{stringliteral}{"{}No\ hardware\ support\ for\ 16\ or\ 256\ color\ palettes."{}})}
+\DoxyCodeLine{00105\ \ \ \ \ CHK\_ERR(DDERR\_BLTFASTCANTCLIP,\ \textcolor{stringliteral}{"{}If\ a\ clipper\ object\ is\ attached\ to\ the\ source\ surface\ passed\ into\ a\ BltFast\ call."{}})}
+\DoxyCodeLine{00106\ \ \ \ \ CHK\_ERR(DDERR\_NOBLTHW,\ \textcolor{stringliteral}{"{}No\ blter."{}})}
+\DoxyCodeLine{00107\ \ \ \ \ CHK\_ERR(DDERR\_NODDROPSHW,\ \textcolor{stringliteral}{"{}No\ DirectDraw\ ROP\ hardware."{}})}
+\DoxyCodeLine{00108\ \ \ \ \ CHK\_ERR(DDERR\_OVERLAYNOTVISIBLE,\ \textcolor{stringliteral}{"{}returned\ when\ GetOverlayPosition\ is\ called\ on\ a\ hidden\ overlay"{}})}
+\DoxyCodeLine{00109\ \ \ \ \ CHK\_ERR(DDERR\_NOOVERLAYDEST,\ \textcolor{stringliteral}{"{}returned\ when\ GetOverlayPosition\ is\ called\ on\ a\ overlay\ that\ UpdateOverlay\ has\ never\ been\ called\ on\ to\ establish\ a\ destionation."{}})}
+\DoxyCodeLine{00110\ \ \ \ \ CHK\_ERR(DDERR\_INVALIDPOSITION,\ \textcolor{stringliteral}{"{}returned\ when\ the\ position\ of\ the\ overlay\ on\ the\ destionation\ is\ no\ longer\ legal\ for\ that\ destionation."{}})}
+\DoxyCodeLine{00111\ \ \ \ \ CHK\_ERR(DDERR\_NOTAOVERLAYSURFACE,\ \textcolor{stringliteral}{"{}returned\ when\ an\ overlay\ member\ is\ called\ for\ a\ non-\/overlay\ surface"{}})}
+\DoxyCodeLine{00112\ \ \ \ \ CHK\_ERR(DDERR\_EXCLUSIVEMODEALREADYSET,\ \textcolor{stringliteral}{"{}An\ attempt\ was\ made\ to\ set\ the\ cooperative\ level\ when\ it\ was\ already\ set\ to\ exclusive."{}})}
+\DoxyCodeLine{00113\ \ \ \ \ CHK\_ERR(DDERR\_NOTFLIPPABLE,\ \textcolor{stringliteral}{"{}An\ attempt\ has\ been\ made\ to\ flip\ a\ surface\ that\ is\ not\ flippable."{}})}
+\DoxyCodeLine{00114\ \ \ \ \ CHK\_ERR(DDERR\_CANTDUPLICATE,\ \textcolor{stringliteral}{"{}Can't\ duplicate\ primary\ \&\ 3D\ surfaces,\ or\ surfaces\ that\ are\ implicitly\ created."{}})}
+\DoxyCodeLine{00115\ \ \ \ \ CHK\_ERR(DDERR\_NOTLOCKED,\ \textcolor{stringliteral}{"{}Surface\ was\ not\ locked.\ \ An\ attempt\ to\ unlock\ a\ surface\ that\ was\ not\ locked\ at\ all,\ or\ by\ this\ process,\ has\ been\ attempted."{}})}
+\DoxyCodeLine{00116\ \ \ \ \ CHK\_ERR(DDERR\_CANTCREATEDC,\ \textcolor{stringliteral}{"{}Windows\ can\ not\ create\ any\ more\ DCs,\ or\ a\ DC\ was\ requested\ for\ a\ paltte-\/indexed\ surface\ when\ the\ surface\ had\ no\ palette\ AND\ the\ display\ mode\ was\ not\ palette-\/indexed\ (in\ this\ case\ DirectDraw\ cannot\ select\ a\ proper\ palette\ into\ the\ DC)"{}})}
+\DoxyCodeLine{00117\ \ \ \ \ CHK\_ERR(DDERR\_NODC,\ \textcolor{stringliteral}{"{}No\ DC\ was\ ever\ created\ for\ this\ surface."{}})}
+\DoxyCodeLine{00118\ \ \ \ \ CHK\_ERR(DDERR\_WRONGMODE,\ \textcolor{stringliteral}{"{}This\ surface\ can\ not\ be\ restored\ because\ it\ was\ created\ in\ a\ different\ mode."{}})}
+\DoxyCodeLine{00119\ \ \ \ \ CHK\_ERR(DDERR\_IMPLICITLYCREATED,\ \textcolor{stringliteral}{"{}This\ surface\ can\ not\ be\ restored\ because\ it\ is\ an\ implicitly\ created\ surface."{}})}
+\DoxyCodeLine{00120\ \ \ \ \ CHK\_ERR(DDERR\_NOTPALETTIZED,\ \textcolor{stringliteral}{"{}The\ surface\ being\ used\ is\ not\ a\ palette-\/based\ surface"{}})}
+\DoxyCodeLine{00121\ \ \ \ \ CHK\_ERR(DDERR\_UNSUPPORTEDMODE,\ \textcolor{stringliteral}{"{}The\ display\ is\ currently\ in\ an\ unsupported\ mode"{}})}
+\DoxyCodeLine{00122\ \ \ \ \ CHK\_ERR(DDERR\_NOMIPMAPHW,\ \textcolor{stringliteral}{"{}Operation\ could\ not\ be\ carried\ out\ because\ there\ is\ no\ mip-\/map\ texture\ mapping\ hardware\ present\ or\ available."{}})}
+\DoxyCodeLine{00123\ \ \ \ \ CHK\_ERR(DDERR\_INVALIDSURFACETYPE,\ \textcolor{stringliteral}{"{}The\ requested\ action\ could\ not\ be\ performed\ because\ the\ surface\ was\ of\ the\ wrong\ type."{}})}
+\DoxyCodeLine{00124\ \ \ \ \ CHK\_ERR(DDERR\_NOOPTIMIZEHW,\ \textcolor{stringliteral}{"{}Device\ does\ not\ support\ optimized\ surfaces,\ therefore\ no\ video\ memory\ optimized\ surfaces"{}})}
+\DoxyCodeLine{00125\ \ \ \ \ CHK\_ERR(DDERR\_NOTLOADED,\ \textcolor{stringliteral}{"{}Surface\ is\ an\ optimized\ surface,\ but\ has\ not\ yet\ been\ allocated\ any\ memory"{}})}
+\DoxyCodeLine{00126\ \ \ \ \ CHK\_ERR(DDERR\_NOFOCUSWINDOW,\ \textcolor{stringliteral}{"{}Attempt\ was\ made\ to\ create\ or\ set\ a\ device\ window\ without\ first\ setting\ the\ focus\ window"{}})}
+\DoxyCodeLine{00127\ \ \ \ \ CHK\_ERR(DDERR\_NOTONMIPMAPSUBLEVEL,\ \textcolor{stringliteral}{"{}Attempt\ was\ made\ to\ set\ a\ palette\ on\ a\ mipmap\ sublevel"{}})}
+\DoxyCodeLine{00128\ \ \ \ \ CHK\_ERR(DDERR\_DCALREADYCREATED,\ \textcolor{stringliteral}{"{}A\ DC\ has\ already\ been\ returned\ for\ this\ surface.\ Only\ one\ DC\ can\ be\ retrieved\ per\ surface."{}})}
+\DoxyCodeLine{00129\ \ \ \ \ CHK\_ERR(DDERR\_NONONLOCALVIDMEM,\ \textcolor{stringliteral}{"{}An\ attempt\ was\ made\ to\ allocate\ non-\/local\ video\ memory\ from\ a\ device\ that\ does\ not\ support\ non-\/local\ video\ memory."{}})}
+\DoxyCodeLine{00130\ \ \ \ \ CHK\_ERR(DDERR\_CANTPAGELOCK,\ \textcolor{stringliteral}{"{}The\ attempt\ to\ page\ lock\ a\ surface\ failed."{}})}
+\DoxyCodeLine{00131\ \ \ \ \ CHK\_ERR(DDERR\_CANTPAGEUNLOCK,\ \textcolor{stringliteral}{"{}The\ attempt\ to\ page\ unlock\ a\ surface\ failed."{}})}
+\DoxyCodeLine{00132\ \ \ \ \ CHK\_ERR(DDERR\_NOTPAGELOCKED,\ \textcolor{stringliteral}{"{}An\ attempt\ was\ made\ to\ page\ unlock\ a\ surface\ with\ no\ outstanding\ page\ locks."{}})}
+\DoxyCodeLine{00133\ \ \ \ \ CHK\_ERR(DDERR\_MOREDATA,\ \textcolor{stringliteral}{"{}There\ is\ more\ data\ available\ than\ the\ specified\ buffer\ size\ could\ hold"{}})}
+\DoxyCodeLine{00134\ \ \ \ \ CHK\_ERR(DDERR\_EXPIRED,\ \textcolor{stringliteral}{"{}The\ data\ has\ expired\ and\ is\ therefore\ no\ longer\ valid."{}})}
+\DoxyCodeLine{00135\ \ \ \ \ CHK\_ERR(DDERR\_TESTFINISHED,\ \textcolor{stringliteral}{"{}The\ mode\ test\ has\ finished\ executing."{}})}
+\DoxyCodeLine{00136\ \ \ \ \ CHK\_ERR(DDERR\_NEWMODE,\ \textcolor{stringliteral}{"{}The\ mode\ test\ has\ switched\ to\ a\ new\ mode."{}})}
+\DoxyCodeLine{00137\ \ \ \ \ CHK\_ERR(DDERR\_D3DNOTINITIALIZED,\ \textcolor{stringliteral}{"{}D3D\ has\ not\ yet\ been\ initialized."{}})}
+\DoxyCodeLine{00138\ \ \ \ \ CHK\_ERR(DDERR\_VIDEONOTACTIVE,\ \textcolor{stringliteral}{"{}The\ video\ port\ is\ not\ active"{}})}
+\DoxyCodeLine{00139\ \ \ \ \ CHK\_ERR(DDERR\_NOMONITORINFORMATION,\ \textcolor{stringliteral}{"{}The\ monitor\ does\ not\ have\ EDID\ data."{}})}
+\DoxyCodeLine{00140\ \ \ \ \ CHK\_ERR(DDERR\_NODRIVERSUPPORT,\ \textcolor{stringliteral}{"{}The\ driver\ does\ not\ enumerate\ display\ mode\ refresh\ rates."{}})}
+\DoxyCodeLine{00141\ \ \ \ \ CHK\_ERR(DDERR\_DEVICEDOESNTOWNSURFACE,\ \textcolor{stringliteral}{"{}Surfaces\ created\ by\ one\ direct\ draw\ device\ cannot\ be\ used\ directly\ by\ another\ direct\ draw\ device."{}})}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00145\ \textcolor{comment}{//\ dinput.h\ error\ codes}}
+\DoxyCodeLine{00146\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00147\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_OK,\ "{}DI\_OK"{})}}
+\DoxyCodeLine{00148\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_NOTATTACHED,\ "{}DI\_NOTATTACHED"{})}}
+\DoxyCodeLine{00149\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_BUFFEROVERFLOW,\ "{}DI\_BUFFEROVERFLOW"{})}}
+\DoxyCodeLine{00150\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_PROPNOEFFECT,\ "{}DI\_PROPNOEFFECT"{})}}
+\DoxyCodeLine{00151\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_NOEFFECT,\ "{}DI\_NOEFFECT"{})}}
+\DoxyCodeLine{00152\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_POLLEDDEVICE,\ "{}DI\_POLLEDDEVICE"{})}}
+\DoxyCodeLine{00153\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_DOWNLOADSKIPPED,\ "{}DI\_DOWNLOADSKIPPED"{})}}
+\DoxyCodeLine{00154\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_EFFECTRESTARTED,\ "{}DI\_EFFECTRESTARTED"{})}}
+\DoxyCodeLine{00155\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_SETTINGSNOTSAVED\_ACCESSDENIED,\ "{}DI\_SETTINGSNOTSAVED\_ACCESSDENIED"{})}}
+\DoxyCodeLine{00156\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_SETTINGSNOTSAVED\_DISKFULL,\ "{}DI\_SETTINGSNOTSAVED\_DISKFULL"{})}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_TRUNCATED,\ "{}DI\_TRUNCATED"{})}}
+\DoxyCodeLine{00158\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_TRUNCATEDANDRESTARTED,\ "{}DI\_TRUNCATEDANDRESTARTED"{})}}
+\DoxyCodeLine{00159\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DI\_WRITEPROTECT,\ "{}DI\_WRITEPROTECT"{})}}
+\DoxyCodeLine{00160\ \ \ \ \ CHK\_ERR(DIERR\_OLDDIRECTINPUTVERSION,\ \textcolor{stringliteral}{"{}The\ application\ requires\ a\ newer\ version\ of\ DirectInput."{}})}
+\DoxyCodeLine{00161\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_GENERIC,\ "{}DIERR\_GENERIC"{})}}
+\DoxyCodeLine{00162\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_OLDDIRECTINPUTVERSION,\ "{}DIERR\_OLDDIRECTINPUTVERSION"{})}}
+\DoxyCodeLine{00163\ \ \ \ \ CHK\_ERR(DIERR\_BETADIRECTINPUTVERSION,\ \textcolor{stringliteral}{"{}The\ application\ was\ written\ for\ an\ unsupported\ prerelease\ version\ of\ DirectInput."{}})}
+\DoxyCodeLine{00164\ \ \ \ \ CHK\_ERR(DIERR\_BADDRIVERVER,\ \textcolor{stringliteral}{"{}The\ object\ could\ not\ be\ created\ due\ to\ an\ incompatible\ driver\ version\ or\ mismatched\ or\ incomplete\ driver\ components."{}})}
+\DoxyCodeLine{00165\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_DEVICENOTREG,\ "{}DIERR\_DEVICENOTREG"{})}}
+\DoxyCodeLine{00166\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_NOTFOUND,\ "{}The\ requested\ object\ does\ not\ exist."{})}}
+\DoxyCodeLine{00167\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_OBJECTNOTFOUND,\ "{}DIERR\_OBJECTNOTFOUND"{})}}
+\DoxyCodeLine{00168\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_INVALIDPARAM,\ "{}DIERR\_INVALIDPARAM"{})}}
+\DoxyCodeLine{00169\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_NOINTERFACE,\ "{}DIERR\_NOINTERFACE"{})}}
+\DoxyCodeLine{00170\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_GENERIC,\ "{}DIERR\_GENERIC"{})}}
+\DoxyCodeLine{00171\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_OUTOFMEMORY,\ "{}DIERR\_OUTOFMEMORY"{})}}
+\DoxyCodeLine{00172\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_UNSUPPORTED,\ "{}DIERR\_UNSUPPORTED"{})}}
+\DoxyCodeLine{00173\ \ \ \ \ CHK\_ERR(DIERR\_NOTINITIALIZED,\ \textcolor{stringliteral}{"{}This\ object\ has\ not\ been\ initialized"{}})}
+\DoxyCodeLine{00174\ \ \ \ \ CHK\_ERR(DIERR\_ALREADYINITIALIZED,\ \textcolor{stringliteral}{"{}This\ object\ is\ already\ initialized"{}})}
+\DoxyCodeLine{00175\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_NOAGGREGATION,\ "{}DIERR\_NOAGGREGATION"{})}}
+\DoxyCodeLine{00176\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_OTHERAPPHASPRIO,\ "{}DIERR\_OTHERAPPHASPRIO"{})}}
+\DoxyCodeLine{00177\ \ \ \ \ CHK\_ERR(DIERR\_INPUTLOST,\ \textcolor{stringliteral}{"{}Access\ to\ the\ device\ has\ been\ lost.\ \ It\ must\ be\ re-\/acquired."{}})}
+\DoxyCodeLine{00178\ \ \ \ \ CHK\_ERR(DIERR\_ACQUIRED,\ \textcolor{stringliteral}{"{}The\ operation\ cannot\ be\ performed\ while\ the\ device\ is\ acquired."{}})}
+\DoxyCodeLine{00179\ \ \ \ \ CHK\_ERR(DIERR\_NOTACQUIRED,\ \textcolor{stringliteral}{"{}The\ operation\ cannot\ be\ performed\ unless\ the\ device\ is\ acquired."{}})}
+\DoxyCodeLine{00180\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_READONLY,\ "{}DIERR\_READONLY"{})}}
+\DoxyCodeLine{00181\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(DIERR\_HANDLEEXISTS,\ "{}DIERR\_HANDLEEXISTS"{})}}
+\DoxyCodeLine{00182\ \ \ \ \ CHK\_ERR(DIERR\_INSUFFICIENTPRIVS,\ \textcolor{stringliteral}{"{}Unable\ to\ IDirectInputJoyConfig\_Acquire\ because\ the\ user\ does\ not\ have\ sufficient\ privileges\ to\ change\ the\ joystick\ configuration.\ \&\ An\ invalid\ media\ type\ was\ specified"{}})}
+\DoxyCodeLine{00183\ \ \ \ \ CHK\_ERR(DIERR\_DEVICEFULL,\ \textcolor{stringliteral}{"{}The\ device\ is\ full.\ \&\ An\ invalid\ media\ subtype\ was\ specified."{}})}
+\DoxyCodeLine{00184\ \ \ \ \ CHK\_ERR(DIERR\_MOREDATA,\ \textcolor{stringliteral}{"{}Not\ all\ the\ requested\ information\ fit\ into\ the\ buffer.\ \&\ This\ object\ can\ only\ be\ created\ as\ an\ aggregated\ object."{}})}
+\DoxyCodeLine{00185\ \ \ \ \ CHK\_ERR(DIERR\_NOTDOWNLOADED,\ \textcolor{stringliteral}{"{}The\ effect\ is\ not\ downloaded.\ \&\ The\ enumerator\ has\ become\ invalid."{}})}
+\DoxyCodeLine{00186\ \ \ \ \ CHK\_ERR(DIERR\_HASEFFECTS,\ \textcolor{stringliteral}{"{}The\ device\ cannot\ be\ reinitialized\ because\ there\ are\ still\ effects\ attached\ to\ it.\ \&\ At\ least\ one\ of\ the\ pins\ involved\ in\ the\ operation\ is\ already\ connected."{}})}
+\DoxyCodeLine{00187\ \ \ \ \ CHK\_ERR(DIERR\_NOTEXCLUSIVEACQUIRED,\ \textcolor{stringliteral}{"{}The\ operation\ cannot\ be\ performed\ unless\ the\ device\ is\ acquired\ in\ DISCL\_EXCLUSIVE\ mode.\ \&\ This\ operation\ cannot\ be\ performed\ because\ the\ filter\ is\ active."{}})}
+\DoxyCodeLine{00188\ \ \ \ \ CHK\_ERR(DIERR\_INCOMPLETEEFFECT,\ \textcolor{stringliteral}{"{}The\ effect\ could\ not\ be\ downloaded\ because\ essential\ information\ is\ missing.\ \ For\ example,\ no\ axes\ have\ been\ associated\ with\ the\ effect,\ or\ no\ type-\/specific\ information\ has\ been\ created.\ \&\ One\ of\ the\ specified\ pins\ supports\ no\ media\ types."{}})}
+\DoxyCodeLine{00189\ \ \ \ \ CHK\_ERR(DIERR\_NOTBUFFERED,\ \textcolor{stringliteral}{"{}Attempted\ to\ read\ buffered\ device\ data\ from\ a\ device\ that\ is\ not\ buffered.\ \&\ There\ is\ no\ common\ media\ type\ between\ these\ pins."{}})}
+\DoxyCodeLine{00190\ \ \ \ \ CHK\_ERR(DIERR\_EFFECTPLAYING,\ \textcolor{stringliteral}{"{}An\ attempt\ was\ made\ to\ modify\ parameters\ of\ an\ effect\ while\ it\ is\ playing.\ \ Not\ all\ hardware\ devices\ support\ altering\ the\ parameters\ of\ an\ effect\ while\ it\ is\ playing.\ \&\ Two\ pins\ of\ the\ same\ direction\ cannot\ be\ connected\ together."{}})}
+\DoxyCodeLine{00191\ \ \ \ \ CHK\_ERR(DIERR\_UNPLUGGED,\ \textcolor{stringliteral}{"{}The\ operation\ could\ not\ be\ completed\ because\ the\ device\ is\ not\ plugged\ in.\ \&\ The\ operation\ cannot\ be\ performed\ because\ the\ pins\ are\ not\ connected."{}})}
+\DoxyCodeLine{00192\ \ \ \ \ CHK\_ERR(DIERR\_REPORTFULL,\ \textcolor{stringliteral}{"{}SendDeviceData\ failed\ because\ more\ information\ was\ requested\ to\ be\ sent\ than\ can\ be\ sent\ to\ the\ device.\ \ Some\ devices\ have\ restrictions\ on\ how\ much\ data\ can\ be\ sent\ to\ them.\ \ (For\ example,\ there\ might\ be\ a\ limit\ on\ the\ number\ of\ buttons\ that\ can\ be\ pressed\ at\ once.)\ \&\ No\ sample\ buffer\ allocator\ is\ available."{}})}
+\DoxyCodeLine{00193\ \ \ \ \ CHK\_ERR(DIERR\_MAPFILEFAIL,\ \textcolor{stringliteral}{"{}A\ mapper\ file\ function\ failed\ because\ reading\ or\ writing\ the\ user\ or\ IHV\ settings\ file\ failed.\ \&\ A\ run-\/time\ error\ occurred."{}})}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00196\ \textcolor{comment}{//\ dinputd.h\ error\ codes}}
+\DoxyCodeLine{00197\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00198\ \ \ \ \ CHK\_ERR(DIERR\_NOMOREITEMS,\ \textcolor{stringliteral}{"{}No\ more\ items."{}})}
+\DoxyCodeLine{00199\ \ \ \ \ CHK\_ERR(DIERR\_DRIVERFIRST,\ \textcolor{stringliteral}{"{}Device\ driver-\/specific\ codes.\ Unless\ the\ specific\ driver\ has\ been\ precisely\ identified,\ no\ meaning\ should\ be\ attributed\ to\ these\ values\ other\ than\ that\ the\ driver\ originated\ the\ error."{}})}
+\DoxyCodeLine{00200\ \ \ \ \ CHK\_ERR(DIERR\_DRIVERFIRST+1,\ \textcolor{stringliteral}{"{}DIERR\_DRIVERFIRST+1"{}})}
+\DoxyCodeLine{00201\ \ \ \ \ CHK\_ERR(DIERR\_DRIVERFIRST+2,\ \textcolor{stringliteral}{"{}DIERR\_DRIVERFIRST+2"{}})}
+\DoxyCodeLine{00202\ \ \ \ \ CHK\_ERR(DIERR\_DRIVERFIRST+3,\ \textcolor{stringliteral}{"{}DIERR\_DRIVERFIRST+3"{}})}
+\DoxyCodeLine{00203\ \ \ \ \ CHK\_ERR(DIERR\_DRIVERFIRST+4,\ \textcolor{stringliteral}{"{}DIERR\_DRIVERFIRST+4"{}})}
+\DoxyCodeLine{00204\ \ \ \ \ CHK\_ERR(DIERR\_DRIVERFIRST+5,\ \textcolor{stringliteral}{"{}DIERR\_DRIVERFIRST+5"{}})}
+\DoxyCodeLine{00205\ \ \ \ \ CHK\_ERR(DIERR\_DRIVERLAST,\ \textcolor{stringliteral}{"{}Device\ installer\ errors."{}})}
+\DoxyCodeLine{00206\ \ \ \ \ CHK\_ERR(DIERR\_INVALIDCLASSINSTALLER,\ \textcolor{stringliteral}{"{}Registry\ entry\ or\ DLL\ for\ class\ installer\ invalid\ or\ class\ installer\ not\ found."{}})}
+\DoxyCodeLine{00207\ \ \ \ \ CHK\_ERR(DIERR\_CANCELLED,\ \textcolor{stringliteral}{"{}The\ user\ cancelled\ the\ install\ operation.\ \&\ The\ stream\ already\ has\ allocated\ samples\ and\ the\ surface\ doesn't\ match\ the\ sample\ format."{}})}
+\DoxyCodeLine{00208\ \ \ \ \ CHK\_ERR(DIERR\_BADINF,\ \textcolor{stringliteral}{"{}The\ INF\ file\ for\ the\ selected\ device\ could\ not\ be\ found\ or\ is\ invalid\ or\ is\ damaged.\ \&\ The\ specified\ purpose\ ID\ can't\ be\ used\ for\ the\ call."{}})}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00211\ \textcolor{comment}{//\ d3d9.h\ error\ codes}}
+\DoxyCodeLine{00212\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00213\ \textcolor{comment}{//\ \ \ \ \ \ CHK\_ERR(D3D\_OK,\ "{}Ok"{})}}
+\DoxyCodeLine{00214\ \ \ \ \ CHK\_ERR(D3DERR\_WRONGTEXTUREFORMAT,\ \textcolor{stringliteral}{"{}Wrong\ texture\ format"{}})}
+\DoxyCodeLine{00215\ \ \ \ \ CHK\_ERR(D3DERR\_UNSUPPORTEDCOLOROPERATION,\ \textcolor{stringliteral}{"{}Unsupported\ color\ operation"{}})}
+\DoxyCodeLine{00216\ \ \ \ \ CHK\_ERR(D3DERR\_UNSUPPORTEDCOLORARG,\ \textcolor{stringliteral}{"{}Unsupported\ color\ arg"{}})}
+\DoxyCodeLine{00217\ \ \ \ \ CHK\_ERR(D3DERR\_UNSUPPORTEDALPHAOPERATION,\ \textcolor{stringliteral}{"{}Unsupported\ alpha\ operation"{}})}
+\DoxyCodeLine{00218\ \ \ \ \ CHK\_ERR(D3DERR\_UNSUPPORTEDALPHAARG,\ \textcolor{stringliteral}{"{}Unsupported\ alpha\ arg"{}})}
+\DoxyCodeLine{00219\ \ \ \ \ CHK\_ERR(D3DERR\_TOOMANYOPERATIONS,\ \textcolor{stringliteral}{"{}Too\ many\ operations"{}})}
+\DoxyCodeLine{00220\ \ \ \ \ CHK\_ERR(D3DERR\_CONFLICTINGTEXTUREFILTER,\ \textcolor{stringliteral}{"{}Conflicting\ texture\ filter"{}})}
+\DoxyCodeLine{00221\ \ \ \ \ CHK\_ERR(D3DERR\_UNSUPPORTEDFACTORVALUE,\ \textcolor{stringliteral}{"{}Unsupported\ factor\ value"{}})}
+\DoxyCodeLine{00222\ \ \ \ \ CHK\_ERR(D3DERR\_CONFLICTINGRENDERSTATE,\ \textcolor{stringliteral}{"{}Conflicting\ render\ state"{}})}
+\DoxyCodeLine{00223\ \ \ \ \ CHK\_ERR(D3DERR\_UNSUPPORTEDTEXTUREFILTER,\ \textcolor{stringliteral}{"{}Unsupported\ texture\ filter"{}})}
+\DoxyCodeLine{00224\ \ \ \ \ CHK\_ERR(D3DERR\_CONFLICTINGTEXTUREPALETTE,\ \textcolor{stringliteral}{"{}Conflicting\ texture\ palette"{}})}
+\DoxyCodeLine{00225\ \ \ \ \ CHK\_ERR(D3DERR\_DRIVERINTERNALERROR,\ \textcolor{stringliteral}{"{}Driver\ internal\ error"{}})}
+\DoxyCodeLine{00226\ \ \ \ \ CHK\_ERR(D3DERR\_NOTFOUND,\ \textcolor{stringliteral}{"{}Not\ found"{}})}
+\DoxyCodeLine{00227\ \ \ \ \ CHK\_ERR(D3DERR\_MOREDATA,\ \textcolor{stringliteral}{"{}More\ data"{}})}
+\DoxyCodeLine{00228\ \ \ \ \ CHK\_ERR(D3DERR\_DEVICELOST,\ \textcolor{stringliteral}{"{}Device\ lost"{}})}
+\DoxyCodeLine{00229\ \ \ \ \ CHK\_ERR(D3DERR\_DEVICENOTRESET,\ \textcolor{stringliteral}{"{}Device\ not\ reset"{}})}
+\DoxyCodeLine{00230\ \ \ \ \ CHK\_ERR(D3DERR\_NOTAVAILABLE,\ \textcolor{stringliteral}{"{}Not\ available"{}})}
+\DoxyCodeLine{00231\ \ \ \ \ CHK\_ERR(D3DERR\_OUTOFVIDEOMEMORY,\ \textcolor{stringliteral}{"{}Out\ of\ video\ memory"{}})}
+\DoxyCodeLine{00232\ \ \ \ \ CHK\_ERR(D3DERR\_INVALIDDEVICE,\ \textcolor{stringliteral}{"{}Invalid\ device"{}})}
+\DoxyCodeLine{00233\ \ \ \ \ CHK\_ERR(D3DERR\_INVALIDCALL,\ \textcolor{stringliteral}{"{}Invalid\ call"{}})}
+\DoxyCodeLine{00234\ \ \ \ \ CHK\_ERR(D3DERR\_DRIVERINVALIDCALL,\ \textcolor{stringliteral}{"{}Driver\ invalid\ call"{}})}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{comment}{//CHK\_ERR(D3DERR\_WASSTILLDRAWING,\ "{}Was\ Still\ Drawing"{})}}
+\DoxyCodeLine{00236\ \ \ \ \ CHK\_ERR(D3DOK\_NOAUTOGEN,\ \textcolor{stringliteral}{"{}The\ call\ succeeded\ but\ there\ won't\ be\ any\ mipmaps\ generated"{}})}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{comment}{//\ Extended\ for\ Windows\ Vista}}
+\DoxyCodeLine{00239\ \ \ \ \ CHK\_ERR(D3DERR\_DEVICEREMOVED,\ \textcolor{stringliteral}{"{}Hardware\ device\ was\ removed"{}})}
+\DoxyCodeLine{00240\ \ \ \ \ CHK\_ERR(S\_NOT\_RESIDENT,\ \textcolor{stringliteral}{"{}Resource\ not\ resident\ in\ memory"{}})}
+\DoxyCodeLine{00241\ \ \ \ \ CHK\_ERR(S\_RESIDENT\_IN\_SHARED\_MEMORY,\ \textcolor{stringliteral}{"{}Resource\ resident\ in\ shared\ memory"{}})}
+\DoxyCodeLine{00242\ \ \ \ \ CHK\_ERR(S\_PRESENT\_MODE\_CHANGED,\ \textcolor{stringliteral}{"{}Desktop\ display\ mode\ has\ changed"{}})}
+\DoxyCodeLine{00243\ \ \ \ \ CHK\_ERR(S\_PRESENT\_OCCLUDED,\ \textcolor{stringliteral}{"{}Client\ window\ is\ occluded\ (minimized\ or\ other\ fullscreen)"{}})}
+\DoxyCodeLine{00244\ \ \ \ \ CHK\_ERR(D3DERR\_DEVICEHUNG,\ \textcolor{stringliteral}{"{}Hardware\ adapter\ reset\ by\ OS"{}})}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{comment}{//\ Extended\ for\ Windows\ 7}}
+\DoxyCodeLine{00247\ \ \ \ \ CHK\_ERR(D3DERR\_UNSUPPORTEDOVERLAY,\ \textcolor{stringliteral}{"{}Overlay\ is\ not\ supported"{}}\ )}
+\DoxyCodeLine{00248\ \ \ \ \ CHK\_ERR(D3DERR\_UNSUPPORTEDOVERLAYFORMAT,\ \textcolor{stringliteral}{"{}Overlay\ format\ is\ not\ supported"{}}\ )}
+\DoxyCodeLine{00249\ \ \ \ \ CHK\_ERR(D3DERR\_CANNOTPROTECTCONTENT,\ \textcolor{stringliteral}{"{}Contect\ protection\ not\ available"{}}\ )}
+\DoxyCodeLine{00250\ \ \ \ \ CHK\_ERR(D3DERR\_UNSUPPORTEDCRYPTO,\ \textcolor{stringliteral}{"{}Unsupported\ cryptographic\ system"{}}\ )}
+\DoxyCodeLine{00251\ \ \ \ \ CHK\_ERR(D3DERR\_PRESENT\_STATISTICS\_DISJOINT,\ \textcolor{stringliteral}{"{}Presentation\ statistics\ are\ disjoint"{}}\ )}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00255\ \textcolor{comment}{//\ dsound.h\ error\ codes}}
+\DoxyCodeLine{00256\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{comment}{//\ \ \ \ REMOVED}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !WINAPI\_FAMILY\ ||\ WINAPI\_FAMILY\ ==\ WINAPI\_FAMILY\_DESKTOP\_APP}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00263\ \textcolor{comment}{//\ d3d10.h\ error\ codes}}
+\DoxyCodeLine{00264\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00265\ \ \ \ \ CHK\_ERR(D3D10\_ERROR\_TOO\_MANY\_UNIQUE\_STATE\_OBJECTS,\ \textcolor{stringliteral}{"{}There\ are\ too\ many\ unique\ state\ objects."{}})}
+\DoxyCodeLine{00266\ \ \ \ \ CHK\_ERR(D3D10\_ERROR\_FILE\_NOT\_FOUND,\ \textcolor{stringliteral}{"{}File\ not\ found"{}})}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00269\ \textcolor{comment}{//\ dxgi.h\ error\ codes}}
+\DoxyCodeLine{00270\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00271\ \ \ \ \ CHK\_ERR(DXGI\_STATUS\_OCCLUDED,\ \textcolor{stringliteral}{"{}The\ target\ window\ or\ output\ has\ been\ occluded.\ The\ application\ should\ suspend\ rendering\ operations\ if\ possible."{}})}
+\DoxyCodeLine{00272\ \ \ \ \ CHK\_ERR(DXGI\_STATUS\_CLIPPED,\ \textcolor{stringliteral}{"{}Target\ window\ is\ clipped."{}})}
+\DoxyCodeLine{00273\ \ \ \ \ CHK\_ERR(DXGI\_STATUS\_NO\_REDIRECTION,\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00274\ \ \ \ \ CHK\_ERR(DXGI\_STATUS\_NO\_DESKTOP\_ACCESS,\ \textcolor{stringliteral}{"{}No\ access\ to\ desktop."{}})}
+\DoxyCodeLine{00275\ \ \ \ \ CHK\_ERR(DXGI\_STATUS\_GRAPHICS\_VIDPN\_SOURCE\_IN\_USE,\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00276\ \ \ \ \ CHK\_ERR(DXGI\_STATUS\_MODE\_CHANGED,\ \textcolor{stringliteral}{"{}Display\ mode\ has\ changed"{}})}
+\DoxyCodeLine{00277\ \ \ \ \ CHK\_ERR(DXGI\_STATUS\_MODE\_CHANGE\_IN\_PROGRESS,\ \textcolor{stringliteral}{"{}Display\ mode\ is\ changing"{}})}
+\DoxyCodeLine{00278\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_INVALID\_CALL,\ \textcolor{stringliteral}{"{}The\ application\ has\ made\ an\ erroneous\ API\ call\ that\ it\ had\ enough\ information\ to\ avoid.\ This\ error\ is\ intended\ to\ denote\ that\ the\ application\ should\ be\ altered\ to\ avoid\ the\ error.\ Use\ of\ the\ debug\ version\ of\ the\ DXGI.DLL\ will\ provide\ run-\/time\ debug\ output\ with\ further\ information."{}})}
+\DoxyCodeLine{00279\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_NOT\_FOUND,\ \textcolor{stringliteral}{"{}The\ item\ requested\ was\ not\ found.\ For\ GetPrivateData\ calls,\ this\ means\ that\ the\ specified\ GUID\ had\ not\ been\ previously\ associated\ with\ the\ object."{}})}
+\DoxyCodeLine{00280\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_MORE\_DATA,\ \textcolor{stringliteral}{"{}The\ specified\ size\ of\ the\ destination\ buffer\ is\ too\ small\ to\ hold\ the\ requested\ data."{}})}
+\DoxyCodeLine{00281\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_UNSUPPORTED,\ \textcolor{stringliteral}{"{}Unsupported."{}})}
+\DoxyCodeLine{00282\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_DEVICE\_REMOVED,\ \textcolor{stringliteral}{"{}Hardware\ device\ removed."{}})}
+\DoxyCodeLine{00283\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_DEVICE\_HUNG,\ \textcolor{stringliteral}{"{}Device\ hung\ due\ to\ badly\ formed\ commands."{}})}
+\DoxyCodeLine{00284\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_DEVICE\_RESET,\ \textcolor{stringliteral}{"{}Device\ reset\ due\ to\ a\ badly\ formed\ commant."{}})}
+\DoxyCodeLine{00285\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_WAS\_STILL\_DRAWING,\ \textcolor{stringliteral}{"{}Was\ still\ drawing."{}})}
+\DoxyCodeLine{00286\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_FRAME\_STATISTICS\_DISJOINT,\ \textcolor{stringliteral}{"{}The\ requested\ functionality\ is\ not\ supported\ by\ the\ device\ or\ the\ driver."{}})}
+\DoxyCodeLine{00287\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_GRAPHICS\_VIDPN\_SOURCE\_IN\_USE,\ \textcolor{stringliteral}{"{}The\ requested\ functionality\ is\ not\ supported\ by\ the\ device\ or\ the\ driver."{}})}
+\DoxyCodeLine{00288\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_DRIVER\_INTERNAL\_ERROR,\ \textcolor{stringliteral}{"{}An\ internal\ driver\ error\ occurred."{}})}
+\DoxyCodeLine{00289\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_NONEXCLUSIVE,\ \textcolor{stringliteral}{"{}The\ application\ attempted\ to\ perform\ an\ operation\ on\ an\ DXGI\ output\ that\ is\ only\ legal\ after\ the\ output\ has\ been\ claimed\ for\ exclusive\ owenership."{}})}
+\DoxyCodeLine{00290\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_NOT\_CURRENTLY\_AVAILABLE,\ \textcolor{stringliteral}{"{}The\ requested\ functionality\ is\ not\ supported\ by\ the\ device\ or\ the\ driver."{}})}
+\DoxyCodeLine{00291\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_REMOTE\_CLIENT\_DISCONNECTED,\ \textcolor{stringliteral}{"{}Remote\ desktop\ client\ disconnected."{}})}
+\DoxyCodeLine{00292\ \ \ \ \ CHK\_ERR(DXGI\_ERROR\_REMOTE\_OUTOFMEMORY,\ \textcolor{stringliteral}{"{}Remote\ desktop\ client\ is\ out\ of\ memory."{}})}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00295\ \textcolor{comment}{//\ d3d11.h\ error\ codes}}
+\DoxyCodeLine{00296\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00297\ \ \ \ \ CHK\_ERR(D3D11\_ERROR\_TOO\_MANY\_UNIQUE\_STATE\_OBJECTS,\ \textcolor{stringliteral}{"{}There\ are\ too\ many\ unique\ state\ objects."{}})}
+\DoxyCodeLine{00298\ \ \ \ \ CHK\_ERR(D3D11\_ERROR\_FILE\_NOT\_FOUND,\ \textcolor{stringliteral}{"{}File\ not\ found"{}})}
+\DoxyCodeLine{00299\ \ \ \ \ CHK\_ERR(D3D11\_ERROR\_TOO\_MANY\_UNIQUE\_VIEW\_OBJECTS,\ \textcolor{stringliteral}{"{}Therea\ are\ too\ many\ unique\ view\ objects."{}})}
+\DoxyCodeLine{00300\ \ \ \ \ CHK\_ERR(D3D11\_ERROR\_DEFERRED\_CONTEXT\_MAP\_WITHOUT\_INITIAL\_DISCARD,\ \textcolor{stringliteral}{"{}Deferred\ context\ requires\ Map-\/Discard\ usage\ pattern"{}})}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#if\ !defined(WINAPI\_FAMILY)\ ||\ WINAPI\_FAMILY\ !=\ WINAPI\_FAMILY\_PHONE\_APP}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00305\ \textcolor{comment}{//\ Direct2D\ error\ codes}}
+\DoxyCodeLine{00306\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00307\ \textcolor{comment}{//\ \ \ \ \ \ \ \ CHK\_ERR(D2DERR\_UNSUPPORTED\_PIXEL\_FORMAT,\ "{}The\ pixel\ format\ is\ not\ supported."{})}}
+\DoxyCodeLine{00308\ \textcolor{comment}{//\ \ \ \ \ \ \ \ CHK\_ERR(D2DERR\_INSUFFICIENT\_BUFFER,\ "{}The\ supplied\ buffer\ was\ too\ small\ to\ accomodate\ the\ data."{})}}
+\DoxyCodeLine{00309\ \ \ \ \ CHK\_ERR(D2DERR\_WRONG\_STATE,\ \textcolor{stringliteral}{"{}The\ object\ was\ not\ in\ the\ correct\ state\ to\ process\ the\ method."{}})}
+\DoxyCodeLine{00310\ \ \ \ \ CHK\_ERR(D2DERR\_NOT\_INITIALIZED,\ \textcolor{stringliteral}{"{}The\ object\ has\ not\ yet\ been\ initialized."{}})}
+\DoxyCodeLine{00311\ \ \ \ \ CHK\_ERR(D2DERR\_UNSUPPORTED\_OPERATION,\ \textcolor{stringliteral}{"{}The\ requested\ opertion\ is\ not\ supported."{}})}
+\DoxyCodeLine{00312\ \ \ \ \ CHK\_ERR(D2DERR\_SCANNER\_FAILED,\ \textcolor{stringliteral}{"{}The\ geomery\ scanner\ failed\ to\ process\ the\ data."{}})}
+\DoxyCodeLine{00313\ \ \ \ \ CHK\_ERR(D2DERR\_SCREEN\_ACCESS\_DENIED,\ \textcolor{stringliteral}{"{}D2D\ could\ not\ access\ the\ screen."{}})}
+\DoxyCodeLine{00314\ \ \ \ \ CHK\_ERR(D2DERR\_DISPLAY\_STATE\_INVALID,\ \textcolor{stringliteral}{"{}A\ valid\ display\ state\ could\ not\ be\ determined."{}})}
+\DoxyCodeLine{00315\ \ \ \ \ CHK\_ERR(D2DERR\_ZERO\_VECTOR,\ \textcolor{stringliteral}{"{}The\ supplied\ vector\ is\ zero."{}})}
+\DoxyCodeLine{00316\ \ \ \ \ CHK\_ERR(D2DERR\_INTERNAL\_ERROR,\ \textcolor{stringliteral}{"{}An\ internal\ error\ (D2D\ bug)\ occurred.\ On\ checked\ builds,\ we\ would\ assert."{}})}
+\DoxyCodeLine{00317\ \ \ \ \ CHK\_ERR(D2DERR\_DISPLAY\_FORMAT\_NOT\_SUPPORTED,\ \textcolor{stringliteral}{"{}The\ display\ format\ we\ need\ to\ render\ is\ not\ supported\ by\ the\ hardware\ device."{}})}
+\DoxyCodeLine{00318\ \ \ \ \ CHK\_ERR(D2DERR\_INVALID\_CALL,\ \textcolor{stringliteral}{"{}A\ call\ to\ this\ method\ is\ invalid."{}})}
+\DoxyCodeLine{00319\ \ \ \ \ CHK\_ERR(D2DERR\_NO\_HARDWARE\_DEVICE,\ \textcolor{stringliteral}{"{}No\ HW\ rendering\ device\ is\ available\ for\ this\ operation."{}})}
+\DoxyCodeLine{00320\ \ \ \ \ CHK\_ERR(D2DERR\_RECREATE\_TARGET,\ \textcolor{stringliteral}{"{}here\ has\ been\ a\ presentation\ error\ that\ may\ be\ recoverable.\ The\ caller\ needs\ to\ recreate,\ rerender\ the\ entire\ frame,\ and\ reattempt\ present."{}})}
+\DoxyCodeLine{00321\ \ \ \ \ CHK\_ERR(D2DERR\_TOO\_MANY\_SHADER\_ELEMENTS,\ \textcolor{stringliteral}{"{}Shader\ construction\ failed\ because\ it\ was\ too\ complex."{}})}
+\DoxyCodeLine{00322\ \ \ \ \ CHK\_ERR(D2DERR\_SHADER\_COMPILE\_FAILED,\ \textcolor{stringliteral}{"{}Shader\ compilation\ failed."{}})}
+\DoxyCodeLine{00323\ \ \ \ \ CHK\_ERR(D2DERR\_MAX\_TEXTURE\_SIZE\_EXCEEDED,\ \textcolor{stringliteral}{"{}Requested\ DX\ surface\ size\ exceeded\ maximum\ texture\ size."{}})}
+\DoxyCodeLine{00324\ \ \ \ \ CHK\_ERR(D2DERR\_UNSUPPORTED\_VERSION,\ \textcolor{stringliteral}{"{}The\ requested\ D2D\ version\ is\ not\ supported."{}})}
+\DoxyCodeLine{00325\ \ \ \ \ CHK\_ERR(D2DERR\_BAD\_NUMBER,\ \textcolor{stringliteral}{"{}Invalid\ number."{}})}
+\DoxyCodeLine{00326\ \ \ \ \ CHK\_ERR(D2DERR\_WRONG\_FACTORY,\ \textcolor{stringliteral}{"{}Objects\ used\ together\ must\ be\ created\ from\ the\ same\ factory\ instance."{}})}
+\DoxyCodeLine{00327\ \ \ \ \ CHK\_ERR(D2DERR\_LAYER\_ALREADY\_IN\_USE,\ \textcolor{stringliteral}{"{}A\ layer\ resource\ can\ only\ be\ in\ use\ once\ at\ any\ point\ in\ time."{}})}
+\DoxyCodeLine{00328\ \ \ \ \ CHK\_ERR(D2DERR\_POP\_CALL\_DID\_NOT\_MATCH\_PUSH,\ \textcolor{stringliteral}{"{}The\ pop\ call\ did\ not\ match\ the\ corresponding\ push\ call"{}})}
+\DoxyCodeLine{00329\ \textcolor{comment}{//\ \ \ \ \ \ \ \ CHK\_ERR(D2DERR\_WRONG\_RESOURCE\_DOMAIN,\ "{}The\ resource\ was\ realized\ on\ the\ wrong\ render\ target"{})}}
+\DoxyCodeLine{00330\ \ \ \ \ CHK\_ERR(D2DERR\_PUSH\_POP\_UNBALANCED,\ \textcolor{stringliteral}{"{}The\ push\ and\ pop\ calls\ were\ unbalanced"{}})}
+\DoxyCodeLine{00331\ \ \ \ \ CHK\_ERR(D2DERR\_RENDER\_TARGET\_HAS\_LAYER\_OR\_CLIPRECT,\ \textcolor{stringliteral}{"{}Attempt\ to\ copy\ from\ a\ render\ target\ while\ a\ layer\ or\ clip\ rect\ is\ applied"{}})}
+\DoxyCodeLine{00332\ \ \ \ \ CHK\_ERR(D2DERR\_INCOMPATIBLE\_BRUSH\_TYPES,\ \textcolor{stringliteral}{"{}The\ brush\ types\ are\ incompatible\ for\ the\ call."{}})}
+\DoxyCodeLine{00333\ \ \ \ \ CHK\_ERR(D2DERR\_WIN32\_ERROR,\ \textcolor{stringliteral}{"{}An\ unknown\ win32\ failure\ occurred."{}})}
+\DoxyCodeLine{00334\ \ \ \ \ CHK\_ERR(D2DERR\_TARGET\_NOT\_GDI\_COMPATIBLE,\ \textcolor{stringliteral}{"{}The\ render\ target\ is\ not\ compatible\ with\ GDI"{}})}
+\DoxyCodeLine{00335\ \ \ \ \ CHK\_ERR(D2DERR\_TEXT\_EFFECT\_IS\_WRONG\_TYPE,\ \textcolor{stringliteral}{"{}A\ text\ client\ drawing\ effect\ object\ is\ of\ the\ wrong\ type"{}})}
+\DoxyCodeLine{00336\ \ \ \ \ CHK\_ERR(D2DERR\_TEXT\_RENDERER\_NOT\_RELEASED,\ \textcolor{stringliteral}{"{}The\ application\ is\ holding\ a\ reference\ to\ the\ IDWriteTextRenderer\ interface\ after\ the\ corresponding\ DrawText\ or\ DrawTextLayout\ call\ has\ returned.\ The\ IDWriteTextRenderer\ instance\ will\ be\ zombied."{}})}
+\DoxyCodeLine{00337\ \textcolor{comment}{//\ \ \ \ \ \ \ \ CHK\_ERR(D2DERR\_EXCEEDS\_MAX\_BITMAP\_SIZE,\ "{}The\ requested\ size\ is\ larger\ than\ the\ guaranteed\ supported\ texture\ size."{})}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00340\ \textcolor{comment}{//\ DirectWrite\ error\ codes}}
+\DoxyCodeLine{00341\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00342\ \ \ \ \ CHK\_ERR(DWRITE\_E\_FILEFORMAT,\ \textcolor{stringliteral}{"{}Indicates\ an\ error\ in\ an\ input\ file\ such\ as\ a\ font\ file."{}})}
+\DoxyCodeLine{00343\ \ \ \ \ CHK\_ERR(DWRITE\_E\_UNEXPECTED,\ \textcolor{stringliteral}{"{}Indicates\ an\ error\ originating\ in\ DirectWrite\ code,\ which\ is\ not\ expected\ to\ occur\ but\ is\ safe\ to\ recover\ from."{}})}
+\DoxyCodeLine{00344\ \ \ \ \ CHK\_ERR(DWRITE\_E\_NOFONT,\ \textcolor{stringliteral}{"{}Indicates\ the\ specified\ font\ does\ not\ exist."{}})}
+\DoxyCodeLine{00345\ \ \ \ \ CHK\_ERR(DWRITE\_E\_FILENOTFOUND,\ \textcolor{stringliteral}{"{}A\ font\ file\ could\ not\ be\ opened\ because\ the\ file,\ directory,\ network\ location,\ drive,\ or\ other\ storage\ location\ does\ not\ exist\ or\ is\ unavailable."{}})}
+\DoxyCodeLine{00346\ \ \ \ \ CHK\_ERR(DWRITE\_E\_FILEACCESS,\ \textcolor{stringliteral}{"{}A\ font\ file\ exists\ but\ could\ not\ be\ opened\ due\ to\ access\ denied,\ sharing\ violation,\ or\ similar\ error."{}})}
+\DoxyCodeLine{00347\ \ \ \ \ CHK\_ERR(DWRITE\_E\_FONTCOLLECTIONOBSOLETE,\ \textcolor{stringliteral}{"{}A\ font\ collection\ is\ obsolete\ due\ to\ changes\ in\ the\ system."{}})}
+\DoxyCodeLine{00348\ \ \ \ \ CHK\_ERR(DWRITE\_E\_ALREADYREGISTERED,\ \textcolor{stringliteral}{"{}The\ given\ interface\ is\ already\ registered."{}})}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00351\ \textcolor{comment}{//\ WIC\ error\ codes}}
+\DoxyCodeLine{00352\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00353\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_WRONGSTATE,\ \textcolor{stringliteral}{"{}WIC\ object\ in\ incorrect\ state."{}})}
+\DoxyCodeLine{00354\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_VALUEOUTOFRANGE,\ \textcolor{stringliteral}{"{}WIC\ Value\ out\ of\ range."{}})}
+\DoxyCodeLine{00355\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_UNKNOWNIMAGEFORMAT,\ \textcolor{stringliteral}{"{}Encountered\ unexpected\ value\ or\ setting\ in\ WIC\ image\ format."{}})}
+\DoxyCodeLine{00356\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_UNSUPPORTEDVERSION,\ \textcolor{stringliteral}{"{}Unsupported\ WINCODEC\_SD\_VERSION\ passed\ to\ WIC\ factory."{}})}
+\DoxyCodeLine{00357\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_NOTINITIALIZED,\ \textcolor{stringliteral}{"{}WIC\ component\ not\ initialized."{}})}
+\DoxyCodeLine{00358\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_ALREADYLOCKED,\ \textcolor{stringliteral}{"{}WIC\ bitmap\ object\ already\ locked."{}})}
+\DoxyCodeLine{00359\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_PROPERTYNOTFOUND,\ \textcolor{stringliteral}{"{}WIC\ property\ not\ found."{}})}
+\DoxyCodeLine{00360\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_PROPERTYNOTSUPPORTED,\ \textcolor{stringliteral}{"{}WIC\ property\ not\ supported."{}})}
+\DoxyCodeLine{00361\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_PROPERTYSIZE,\ \textcolor{stringliteral}{"{}Invalid\ property\ size"{}})}
+\DoxyCodeLine{00362\ \ \ \ \ CHK\_ERRA(WINCODEC\_ERR\_CODECPRESENT)\ \textcolor{comment}{//\ not\ currently\ used\ by\ WIC}}
+\DoxyCodeLine{00363\ \ \ \ \ CHK\_ERRA(WINCODEC\_ERR\_CODECNOTHUMBNAIL)\ \textcolor{comment}{//\ not\ currently\ used\ by\ WIC}}
+\DoxyCodeLine{00364\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_PALETTEUNAVAILABLE,\ \textcolor{stringliteral}{"{}Required\ palette\ data\ not\ available."{}})}
+\DoxyCodeLine{00365\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_CODECTOOMANYSCANLINES,\ \textcolor{stringliteral}{"{}More\ scanlines\ requested\ than\ are\ available\ in\ WIC\ bitmap."{}})}
+\DoxyCodeLine{00366\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_INTERNALERROR,\ \textcolor{stringliteral}{"{}Unexpected\ internal\ error\ in\ WIC."{}})}
+\DoxyCodeLine{00367\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_SOURCERECTDOESNOTMATCHDIMENSIONS,\ \textcolor{stringliteral}{"{}Source\ WIC\ rectangle\ does\ not\ match\ bitmap\ dimensions."{}})}
+\DoxyCodeLine{00368\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_COMPONENTNOTFOUND,\ \textcolor{stringliteral}{"{}WIC\ component\ not\ found."{}})}
+\DoxyCodeLine{00369\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_IMAGESIZEOUTOFRANGE,\ \textcolor{stringliteral}{"{}Image\ size\ beyond\ expected\ boundaries\ for\ WIC\ codec."{}}\ )}
+\DoxyCodeLine{00370\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_TOOMUCHMETADATA,\ \textcolor{stringliteral}{"{}Image\ metadata\ size\ beyond\ expected\ boundaries\ for\ WIC\ codec."{}})}
+\DoxyCodeLine{00371\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_BADIMAGE,\ \textcolor{stringliteral}{"{}WIC\ image\ is\ corrupted."{}})}
+\DoxyCodeLine{00372\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_BADHEADER,\ \textcolor{stringliteral}{"{}Invalid\ header\ found\ in\ WIC\ image."{}})}
+\DoxyCodeLine{00373\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_FRAMEMISSING,\ \textcolor{stringliteral}{"{}Expected\ bitmap\ frame\ data\ not\ found\ in\ WIC\ image."{}}\ )}
+\DoxyCodeLine{00374\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_BADMETADATAHEADER,\ \textcolor{stringliteral}{"{}Invalid\ metadata\ header\ found\ in\ WIC\ image."{}})}
+\DoxyCodeLine{00375\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_BADSTREAMDATA,\ \textcolor{stringliteral}{"{}Invalid\ stream\ data\ found\ in\ WIC\ image."{}})}
+\DoxyCodeLine{00376\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_STREAMWRITE,\ \textcolor{stringliteral}{"{}WIC\ operation\ on\ write\ stream\ failed."{}})}
+\DoxyCodeLine{00377\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_STREAMREAD,\ \textcolor{stringliteral}{"{}WIC\ operation\ on\ read\ stream\ failed."{}})}
+\DoxyCodeLine{00378\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_STREAMNOTAVAILABLE,\ \textcolor{stringliteral}{"{}Required\ stream\ is\ not\ available."{}}\ )}
+\DoxyCodeLine{00379\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_UNSUPPORTEDPIXELFORMAT,\ \textcolor{stringliteral}{"{}The\ pixel\ format\ is\ not\ supported."{}})}
+\DoxyCodeLine{00380\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_UNSUPPORTEDOPERATION,\ \textcolor{stringliteral}{"{}This\ operation\ is\ not\ supported\ by\ WIC."{}}\ )}
+\DoxyCodeLine{00381\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_INVALIDREGISTRATION,\ \textcolor{stringliteral}{"{}Error\ occurred\ reading\ WIC\ codec\ registry\ keys."{}})}
+\DoxyCodeLine{00382\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_COMPONENTINITIALIZEFAILURE,\ \textcolor{stringliteral}{"{}Failed\ initializing\ WIC\ codec."{}})}
+\DoxyCodeLine{00383\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_INSUFFICIENTBUFFER,\ \textcolor{stringliteral}{"{}Not\ enough\ buffer\ space\ available\ for\ WIC\ operation."{}})}
+\DoxyCodeLine{00384\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_DUPLICATEMETADATAPRESENT,\ \textcolor{stringliteral}{"{}Duplicate\ metadata\ detected\ in\ WIC\ image."{}})}
+\DoxyCodeLine{00385\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_PROPERTYUNEXPECTEDTYPE,\ \textcolor{stringliteral}{"{}Unexpected\ property\ type\ in\ WIC\ image."{}})}
+\DoxyCodeLine{00386\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_UNEXPECTEDSIZE,\ \textcolor{stringliteral}{"{}Unexpected\ value\ size\ in\ WIC\ metadata."{}})}
+\DoxyCodeLine{00387\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_INVALIDQUERYREQUEST,\ \textcolor{stringliteral}{"{}Invalid\ metadata\ query."{}})}
+\DoxyCodeLine{00388\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_UNEXPECTEDMETADATATYPE,\ \textcolor{stringliteral}{"{}Unexpected\ metadata\ type\ encountered\ in\ WIC\ image."{}})}
+\DoxyCodeLine{00389\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_REQUESTONLYVALIDATMETADATAROOT,\ \textcolor{stringliteral}{"{}Operation\ only\ valid\ on\ meatadata\ root."{}})}
+\DoxyCodeLine{00390\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_INVALIDQUERYCHARACTER,\ \textcolor{stringliteral}{"{}Invalid\ character\ in\ WIC\ metadata\ query."{}})}
+\DoxyCodeLine{00391\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_WIN32ERROR,\ \textcolor{stringliteral}{"{}General\ Win32\ error\ encountered\ during\ WIC\ operation."{}})}
+\DoxyCodeLine{00392\ \ \ \ \ CHK\_ERR(WINCODEC\_ERR\_INVALIDPROGRESSIVELEVEL,\ \textcolor{stringliteral}{"{}Invalid\ level\ for\ progressive\ WIC\ image\ decode."{}})}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !WINAPI\_FAMILY\ ||\ WINAPI\_FAMILY\ !=\ WINAPI\_FAMILY\_PHONE\_APP}}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00397\ \textcolor{comment}{//\ DXUT\ error\ codes}}
+\DoxyCodeLine{00398\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00399\ \ \ \ \ CHK\_ERR(DXUTERR\_NODIRECT3D,\ \textcolor{stringliteral}{"{}Could\ not\ initialize\ Direct3D."{}})}
+\DoxyCodeLine{00400\ \ \ \ \ CHK\_ERR(DXUTERR\_NOCOMPATIBLEDEVICES,\ \textcolor{stringliteral}{"{}No\ device\ could\ be\ found\ with\ the\ specified\ device\ settings."{}})}
+\DoxyCodeLine{00401\ \ \ \ \ CHK\_ERR(DXUTERR\_MEDIANOTFOUND,\ \textcolor{stringliteral}{"{}A\ media\ file\ could\ not\ be\ found."{}})}
+\DoxyCodeLine{00402\ \ \ \ \ CHK\_ERR(DXUTERR\_NONZEROREFCOUNT,\ \textcolor{stringliteral}{"{}The\ device\ interface\ has\ a\ non-\/zero\ reference\ count,\ meaning\ that\ some\ objects\ were\ not\ released."{}})}
+\DoxyCodeLine{00403\ \ \ \ \ CHK\_ERR(DXUTERR\_CREATINGDEVICE,\ \textcolor{stringliteral}{"{}An\ error\ occurred\ when\ attempting\ to\ create\ a\ device."{}})}
+\DoxyCodeLine{00404\ \ \ \ \ CHK\_ERR(DXUTERR\_RESETTINGDEVICE,\ \textcolor{stringliteral}{"{}An\ error\ occurred\ when\ attempting\ to\ reset\ a\ device."{}})}
+\DoxyCodeLine{00405\ \ \ \ \ CHK\_ERR(DXUTERR\_CREATINGDEVICEOBJECTS,\ \textcolor{stringliteral}{"{}An\ error\ occurred\ in\ the\ device\ create\ callback\ function."{}})}
+\DoxyCodeLine{00406\ \ \ \ \ CHK\_ERR(DXUTERR\_RESETTINGDEVICEOBJECTS,\ \textcolor{stringliteral}{"{}An\ error\ occurred\ in\ the\ device\ reset\ callback\ function."{}})}
+\DoxyCodeLine{00407\ \ \ \ \ CHK\_ERR(DXUTERR\_INCORRECTVERSION,\ \textcolor{stringliteral}{"{}Incorrect\ version\ of\ Direct3D\ or\ D3DX."{}})}
+\DoxyCodeLine{00408\ \ \ \ \ CHK\_ERR(DXUTERR\_DEVICEREMOVED,\ \textcolor{stringliteral}{"{}The\ device\ was\ removed."{}})}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00411\ \textcolor{comment}{//\ xaudio2.h\ error\ codes}}
+\DoxyCodeLine{00412\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00413\ \ \ \ \ CHK\_ERR(XAUDIO2\_E\_INVALID\_CALL,\ \textcolor{stringliteral}{"{}Invalid\ XAudio2\ API\ call\ or\ arguments"{}})}
+\DoxyCodeLine{00414\ \ \ \ \ CHK\_ERR(XAUDIO2\_E\_XMA\_DECODER\_ERROR,\ \textcolor{stringliteral}{"{}Hardware\ XMA\ decoder\ error"{}})}
+\DoxyCodeLine{00415\ \ \ \ \ CHK\_ERR(XAUDIO2\_E\_XAPO\_CREATION\_FAILED,\ \textcolor{stringliteral}{"{}Failed\ to\ create\ an\ audio\ effect"{}})}
+\DoxyCodeLine{00416\ \ \ \ \ CHK\_ERR(XAUDIO2\_E\_DEVICE\_INVALIDATED,\ \textcolor{stringliteral}{"{}Device\ invalidated\ (unplugged,\ disabled,\ etc)"{}})}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00419\ \textcolor{comment}{//\ xapo.h\ error\ codes}}
+\DoxyCodeLine{00420\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00421\ \ \ \ \ CHK\_ERR(XAPO\_E\_FORMAT\_UNSUPPORTED,\ \textcolor{stringliteral}{"{}Requested\ audio\ format\ unsupported."{}})}
+\DoxyCodeLine{00422\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,70 @@
+\doxysection{constant\+\_\+buffer.\+h}
+\hypertarget{constant__buffer_8h_source}{}\label{constant__buffer_8h_source}\index{directEngin/lib/graphic/constant\_buffer.h@{directEngin/lib/graphic/constant\_buffer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}IBindable.h"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }ConstantBuffer:\textcolor{keyword}{public}\ \mbox{\hyperlink{class_i_bindable}{IBindable}}}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00008\ \ \ \ \ ConstantBuffer()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00009\ \ \ \ \ ConstantBuffer(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx,\ \textcolor{keyword}{const}\ T\&\ consts)}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ INFOMAN(gfx);}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ D3D11\_BUFFER\_DESC\ cbd;}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ cbd.BindFlags\ =\ D3D11\_BIND\_CONSTANT\_BUFFER;}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ cbd.Usage\ =\ D3D11\_USAGE\_DYNAMIC;}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ cbd.CPUAccessFlags\ =\ D3D11\_CPU\_ACCESS\_WRITE;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ cbd.MiscFlags\ =\ 0u;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ cbd.ByteWidth\ =\ \textcolor{keyword}{sizeof}(consts);}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ cbd.StructureByteStride\ =\ 0u;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ D3D11\_SUBRESOURCE\_DATA\ csd\ =\ \{\};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ csd.pSysMem\ =\ \&consts;}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ GFX\_THROW\_INFO(gfx.getDevice()-\/>CreateBuffer(\&cbd,\ \&csd,\ \&p\_pConstantBuffer));}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ \ \ \ \ ConstantBuffer(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx)}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ INFOMAN(gfx);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ D3D11\_BUFFER\_DESC\ cbd;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ cbd.BindFlags\ =\ D3D11\_BIND\_CONSTANT\_BUFFER;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ cbd.Usage\ =\ D3D11\_USAGE\_DYNAMIC;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ cbd.CPUAccessFlags\ =\ D3D11\_CPU\_ACCESS\_WRITE;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ cbd.MiscFlags\ =\ 0u;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ cbd.ByteWidth\ =\ \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ cbd.StructureByteStride\ =\ 0u;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ GFX\_THROW\_INFO(gfx.getDevice()-\/>CreateBuffer(\&cbd,\ \textcolor{keyword}{nullptr},\ \&p\_pConstantBuffer));}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Buffer>\ p\_pConstantBuffer\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_vertex_constant_buffer}{VertexConstantBuffer}}\ :\textcolor{keyword}{public}\ ConstantBuffer<T>}
+\DoxyCodeLine{00042\ \{}
+\DoxyCodeLine{00043\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{using\ }ConstantBuffer<T>::p\_pConstantBuffer;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{using\ }ConstantBuffer<T>::ConstantBuffer;}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ bind(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}}
+\DoxyCodeLine{00048\ \ \ \ \ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ gfx.getContext()-\/>VSSetConstantBuffers(0u,\ 1u,\ p\_pConstantBuffer.GetAddressOf());}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00055\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_pixel_constant_buffer}{PixelConstantBuffer}}\ :\ \textcolor{keyword}{public}\ ConstantBuffer<T>}
+\DoxyCodeLine{00056\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{using\ }ConstantBuffer<T>::p\_pConstantBuffer;}
+\DoxyCodeLine{00058\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{using\ }ConstantBuffer<T>::ConstantBuffer;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ bind(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override}}
+\DoxyCodeLine{00061\ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ gfx.getContext()-\/>PSSetConstantBuffers(0u,\ 1u,\ p\_pConstantBuffer.GetAddressOf());}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \};}
+
+\end{DoxyCode}

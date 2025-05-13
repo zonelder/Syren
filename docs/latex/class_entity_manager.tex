@@ -1,0 +1,62 @@
+\doxysection{Entity\+Manager Class Reference}
+\hypertarget{class_entity_manager}{}\label{class_entity_manager}\index{EntityManager@{EntityManager}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_entity_manager_aa4ba07c8b065c3a3941bde99c60e9053}\label{class_entity_manager_aa4ba07c8b065c3a3941bde99c60e9053} 
+using {\bfseries entity\+\_\+container\+\_\+type} = \mbox{\hyperlink{class_sparse_array}{Sparse\+Array}}$<$\mbox{\hyperlink{class_entity}{Entity}}, Entity\+ID, MAX\+\_\+\+ENTITY$>$
+\item 
+\Hypertarget{class_entity_manager_a6cef640ba8a4b193c04b1aafa2562cf0}\label{class_entity_manager_a6cef640ba8a4b193c04b1aafa2562cf0} 
+using {\bfseries entity\+\_\+iterator} = std\+::vector$<$\mbox{\hyperlink{class_entity}{Entity}}$>$\mbox{\hyperlink{class_sparse_set}{\+::iterator}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_entity_manager_ab48a65e0b210c67f75037240d76a67bc}\label{class_entity_manager_ab48a65e0b210c67f75037240d76a67bc} 
+\mbox{\hyperlink{class_entity}{Entity}} \& {\bfseries create} () noexcept
+\item 
+\Hypertarget{class_entity_manager_ac2f28cfe77ec7b09182a7498b85ce581}\label{class_entity_manager_ac2f28cfe77ec7b09182a7498b85ce581} 
+bool {\bfseries has\+Entity} (Entity\+ID id) const noexcept
+\item 
+\Hypertarget{class_entity_manager_a85e34bb2d4a187cdf130b7cee53da2d8}\label{class_entity_manager_a85e34bb2d4a187cdf130b7cee53da2d8} 
+const \mbox{\hyperlink{class_entity}{Entity}} \& {\bfseries get} (Entity\+ID id) const noexcept
+\item 
+\Hypertarget{class_entity_manager_a30cf4aced0f76c6a6d000c68f1310fec}\label{class_entity_manager_a30cf4aced0f76c6a6d000c68f1310fec} 
+void {\bfseries register\+Component} (Entity\+ID entt, Component\+ID id) noexcept
+\item 
+\Hypertarget{class_entity_manager_a2e182eb279c74060d46812a7528ce0e9}\label{class_entity_manager_a2e182eb279c74060d46812a7528ce0e9} 
+void {\bfseries unregister\+Component} (Entity\+ID entt, Component\+ID id) noexcept
+\item 
+\Hypertarget{class_entity_manager_ac149628ce5bf03e483acd7e3274f5127}\label{class_entity_manager_ac149628ce5bf03e483acd7e3274f5127} 
+bool {\bfseries destroy} (const \mbox{\hyperlink{class_entity}{Entity}} \&entity) noexcept
+\item 
+\Hypertarget{class_entity_manager_ac0aae0b5c601c237a836318f3d1ca58e}\label{class_entity_manager_ac0aae0b5c601c237a836318f3d1ca58e} 
+auto {\bfseries begin} () noexcept
+\item 
+\Hypertarget{class_entity_manager_ab1f4fe0e064cc5dddc58e50670efb551}\label{class_entity_manager_ab1f4fe0e064cc5dddc58e50670efb551} 
+auto {\bfseries end} () noexcept
+\item 
+auto \mbox{\hyperlink{class_entity_manager_ac7d4699b45a1ae78a1dce1f2436a075e}{entity\+View}} () noexcept
+\begin{DoxyCompactList}\small\item\em create view wich can iterate throught all entities \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_entity_manager_ac7d4699b45a1ae78a1dce1f2436a075e}\index{EntityManager@{EntityManager}!entityView@{entityView}}
+\index{entityView@{entityView}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{entityView()}{entityView()}}
+{\footnotesize\ttfamily \label{class_entity_manager_ac7d4699b45a1ae78a1dce1f2436a075e} 
+auto Entity\+Manager\+::entity\+View (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+create view wich can iterate throught all entities 
+
+\begin{DoxyReturn}{Returns}
+Entity\+View 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/scene/entity\+\_\+manager.\+h\item 
+direct\+Engin/lib/scene/entity\+\_\+manager.\+cpp\end{DoxyCompactItemize}

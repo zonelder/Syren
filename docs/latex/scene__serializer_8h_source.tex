@@ -1,0 +1,82 @@
+\doxysection{scene\+\_\+serializer.\+h}
+\hypertarget{scene__serializer_8h_source}{}\label{scene__serializer_8h_source}\index{directEngin/lib/generation\_iternal/scene\_serializer.h@{directEngin/lib/generation\_iternal/scene\_serializer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ \_\_SCENE\_SERIALIZE\_GENERATED\_\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ \_\_SCENE\_SERIALIZE\_GENERATED\_\_}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}scene/scene\_manager.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pool_serializer}{PoolSerializer}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{using\ }Function\_t\ =\ std::function<void(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}},\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&)>;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{using\ }Function\_const\_t\ =\ std::function<void(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}},\textcolor{keyword}{const}\ \mbox{\hyperlink{class_scene_manager}{SceneManager}}\&)>;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::unordered\_map<std::string,Function\_const\_t>\ serialize\_pool;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::unordered\_map<std::string,Function\_t>\ deserialize\_pool;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::unordered\_map<ComponentID,std::string>\ component\_id\_to\_name;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ serialize(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ poolsNode,\textcolor{keyword}{const}\ \mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ manager)}
+\DoxyCodeLine{00020\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(poolsNode.identifier()\ !=\ \textcolor{stringliteral}{"{}pools"{}})}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}PoolSerializer::serialize:\ get\ invalid\ node\ to\ serialization.\(\backslash\)n"{}};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [compID,pool]\ :\ manager.pools())}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ component\_id\_to\_name.find(compID);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(it\ ==\ component\_id\_to\_name.end())}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};\textcolor{comment}{//unserializable\ type}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ typeName\ =\ it-\/>second;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ serialize\_pool.find(typeName)-\/>second(poolsNode.\mbox{\hyperlink{class_x_m_l_node_a72fb446ec8814b2fbc67b826bcdbd11c}{saveGetChild}}(typeName),manager);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ deserialize(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ poolsNode,\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ manager)}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(poolsNode.identifier()\ !=\ \textcolor{stringliteral}{"{}pools"{}})}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}PoolSerializer::serialize:\ get\ invalid\ node\ to\ serialization.\(\backslash\)n"{}};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ pool\ :\ poolsNode.childs())}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ deserialize\_pool.find(pool.identifier());}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(it\ ==\ deserialize\_pool.end())}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}PoolSerializer::deserialize:\ attempt\ to\ deserialize\ pool\ but\ exact\ type\ is\ unknown."{}}<<std::endl;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ it-\/>second(pool,manager);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00061\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_serializer}{Serializer}}<\mbox{\hyperlink{class_scene_manager}{SceneManager}}>}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ serialize(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ node,\textcolor{keyword}{const}\ \mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ manager)}
+\DoxyCodeLine{00064\ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ poolsNode\ =\ node.\mbox{\hyperlink{class_x_m_l_node_a72fb446ec8814b2fbc67b826bcdbd11c}{saveGetChild}}(\textcolor{stringliteral}{"{}pools"{}});}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ PoolSerializer::serialize(poolsNode,manager);}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ deserialize(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ node,\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ manager)}
+\DoxyCodeLine{00070\ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ poolsNode\ =\ node.\mbox{\hyperlink{class_x_m_l_node_a72fb446ec8814b2fbc67b826bcdbd11c}{saveGetChild}}(\textcolor{stringliteral}{"{}pools"{}});}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ PoolSerializer::deserialize(poolsNode,manager);}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

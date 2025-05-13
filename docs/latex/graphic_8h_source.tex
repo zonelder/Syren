@@ -1,0 +1,100 @@
+\doxysection{graphic.\+h}
+\hypertarget{graphic_8h_source}{}\label{graphic_8h_source}\index{directEngin/lib/graphic/graphic.h@{directEngin/lib/graphic/graphic.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_GRAPHICS\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_GRAPHICS\_H\_\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <d3d11.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <wrl.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <d3dcompiler.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}exeption/pointed\_exception.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}DxgiInfoManager.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }Graphics}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_1_1_exeption}{Exeption}}\ :\textcolor{keyword}{public}\ PointedException\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }PointedException::PointedException;}
+\DoxyCodeLine{00018\ \ \ \ \ \};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{class\ }HrException\ :\textcolor{keyword}{public}\ \mbox{\hyperlink{class_graphics_1_1_exeption}{Exeption}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ HrException(\textcolor{keywordtype}{int}\ line,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file,\ HRESULT\ hr,std::vector<std::string>\ =\ \{\})\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ what()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ getType()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ HRESULT\ getErrorCode()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ std::string\ getErrorString()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ std::string\ getErrorDescription()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ std::string\ getErrorInfo()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ HRESULT\ \_hr;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ std::string\ \_info;}
+\DoxyCodeLine{00031\ \ \ \ \ \};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graphics_1_1_device_remove_exception}{DeviceRemoveException}}\ :\textcolor{keyword}{public}\ HrException\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }HrException::HrException;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ getType()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ std::string\ \_reason;}
+\DoxyCodeLine{00038\ \ \ \ \ \};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{class\ }InfoException\ :\textcolor{keyword}{public}\ \mbox{\hyperlink{class_graphics_1_1_exeption}{Exeption}}\{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ InfoException(\textcolor{keywordtype}{int}\ line,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file,std::vector<std::string>);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ what()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ getType()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::string\ getErrorInfo()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::string\ \_info;}
+\DoxyCodeLine{00047\ \ \ \ \ \};}
+\DoxyCodeLine{00048\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00049\ \ \ \ \ Graphics(HWND\ hWnd);}
+\DoxyCodeLine{00050\ \ \ \ \ Graphics(\textcolor{keyword}{const}\ Graphics\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00051\ \ \ \ \ Graphics\&\ operator=(\textcolor{keyword}{const}\ Graphics\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00052\ \ \ \ \ \string~Graphics()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ UINT\ screenWidth()\ const\ noexcept}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_width;}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ UINT\ screenHeight()\ const\ noexcept}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_height;}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ endFrame();}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ clearBuffer(\textcolor{keywordtype}{float}\ red,\ \textcolor{keywordtype}{float}\ green,\ \textcolor{keywordtype}{float}\ blue)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ clearBuffer(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ color[4])\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ clearBuffer(DirectX::XMVECTOR\ color)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ drawIndexed(\textcolor{keywordtype}{size\_t}\ indexCount,\ \textcolor{keywordtype}{size\_t}\ startIndex\ =\ \ 0u);}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ draw(\textcolor{keywordtype}{size\_t}\ indexCount,\ \textcolor{keywordtype}{size\_t}\ startIndex\ =\ 0u);}
+\DoxyCodeLine{00070\ \ \ \ \ ID3D11DeviceContext*\ getContext()\ noexcept;}
+\DoxyCodeLine{00071\ \ \ \ \ ID3D11Device*\ getDevice()\ noexcept;}
+\DoxyCodeLine{00072\ \ \ \ \ DxgiInfoManager\&\ getInfoManager()\ noexcept;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ bindBackBuffer();}
+\DoxyCodeLine{00075\ \ \ \ \ auto\ pDepthBuffer()\ const\ noexcept}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_pDSV;}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#ifndef\ NDEBUG}}
+\DoxyCodeLine{00081\ \ \ \ \ DxgiInfoManager\ \_infoManager;}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !NDEBUG}}
+\DoxyCodeLine{00083\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11Device>\ \_pDevice;}
+\DoxyCodeLine{00084\ \ \ \ \ Microsoft::WRL::ComPtr<IDXGISwapChain>\ \_pSwap;}
+\DoxyCodeLine{00085\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11DeviceContext>\ \_pContext;}
+\DoxyCodeLine{00086\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11RenderTargetView>\ \_pTarget;}
+\DoxyCodeLine{00087\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11DepthStencilView>\ \_pDSV;}
+\DoxyCodeLine{00088\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11DepthStencilState>\ \_pDSState;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ UINT\ \_width;}
+\DoxyCodeLine{00091\ \ \ \ \ UINT\ \_height;}
+\DoxyCodeLine{00092\ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

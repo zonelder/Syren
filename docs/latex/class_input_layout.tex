@@ -1,0 +1,53 @@
+\doxysection{Input\+Layout Class Reference}
+\hypertarget{class_input_layout}{}\label{class_input_layout}\index{InputLayout@{InputLayout}}
+Inheritance diagram for Input\+Layout\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_input_layout}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_input_layout_a98403f48663b74b33e6b9eca52b477d9}\label{class_input_layout_a98403f48663b74b33e6b9eca52b477d9} 
+{\bfseries Input\+Layout} (\mbox{\hyperlink{class_graphics}{Graphics}} \&gfx, const std\+::vector$<$ D3\+D11\+\_\+\+INPUT\+\_\+\+ELEMENT\+\_\+\+DESC $>$ \&layout, ID3\+DBlob \texorpdfstring{$\ast$}{*}p\+Vertex\+Bytecode)
+\item 
+void \mbox{\hyperlink{class_input_layout_a2d1f6d3a9e6b132f5d01cd4df2ff5542}{bind}} (\mbox{\hyperlink{class_graphics}{Graphics}} \&gfx) noexcept override
+\item 
+\Hypertarget{class_input_layout_a512eb9543099c41175a1061f8c698ff3}\label{class_input_layout_a512eb9543099c41175a1061f8c698ff3} 
+const Layout\+Elements \& {\bfseries get\+Elements} () const noexcept
+\item 
+\Hypertarget{class_input_layout_a75a5256f63e30bc0ffd3e89909e22dec}\label{class_input_layout_a75a5256f63e30bc0ffd3e89909e22dec} 
+size\+\_\+t {\bfseries max\+Input\+Slot} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_input_layout_a5e69c1aabc84ee0ad92a4d363b61d19a}\label{class_input_layout_a5e69c1aabc84ee0ad92a4d363b61d19a} 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Input\+Layout $>$ {\bfseries p\+\_\+p\+Input\+Layout} = nullptr
+\item 
+\Hypertarget{class_input_layout_a6bd007c3c857c0b6f80e064d56b6fcd9}\label{class_input_layout_a6bd007c3c857c0b6f80e064d56b6fcd9} 
+Layout\+Elements {\bfseries \+\_\+layout}
+\item 
+\Hypertarget{class_input_layout_ae39ee7f5a711de7b3ebbe61d5b9c776c}\label{class_input_layout_ae39ee7f5a711de7b3ebbe61d5b9c776c} 
+size\+\_\+t {\bfseries \+\_\+max\+Slot}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_input_layout_a2d1f6d3a9e6b132f5d01cd4df2ff5542}\index{InputLayout@{InputLayout}!bind@{bind}}
+\index{bind@{bind}!InputLayout@{InputLayout}}
+\doxysubsubsection{\texorpdfstring{bind()}{bind()}}
+{\footnotesize\ttfamily \label{class_input_layout_a2d1f6d3a9e6b132f5d01cd4df2ff5542} 
+void Input\+Layout\+::bind (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graphics}{Graphics}} \&}]{gfx}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Implements \mbox{\hyperlink{class_i_bindable}{IBindable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/graphic/input\+\_\+layout.\+h\item 
+direct\+Engin/lib/graphic/Input\+\_\+layout.\+cpp\end{DoxyCompactItemize}

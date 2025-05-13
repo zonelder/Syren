@@ -1,0 +1,37 @@
+\doxysection{input\+\_\+layout.\+h}
+\hypertarget{input__layout_8h_source}{}\label{input__layout_8h_source}\index{directEngin/lib/graphic/input\_layout.h@{directEngin/lib/graphic/input\_layout.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}IBindable.h"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_element_desc}{ElementDesc}}}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ std::string\ semanticName;}
+\DoxyCodeLine{00007\ \ \ \ \ UINT\ semanticIndex;}
+\DoxyCodeLine{00008\ \ \ \ \ DXGI\_FORMAT\ format;}
+\DoxyCodeLine{00009\ \ \ \ \ UINT\ inputSlot;}
+\DoxyCodeLine{00010\ \ \ \ \ UINT\ alignedByteOffset;}
+\DoxyCodeLine{00011\ \ \ \ \ D3D11\_INPUT\_CLASSIFICATION\ inputSlotClass;}
+\DoxyCodeLine{00012\ \ \ \ \ UINT\ instanceDataStepRate;}
+\DoxyCodeLine{00013\ \};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }InputLayout\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_i_bindable}{IBindable}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{using\ }LayoutElements\ =\ std::vector<ElementDesc>;}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ InputLayout()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00020\ \ \ \ \ InputLayout(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx,\ \textcolor{keyword}{const}\ std::vector<D3D11\_INPUT\_ELEMENT\_DESC>\&\ layout,\ ID3DBlob*\ pVertexBytecode);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ bind(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{const}\ LayoutElements\&\ getElements()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_layout;\ \};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxInputSlot()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_maxSlot;\ \};}
+\DoxyCodeLine{00026\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00027\ \ \ \ \ Microsoft::WRL::ComPtr<ID3D11InputLayout>\ p\_pInputLayout\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00028\ \ \ \ \ LayoutElements\ \_layout;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_maxSlot;}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+
+\end{DoxyCode}

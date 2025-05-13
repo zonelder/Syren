@@ -1,0 +1,18 @@
+\doxysection{timer.\+h}
+\hypertarget{timer_8h_source}{}\label{timer_8h_source}\index{directEngin/lib/Time/timer.h@{directEngin/lib/Time/timer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00003\ \textcolor{keyword}{class\ }Timer}
+\DoxyCodeLine{00004\ \{}
+\DoxyCodeLine{00005\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00006\ \ \ \ \ Timer();}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{float}\ peek()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{float}\ mark();}
+\DoxyCodeLine{00009\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00010\ \ \ \ \ std::chrono::steady\_clock::time\_point\ \_last;}
+\DoxyCodeLine{00011\ \};}
+\DoxyCodeLine{00012\ }
+
+\end{DoxyCode}

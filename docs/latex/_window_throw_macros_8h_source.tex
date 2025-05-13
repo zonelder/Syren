@@ -1,0 +1,11 @@
+\doxysection{Window\+Throw\+Macros.\+h}
+\hypertarget{_window_throw_macros_8h_source}{}\label{_window_throw_macros_8h_source}\index{directEngin/lib/core/WindowThrowMacros.h@{directEngin/lib/core/WindowThrowMacros.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ WND\_EXCEPTION(hr)\ Window::HrException(\ \_\_LINE\_\_,\_\_FILE\_\_,hr\ )}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ WND\_LAST\_EXCEPT()\ Window::HrException(\ \_\_LINE\_\_,\_\_FILE\_\_,GetLastError()\ )}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ WND\_NOGFX\_EXCEPT()\ Window::NoGfxException(\_\_LINE\_\_,\_\_FILE\_\_)}}
+
+\end{DoxyCode}

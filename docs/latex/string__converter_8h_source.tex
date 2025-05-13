@@ -1,0 +1,24 @@
+\doxysection{string\+\_\+converter.\+h}
+\hypertarget{string__converter_8h_source}{}\label{string__converter_8h_source}\index{directEngin/lib/cstdmf/string\_converter.h@{directEngin/lib/cstdmf/string\_converter.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ NOMINMAX}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ NOMINMAX}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Windows.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }stringHelper}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ std::wstring\ to\_wstring(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str);}
+\DoxyCodeLine{00013\ \ \ \ \ std::wstring\ to\_wstring(\textcolor{keyword}{const}\ std::string\&\ str);}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ std::string\ to\_string(\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ str);}
+\DoxyCodeLine{00017\ \ \ \ \ std::string\ to\_string(\textcolor{keyword}{const}\ std::wstring\&\ str);}
+\DoxyCodeLine{00018\ \}}
+
+\end{DoxyCode}

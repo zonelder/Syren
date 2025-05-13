@@ -1,0 +1,149 @@
+\doxysection{Matrix4x4 Class Reference}
+\hypertarget{class_matrix4x4}{}\label{class_matrix4x4}\index{Matrix4x4@{Matrix4x4}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_matrix4x4_aea6328084c9139cad176bacf6fbadcb1}\label{class_matrix4x4_aea6328084c9139cad176bacf6fbadcb1} 
+{\bfseries Matrix4x4} (Direct\+X\+::\+XMMATRIX matrix) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a28670e15da13765759dbaa9ed5e7b6e7}\label{class_matrix4x4_a28670e15da13765759dbaa9ed5e7b6e7} 
+\mbox{\hyperlink{class_quaternion}{Quaternion}} {\bfseries rotation} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_ae4ce94e9dae8cdd68fde7f4bcaabc3e6}\label{class_matrix4x4_ae4ce94e9dae8cdd68fde7f4bcaabc3e6} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries scale} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_ab74f7c8ae0b7b54a11d7bda7873baa02}\label{class_matrix4x4_ab74f7c8ae0b7b54a11d7bda7873baa02} 
+\mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries transpose} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a8f5943c93bac7c53e85f410a2402196b}\label{class_matrix4x4_a8f5943c93bac7c53e85f410a2402196b} 
+\mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries inverse} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_ade1b997638d1754e14c945d6a3853b4c}\label{class_matrix4x4_ade1b997638d1754e14c945d6a3853b4c} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries translation} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_aaa7472663876dddf2da76da801955d4c}\label{class_matrix4x4_aaa7472663876dddf2da76da801955d4c} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries get\+Row} (int index) const noexcept
+\item 
+\Hypertarget{class_matrix4x4_ad24de9f0a0b92910b7d43dd0ae25b0f2}\label{class_matrix4x4_ad24de9f0a0b92910b7d43dd0ae25b0f2} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries get\+Column} (int index) const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a5702d78352886d3750550e7d4bc5ec48}\label{class_matrix4x4_a5702d78352886d3750550e7d4bc5ec48} 
+void {\bfseries set\+Row} (int index, const \mbox{\hyperlink{class_vector4}{Vector4}} \&row) noexcept
+\item 
+\Hypertarget{class_matrix4x4_ad3284a05c2e58c966f61618b4951541e}\label{class_matrix4x4_ad3284a05c2e58c966f61618b4951541e} 
+void {\bfseries set\+Row} (int index, const \mbox{\hyperlink{class_vector3}{Vector3}} \&row) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a4be0255eab2b185890f24a75dce6784c}\label{class_matrix4x4_a4be0255eab2b185890f24a75dce6784c} 
+void {\bfseries set\+Column} (int index, const \mbox{\hyperlink{class_vector4}{Vector4}} \&column) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a0323d36d39477c0217d68dcbfc530e21}\label{class_matrix4x4_a0323d36d39477c0217d68dcbfc530e21} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries forward} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a6937bccfb23372c324244af6dc5c5c7d}\label{class_matrix4x4_a6937bccfb23372c324244af6dc5c5c7d} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries up} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a7938e948636810bdb15cf8b068f44f35}\label{class_matrix4x4_a7938e948636810bdb15cf8b068f44f35} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries right} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_ad2f9c5a8a03c3bea17988a288b16d203}\label{class_matrix4x4_ad2f9c5a8a03c3bea17988a288b16d203} 
+bool {\bfseries is\+Valid\+TRS} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a3f9efe97bcfded9c6452987b87c5a5a2}\label{class_matrix4x4_a3f9efe97bcfded9c6452987b87c5a5a2} 
+bool {\bfseries is\+Identity} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a1fb8a0a7c2484b9d9bf6676b68f3f856}\label{class_matrix4x4_a1fb8a0a7c2484b9d9bf6676b68f3f856} 
+void {\bfseries set\+TRS} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&translation, const \mbox{\hyperlink{class_quaternion}{Quaternion}} \&rotation\+Quat, const \mbox{\hyperlink{class_vector3}{Vector3}} \&scale) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a603ab405d564f819b1b554ce0430a047}\label{class_matrix4x4_a603ab405d564f819b1b554ce0430a047} 
+float {\bfseries determinant} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_aaa5176c4cee21dce7ada6c303aac227f}\label{class_matrix4x4_aaa5176c4cee21dce7ada6c303aac227f} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries multiply\+Point} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&point) const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a0fe25155485b9a561de5af00e3e2be05}\label{class_matrix4x4_a0fe25155485b9a561de5af00e3e2be05} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries multiply\+Point3x4} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&point) const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a4877259cb2c2e15fc0420bc7fd8075f2}\label{class_matrix4x4_a4877259cb2c2e15fc0420bc7fd8075f2} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries multiply\+Vector} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&direction) const noexcept
+\item 
+\Hypertarget{class_matrix4x4_ab9badcc47dbe0138f65fcab107b2932b}\label{class_matrix4x4_ab9badcc47dbe0138f65fcab107b2932b} 
+\mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} \&other) const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a63c469311a5a8b21480eb022e25e0955}\label{class_matrix4x4_a63c469311a5a8b21480eb022e25e0955} 
+\mbox{\hyperlink{class_vector4}{Vector4}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{class_vector4}{Vector4}} \&other) const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a2765bb91cb2d9b983698bd182fbeae53}\label{class_matrix4x4_a2765bb91cb2d9b983698bd182fbeae53} 
+\mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} \& {\bfseries operator\texorpdfstring{$\ast$}{*}=} (const \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} \&other) noexcept
+\item 
+\Hypertarget{class_matrix4x4_abbc0384e1520e2d82a19c4b4fb2e703a}\label{class_matrix4x4_abbc0384e1520e2d82a19c4b4fb2e703a} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} \&other) const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a03f49aca5d9ac56189e4e6532c492848}\label{class_matrix4x4_a03f49aca5d9ac56189e4e6532c492848} 
+{\bfseries operator Direct\+X\+::\+XMMATRIX} () const noexcept
+\item 
+\Hypertarget{class_matrix4x4_a93447709824ee19babff5221e8c8a502}\label{class_matrix4x4_a93447709824ee19babff5221e8c8a502} 
+{\bfseries operator Direct\+X\+::\+XMMATRIX} () noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_matrix4x4_a1c0c3243b69b6dcffcc7e9f968fbed45}\label{class_matrix4x4_a1c0c3243b69b6dcffcc7e9f968fbed45} 
+static \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries TRS} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&translation, const \mbox{\hyperlink{class_quaternion}{Quaternion}} \&rotation\+Quat, const \mbox{\hyperlink{class_vector3}{Vector3}} \&scale) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a56acdb6ad7a2ba0f7add23b7ea31ef81}\label{class_matrix4x4_a56acdb6ad7a2ba0f7add23b7ea31ef81} 
+static \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries translate} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&translation) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a1fdeb4cd3efcdc9d57e4150d0fac1e55}\label{class_matrix4x4_a1fdeb4cd3efcdc9d57e4150d0fac1e55} 
+static \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries rotate} (const \mbox{\hyperlink{class_quaternion}{Quaternion}} \&rotation) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a328a31632ecd17e4d1b3c1b6a0f55f8f}\label{class_matrix4x4_a328a31632ecd17e4d1b3c1b6a0f55f8f} 
+static \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries scale} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&scale) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a694f187884bd95071371ba9ecf3fcec8}\label{class_matrix4x4_a694f187884bd95071371ba9ecf3fcec8} 
+static \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries frustum} (float left, float right, float bottom, float top, float z\+Near, float z\+Far) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a20f2bc37673bcf6126d57afd5ae72d44}\label{class_matrix4x4_a20f2bc37673bcf6126d57afd5ae72d44} 
+static bool {\bfseries inverse3\+DAffine} (const \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} \&input, \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} \&result) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a22e2341c828c9e2a789edc3acb3bf87a}\label{class_matrix4x4_a22e2341c828c9e2a789edc3acb3bf87a} 
+static \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries look\+At} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&from, const \mbox{\hyperlink{class_vector3}{Vector3}} \&to, const \mbox{\hyperlink{class_vector3}{Vector3}} \&up) noexcept
+\item 
+\Hypertarget{class_matrix4x4_a5c585ba0e9e03157425b9fcaf3af5c44}\label{class_matrix4x4_a5c585ba0e9e03157425b9fcaf3af5c44} 
+static \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries ortho} (float left, float right, float bottom, float top, float z\+Near, float z\+Far) noexcept
+\item 
+\Hypertarget{class_matrix4x4_ae91dd45a7b1d5b9e3e927fdcf6375ed4}\label{class_matrix4x4_ae91dd45a7b1d5b9e3e927fdcf6375ed4} 
+static \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries perspective} (float fov, float aspect, float z\+Near, float z\+Far) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_matrix4x4_aa866ff915bb4c0eff6c8ecc6fdbfc7b2}\label{class_matrix4x4_aa866ff915bb4c0eff6c8ecc6fdbfc7b2} 
+static const \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} {\bfseries identity} \{\}
+\item 
+static const \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} \mbox{\hyperlink{class_matrix4x4_afe087c36ed8cc5f3cce909fd64e5c717}{zero}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_matrix4x4_afe087c36ed8cc5f3cce909fd64e5c717}\index{Matrix4x4@{Matrix4x4}!zero@{zero}}
+\index{zero@{zero}!Matrix4x4@{Matrix4x4}}
+\doxysubsubsection{\texorpdfstring{zero}{zero}}
+{\footnotesize\ttfamily \label{class_matrix4x4_afe087c36ed8cc5f3cce909fd64e5c717} 
+const \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}} Matrix4x4\+::zero\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ Matrix4x4(DirectX::XMMatrixSet(}
+\DoxyCodeLine{\ \ \ \ 0,\ 0,\ 0,\ 0,}
+\DoxyCodeLine{\ \ \ \ 0,\ 0,\ 0,\ 0,}
+\DoxyCodeLine{\ \ \ \ 0,\ 0,\ 0,\ 0,}
+\DoxyCodeLine{\ \ \ \ 0,\ 0,\ 0,\ 0}
+\DoxyCodeLine{))}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/math/matrix4x4.\+h\item 
+direct\+Engin/lib/math/matrix4x4.\+cpp\end{DoxyCompactItemize}

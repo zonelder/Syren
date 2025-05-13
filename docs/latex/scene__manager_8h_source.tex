@@ -1,0 +1,128 @@
+\doxysection{scene\+\_\+manager.\+h}
+\hypertarget{scene__manager_8h_source}{}\label{scene__manager_8h_source}\index{directEngin/lib/scene/scene\_manager.h@{directEngin/lib/scene/scene\_manager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}camera.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}component\_pool.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}component\_manager.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}entity\_manager.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}filters.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}core/window.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}core/input.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_scene_manager}{SceneManager}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_camera}{Camera}}\&\ \mbox{\hyperlink{class_scene_manager_abd32310aff88ebefc6236aed4065744e}{getCamera}}()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_entity}{Entity}}\&\ \mbox{\hyperlink{class_scene_manager_a744397d3cb3d7ac004f62a8f528a77a5}{createEntity}}()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_scene_manager_aec95e2abf538b8341ad98cdaa23723bb}{destroy}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_entity}{Entity}}\&\ entt)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_scene_manager_aec95e2abf538b8341ad98cdaa23723bb}{destroy}}(EntityID\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}...\ Args>\ \textcolor{keyword}{requires}\ (\textcolor{keyword}{sizeof}...(Args)\ >\ 0)\ \&\&\ filters::is\_filter\_free<Args...>}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{class_scene_manager_a45983843b502782647112a037c37aca4}{view}}()\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00058\ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }with\ =\ \mbox{\hyperlink{structfilters_1_1_with}{filters::With}}<Args...>;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }without\ =\ \mbox{\hyperlink{structfilters_1_1_without}{filters::Without<>}};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_scene_manager_a45983843b502782647112a037c37aca4}{view<with,\ without>}}();}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ With,\ \textcolor{keyword}{typename}\ Without\ =\ filters::Without<>>}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keyword}{requires}\ filters::is\_with\_filter\_v<With>\ \&\&\ filters::is\_without\_filter\_v<Without>}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{class_scene_manager_a45983843b502782647112a037c37aca4}{view}}()\ noexcept}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TODO\ each\ filter\ can\ be\ crate\ once\ if\ component\ manageer\ wont\ relocate\ em\ view\ on\ each\ filter\ once\ and\ then\ reuse\ it}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classfilters_1_1_component_view}{filters::ComponentView<With,Without>}}\ m(\_ComponentManager);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{class_scene_manager_a1fc8b0929ddb742106ce5a0e6e416413}{view}}()\ noexcept}
+\DoxyCodeLine{00087\ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_entityManager.entityView();}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{comment}{//[[deprecated("{}Use\ view<T>()\ instead"{})]]\ }}
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{class_component_pool}{ComponentPool<T>}}\&\ \mbox{\hyperlink{class_scene_manager_ab1c0b394adcb7956c1a02596ff47e2b5}{getPool}}()}
+\DoxyCodeLine{00100\ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *(\_ComponentManager.getPool<T>());}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{comment}{//[[deprecated("{}Use\ view<T>()\ instead"{})]]}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_component_pool}{ComponentPool<T>}}\&\ \mbox{\hyperlink{class_scene_manager_a2cb1d155e23a0b4d19825625da482726}{getPool}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00113\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *(\_ComponentManager.getPool<T>());}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00124\ \ \ \ \ T\&\ \mbox{\hyperlink{class_scene_manager_a4821427bccae0f73f183166ce98dd4e6}{getComponent}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_entity}{Entity}}\&\ entt)}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ entt\_id\ =\ entt.getID();}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_ComponentManager.getComponent<T>(entt\_id);}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00137\ \ \ \ \ T\&\ \mbox{\hyperlink{class_scene_manager_a965e1fa4944c26bb1135481b8ecbf5dc}{getComponent}}(EntityID\ entt)}
+\DoxyCodeLine{00138\ \ \ \ \ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_ComponentManager.getComponent<T>(entt);}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00150\ \ \ \ \ T\&\ \mbox{\hyperlink{class_scene_manager_a3c9ffa2ad1ca2198f6047613e3dfd4bf}{addComponent}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_entity}{Entity}}\&\ entt)}
+\DoxyCodeLine{00151\ \ \ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ entt\_id\ =\ entt.getID();}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_scene_manager_a3c9ffa2ad1ca2198f6047613e3dfd4bf}{addComponent<T>}}(entt\_id);}
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00163\ \ \ \ \ T\&\ \mbox{\hyperlink{class_scene_manager_a047a4a8611ded5a4b8958316223e1dca}{addComponent}}(EntityID\ entt)}
+\DoxyCodeLine{00164\ \ \ \ \ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \_entityManager.registerComponent(entt,\ Family::type\_id<T>());}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_ComponentManager.addComponent<T>(entt);}
+\DoxyCodeLine{00167\ \ \ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ removeComponent(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_entity}{Entity}}\&\ entt)}
+\DoxyCodeLine{00171\ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ removeComponent<T>(entt.getID());}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{void}\ removeComponent(EntityID\ entt)}
+\DoxyCodeLine{00177\ \ \ \ \ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \_entityManager.unregisterComponent(entt,\ Family::type\_id<T>());}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \_ComponentManager.removeComponent<T>(entt);}
+\DoxyCodeLine{00180\ \ \ \ \ \}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{bool}\ hasComponent(\textcolor{keyword}{const}\ Entity\&\ entt)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00184\ \ \ \ \ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ entt.hasComponent(Family::type\_id<T>());}
+\DoxyCodeLine{00186\ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordtype}{bool}\ hasComponent(EntityID\ entt)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00189\ \ \ \ \ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_entityManager.get(entt).hasComponent(Family::type\_id<T>());}
+\DoxyCodeLine{00191\ \ \ \ \ \}}
+\DoxyCodeLine{00192\ ;}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{const}\ Entity\&\ \mbox{\hyperlink{class_scene_manager_a7e3ec01405d4273e8ce6e5c3b743d6d8}{getEntity}}(EntityID\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ pools()\ const\ noexcept}
+\DoxyCodeLine{00201\ \ \ \ \ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_ComponentManager.pools();}
+\DoxyCodeLine{00203\ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00206\ \ \ \ \ ComponentManager\ \_ComponentManager;}
+\DoxyCodeLine{00207\ \ \ \ \ EntityManager\ \_entityManager;}
+\DoxyCodeLine{00208\ \ \ \ \ Camera\ \_mainCamera;}
+\DoxyCodeLine{00209\ \};}
+
+\end{DoxyCode}

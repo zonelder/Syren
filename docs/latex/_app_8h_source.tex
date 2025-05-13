@@ -1,0 +1,41 @@
+\doxysection{App.\+h}
+\hypertarget{_app_8h_source}{}\label{_app_8h_source}\index{directEngin/lib/common/App.h@{directEngin/lib/common/App.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_APP\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_APP\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}core/window.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Time/Timer.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Scene/scene\_manager.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Scene/system\_manager.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}resmgr/resource\_manager.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}resmgr/scene\_context.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ std::unordered\_map<int,\ EntityID>\ \ instantiate(\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ scene,\ FbxPrefabPtr\ pPrefab);}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }App}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ App();}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{int}\ init();}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_app_a479bcc1089e84c4ead384852aad31401}{onInit}}();}
+\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ update();}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ frame();}
+\DoxyCodeLine{00024\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_window}{Window}}\ \ \ \ \ \ \ \ \ \ \ \ \_wnd;}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_scene_context}{SceneContext}}\ \ \ \ \_context;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_scene_manager}{SceneManager}}\ \ \ \ \_scene;}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_system_manager}{SystemManager}}\ \ \_systemManager;}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_timer}{Timer}}\ \_time;\textcolor{comment}{//TODO\ change\ it\ to\ Time\ class\ after\ all}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ }
+
+\end{DoxyCode}

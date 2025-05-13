@@ -1,0 +1,31 @@
+\doxysection{geometry\+\_\+cast.\+h}
+\hypertarget{geometry__cast_8h_source}{}\label{geometry__cast_8h_source}\index{directEngin/lib/common/geometry\_cast.h@{directEngin/lib/common/geometry\_cast.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_GEOMETRY\_CAST\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_GEOMETRY\_CAST\_H\_\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}App.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}math/vector3.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }Hit}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ Hit(\mbox{\hyperlink{class_entity}{Entity}}\&\ entt)\ :entt(entt.getID())\ \{\};}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{explicit}\ Hit(EntityID\ \textcolor{keywordtype}{id}):entt(\textcolor{keywordtype}{id})}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{const}\ EntityID\ entt;}
+\DoxyCodeLine{00013\ \};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_geometry_cast}{GeometryCast}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_hit}{Hit}}\ raycast(\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ scene,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ origin,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ \ dir);}
+\DoxyCodeLine{00019\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ isInsideBox(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ position,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ mibBox,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ maxBox)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ IsBoxHit(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ position,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ dir,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ mibBox,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ maxBox);}
+\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,22 @@
+\doxysection{parent\+\_\+system.\+h}
+\hypertarget{parent__system_8h_source}{}\label{parent__system_8h_source}\index{directEngin/lib/systems/parent\_system.h@{directEngin/lib/systems/parent\_system.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}scene/base\_system.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}components/parent.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}components/transform.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_parent_system}{ParentSystem}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_base_system}{BaseSystem}}}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{void}\ onFrame(\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{void}\ onUpdate(\mbox{\hyperlink{class_scene_manager}{SceneManager}}\&\ scene,\textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ setlGlobalMatrix(\mbox{\hyperlink{class_component_pool}{ComponentPool<Transform>}}\&\ trPool,\ \mbox{\hyperlink{class_component_pool}{ComponentPool<Parent>}}\&\ parentPool,EntityID\ curEntity);}
+\DoxyCodeLine{00015\ \};}
+\DoxyCodeLine{00016\ }
+
+\end{DoxyCode}

@@ -66,3 +66,4 @@ doxygen/
 pydoc/
 build/
 packages/
+docs/

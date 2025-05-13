@@ -1,0 +1,20 @@
+\doxysection{topology.\+h}
+\hypertarget{topology_8h_source}{}\label{topology_8h_source}\index{directEngin/lib/graphic/topology.h@{directEngin/lib/graphic/topology.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}IBindable.h"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }Topology:\textcolor{keyword}{public}\ \mbox{\hyperlink{class_i_bindable}{IBindable}}}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00007\ \ \ \ \ Topology()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00008\ \ \ \ \ Topology(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx,\ D3D11\_PRIMITIVE\_TOPOLOGY\ type);}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{void}\ bind(\mbox{\hyperlink{class_graphics}{Graphics}}\&\ gfx)\ \textcolor{keyword}{noexcept}\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00010\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00011\ \ \ \ \ D3D11\_PRIMITIVE\_TOPOLOGY\ p\_type\{\ D3D11\_PRIMITIVE\_TOPOLOGY\_TRIANGLELIST\ \};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \};}
+\DoxyCodeLine{00014\ }
+
+\end{DoxyCode}

@@ -1,0 +1,188 @@
+\doxysection{Vector3 Class Reference}
+\hypertarget{class_vector3}{}\label{class_vector3}\index{Vector3@{Vector3}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector3_ad53e22b52babdb90d423601f72467590}\label{class_vector3_ad53e22b52babdb90d423601f72467590} 
+{\bfseries Vector3} (float x, float y, float z)
+\item 
+\Hypertarget{class_vector3_ac190e1cd3825a7466c1287c7db02717d}\label{class_vector3_ac190e1cd3825a7466c1287c7db02717d} 
+{\bfseries Vector3} (const Direct\+X\+::\+XMVECTOR \&reg)
+\item 
+\Hypertarget{class_vector3_a73f78df313874878d57c25b803fc3143}\label{class_vector3_a73f78df313874878d57c25b803fc3143} 
+{\bfseries Vector3} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&other)=default
+\item 
+\Hypertarget{class_vector3_a0e7eb0557486b19d8c2f38c6bbe0e068}\label{class_vector3_a0e7eb0557486b19d8c2f38c6bbe0e068} 
+\mbox{\hyperlink{class_vector3}{Vector3}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&other)
+\item 
+\Hypertarget{class_vector3_a0cf3c5cca7c8c922afb1e56fb813ca58}\label{class_vector3_a0cf3c5cca7c8c922afb1e56fb813ca58} 
+{\bfseries Vector3} (\mbox{\hyperlink{class_vector3}{Vector3}} \&\&other) noexcept=default
+\item 
+\Hypertarget{class_vector3_a250cb7c1830c7e60fff08ff24d09375a}\label{class_vector3_a250cb7c1830c7e60fff08ff24d09375a} 
+\mbox{\hyperlink{class_vector3}{Vector3}} \& {\bfseries operator=} (\mbox{\hyperlink{class_vector3}{Vector3}} \&\&other) noexcept=default
+\item 
+\Hypertarget{class_vector3_a9b8e2fe4a7c9b2dc4e15003bcdd3174a}\label{class_vector3_a9b8e2fe4a7c9b2dc4e15003bcdd3174a} 
+\mbox{\hyperlink{class_vector3}{Vector3}} \& {\bfseries operator=} (const Direct\+X\+::\+XMVECTOR \&vec)
+\item 
+\Hypertarget{class_vector3_af10d87db08c2e105326b09eca0117779}\label{class_vector3_af10d87db08c2e105326b09eca0117779} 
+{\bfseries operator Direct\+X\+::\+XMVECTOR} () const
+\item 
+\Hypertarget{class_vector3_a4479a1c71f3fccdaf3295a017831fb58}\label{class_vector3_a4479a1c71f3fccdaf3295a017831fb58} 
+{\bfseries operator Direct\+X\+::\+XMVECTOR} ()
+\item 
+\Hypertarget{class_vector3_aaaa2fe26e73c6b57808d9a683e70f49f}\label{class_vector3_aaaa2fe26e73c6b57808d9a683e70f49f} 
+bool {\bfseries equal} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&other) const noexcept
+\item 
+\Hypertarget{class_vector3_aeceb6a8c7193af99a3a21c781a34c9b5}\label{class_vector3_aeceb6a8c7193af99a3a21c781a34c9b5} 
+\mbox{\hyperlink{class_vector3}{Vector3}} \& {\bfseries operator+=} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&other) noexcept
+\item 
+\Hypertarget{class_vector3_a5ceb28fc3b8073a434c01d76eb681dde}\label{class_vector3_a5ceb28fc3b8073a434c01d76eb681dde} 
+\mbox{\hyperlink{class_vector3}{Vector3}} \& {\bfseries operator-\/=} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&other) noexcept
+\item 
+\Hypertarget{class_vector3_a5a8cd2af2284a0a6f201461d1495499e}\label{class_vector3_a5a8cd2af2284a0a6f201461d1495499e} 
+\mbox{\hyperlink{class_vector3}{Vector3}} \& {\bfseries operator\texorpdfstring{$\ast$}{*}=} (float scalar) noexcept
+\item 
+\Hypertarget{class_vector3_a26ad52dcf0eeb0c281161900dbf235e6}\label{class_vector3_a26ad52dcf0eeb0c281161900dbf235e6} 
+\mbox{\hyperlink{class_vector3}{Vector3}} \& {\bfseries operator/=} (float acalar) noexcept
+\item 
+\Hypertarget{class_vector3_ae4240e8c4b6cafd288c9e0be8baf6cd8}\label{class_vector3_ae4240e8c4b6cafd288c9e0be8baf6cd8} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries operator-\/} () const noexcept
+\item 
+\Hypertarget{class_vector3_a768c78f9654ef528058bcd08afc8ae84}\label{class_vector3_a768c78f9654ef528058bcd08afc8ae84} 
+float {\bfseries dot} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v) const noexcept
+\item 
+\Hypertarget{class_vector3_abdda2caf1584a0d59937503971cec1b1}\label{class_vector3_abdda2caf1584a0d59937503971cec1b1} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries cross} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v1) const noexcept
+\item 
+\Hypertarget{class_vector3_a51ea10662f7a10efc75075e9f0f592f0}\label{class_vector3_a51ea10662f7a10efc75075e9f0f592f0} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries normalized} () const \&noexcept
+\item 
+\Hypertarget{class_vector3_a8ae6892a009f50cf7a6e5a9db5e265ca}\label{class_vector3_a8ae6892a009f50cf7a6e5a9db5e265ca} 
+void {\bfseries normalize} () noexcept
+\item 
+\Hypertarget{class_vector3_a3f198b1f6c366599ddfb32a1f1c38456}\label{class_vector3_a3f198b1f6c366599ddfb32a1f1c38456} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries scale} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v) const noexcept
+\item 
+\Hypertarget{class_vector3_a614ca7a44f695de66ff73a1973d2de0f}\label{class_vector3_a614ca7a44f695de66ff73a1973d2de0f} 
+float {\bfseries magnitude} () const noexcept
+\item 
+\Hypertarget{class_vector3_ab3a96e74cef4eb391c1b55601876eb1d}\label{class_vector3_ab3a96e74cef4eb391c1b55601876eb1d} 
+float {\bfseries sqr\+Magnitude} () const noexcept
+\item 
+\Hypertarget{class_vector3_a9648fdc3a2f850f34387529f423bd74a}\label{class_vector3_a9648fdc3a2f850f34387529f423bd74a} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries clamp\+Magnitude} (float max\+Length) const noexcept
+\item 
+\Hypertarget{class_vector3_a5f1d88b44f47f8b5ca3a1cba140fd113}\label{class_vector3_a5f1d88b44f47f8b5ca3a1cba140fd113} 
+float {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index) const noexcept
+\item 
+\Hypertarget{class_vector3_a5e52379dbda01bfecdee15d3084a8b6f}\label{class_vector3_a5e52379dbda01bfecdee15d3084a8b6f} 
+float \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector3_a1f2268744fbce38ce00460430fa70061}\label{class_vector3_a1f2268744fbce38ce00460430fa70061} 
+static float {\bfseries dot} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v1, const \mbox{\hyperlink{class_vector3}{Vector3}} \&v2) noexcept
+\item 
+\Hypertarget{class_vector3_aff034116d70280c653ddbd966ff3ff11}\label{class_vector3_aff034116d70280c653ddbd966ff3ff11} 
+static \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries cross} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v1, const \mbox{\hyperlink{class_vector3}{Vector3}} \&v2) noexcept
+\item 
+\Hypertarget{class_vector3_ac612ea67b0f810264530a2502d94b981}\label{class_vector3_ac612ea67b0f810264530a2502d94b981} 
+static float {\bfseries distance} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&a, const \mbox{\hyperlink{class_vector3}{Vector3}} \&b) noexcept
+\item 
+\Hypertarget{class_vector3_a4b436d46255314cc5adfa38995860fdb}\label{class_vector3_a4b436d46255314cc5adfa38995860fdb} 
+static \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries lerp} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&a, const \mbox{\hyperlink{class_vector3}{Vector3}} \&b, float t)
+\item 
+\Hypertarget{class_vector3_ade5e03c6c064a4ec9477fd72bc4a7230}\label{class_vector3_ade5e03c6c064a4ec9477fd72bc4a7230} 
+static \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries lerp\+Unclamped} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&a, const \mbox{\hyperlink{class_vector3}{Vector3}} \&b, float t)
+\item 
+\Hypertarget{class_vector3_ab69b303c87d0c555da37c183e2600457}\label{class_vector3_ab69b303c87d0c555da37c183e2600457} 
+static \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries reflect} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&incident, const \mbox{\hyperlink{class_vector3}{Vector3}} \&normal)
+\item 
+\Hypertarget{class_vector3_a633eec01c2067c72d08d4375de1567ab}\label{class_vector3_a633eec01c2067c72d08d4375de1567ab} 
+static \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries project} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v, const \mbox{\hyperlink{class_vector3}{Vector3}} \&onto)
+\item 
+\Hypertarget{class_vector3_ac6e7981d9547e2882f965c0049eadcf8}\label{class_vector3_ac6e7981d9547e2882f965c0049eadcf8} 
+static float {\bfseries angle} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&a, const \mbox{\hyperlink{class_vector3}{Vector3}} \&b)
+\item 
+\Hypertarget{class_vector3_abce6839627d04bf803848672a75ee741}\label{class_vector3_abce6839627d04bf803848672a75ee741} 
+static \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries max} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&a, const \mbox{\hyperlink{class_vector3}{Vector3}} \&b)
+\item 
+\Hypertarget{class_vector3_af31afefc8b8a3cbe3a2301b30373f250}\label{class_vector3_af31afefc8b8a3cbe3a2301b30373f250} 
+static \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries min} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&a, const \mbox{\hyperlink{class_vector3}{Vector3}} \&b)
+\item 
+\Hypertarget{class_vector3_ae6ecc368fbed5088d6fd8fb9230496b9}\label{class_vector3_ae6ecc368fbed5088d6fd8fb9230496b9} 
+static \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries move\+Towards} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&current, const \mbox{\hyperlink{class_vector3}{Vector3}} \&target, float max\+Dist\+Delta)
+\item 
+\Hypertarget{class_vector3_a85bfe80ac2aa144f63ee1b7877535cea}\label{class_vector3_a85bfe80ac2aa144f63ee1b7877535cea} 
+static \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries scale} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&a, const \mbox{\hyperlink{class_vector3}{Vector3}} \&b)
+\item 
+\Hypertarget{class_vector3_a822dbf673ddf3e34054094598680b573}\label{class_vector3_a822dbf673ddf3e34054094598680b573} 
+static bool {\bfseries equal} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&a, const \mbox{\hyperlink{class_vector3}{Vector3}} \&b) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector3_a7e14f283aac43f6750210d015f7e6b86}\label{class_vector3_a7e14f283aac43f6750210d015f7e6b86} 
+static const \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries up}
+\item 
+\Hypertarget{class_vector3_ab3cfe72501f9796cc13fa8a3808c448d}\label{class_vector3_ab3cfe72501f9796cc13fa8a3808c448d} 
+static const \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries down}
+\item 
+\Hypertarget{class_vector3_af67f2d0154e91eeb0ec8ddcb1925409f}\label{class_vector3_af67f2d0154e91eeb0ec8ddcb1925409f} 
+static const \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries right}
+\item 
+\Hypertarget{class_vector3_a0a9674ea2cf85a698a567ca8d87dec72}\label{class_vector3_a0a9674ea2cf85a698a567ca8d87dec72} 
+static const \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries left}
+\item 
+\Hypertarget{class_vector3_a8fa074d750fcc8218b3ebd330e6ad2c3}\label{class_vector3_a8fa074d750fcc8218b3ebd330e6ad2c3} 
+static const \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries forward}
+\item 
+\Hypertarget{class_vector3_a09f376e9030e6169bb2d0c2a964f5a0a}\label{class_vector3_a09f376e9030e6169bb2d0c2a964f5a0a} 
+static const \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries back}
+\item 
+\Hypertarget{class_vector3_a35d500145dfea816aaa9e7ab12c53a91}\label{class_vector3_a35d500145dfea816aaa9e7ab12c53a91} 
+static const \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries one}
+\item 
+\Hypertarget{class_vector3_a828fab71ad9172e6fb346fc4a1f19588}\label{class_vector3_a828fab71ad9172e6fb346fc4a1f19588} 
+static const \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries zero}
+\item 
+\Hypertarget{class_vector3_a235763457fc4110244fbac3e5a0515de}\label{class_vector3_a235763457fc4110244fbac3e5a0515de} 
+static const \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries negative\+Infinity}
+\item 
+\Hypertarget{class_vector3_af7eac700ffc7c947abc416c71940c8a9}\label{class_vector3_af7eac700ffc7c947abc416c71940c8a9} 
+static const \mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries positive\+Infinity}
+\item 
+\Hypertarget{class_vector3_a57ef8ab85d97d78bfba2d0b84016c850}\label{class_vector3_a57ef8ab85d97d78bfba2d0b84016c850} 
+static constexpr float {\bfseries s\+\_\+epsilon} = 0.\+001f
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector3_ab7e44563aab6a2c1231aee03ca792b9a}\label{class_vector3_ab7e44563aab6a2c1231aee03ca792b9a} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries operator+} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v1, const \mbox{\hyperlink{class_vector3}{Vector3}} \&v2)
+\item 
+\Hypertarget{class_vector3_af6a71d8f6c8d21c22d4025faa286d396}\label{class_vector3_af6a71d8f6c8d21c22d4025faa286d396} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries operator-\/} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v1, const \mbox{\hyperlink{class_vector3}{Vector3}} \&v2)
+\item 
+\Hypertarget{class_vector3_a64b5f602687a5a95b7f3a0ca8c96b1d6}\label{class_vector3_a64b5f602687a5a95b7f3a0ca8c96b1d6} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v, float m)
+\item 
+\Hypertarget{class_vector3_a3f11242d7682bf8799e5c2aa4f2cde8f}\label{class_vector3_a3f11242d7682bf8799e5c2aa4f2cde8f} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries operator\texorpdfstring{$\ast$}{*}} (float m, const \mbox{\hyperlink{class_vector3}{Vector3}} \&v)
+\item 
+\Hypertarget{class_vector3_a95a7c5f9dac36ee883b1fc4313643568}\label{class_vector3_a95a7c5f9dac36ee883b1fc4313643568} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries operator/} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v, float d)
+\item 
+\Hypertarget{class_vector3_a2eacc4cedd9fd8b428d73313be36144d}\label{class_vector3_a2eacc4cedd9fd8b428d73313be36144d} 
+\mbox{\hyperlink{class_vector3}{Vector3}} {\bfseries operator/} (float d, const \mbox{\hyperlink{class_vector3}{Vector3}} \&v)
+\item 
+\Hypertarget{class_vector3_a41f163265cb2926e79b8e26fa8fc06d8}\label{class_vector3_a41f163265cb2926e79b8e26fa8fc06d8} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_vector3}{Vector3}} \&v1, const \mbox{\hyperlink{class_vector3}{Vector3}} \&v2)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/math/Vector3.\+h\item 
+direct\+Engin/lib/math/Vector3.\+cpp\end{DoxyCompactItemize}

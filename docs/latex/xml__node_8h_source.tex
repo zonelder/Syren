@@ -1,0 +1,205 @@
+\doxysection{xml\+\_\+node.\+h}
+\hypertarget{xml__node_8h_source}{}\label{xml__node_8h_source}\index{directEngin/lib/resmgr/xml\_node.h@{directEngin/lib/resmgr/xml\_node.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_SYREN\_XML\_NODE\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_SYREN\_XML\_NODE\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#ifndef\ NOMINMAX}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ NOMINMAX}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}pugixml/src/pugixml.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}math/vector3.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}math/quaternion.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}math/vector2.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}math/color.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ VALUE\_METHOD\_DECLARATION(type)\ type\ value(type\ def\ =\ type())\ const;}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ REF\_VALUE\_METHOD\_DECLARATION(type)\ type\ value(const\ type\&\ def\ =\ type())\ const;}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ SETVALUE\_METHOD\_DECLARATION(type)\ void\ setValue(type\ value);}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ REF\_SETVALUE\_METHOD\_DECLARATION(type)\ void\ setValue(const\ type\&\ value);}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_child_sentinel}{ChildSentinel}}\ \{\};}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_child_range}{ChildRange}};}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }XMLNode}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{using\ }base\_node\_type\ =\ pugi::xml\_node;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }ChildIterator;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ XMLNode(base\_node\_type\ pNode)}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{noexcept}(std::is\_nothrow\_copy\_constructible\_v<base\_node\_type>)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ :}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ pBaseNode\_(pNode)}
+\DoxyCodeLine{00036\ \ \ \ \ \{\}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ [[nodiscard]]\ std::string\ identifier()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00039\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pBaseNode\_.name();}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_child_range}{ChildRange}}\ childs()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ childs(\textcolor{keyword}{const}\ std::string\&\ identifier,\ std::vector<XMLNode>\&\ childs,\ \textcolor{keywordtype}{int}\ ensureSize\ =\ -\/1);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ [[nodiscard]]\ XMLNode\ child(\textcolor{keyword}{const}\ std::string\&\ identifier)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pBaseNode\_.child(identifier.c\_str());}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ [[nodiscard]]\ XMLNode\ \mbox{\hyperlink{class_x_m_l_node_a72fb446ec8814b2fbc67b826bcdbd11c}{saveGetChild}}(\textcolor{keyword}{const}\ std::string\&\ identifier)}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ child\ =\ pBaseNode\_.child(identifier.c\_str());}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!child)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ child\ =\ pBaseNode\_.append\_child(identifier.c\_str());}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ XMLNode(child);}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//<primitive\ types>}}
+\DoxyCodeLine{00064\ \ \ \ \ VALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{bool});}
+\DoxyCodeLine{00065\ \ \ \ \ VALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{int});}
+\DoxyCodeLine{00066\ \ \ \ \ VALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00067\ \ \ \ \ VALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{size\_t});}
+\DoxyCodeLine{00068\ \ \ \ \ VALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{float});}
+\DoxyCodeLine{00069\ \ \ \ \ VALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{double});}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ SETVALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{bool});}
+\DoxyCodeLine{00072\ \ \ \ \ SETVALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{int});}
+\DoxyCodeLine{00073\ \ \ \ \ SETVALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{00074\ \ \ \ \ SETVALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{size\_t});}
+\DoxyCodeLine{00075\ \ \ \ \ SETVALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{float});}
+\DoxyCodeLine{00076\ \ \ \ \ SETVALUE\_METHOD\_DECLARATION(\textcolor{keywordtype}{double});}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//</primitive\ types>}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{//<reference\ types>}}
+\DoxyCodeLine{00080\ \ \ \ \ REF\_VALUE\_METHOD\_DECLARATION(std::string);}
+\DoxyCodeLine{00081\ \ \ \ \ REF\_VALUE\_METHOD\_DECLARATION(std::wstring);}
+\DoxyCodeLine{00082\ \ \ \ \ REF\_VALUE\_METHOD\_DECLARATION(DirectX::XMFLOAT4);}
+\DoxyCodeLine{00083\ \ \ \ \ REF\_VALUE\_METHOD\_DECLARATION(\mbox{\hyperlink{class_vector3}{Vector3}});}
+\DoxyCodeLine{00084\ \ \ \ \ REF\_VALUE\_METHOD\_DECLARATION(\mbox{\hyperlink{class_quaternion}{Quaternion}});}
+\DoxyCodeLine{00085\ \ \ \ \ REF\_VALUE\_METHOD\_DECLARATION(\mbox{\hyperlink{class_vector2}{Vector2}});}
+\DoxyCodeLine{00086\ \ \ \ \ REF\_VALUE\_METHOD\_DECLARATION(DirectX::XMVECTOR);}
+\DoxyCodeLine{00087\ \ \ \ \ REF\_VALUE\_METHOD\_DECLARATION(DirectX::XMMATRIX);}
+\DoxyCodeLine{00088\ \ \ \ \ REF\_VALUE\_METHOD\_DECLARATION(DirectX::XMFLOAT4X4);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ REF\_VALUE\_METHOD\_DECLARATION(\mbox{\hyperlink{class_color}{Color}});}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ REF\_SETVALUE\_METHOD\_DECLARATION(std::string);}
+\DoxyCodeLine{00094\ \ \ \ \ REF\_SETVALUE\_METHOD\_DECLARATION(std::wstring);}
+\DoxyCodeLine{00095\ \ \ \ \ REF\_SETVALUE\_METHOD\_DECLARATION(DirectX::XMFLOAT4);}
+\DoxyCodeLine{00096\ \ \ \ \ REF\_SETVALUE\_METHOD\_DECLARATION(\mbox{\hyperlink{class_vector3}{Vector3}});}
+\DoxyCodeLine{00097\ \ \ \ \ REF\_SETVALUE\_METHOD\_DECLARATION(\mbox{\hyperlink{class_quaternion}{Quaternion}});}
+\DoxyCodeLine{00098\ \ \ \ \ REF\_SETVALUE\_METHOD\_DECLARATION(\mbox{\hyperlink{class_vector2}{Vector2}});}
+\DoxyCodeLine{00099\ \ \ \ \ REF\_SETVALUE\_METHOD\_DECLARATION(DirectX::XMVECTOR);}
+\DoxyCodeLine{00100\ \ \ \ \ REF\_SETVALUE\_METHOD\_DECLARATION(DirectX::XMMATRIX);}
+\DoxyCodeLine{00101\ \ \ \ \ REF\_SETVALUE\_METHOD\_DECLARATION(DirectX::XMFLOAT4X4);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ REF\_SETVALUE\_METHOD\_DECLARATION(\mbox{\hyperlink{class_color}{Color}});}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{comment}{//</reference\ types>}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{operator}\ bool()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00108\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pBaseNode\_;}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00113\ \ \ \ \ T\ value(\textcolor{keyword}{const}\ T\&\ def\ =\ T())\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00114\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value(def);}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{auto}\ text()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00120\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{const\_cast<}base\_node\_type\&\textcolor{keyword}{>}(pBaseNode\_).text();}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ base\_node\_type\ pBaseNode\_;}
+\DoxyCodeLine{00125\ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{keyword}{class\ }ChildIterator}
+\DoxyCodeLine{00128\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{using\ }base\_node\_type\ =\ XMLNode::base\_node\_type;}
+\DoxyCodeLine{00130\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00131\ \ \ \ \ ChildIterator(base\_node\_type\ pNode)}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keyword}{noexcept}(std::is\_nothrow\_copy\_constructible\_v<base\_node\_type>)}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ :}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ xmlNode\_(pNode.first\_child())}
+\DoxyCodeLine{00135\ \ \ \ \ \{\}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ ChildIterator\&\ operator++()}
+\DoxyCodeLine{00139\ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ pBaseNode()\ =\ pBaseNode().next\_sibling();}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ \ \ \ \ ChildIterator\ operator++(\textcolor{keywordtype}{int})}
+\DoxyCodeLine{00144\ \ \ \ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ copy\ =\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ ++(*this);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ copy;}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ ChildIterator\&\ a,\ \textcolor{keyword}{const}\ ChildIterator\&\ b)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ ChildIterator\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_child_sentinel}{ChildSentinel}}\&)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_child_sentinel}{ChildSentinel}}\&,\ \textcolor{keyword}{const}\ ChildIterator\&\ a)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\&\ operator*()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00157\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{const\_cast<}\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\&\textcolor{keyword}{>}(xmlNode\_);}
+\DoxyCodeLine{00159\ \ \ \ \ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{class_x_m_l_node}{XMLNode}}*\ operator-\/>()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00162\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{const\_cast<}\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}*\textcolor{keyword}{>}(\&xmlNode\_);}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00167\ \ \ \ \ base\_node\_type\&\ pBaseNode()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00168\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{const\_cast<}base\_node\_type\&\textcolor{keyword}{>}(xmlNode\_.pBaseNode\_);}
+\DoxyCodeLine{00170\ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ xmlNode\_;}
+\DoxyCodeLine{00173\ \};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{keyword}{class\ }ChildRange}
+\DoxyCodeLine{00176\ \{}
+\DoxyCodeLine{00177\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00178\ \ \ \ \ ChildRange(\mbox{\hyperlink{class_child_iterator}{ChildIterator}}\ begin)\ :\ begin\_(begin)\ \{\};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{auto}\ begin()}
+\DoxyCodeLine{00181\ \ \ \ \ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ begin\_;}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ end()}
+\DoxyCodeLine{00186\ \ \ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_child_sentinel}{ChildSentinel}}\{\};}
+\DoxyCodeLine{00188\ \ \ \ \ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00192\ \ \ \ \ \mbox{\hyperlink{class_child_iterator}{ChildIterator}}\ begin\_;}
+\DoxyCodeLine{00193\ \};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#undef\ VALUE\_METHOD\_DECLARATION}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#undef\ REF\_VALUE\_METHOD\_DECLARATION}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#undef\ SETVALUE\_METHOD\_DECLARATION}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#undef\ REF\_SETVALUE\_METHOD\_DECLARATION}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#endif\ }}
+
+\end{DoxyCode}

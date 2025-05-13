@@ -1,0 +1,347 @@
+\doxysection{matrix4x4.\+h}
+\hypertarget{matrix4x4_8h_source}{}\label{matrix4x4_8h_source}\index{directEngin/lib/math/matrix4x4.h@{directEngin/lib/math/matrix4x4.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_MATRIX\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_MATRIX\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}quaternion.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}vector3.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}vector4.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }Matrix4x4}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{alignas}(16)\ DirectX::XMMATRIX\ \_matrix;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ Matrix4x4()\ noexcept\ :\ \_matrix(DirectX::XMMatrixIdentity())\ \{\}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{explicit}\ Matrix4x4(DirectX::XMMATRIX\ matrix)\ noexcept\ :\ \_matrix(matrix)\ \{\}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ rotation()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ scale()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00020\ \ \ \ \ Matrix4x4\ transpose()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00021\ \ \ \ \ Matrix4x4\ inverse()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ translation()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_vector4}{Vector4}}\ getRow(\textcolor{keywordtype}{int}\ index)\ \ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_vector4}{Vector4}}\ getColumn(\textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ setRow(\textcolor{keywordtype}{int}\ index,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector4}{Vector4}}\&\ row)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ setRow(\textcolor{keywordtype}{int}\ index,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ row)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ setColumn(\textcolor{keywordtype}{int}\ index,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector4}{Vector4}}\&\ column)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ forward()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ up()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ right()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{bool}\ isValidTRS()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{bool}\ isIdentity()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ setTRS(}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ translation,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ rotationQuat,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ scale)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{float}\ determinant()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ multiplyPoint(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ point)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ multiplyPoint3x4(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ point)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ multiplyVector(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ direction)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ Matrix4x4\ operator*(\textcolor{keyword}{const}\ Matrix4x4\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{class_vector4}{Vector4}}\ operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector4}{Vector4}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00050\ \ \ \ \ Matrix4x4\&\ operator*=(\textcolor{keyword}{const}\ Matrix4x4\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00051\ \ \ \ \ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ Matrix4x4\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{operator}\ DirectX::XMMATRIX()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_matrix;\ \};}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{operator}\ DirectX::XMMATRIX()\ \textcolor{keyword}{noexcept}\ \{\ \textcolor{keywordflow}{return}\ \_matrix;\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ Matrix4x4\ TRS(}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ translation,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ rotationQuat,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ scale)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{static}\ Matrix4x4\ translate(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ translation)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{static}\ Matrix4x4\ rotate(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ rotation)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ Matrix4x4\ scale(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ scale)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{static}\ Matrix4x4\ frustum(\textcolor{keywordtype}{float}\ left,\ \textcolor{keywordtype}{float}\ right,\ \textcolor{keywordtype}{float}\ bottom,\ \textcolor{keywordtype}{float}\ top,\ \textcolor{keywordtype}{float}\ zNear,\ \textcolor{keywordtype}{float}\ zFar)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ inverse3DAffine(\textcolor{keyword}{const}\ Matrix4x4\&\ input,\ Matrix4x4\&\ result)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{static}\ Matrix4x4\ lookAt(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ from,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ to,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ up)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{static}\ Matrix4x4\ ortho(\textcolor{keywordtype}{float}\ left,\ \textcolor{keywordtype}{float}\ right,\ \textcolor{keywordtype}{float}\ bottom,\ \textcolor{keywordtype}{float}\ top,\ \textcolor{keywordtype}{float}\ zNear,\ \textcolor{keywordtype}{float}\ zFar)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ Matrix4x4\ perspective(\textcolor{keywordtype}{float}\ fov,\ \textcolor{keywordtype}{float}\ aspect,\ \textcolor{keywordtype}{float}\ zNear,\ \textcolor{keywordtype}{float}\ zFar)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Matrix4x4\ identity;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Matrix4x4\ zero;}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00077\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}(DirectX::XMMatrixMultiply(\_matrix,\ other.\_matrix));}
+\DoxyCodeLine{00079\ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector4}{Vector4}}\ Matrix4x4::operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector4}{Vector4}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_vector4}{Vector4}}(DirectX::XMVector4Transform(other,\ \_matrix));}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\&\ Matrix4x4::operator*=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\&\ other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00087\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \_matrix\ =\ DirectX::XMMatrixMultiply(\_matrix,\ other.\_matrix);}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00090\ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Matrix4x4::operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00093\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ eps\ =\ DirectX::XMVectorReplicate(0.01f);}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ 4;\ ++i)}
+\DoxyCodeLine{00096\ \ \ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!DirectX::XMVector4NearEqual(\_matrix.r[i],\ other.\_matrix.r[i],\ eps))}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00101\ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Matrix4x4::setTRS(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ translation,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ rotation,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ scale)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00104\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \_matrix\ =\ DirectX::XMMatrixAffineTransformation(}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ scale,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ DirectX::XMVectorZero(),}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ rotation,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ translation}
+\DoxyCodeLine{00110\ \ \ \ \ );}
+\DoxyCodeLine{00111\ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::TRS(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ translation,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ rotation,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ scale)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00114\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}(DirectX::XMMatrixAffineTransformation(}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ scale,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ DirectX::XMVectorZero(),}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ rotation,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ translation}
+\DoxyCodeLine{00120\ \ \ \ \ ));}
+\DoxyCodeLine{00121\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Matrix4x4::determinant()\ const\ noexcept}
+\DoxyCodeLine{00124\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{return}\ DirectX::XMVectorGetX(DirectX::XMMatrixDeterminant(\_matrix));}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector3}{Vector3}}\ Matrix4x4::multiplyPoint(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ point)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00129\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ DirectX::XMVECTOR\ v\ =\ DirectX::XMVectorSetW(point,\ 1.0f);}
+\DoxyCodeLine{00131\ \ \ \ \ DirectX::XMVECTOR\ result\ =\ DirectX::XMVector4Transform(v,\ \_matrix);}
+\DoxyCodeLine{00132\ \ \ \ \ result\ =\ DirectX::XMVectorDivide(result,\ DirectX::XMVectorSplatW(result));}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_vector3}{Vector3}}(result);}
+\DoxyCodeLine{00134\ \}}
+\DoxyCodeLine{00135\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector3}{Vector3}}\ Matrix4x4::multiplyPoint3x4(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ point)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00136\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_vector3}{Vector3}}(DirectX::XMVector3Transform(point,\ \_matrix));}
+\DoxyCodeLine{00138\ \}}
+\DoxyCodeLine{00139\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector3}{Vector3}}\ Matrix4x4::multiplyVector(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ direction)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ }
+\DoxyCodeLine{00140\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_vector3}{Vector3}}(DirectX::XMVector3TransformNormal(direction,\ \_matrix));}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::transpose()\ const\ noexcept}
+\DoxyCodeLine{00145\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{return}\ Matrix4x4(DirectX::XMMatrixTranspose(\_matrix));}
+\DoxyCodeLine{00147\ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::inverse()\ const\ noexcept}
+\DoxyCodeLine{00150\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{return}\ Matrix4x4(DirectX::XMMatrixInverse(\textcolor{keyword}{nullptr},\_matrix));}
+\DoxyCodeLine{00152\ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector3}{Vector3}}\ Matrix4x4::translation()\ const\ noexcept}
+\DoxyCodeLine{00155\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{const}\ DirectX::XMVECTOR\&\ row3\ =\ \_matrix.r[3];\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{const}\ DirectX::XMVECTOR\ wVec\ =\ DirectX::XMVectorSplatW(row3);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{const}\ DirectX::XMVECTOR\ zeroMask\ =\ DirectX::XMVectorEqual(wVec,\ DirectX::XMVectorZero());}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{const}\ DirectX::XMVECTOR\ safeDivided\ =\ DirectX::XMVectorSelect(}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ DirectX::XMVectorDivide(row3,\ wVec),\ \ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ DirectX::XMVectorZero(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ zeroMask}
+\DoxyCodeLine{00165\ \ \ \ \ );}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{return}\ Vector3(safeDivided);}
+\DoxyCodeLine{00168\ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector3}{Vector3}}\ Matrix4x4::scale()\ const\ noexcept}
+\DoxyCodeLine{00171\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ DirectX::XMVECTOR\ x\ =\ DirectX::XMVector3Length(\_matrix.r[0]);}
+\DoxyCodeLine{00173\ \ \ \ \ DirectX::XMVECTOR\ y\ =\ DirectX::XMVector3Length(\_matrix.r[1]);}
+\DoxyCodeLine{00174\ \ \ \ \ DirectX::XMVECTOR\ z\ =\ DirectX::XMVector3Length(\_matrix.r[2]);}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{return}\ Vector3(}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ DirectX::XMVectorGetX(x),}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ DirectX::XMVectorGetY(y),}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ DirectX::XMVectorGetZ(z)}
+\DoxyCodeLine{00180\ \ \ \ \ );}
+\DoxyCodeLine{00181\ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::translate(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ translation)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00184\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}(DirectX::XMMatrixTranslationFromVector(translation));}
+\DoxyCodeLine{00186\ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::rotate(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ q)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00189\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}(DirectX::XMMatrixRotationQuaternion(q));}
+\DoxyCodeLine{00191\ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::scale(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ s)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00194\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}(DirectX::XMMatrixScalingFromVector(s));}
+\DoxyCodeLine{00196\ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::perspective(\textcolor{keywordtype}{float}\ fov,\ \textcolor{keywordtype}{float}\ aspect,\ \textcolor{keywordtype}{float}\ zNear,\ \textcolor{keywordtype}{float}\ zFar)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00200\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//\ Конвертируем градусы в радианы}}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordtype}{float}\ fovRadians\ =\ DirectX::XMConvertToRadians(fov);}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{comment}{//\ Создаем матрицу\ для\ right-\/handed\ системы\ координат}}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}(DirectX::XMMatrixPerspectiveFovLH(}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ fovRadians,}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ aspect,}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ zNear,}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ zFar}
+\DoxyCodeLine{00210\ \ \ \ \ ));}
+\DoxyCodeLine{00211\ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::frustum(\textcolor{keywordtype}{float}\ left,\ \textcolor{keywordtype}{float}\ right,\ \textcolor{keywordtype}{float}\ bottom,\ \textcolor{keywordtype}{float}\ top,\ \textcolor{keywordtype}{float}\ zNear,\ \textcolor{keywordtype}{float}\ zFar)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00214\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}(DirectX::XMMatrixPerspectiveOffCenterLH(left,\ right,\ bottom,\ top,\ zNear,\ zFar));}
+\DoxyCodeLine{00216\ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Matrix4x4::inverse3DAffine(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\&\ input,\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\&\ output)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00219\ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keyword}{using\ namespace\ }DirectX;}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ XMVECTOR\ scale,\ rotationQuat,\ translation;}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{if}\ (!XMMatrixDecompose(\&scale,\ \&rotationQuat,\ \&translation,\ input.\_matrix))}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordflow}{if}\ (XMVector4NearEqual(scale,\ XMVectorZero(),\ XMVectorReplicate(1e-\/6f)))}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ XMMATRIX\ invTranslate\ =\ XMMatrixTranslationFromVector(-\/translation);}
+\DoxyCodeLine{00230\ \ \ \ \ XMVECTOR\ invRotation\ =\ XMQuaternionInverse(rotationQuat);}
+\DoxyCodeLine{00231\ \ \ \ \ XMMATRIX\ invScale\ =\ XMMatrixScalingFromVector(XMVectorReciprocal(scale));}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ output.\_matrix\ =\ invTranslate*\ XMMatrixRotationQuaternion(invRotation)\ *\ invScale;}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00236\ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::ortho(\textcolor{keywordtype}{float}\ left,\ \textcolor{keywordtype}{float}\ right,\ \textcolor{keywordtype}{float}\ bottom,\ \textcolor{keywordtype}{float}\ top,\ \textcolor{keywordtype}{float}\ zNear,\ \textcolor{keywordtype}{float}\ zFar)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00239\ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}(DirectX::XMMatrixOrthographicOffCenterLH(left,\ right,\ bottom,\ top,\ zNear,\ zFar));}
+\DoxyCodeLine{00241\ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\ Matrix4x4::lookAt(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ from,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ to,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ up\ =\ Vector3::up)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00244\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}(DirectX::XMMatrixLookAtLH(from,\ to,\ up));}
+\DoxyCodeLine{00246\ \}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Matrix4x4::rotation()\ const\ noexcept}
+\DoxyCodeLine{00249\ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keyword}{auto}\ scale\ =\ this-\/>scale();}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordflow}{if}\ (DirectX::XMVector4NearEqual(scale,\ DirectX::XMVectorZero(),}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ DirectX::XMVectorReplicate(0.001f)))\ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Quaternion::identity;}
+\DoxyCodeLine{00254\ \ \ \ \ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ DirectX::XMVECTOR\ v0\ =\ DirectX::XMVectorDivide(\_matrix.r[0],\ scale);}
+\DoxyCodeLine{00257\ \ \ \ \ DirectX::XMVECTOR\ v1\ =\ DirectX::XMVectorDivide(\_matrix.r[1],\ scale);}
+\DoxyCodeLine{00258\ \ \ \ \ DirectX::XMVECTOR\ v2\ =\ DirectX::XMVectorDivide(\_matrix.r[2],\ scale);}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ DirectX::XMMATRIX\ rotMatrix\ =\ \{\ v0,\ v1,\ v2,\ \_matrix.r[3]\ \};}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keywordflow}{return}\ Quaternion(DirectX::XMQuaternionRotationMatrix(rotMatrix));}
+\DoxyCodeLine{00263\ \}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Matrix4x4::setRow(\textcolor{keywordtype}{int}\ index,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector4}{Vector4}}\&\ row)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00266\ \{}
+\DoxyCodeLine{00267\ \ \ \ \ assert(index\ >=\ 0\ \&\&\ index\ <\ 4);}
+\DoxyCodeLine{00268\ \ \ \ \ \_matrix.r[index]\ =\ row;}
+\DoxyCodeLine{00269\ \}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Matrix4x4::setRow(\textcolor{keywordtype}{int}\ index,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ row)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00272\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ assert(index\ >=\ 0\ \&\&\ index\ <\ 4);}
+\DoxyCodeLine{00274\ \ \ \ \ \_matrix.r[index]\ =\ DirectX::XMVectorSet(row[0],\ row[1],\ row[2],\ 0.0f);}
+\DoxyCodeLine{00275\ \}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector4}{Vector4}}\ Matrix4x4::getRow(\textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00278\ \{}
+\DoxyCodeLine{00279\ \ \ \ \ assert(index\ >=\ 0\ \&\&\ index\ <\ 4);}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_vector4}{Vector4}}(\_matrix.r[index]);}
+\DoxyCodeLine{00281\ \}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector4}{Vector4}}\ Matrix4x4::getColumn(\textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00284\ \ \ \ \ assert(index\ >=\ 0\ \&\&\ index\ <\ 4);}
+\DoxyCodeLine{00285\ \ \ \ \ DirectX::XMVECTOR\ c\ =\ DirectX::XMVectorSet(}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ DirectX::XMVectorGetByIndex(\_matrix.r[0],\ index),}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ DirectX::XMVectorGetByIndex(\_matrix.r[1],\ index),}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ DirectX::XMVectorGetByIndex(\_matrix.r[2],\ index),}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ DirectX::XMVectorGetByIndex(\_matrix.r[3],\ index)}
+\DoxyCodeLine{00290\ \ \ \ \ );}
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_vector4}{Vector4}}(c);}
+\DoxyCodeLine{00292\ \}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Matrix4x4::setColumn(\textcolor{keywordtype}{int}\ index,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector4}{Vector4}}\&\ column)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00295\ \ \ \ \ assert(index\ >=\ 0\ \&\&\ index\ <\ 4);}
+\DoxyCodeLine{00296\ \ \ \ \ \_matrix.r[0]\ =\ DirectX::XMVectorSetByIndex(\_matrix.r[0],\ DirectX::XMVectorGetX(column),\ index);}
+\DoxyCodeLine{00297\ \ \ \ \ \_matrix.r[1]\ =\ DirectX::XMVectorSetByIndex(\_matrix.r[1],\ DirectX::XMVectorGetY(column),\ index);}
+\DoxyCodeLine{00298\ \ \ \ \ \_matrix.r[2]\ =\ DirectX::XMVectorSetByIndex(\_matrix.r[2],\ DirectX::XMVectorGetZ(column),\ index);}
+\DoxyCodeLine{00299\ \ \ \ \ \_matrix.r[3]\ =\ DirectX::XMVectorSetByIndex(\_matrix.r[3],\ DirectX::XMVectorGetW(column),\ index);}
+\DoxyCodeLine{00300\ \}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Matrix4x4::isValidTRS()\ const\ noexcept}
+\DoxyCodeLine{00304\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ DirectX::XMVECTORF32\ lastRowCheck\ =\ \{\ 0,0,0,1\ \};}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keywordflow}{if}\ (!DirectX::XMVector4Equal(getColumn(3),\ lastRowCheck))}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ DirectX::XMVECTOR\ det\ =\ DirectX::XMMatrixDeterminant(\_matrix);}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordflow}{if}\ (DirectX::XMVector4NearEqual(det,\ DirectX::XMVectorZero(),}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ DirectX::XMVectorReplicate(1e-\/6f)))}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Matrix4x4::isIdentity()\ const\ noexcept}
+\DoxyCodeLine{00319\ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keyword}{const}\ DirectX::XMVECTOR\ eps\ =\ DirectX::XMVectorReplicate(0.001f);}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ DirectX::XMVector4NearEqual(\_matrix.r[0],\ DirectX::g\_XMIdentityR0,\ eps)\ \&\&}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ DirectX::XMVector4NearEqual(\_matrix.r[1],\ DirectX::g\_XMIdentityR1,\ eps)\ \&\&}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ DirectX::XMVector4NearEqual(\_matrix.r[2],\ DirectX::g\_XMIdentityR2,\ eps)\ \&\&}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ DirectX::XMVector4NearEqual(\_matrix.r[3],\ DirectX::g\_XMIdentityR3,\ eps);}
+\DoxyCodeLine{00326\ \};}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \textcolor{keyword}{inline}\ std::ostream\&\ operator<<(std::ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_matrix4x4}{Matrix4x4}}\&\ m)\ \{}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ ++i)\ }
+\DoxyCodeLine{00331\ \ \ \ \ \{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_vector4}{Vector4}}\ row\ =\ m.getRow(i);}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}[\ "{}}}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ row[0]\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ row[1]\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ row[2]\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ row[3]}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ ]\(\backslash\)n"{}};}
+\DoxyCodeLine{00336\ \ \ \ \ \}}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00338\ \}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00341\ }
+
+\end{DoxyCode}

@@ -1,0 +1,343 @@
+\doxysection{quaternion.\+h}
+\hypertarget{quaternion_8h_source}{}\label{quaternion_8h_source}\index{directEngin/lib/math/quaternion.h@{directEngin/lib/math/quaternion.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_QUATERNION\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_QUATERNION\_H\_\_}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <DirectXMath.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}vector3.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <numbers>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\textcolor{keyword}{alignas}(16)\ Quaternion}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Quaternion\ s\_qepsilon;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00012\ \ \ \ \ \{\ }
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\textcolor{keyword}{alignas}(16)\ \{\ \textcolor{keywordtype}{float}\ x,\ y,\ z,\ w;\ \};}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ DirectX::XMVECTOR\ \_vec;}
+\DoxyCodeLine{00015\ \ \ \ \ \};}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ Quaternion()\ noexcept\ :\_vec(DirectX::XMQuaternionIdentity())\{\}}
+\DoxyCodeLine{00018\ \ \ \ \ Quaternion(\textcolor{keywordtype}{float}\ px,\textcolor{keywordtype}{float}\ py,\textcolor{keywordtype}{float}\ pz,\textcolor{keywordtype}{float}\ pw\ )\ noexcept\ :\ x(px),y(py),z(pz),w(pw)\{\}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{explicit}\ Quaternion(\textcolor{keyword}{const}\ DirectX::XMVECTOR\&\ vec)\ noexcept\ :\ \_vec(vec)\{\}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{explicit}\ Quaternion(DirectX::XMVECTOR\&\&\ vec)\ noexcept\ :\_vec(std::move(vec))\ \{\};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ Quaternion(Quaternion\&\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00023\ \ \ \ \ Quaternion\&\ operator=(Quaternion\&\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ Quaternion(\textcolor{keyword}{const}\ Quaternion\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00026\ \ \ \ \ Quaternion\&\ operator=(\textcolor{keyword}{const}\ Quaternion\&\ other)\ \textcolor{keyword}{noexcept}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00027\ \ \ \ \ Quaternion\&\ operator=(\textcolor{keyword}{const}\ DirectX::XMVECTOR\&\ vec)\ \textcolor{keyword}{noexcept}\ \{\ \_vec\ =\ vec;\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \};}
+\DoxyCodeLine{00028\ \ \ \ \ Quaternion\&\ operator=(DirectX::XMVECTOR\&\&\ vec)\ \textcolor{keyword}{noexcept}\ \{\ \_vec\ =\ std::move(vec);\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{operator}\ DirectX::XMVECTOR()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_vec;\ \};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{operator}\ DirectX::XMVECTOR()\ \{\ \textcolor{keywordflow}{return}\ \_vec;\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ Quaternion\ operator*(\textcolor{keyword}{const}\ Quaternion\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ point)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ Quaternion\&\ lhs,\textcolor{keyword}{const}\ Quaternion\&\ rhs)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ Quaternion\&\ operator*=(\textcolor{keyword}{const}\ Quaternion\&\ other)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ Quaternion\ euler(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ Quaternion\ euler(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ angles)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ Quaternion\ angleAxis(\textcolor{keywordtype}{float}\ angle,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ axis)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{static}\ Quaternion\ lookRotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ forward,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ upward\ =\ Vector3::up)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ Quaternion\ fromToRotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ fromDirection,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ toDirection)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ dot(\textcolor{keyword}{const}\ Quaternion\&\ q1,\ \textcolor{keyword}{const}\ Quaternion\&\ q2)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ angle(\textcolor{keyword}{const}\ Quaternion\&\ a,\ \textcolor{keyword}{const}\ Quaternion\&\ b)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ Quaternion\ rotateTowards(\textcolor{keyword}{const}\ Quaternion\&\ a,\ \textcolor{keyword}{const}\ Quaternion\&\ b,\ \textcolor{keywordtype}{float}\ maxDelta)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static}\ Quaternion\ lerp(\textcolor{keyword}{const}\ Quaternion\&\ a,\ \textcolor{keyword}{const}\ Quaternion\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ Quaternion\ lerpUnclamped(\textcolor{keyword}{const}\ Quaternion\&\ a,\ \textcolor{keyword}{const}\ Quaternion\&\ b,\ \textcolor{keywordtype}{float}\ t)\textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ Quaternion\ slerp(\textcolor{keyword}{const}\ Quaternion\&\ a,\ \textcolor{keyword}{const}\ Quaternion\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ Quaternion\ slerpUnclamped(\textcolor{keyword}{const}\ Quaternion\&\ a,\ \textcolor{keyword}{const}\ Quaternion\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ equal(\textcolor{keyword}{const}\ Quaternion\&\ q1,\ \textcolor{keyword}{const}\ Quaternion\&\ q2)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ invert()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00057\ \ \ \ \ Quaternion\ inverse()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00058\ \ \ \ \ Quaternion\ conjugated()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ eulerAngles()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{float}\ angle()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{class_vector3}{Vector3}}\ axis()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{float}\ magnitude()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{float}\ sqrMagnitude()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ normalize()\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00067\ \ \ \ \ Quaternion\ normalized()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{float}\ dot(\textcolor{keyword}{const}\ Quaternion\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ setFromToRotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ fromDirection,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ toDirection)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ setLookRotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ forward,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ upward\ =\ Vector3::up)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ toAngleAxis(\textcolor{keywordtype}{float}\ angle,\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ axis)\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ equal(\textcolor{keyword}{const}\ Quaternion\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{float}\ operator[](\textcolor{keywordtype}{size\_t}\ index)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00078\ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ assert(index\ <\ 4\ \&\&\ \textcolor{stringliteral}{"{}Quaternion\ index\ out\ of\ bound."{}});}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\&x)[index];}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Quaternion\ identity;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00089\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ eps\ =\ DirectX::XMVectorReplicate(Vector3::s\_epsilon);}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ DirectX::XMVector4NearEqual(lhs.\_vec,\ rhs.\_vec,\ eps);}
+\DoxyCodeLine{00092\ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00096\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMQuaternionMultiply(\_vec,\ other.\_vec));}
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector3}{Vector3}}\ Quaternion::operator*(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ point)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00101\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_vector3}{Vector3}}(DirectX::XMVector3Rotate(point,\ \_vec));}
+\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ Quaternion::operator*=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00106\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \_vec\ =\ DirectX::XMQuaternionMultiply(\_vec,\ other.\_vec);}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::euler(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z)\textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00112\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ DirectX::XMVECTOR\ angles\ =\ DirectX::XMVectorSet(}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ DirectX::XMConvertToRadians(x),}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ DirectX::XMConvertToRadians(y),}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ DirectX::XMConvertToRadians(z),}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ 0.0f}
+\DoxyCodeLine{00118\ \ \ \ \ );}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMQuaternionRotationRollPitchYawFromVector(angles));}
+\DoxyCodeLine{00120\ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::Quaternion::euler(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ a)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00123\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ DirectX::XMVECTOR\ angles\ =\ DirectX::XMVectorSet(}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ DirectX::XMConvertToRadians(a[0]),}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ DirectX::XMConvertToRadians(a[1]),}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ DirectX::XMConvertToRadians(a[2]),}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ 0.0f}
+\DoxyCodeLine{00129\ \ \ \ \ );}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMQuaternionRotationRollPitchYawFromVector(angles));}
+\DoxyCodeLine{00131\ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::angleAxis(\textcolor{keywordtype}{float}\ angle,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ axis)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00134\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{float}\ radians\ =\ DirectX::XMConvertToRadians(angle);}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMQuaternionRotationAxis(axis,\ radians));}
+\DoxyCodeLine{00137\ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Quaternion::toAngleAxis(\textcolor{keywordtype}{float}\ angle,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ axis)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00140\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{float}\ rad\ =\ DirectX::XMConvertToRadians(angle);}
+\DoxyCodeLine{00142\ \ \ \ \ \_vec\ =\ DirectX::XMQuaternionRotationAxis(axis,\ rad);}
+\DoxyCodeLine{00143\ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::lookRotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ forward,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ upward)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00146\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ DirectX::XMMATRIX\ matrix\ =\ DirectX::XMMatrixLookToLH(Vector3::zero,\ forward,\ upward);}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMQuaternionRotationMatrix(matrix));}
+\DoxyCodeLine{00149\ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Quaternion::setLookRotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ forward,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ upward)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00152\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ DirectX::XMMATRIX\ matrix\ =\ DirectX::XMMatrixLookToLH(Vector3::zero,\ forward,\ upward);}
+\DoxyCodeLine{00154\ \ \ \ \ \_vec\ =\ DirectX::XMQuaternionRotationMatrix(matrix);}
+\DoxyCodeLine{00155\ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::inverse()\ const\ noexcept}
+\DoxyCodeLine{00158\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{return}\ Quaternion(DirectX::XMQuaternionInverse(\_vec));}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Quaternion::invert()\ noexcept}
+\DoxyCodeLine{00163\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \_vec\ =\ DirectX::XMQuaternionInverse(\_vec);}
+\DoxyCodeLine{00165\ \}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::conjugated()\ const\ noexcept}
+\DoxyCodeLine{00168\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{return}\ Quaternion(DirectX::XMQuaternionConjugate(\_vec));}
+\DoxyCodeLine{00170\ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Quaternion::dot(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ q)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00173\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{return}\ DirectX::XMVectorGetX(DirectX::XMQuaternionDot(\_vec,\ q.\_vec));}
+\DoxyCodeLine{00175\ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Quaternion::angle(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ q1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ q2)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00178\ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{float}\ t\ =\ std::clamp(q1.dot(q2),0.0f,1.0f);\textcolor{comment}{//suppose\ Quaternion.magnitude\ is\ always\ 1.0f}}
+\DoxyCodeLine{00180\ \ \ \ \ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{return}\ std::acos(t);}
+\DoxyCodeLine{00182\ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Quaternion::dot(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ q1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ q2)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00185\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordflow}{return}\ q1.dot(q2);}
+\DoxyCodeLine{00187\ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::lerp(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00190\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMVectorLerp(a.\_vec,\ b.\_vec,\ std::clamp(t,\ 0.0f,\ 1.0f)));}
+\DoxyCodeLine{00192\ \}}
+\DoxyCodeLine{00193\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::lerpUnclamped(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00194\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMVectorLerp(a.\_vec,\ b.\_vec,t));}
+\DoxyCodeLine{00196\ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::slerp(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00199\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMQuaternionSlerp(a.\_vec,\ b.\_vec,\ std::clamp(t,0.0f,1.0f)));}
+\DoxyCodeLine{00201\ \}}
+\DoxyCodeLine{00202\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::slerpUnclamped(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ b,\ \textcolor{keywordtype}{float}\ t)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00203\ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMQuaternionSlerp(a.\_vec,\ b.\_vec,t));}
+\DoxyCodeLine{00205\ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Quaternion::angle()\ const\ noexcept}
+\DoxyCodeLine{00208\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{float}\ rad\ =\ 2.0f\ *\ std::acos(w);}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{return}\ DirectX::XMConvertToDegrees(rad);}
+\DoxyCodeLine{00211\ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector3}{Vector3}}\ Quaternion::axis()\ const\ noexcept}
+\DoxyCodeLine{00214\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{float}\ s\_sq\ =\ 1.0f\ -\/\ w\ *\ w;}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{if}\ (s\_sq\ <\ 0.000001f)}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Vector3::up;}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordtype}{float}\ s\ =\ 1.0f\ /\ std::sqrt(s\_sq);}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordflow}{return}\ Vector3(x\ *\ s,\ y\ *\ s,\ z\ *\ s);}
+\DoxyCodeLine{00220\ \}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_vector3}{Vector3}}\ Quaternion::eulerAngles()\ const\ noexcept\ }
+\DoxyCodeLine{00223\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keyword}{using\ namespace\ }DirectX;}
+\DoxyCodeLine{00225\ \ \ \ \ XMMATRIX\ rotMatrix\ =\ XMMatrixRotationQuaternion(\_vec);}
+\DoxyCodeLine{00226\ \ \ \ \ XMFLOAT3X3\ mat;}
+\DoxyCodeLine{00227\ \ \ \ \ XMStoreFloat3x3(\&mat,\ rotMatrix);}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{float}\ m20\ =\ mat.\_31;}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordtype}{float}\ pitchY\ =\ asin(m20);}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{float}\ rollX\ =\ 0.0f,\ yawZ\ =\ 0.0f;}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{if}\ (fabs(m20)\ <\ 0.9999999f)\ \{\ \textcolor{comment}{//\ gimbal\ lock\ check}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ rollX\ =\ atan2(-\/mat.\_32,\ mat.\_33);\ \textcolor{comment}{//\ -\/m[2][1],\ m[2][2]}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ yawZ\ =\ atan2(-\/mat.\_21,\ mat.\_11);\ \textcolor{comment}{//\ -\/m[1][0],\ m[0][0]}}
+\DoxyCodeLine{00237\ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00239\ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ yawZ\ =\ 0.0f;}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ rollX\ =\ atan2(mat.\_12,\ mat.\_22);\ \textcolor{comment}{//\ m[0][1],\ m[1][1]}}
+\DoxyCodeLine{00242\ \ \ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{comment}{//\ Конвертируем радианы\ в градусы}}
+\DoxyCodeLine{00245\ \ \ \ \ rollX\ =\ XMConvertToDegrees(rollX);}
+\DoxyCodeLine{00246\ \ \ \ \ pitchY\ =\ XMConvertToDegrees(pitchY);}
+\DoxyCodeLine{00247\ \ \ \ \ yawZ\ =\ XMConvertToDegrees(yawZ);}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keywordflow}{return}\ Vector3(rollX,\ pitchY,\ yawZ);}
+\DoxyCodeLine{00250\ \}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::fromToRotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ fromDir,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ toDir)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00254\ \{}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keyword}{auto}\ v0\ =\ fromDir.normalized();}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keyword}{auto}\ v1\ =\ toDir.normalized();}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ cos\_theta\ =\ v0.dot(v1);}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ axis\ =\ fromDir.cross(toDir);}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordflow}{if}\ (cos\_theta\ >\ 0.9995f)}
+\DoxyCodeLine{00261\ \ \ \ \ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}();}
+\DoxyCodeLine{00263\ \ \ \ \ \}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keywordflow}{if}\ (cos\_theta\ <\ -\/0.9995f)}
+\DoxyCodeLine{00266\ \ \ \ \ \{}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMQuaternionRotationAxis(DirectX::XMVector3Orthogonal(v0),\ DirectX::XM\_PI));}
+\DoxyCodeLine{00268\ \ \ \ \ \}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle\ =\ std::acos(cos\_theta);}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}(DirectX::XMQuaternionRotationNormal(axis.normalized(),\ angle));}
+\DoxyCodeLine{00272\ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Quaternion::setFromToRotation(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ fromDir,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector3}{Vector3}}\&\ toDir)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00276\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keyword}{auto}\ v0\ =\ fromDir.normalized();}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keyword}{auto}\ v1\ =\ toDir.normalized();}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ cos\_theta\ =\ v0.dot(v1);}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ axis\ =\ fromDir.cross(toDir);}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordflow}{if}\ (cos\_theta\ >\ 0.9995f)}
+\DoxyCodeLine{00283\ \ \ \ \ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \_vec\ =\ identity.\_vec;}
+\DoxyCodeLine{00285\ \ \ \ \ \}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordflow}{if}\ (cos\_theta\ <\ -\/0.9995f)}
+\DoxyCodeLine{00288\ \ \ \ \ \{}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \_vec\ =\ DirectX::XMQuaternionRotationAxis(DirectX::XMVector3Orthogonal(v0),\ DirectX::XM\_PI);}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00291\ \ \ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle\ =\ std::acos(cos\_theta);}
+\DoxyCodeLine{00294\ \ \ \ \ \_vec\ =\ DirectX::XMQuaternionRotationNormal(axis.normalized(),\ angle);}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00296\ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::rotateTowards(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ from,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ to,\ \textcolor{keywordtype}{float}\ maxDegreeDelta)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00299\ \{}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ angle\ =\ Quaternion::angle(from,\ to);}
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{keywordflow}{if}\ (angle\ <=\ maxDegreeDelta\ ||\ angle\ ==\ 0.0f)}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ to;}
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{keywordflow}{return}\ Quaternion::slerp(from,\ to,\ maxDegreeDelta\ /\ angle);}
+\DoxyCodeLine{00304\ \}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Quaternion::magnitude()\ const\ noexcept}
+\DoxyCodeLine{00307\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{return}\ DirectX::XMVectorGetX(DirectX::XMQuaternionLength(\_vec));}
+\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ Quaternion::sqrMagnitude()\ const\ noexcept}
+\DoxyCodeLine{00312\ \{}
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{keywordflow}{return}\ DirectX::XMVectorGetX(DirectX::XMQuaternionLengthSq(\_vec));}
+\DoxyCodeLine{00314\ \}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Quaternion::normalize()\ noexcept}
+\DoxyCodeLine{00317\ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \_vec\ =\ DirectX::XMQuaternionNormalize(\_vec);}
+\DoxyCodeLine{00319\ \}}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\ Quaternion::normalized()\ const\ noexcept}
+\DoxyCodeLine{00322\ \{}
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keywordflow}{return}\ Quaternion(DirectX::XMQuaternionNormalize(\_vec));}
+\DoxyCodeLine{00324\ \}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Quaternion::equal(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ other)\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00328\ \{}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordflow}{return}\ DirectX::XMVector4Equal(\_vec,\ other.\_vec);}
+\DoxyCodeLine{00330\ \}}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ Quaternion::equal(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_quaternion}{Quaternion}}\&\ rhs)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00333\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordflow}{return}\ lhs.equal(rhs);}
+\DoxyCodeLine{00335\ \}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

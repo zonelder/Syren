@@ -1,0 +1,58 @@
+\doxysection{Window Class Reference}
+\hypertarget{class_window}{}\label{class_window}\index{Window@{Window}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_window_1_1_exception}{Exception}}
+\item 
+class \mbox{\hyperlink{class_window_1_1_hr_exception}{Hr\+Exception}}
+\item 
+class \mbox{\hyperlink{class_window_1_1_no_gfx_exception}{No\+Gfx\+Exception}}
+\item 
+struct \mbox{\hyperlink{struct_window_1_1_process_result}{Process\+Result}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_window_a5fc5afb04a830826fa5f89ec4891e77f}\label{class_window_a5fc5afb04a830826fa5f89ec4891e77f} 
+{\bfseries Window} (int width, int height, const wchar\+\_\+t \texorpdfstring{$\ast$}{*}name)
+\item 
+\Hypertarget{class_window_ac877b031e11ba0b517a8b1db3c315175}\label{class_window_ac877b031e11ba0b517a8b1db3c315175} 
+{\bfseries Window} (const \mbox{\hyperlink{class_window}{Window}} \&)=delete
+\item 
+\Hypertarget{class_window_a8d5dc7c6e47b4f319b54a411e79fb30c}\label{class_window_a8d5dc7c6e47b4f319b54a411e79fb30c} 
+\mbox{\hyperlink{class_window}{Window}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_window}{Window}} \&)=delete
+\item 
+\Hypertarget{class_window_aab7c9f23045e16bd1fa5095ee37213b6}\label{class_window_aab7c9f23045e16bd1fa5095ee37213b6} 
+void {\bfseries Set\+Title} (const std\+::string \&)
+\item 
+\Hypertarget{class_window_a23fd7fdae549a43894c7b9267c9d7bd1}\label{class_window_a23fd7fdae549a43894c7b9267c9d7bd1} 
+HWND {\bfseries Get\+HWND} () const noexcept
+\item 
+\Hypertarget{class_window_acdacecf1671fcaeee41c08c074e7fefa}\label{class_window_acdacecf1671fcaeee41c08c074e7fefa} 
+int {\bfseries Get\+Width} () const noexcept
+\item 
+\Hypertarget{class_window_ad3d688a89c07f74c22de2ecc4671dbdc}\label{class_window_ad3d688a89c07f74c22de2ecc4671dbdc} 
+int {\bfseries Get\+Height} () const noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_window_ab7048f3183838dd04ce8b89f9eb2ab8d}\label{class_window_ab7048f3183838dd04ce8b89f9eb2ab8d} 
+static \mbox{\hyperlink{struct_window_1_1_process_result}{Process\+Result}} {\bfseries process\+Message} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_window_a196845cae2f2cc191822a10b245fabec}\label{class_window_a196845cae2f2cc191822a10b245fabec} 
+\mbox{\hyperlink{class_input_handler}{Input\+Handler}} {\bfseries input\+Handler}
+\item 
+\Hypertarget{class_window_a3bbd5914defa3e6c96535e07bc12d8fc}\label{class_window_a3bbd5914defa3e6c96535e07bc12d8fc} 
+\mbox{\hyperlink{class_mouse_handler}{Mouse\+Handler}} {\bfseries mouse\+Handler}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/core/window.\+h\item 
+direct\+Engin/lib/core/window.\+cpp\end{DoxyCompactItemize}

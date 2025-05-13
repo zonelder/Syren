@@ -1,0 +1,70 @@
+\doxysection{Sparse\+Array\texorpdfstring{$<$}{<} Data, Entity, N \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_sparse_array}{}\label{class_sparse_array}\index{SparseArray$<$ Data, Entity, N $>$@{SparseArray$<$ Data, Entity, N $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sparse_array_a67bb1ef2c149045c5671849d166ce789}\label{class_sparse_array_a67bb1ef2c149045c5671849d166ce789} 
+using {\bfseries key\+\_\+type} = \mbox{\hyperlink{class_entity}{Entity}}
+\item 
+\Hypertarget{class_sparse_array_ab0f6a1643416b11934eebe41a154de9d}\label{class_sparse_array_ab0f6a1643416b11934eebe41a154de9d} 
+using {\bfseries sparse\+\_\+set\+\_\+type} = \mbox{\hyperlink{class_sparse_set}{Sparse\+Set}}$<$\mbox{\hyperlink{class_entity}{Entity}}$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sparse_array_a709b34461aee6cde9183340536f1d526}\label{class_sparse_array_a709b34461aee6cde9183340536f1d526} 
+Data \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (\mbox{\hyperlink{class_entity}{key\+\_\+type}} key)
+\item 
+\Hypertarget{class_sparse_array_af32cd727f52c76db6a9102cb292a7379}\label{class_sparse_array_af32cd727f52c76db6a9102cb292a7379} 
+const Data \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (\mbox{\hyperlink{class_entity}{key\+\_\+type}} key) const
+\item 
+\Hypertarget{class_sparse_array_abc4ff2243e8f742fe59e99f45dc0292f}\label{class_sparse_array_abc4ff2243e8f742fe59e99f45dc0292f} 
+Data \& {\bfseries add} (\mbox{\hyperlink{class_entity}{Entity}} id)
+\item 
+\Hypertarget{class_sparse_array_a10b8c0b1cfe8a6dab8bde058b7e62280}\label{class_sparse_array_a10b8c0b1cfe8a6dab8bde058b7e62280} 
+bool {\bfseries remove} (\mbox{\hyperlink{class_entity}{key\+\_\+type}} id)
+\item 
+\Hypertarget{class_sparse_array_a061a05f3cc53b1a377d4b4b8b6f04ff8}\label{class_sparse_array_a061a05f3cc53b1a377d4b4b8b6f04ff8} 
+bool {\bfseries contains} (\mbox{\hyperlink{class_entity}{Entity}} id) const noexcept
+\item 
+\Hypertarget{class_sparse_array_acafdd0c9fd2d28388343ddfc48294f9c}\label{class_sparse_array_acafdd0c9fd2d28388343ddfc48294f9c} 
+Data \& {\bfseries get} (\mbox{\hyperlink{class_entity}{Entity}} id) noexcept
+\item 
+\Hypertarget{class_sparse_array_a7368ed2a0f3f35eded3e21ff70133386}\label{class_sparse_array_a7368ed2a0f3f35eded3e21ff70133386} 
+const Data \& {\bfseries get} (\mbox{\hyperlink{class_entity}{Entity}} \&id) const noexcept
+\item 
+\Hypertarget{class_sparse_array_a9fe4eb7eff11caa66b75bfa3050b42fc}\label{class_sparse_array_a9fe4eb7eff11caa66b75bfa3050b42fc} 
+Data \texorpdfstring{$\ast$}{*} {\bfseries begin} () noexcept
+\item 
+\Hypertarget{class_sparse_array_a49f54f0bc3472efc62c2c930c2a82e91}\label{class_sparse_array_a49f54f0bc3472efc62c2c930c2a82e91} 
+Data \texorpdfstring{$\ast$}{*} {\bfseries end} () noexcept
+\item 
+\Hypertarget{class_sparse_array_ae13ebbbb76d8cde26bc822567ef557e3}\label{class_sparse_array_ae13ebbbb76d8cde26bc822567ef557e3} 
+const Data \texorpdfstring{$\ast$}{*} {\bfseries begin} () const noexcept
+\item 
+\Hypertarget{class_sparse_array_acea3885eaa59a23237a1653a01b64494}\label{class_sparse_array_acea3885eaa59a23237a1653a01b64494} 
+const Data \texorpdfstring{$\ast$}{*} {\bfseries end} () const noexcept
+\item 
+\Hypertarget{class_sparse_array_aa3b2c4e59893f2ab796b366a590da2d2}\label{class_sparse_array_aa3b2c4e59893f2ab796b366a590da2d2} 
+size\+\_\+t {\bfseries size} () const noexcept
+\item 
+\Hypertarget{class_sparse_array_a09d19dfc9795888036c160cc726c9e24}\label{class_sparse_array_a09d19dfc9795888036c160cc726c9e24} 
+bool {\bfseries empty} () const noexcept
+\item 
+\Hypertarget{class_sparse_array_a3ceb1a719ee1468c79b716a684eae8d2}\label{class_sparse_array_a3ceb1a719ee1468c79b716a684eae8d2} 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::iterator}} {\bfseries index\+\_\+begin} () noexcept
+\item 
+\Hypertarget{class_sparse_array_a670ff4093d9f9c32ccea2dad3b8c94fc}\label{class_sparse_array_a670ff4093d9f9c32ccea2dad3b8c94fc} 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::iterator}} {\bfseries index\+\_\+end} () noexcept
+\item 
+\Hypertarget{class_sparse_array_adf74f9515678734d001e098a29fd7166}\label{class_sparse_array_adf74f9515678734d001e098a29fd7166} 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::const\+\_\+iterator}} {\bfseries index\+\_\+begin} () const noexcept
+\item 
+\Hypertarget{class_sparse_array_a8390c6ce07d9a78f0112ac2699b893ec}\label{class_sparse_array_a8390c6ce07d9a78f0112ac2699b893ec} 
+\mbox{\hyperlink{classdetail_1_1iterator__base}{sparse\+\_\+set\+\_\+type\+::const\+\_\+iterator}} {\bfseries index\+\_\+end} () const noexcept
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+direct\+Engin/lib/common/сontainers/sparse\+\_\+array.\+h\end{DoxyCompactItemize}

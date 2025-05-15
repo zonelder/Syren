@@ -50,7 +50,7 @@ public:
 	T& getComponent(EntityID id)
 	{
 		ComponentPool<T>* pool = getPool<T>();
-		return pool->operator[](id);
+		return pool->get(id);
 	}
 
 	template<typename T>

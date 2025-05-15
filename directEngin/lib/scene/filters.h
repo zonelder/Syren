@@ -120,7 +120,7 @@ namespace filters
 			{
 				return std::tuple<EntityID, WithArgs&...>(
 					entt,
-					(std::get<ComponentPool<WithArgs>*>(_include)->operator[](entt))...
+					(std::get<ComponentPool<WithArgs>*>(_include)->get(entt))...
 				);
 			}
 
@@ -158,7 +158,7 @@ namespace filters
 		T& get(const EntityID& entt) noexcept
 		{
 			static_assert (has_component<T>,"Attempt to get component data, that dont belong to view.");
-			return std::get< ComponentPool<T>*>(_includes)->operator[](entt);
+			return std::get< ComponentPool<T>*>(_includes)->get(entt);
 		}
 
 		/**
@@ -172,7 +172,7 @@ namespace filters
 		const T& get(const EntityID entt) const noexcept
 		{
 			static_assert (has_component<T>, "Attempt to get component data, that dont belong to view.");
-			return std::get< ComponentPool<T>*>(_includes)->operator[](entt);
+			return std::get< ComponentPool<T>*>(_includes)->get(entt);
 		}
 
 		/**
@@ -202,6 +202,7 @@ namespace filters
 	private:
 		void initialize_iterators() 
 		{
+			size_t index = 0;
 			// Find smallest pool to optimize iteration
 			auto* smallest = std::get<0>(_includes);
 			size_t min_size = std::numeric_limits<size_t>::max();

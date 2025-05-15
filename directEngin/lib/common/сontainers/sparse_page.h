@@ -2,6 +2,7 @@
 #define __SYREN_SPARSE_PAGE_H__
 #include "sparse_set.h"
 #include <vector>
+#include <array>
 #include <memory>
 #include <iterator>
 
@@ -160,6 +161,20 @@ public:
 	const_pair_iterator		pair_begin() const noexcept { return const_pair_iterator(_pages.begin(), _pages.end()); }
 	const_pair_iterator		pair_end()   const noexcept { return const_pair_iterator(_pages.end(), _pages.end()); }
 
+	size_t size() const noexcept
+	{
+		//TODO rewrite withoud any calculations.
+		size_t total = 0;
+		for (const auto& page : _pages)
+		{
+			if (page)
+			{
+				total += page->_count;
+			}
+		}
+		return total;
+	}
+
 private:
 
 	void shrink_to_fit() noexcept
@@ -209,6 +224,8 @@ private:
 	//TODO make deque with bitmask ant test its perfomance.
 	page_container _pages;
 	std::vector<size_t> _page_table;
+	size_t _size;
+
 };
 
 namespace detail
